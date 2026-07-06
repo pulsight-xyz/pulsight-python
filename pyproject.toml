@@ -1,0 +1,17 @@
+[project]
+name = "pulsight"
+version = "0.1.0"
+description = "Official Python client for the Pulsight API"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = ["httpx>=0.27"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# Both the handwritten ergonomic package (`pulsight`) and the generated
+# protocol core (`pulsight_api_client`, emitted by `make sdk-python`) ship
+# in the wheel.
+[tool.hatch.build.targets.wheel]
+packages = ["pulsight", "pulsight_api_client"]

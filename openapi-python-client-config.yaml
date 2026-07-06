@@ -1,0 +1,8 @@
+# openapi-python-client config — generates the protocol core package
+# `pulsight_api_client` (never hand-edited). Run via `make sdk-python`, or:
+#   pipx run openapi-python-client generate \
+#     --path sdks/openapi/public.json \
+#     --config sdks/python/openapi-python-client-config.yaml \
+#     --meta none --output-path sdks/python/pulsight_api_client --overwrite
+package_name_override: pulsight_api_client
+project_name_override: pulsight
