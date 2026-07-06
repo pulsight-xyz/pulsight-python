@@ -1,9 +1,9 @@
 """Contains all the data models used in inputs/outputs"""
 
-from .get_api_health_response_200 import GetApiHealthResponse200
-from .get_api_health_response_503 import GetApiHealthResponse503
-from .get_api_traders_wallet_address_pnl_series_window import (
-    GetApiTradersWalletAddressPnlSeriesWindow,
+from .get_health_response_200 import GetHealthResponse200
+from .get_health_response_503 import GetHealthResponse503
+from .get_traders_by_wallet_address_pnl_series_window import (
+    GetTradersByWalletAddressPnlSeriesWindow,
 )
 from .internal_adapters_primary_http_handler_api_key_rename_request import (
     InternalAdaptersPrimaryHttpHandlerApiKeyRenameRequest,
@@ -310,9 +310,9 @@ from .pulsight_internal_core_usecases_trader_trader_list_result import (
 )
 
 __all__ = (
-    "GetApiHealthResponse200",
-    "GetApiHealthResponse503",
-    "GetApiTradersWalletAddressPnlSeriesWindow",
+    "GetHealthResponse200",
+    "GetHealthResponse503",
+    "GetTradersByWalletAddressPnlSeriesWindow",
     "InternalAdaptersPrimaryHttpHandlerApiKeyRenameRequest",
     "InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponse",
     "InternalAdaptersPrimaryHttpHandlerBestRunRef",

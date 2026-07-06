@@ -6,8 +6,8 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.get_api_traders_wallet_address_pnl_series_window import (
-    GetApiTradersWalletAddressPnlSeriesWindow,
+from ...models.get_traders_by_wallet_address_pnl_series_window import (
+    GetTradersByWalletAddressPnlSeriesWindow,
 )
 from ...models.internal_adapters_primary_http_handler_error_response import (
     InternalAdaptersPrimaryHttpHandlerErrorResponse,
@@ -21,8 +21,8 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     wallet_address: str,
     *,
-    window: GetApiTradersWalletAddressPnlSeriesWindow
-    | Unset = GetApiTradersWalletAddressPnlSeriesWindow.VALUE_2,
+    window: GetTradersByWalletAddressPnlSeriesWindow
+    | Unset = GetTradersByWalletAddressPnlSeriesWindow.VALUE_2,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -105,8 +105,8 @@ def sync_detailed(
     wallet_address: str,
     *,
     client: AuthenticatedClient,
-    window: GetApiTradersWalletAddressPnlSeriesWindow
-    | Unset = GetApiTradersWalletAddressPnlSeriesWindow.VALUE_2,
+    window: GetTradersByWalletAddressPnlSeriesWindow
+    | Unset = GetTradersByWalletAddressPnlSeriesWindow.VALUE_2,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderPnlSeriesResult
@@ -118,8 +118,8 @@ def sync_detailed(
 
     Args:
         wallet_address (str):
-        window (GetApiTradersWalletAddressPnlSeriesWindow | Unset):  Default:
-            GetApiTradersWalletAddressPnlSeriesWindow.VALUE_2.
+        window (GetTradersByWalletAddressPnlSeriesWindow | Unset):  Default:
+            GetTradersByWalletAddressPnlSeriesWindow.VALUE_2.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -145,8 +145,8 @@ def sync(
     wallet_address: str,
     *,
     client: AuthenticatedClient,
-    window: GetApiTradersWalletAddressPnlSeriesWindow
-    | Unset = GetApiTradersWalletAddressPnlSeriesWindow.VALUE_2,
+    window: GetTradersByWalletAddressPnlSeriesWindow
+    | Unset = GetTradersByWalletAddressPnlSeriesWindow.VALUE_2,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderPnlSeriesResult
@@ -159,8 +159,8 @@ def sync(
 
     Args:
         wallet_address (str):
-        window (GetApiTradersWalletAddressPnlSeriesWindow | Unset):  Default:
-            GetApiTradersWalletAddressPnlSeriesWindow.VALUE_2.
+        window (GetTradersByWalletAddressPnlSeriesWindow | Unset):  Default:
+            GetTradersByWalletAddressPnlSeriesWindow.VALUE_2.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -181,8 +181,8 @@ async def asyncio_detailed(
     wallet_address: str,
     *,
     client: AuthenticatedClient,
-    window: GetApiTradersWalletAddressPnlSeriesWindow
-    | Unset = GetApiTradersWalletAddressPnlSeriesWindow.VALUE_2,
+    window: GetTradersByWalletAddressPnlSeriesWindow
+    | Unset = GetTradersByWalletAddressPnlSeriesWindow.VALUE_2,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderPnlSeriesResult
@@ -194,8 +194,8 @@ async def asyncio_detailed(
 
     Args:
         wallet_address (str):
-        window (GetApiTradersWalletAddressPnlSeriesWindow | Unset):  Default:
-            GetApiTradersWalletAddressPnlSeriesWindow.VALUE_2.
+        window (GetTradersByWalletAddressPnlSeriesWindow | Unset):  Default:
+            GetTradersByWalletAddressPnlSeriesWindow.VALUE_2.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -219,8 +219,8 @@ async def asyncio(
     wallet_address: str,
     *,
     client: AuthenticatedClient,
-    window: GetApiTradersWalletAddressPnlSeriesWindow
-    | Unset = GetApiTradersWalletAddressPnlSeriesWindow.VALUE_2,
+    window: GetTradersByWalletAddressPnlSeriesWindow
+    | Unset = GetTradersByWalletAddressPnlSeriesWindow.VALUE_2,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderPnlSeriesResult
@@ -233,8 +233,8 @@ async def asyncio(
 
     Args:
         wallet_address (str):
-        window (GetApiTradersWalletAddressPnlSeriesWindow | Unset):  Default:
-            GetApiTradersWalletAddressPnlSeriesWindow.VALUE_2.
+        window (GetTradersByWalletAddressPnlSeriesWindow | Unset):  Default:
+            GetTradersByWalletAddressPnlSeriesWindow.VALUE_2.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

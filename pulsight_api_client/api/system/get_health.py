@@ -5,8 +5,8 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.get_api_health_response_200 import GetApiHealthResponse200
-from ...models.get_api_health_response_503 import GetApiHealthResponse503
+from ...models.get_health_response_200 import GetHealthResponse200
+from ...models.get_health_response_503 import GetHealthResponse503
 from ...types import Response
 
 
@@ -22,14 +22,14 @@ def _get_kwargs() -> dict[str, Any]:
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> GetApiHealthResponse200 | GetApiHealthResponse503 | None:
+) -> GetHealthResponse200 | GetHealthResponse503 | None:
     if response.status_code == 200:
-        response_200 = GetApiHealthResponse200.from_dict(response.json())
+        response_200 = GetHealthResponse200.from_dict(response.json())
 
         return response_200
 
     if response.status_code == 503:
-        response_503 = GetApiHealthResponse503.from_dict(response.json())
+        response_503 = GetHealthResponse503.from_dict(response.json())
 
         return response_503
 
@@ -41,7 +41,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[GetApiHealthResponse200 | GetApiHealthResponse503]:
+) -> Response[GetHealthResponse200 | GetHealthResponse503]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -53,7 +53,7 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
-) -> Response[GetApiHealthResponse200 | GetApiHealthResponse503]:
+) -> Response[GetHealthResponse200 | GetHealthResponse503]:
     """Get Health
 
      Evaluates the connectivity of backing services and returns a system status overview.
@@ -63,7 +63,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetApiHealthResponse200 | GetApiHealthResponse503]
+        Response[GetHealthResponse200 | GetHealthResponse503]
     """
 
     kwargs = _get_kwargs()
@@ -78,7 +78,7 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
-) -> GetApiHealthResponse200 | GetApiHealthResponse503 | None:
+) -> GetHealthResponse200 | GetHealthResponse503 | None:
     """Get Health
 
      Evaluates the connectivity of backing services and returns a system status overview.
@@ -88,7 +88,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetApiHealthResponse200 | GetApiHealthResponse503
+        GetHealthResponse200 | GetHealthResponse503
     """
 
     return sync_detailed(
@@ -99,7 +99,7 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
-) -> Response[GetApiHealthResponse200 | GetApiHealthResponse503]:
+) -> Response[GetHealthResponse200 | GetHealthResponse503]:
     """Get Health
 
      Evaluates the connectivity of backing services and returns a system status overview.
@@ -109,7 +109,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[GetApiHealthResponse200 | GetApiHealthResponse503]
+        Response[GetHealthResponse200 | GetHealthResponse503]
     """
 
     kwargs = _get_kwargs()
@@ -122,7 +122,7 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
-) -> GetApiHealthResponse200 | GetApiHealthResponse503 | None:
+) -> GetHealthResponse200 | GetHealthResponse503 | None:
     """Get Health
 
      Evaluates the connectivity of backing services and returns a system status overview.
@@ -132,7 +132,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        GetApiHealthResponse200 | GetApiHealthResponse503
+        GetHealthResponse200 | GetHealthResponse503
     """
 
     return (
