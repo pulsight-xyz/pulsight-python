@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 from ..models.pulsight_internal_core_domain_aggregator_timeframe import (
     PulsightInternalCoreDomainAggregatorTimeframe,
@@ -29,12 +30,15 @@ class PulsightInternalCoreUsecasesBacktestPreviewRequest:
     Attributes:
         def_ (PulsightInternalCoreDomainStrategyStrategyDef | Unset):
         mint (str | Unset):
+        pool (str | Unset): Pool pins the preview to one market of the mint. Empty lets the
+            candle source resolve the dominant pool within the window.
         time_range (PulsightInternalCoreUsecasesBacktestTimeRange | Unset):
         timeframe (PulsightInternalCoreDomainAggregatorTimeframe | Unset):
     """
 
     def_: PulsightInternalCoreDomainStrategyStrategyDef | Unset = UNSET
     mint: str | Unset = UNSET
+    pool: str | Unset = UNSET
     time_range: PulsightInternalCoreUsecasesBacktestTimeRange | Unset = UNSET
     timeframe: PulsightInternalCoreDomainAggregatorTimeframe | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -45,6 +49,8 @@ class PulsightInternalCoreUsecasesBacktestPreviewRequest:
             def_ = self.def_.to_dict()
 
         mint = self.mint
+
+        pool = self.pool
 
         time_range: dict[str, Any] | Unset = UNSET
         if not isinstance(self.time_range, Unset):
@@ -61,6 +67,8 @@ class PulsightInternalCoreUsecasesBacktestPreviewRequest:
             field_dict["def"] = def_
         if mint is not UNSET:
             field_dict["mint"] = mint
+        if pool is not UNSET:
+            field_dict["pool"] = pool
         if time_range is not UNSET:
             field_dict["time_range"] = time_range
         if timeframe is not UNSET:
@@ -69,7 +77,7 @@ class PulsightInternalCoreUsecasesBacktestPreviewRequest:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         from ..models.pulsight_internal_core_domain_strategy_strategy_def import (
             PulsightInternalCoreDomainStrategyStrategyDef,
         )
@@ -86,6 +94,8 @@ class PulsightInternalCoreUsecasesBacktestPreviewRequest:
             def_ = PulsightInternalCoreDomainStrategyStrategyDef.from_dict(_def_)
 
         mint = d.pop("mint", UNSET)
+
+        pool = d.pop("pool", UNSET)
 
         _time_range = d.pop("time_range", UNSET)
         time_range: PulsightInternalCoreUsecasesBacktestTimeRange | Unset
@@ -106,6 +116,7 @@ class PulsightInternalCoreUsecasesBacktestPreviewRequest:
         pulsight_internal_core_usecases_backtest_preview_request = cls(
             def_=def_,
             mint=mint,
+            pool=pool,
             time_range=time_range,
             timeframe=timeframe,
         )

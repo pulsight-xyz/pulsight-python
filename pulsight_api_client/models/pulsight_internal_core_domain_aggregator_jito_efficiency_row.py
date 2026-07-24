@@ -5,6 +5,7 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 from ..types import UNSET, Unset
 
@@ -16,6 +17,9 @@ class PulsightInternalCoreDomainAggregatorJitoEfficiencyRow:
     """
     Attributes:
         efficiency_score (float | Unset):
+        label (str | Unset): Label/LabelType identify a known wallet (CEX/fee/KOL/...) from the
+            known_addresses registry; empty when the trader isn't labelled.
+        label_type (str | Unset):
         tip_swaps (int | Unset):
         total_tip_sum (int | Unset):
         total_volume_in (int | Unset):
@@ -23,6 +27,8 @@ class PulsightInternalCoreDomainAggregatorJitoEfficiencyRow:
     """
 
     efficiency_score: float | Unset = UNSET
+    label: str | Unset = UNSET
+    label_type: str | Unset = UNSET
     tip_swaps: int | Unset = UNSET
     total_tip_sum: int | Unset = UNSET
     total_volume_in: int | Unset = UNSET
@@ -31,6 +37,10 @@ class PulsightInternalCoreDomainAggregatorJitoEfficiencyRow:
 
     def to_dict(self) -> dict[str, Any]:
         efficiency_score = self.efficiency_score
+
+        label = self.label
+
+        label_type = self.label_type
 
         tip_swaps = self.tip_swaps
 
@@ -45,6 +55,10 @@ class PulsightInternalCoreDomainAggregatorJitoEfficiencyRow:
         field_dict.update({})
         if efficiency_score is not UNSET:
             field_dict["efficiency_score"] = efficiency_score
+        if label is not UNSET:
+            field_dict["label"] = label
+        if label_type is not UNSET:
+            field_dict["label_type"] = label_type
         if tip_swaps is not UNSET:
             field_dict["tip_swaps"] = tip_swaps
         if total_tip_sum is not UNSET:
@@ -57,9 +71,13 @@ class PulsightInternalCoreDomainAggregatorJitoEfficiencyRow:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
         efficiency_score = d.pop("efficiency_score", UNSET)
+
+        label = d.pop("label", UNSET)
+
+        label_type = d.pop("label_type", UNSET)
 
         tip_swaps = d.pop("tip_swaps", UNSET)
 
@@ -71,6 +89,8 @@ class PulsightInternalCoreDomainAggregatorJitoEfficiencyRow:
 
         pulsight_internal_core_domain_aggregator_jito_efficiency_row = cls(
             efficiency_score=efficiency_score,
+            label=label,
+            label_type=label_type,
             tip_swaps=tip_swaps,
             total_tip_sum=total_tip_sum,
             total_volume_in=total_volume_in,

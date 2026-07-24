@@ -22,6 +22,7 @@ def _get_kwargs(
     dex: list[str] | Unset = UNSET,
     hours: int | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
+    min_market_cap_usd: float | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> dict[str, Any]:
@@ -43,6 +44,8 @@ def _get_kwargs(
     params["hours"] = hours
 
     params["min_pool_sol"] = min_pool_sol
+
+    params["min_market_cap_usd"] = min_market_cap_usd
 
     params["limit"] = limit
 
@@ -128,6 +131,7 @@ def sync_detailed(
     dex: list[str] | Unset = UNSET,
     hours: int | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
+    min_market_cap_usd: float | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> Response[
@@ -147,6 +151,7 @@ def sync_detailed(
         dex (list[str] | Unset):
         hours (int | Unset):
         min_pool_sol (float | Unset):
+        min_market_cap_usd (float | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -165,6 +170,7 @@ def sync_detailed(
         dex=dex,
         hours=hours,
         min_pool_sol=min_pool_sol,
+        min_market_cap_usd=min_market_cap_usd,
         limit=limit,
         offset=offset,
     )
@@ -185,6 +191,7 @@ def sync(
     dex: list[str] | Unset = UNSET,
     hours: int | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
+    min_market_cap_usd: float | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> (
@@ -205,6 +212,7 @@ def sync(
         dex (list[str] | Unset):
         hours (int | Unset):
         min_pool_sol (float | Unset):
+        min_market_cap_usd (float | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -224,6 +232,7 @@ def sync(
         dex=dex,
         hours=hours,
         min_pool_sol=min_pool_sol,
+        min_market_cap_usd=min_market_cap_usd,
         limit=limit,
         offset=offset,
     ).parsed
@@ -238,6 +247,7 @@ async def asyncio_detailed(
     dex: list[str] | Unset = UNSET,
     hours: int | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
+    min_market_cap_usd: float | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> Response[
@@ -257,6 +267,7 @@ async def asyncio_detailed(
         dex (list[str] | Unset):
         hours (int | Unset):
         min_pool_sol (float | Unset):
+        min_market_cap_usd (float | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -275,6 +286,7 @@ async def asyncio_detailed(
         dex=dex,
         hours=hours,
         min_pool_sol=min_pool_sol,
+        min_market_cap_usd=min_market_cap_usd,
         limit=limit,
         offset=offset,
     )
@@ -293,6 +305,7 @@ async def asyncio(
     dex: list[str] | Unset = UNSET,
     hours: int | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
+    min_market_cap_usd: float | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> (
@@ -313,6 +326,7 @@ async def asyncio(
         dex (list[str] | Unset):
         hours (int | Unset):
         min_pool_sol (float | Unset):
+        min_market_cap_usd (float | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -333,6 +347,7 @@ async def asyncio(
             dex=dex,
             hours=hours,
             min_pool_sol=min_pool_sol,
+            min_market_cap_usd=min_market_cap_usd,
             limit=limit,
             offset=offset,
         )

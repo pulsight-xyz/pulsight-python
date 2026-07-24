@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 from ..models.pulsight_internal_core_usecases_backtest_token_scope_kind import (
     PulsightInternalCoreUsecasesBacktestTokenScopeKind,
@@ -33,6 +34,13 @@ class PulsightInternalCoreUsecasesBacktestTokenScope:
         max_mints (int | Unset): MirrorsTraded + TraderTraded + Standalone (cap on selected mints).
         mint (str | Unset): SingleMint
         mints (list[str] | Unset): Mints
+        pool (str | Unset): Pool optionally pins a SingleMint run to one specific market (the AMM
+            pool pubkey) of the mint. Empty ⇒ the candle source resolves the mint's
+            dominant pool within the replay window (the historical default). Only
+            valid on the SingleMint variant — a pool belongs to exactly one mint, so
+            it is meaningless on a multi-mint / dynamic scope. Mirrors the preview's
+            PreviewRequest.Pool so a pinned run replays the same market the builder
+            previewed.
         trader (str | Unset): TraderTraded only.
         window (PulsightInternalCoreUsecasesBacktestTimeRange | Unset):
     """
@@ -43,6 +51,7 @@ class PulsightInternalCoreUsecasesBacktestTokenScope:
     max_mints: int | Unset = UNSET
     mint: str | Unset = UNSET
     mints: list[str] | Unset = UNSET
+    pool: str | Unset = UNSET
     trader: str | Unset = UNSET
     window: PulsightInternalCoreUsecasesBacktestTimeRange | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -68,6 +77,8 @@ class PulsightInternalCoreUsecasesBacktestTokenScope:
         if not isinstance(self.mints, Unset):
             mints = self.mints
 
+        pool = self.pool
+
         trader = self.trader
 
         window: dict[str, Any] | Unset = UNSET
@@ -89,6 +100,8 @@ class PulsightInternalCoreUsecasesBacktestTokenScope:
             field_dict["mint"] = mint
         if mints is not UNSET:
             field_dict["mints"] = mints
+        if pool is not UNSET:
+            field_dict["pool"] = pool
         if trader is not UNSET:
             field_dict["trader"] = trader
         if window is not UNSET:
@@ -97,7 +110,7 @@ class PulsightInternalCoreUsecasesBacktestTokenScope:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         from ..models.pulsight_internal_core_usecases_backtest_selection_filter import (
             PulsightInternalCoreUsecasesBacktestSelectionFilter,
         )
@@ -137,6 +150,8 @@ class PulsightInternalCoreUsecasesBacktestTokenScope:
 
         mints = cast(list[str], d.pop("mints", UNSET))
 
+        pool = d.pop("pool", UNSET)
+
         trader = d.pop("trader", UNSET)
 
         _window = d.pop("window", UNSET)
@@ -153,6 +168,7 @@ class PulsightInternalCoreUsecasesBacktestTokenScope:
             max_mints=max_mints,
             mint=mint,
             mints=mints,
+            pool=pool,
             trader=trader,
             window=window,
         )

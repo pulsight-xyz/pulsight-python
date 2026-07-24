@@ -5,6 +5,7 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 from ..types import UNSET, Unset
 
@@ -19,7 +20,17 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         cost_basis_lamports (str | Unset):
         first_buy_ts (str | Unset):
         holding_pnl_lamports (int | Unset):
+        is_bundler (bool | Unset):
+        is_insider (bool | Unset):
+        is_sniper (bool | Unset):
+        label (str | Unset): Label/LabelType identify a known wallet (CEX/fee/...) from the
+            admin-managed registry; empty when unknown.
+        label_type (str | Unset):
         last_active_ts (str | Unset):
+        pct_of_supply (float | Unset): PctOfSupply is the holder's % of circulating supply, set on the
+            top-holders path (now sourced from on-chain holder_balances). nil on the
+            top-traders path. IsSniper/IsBundler/IsInsider flag cohort membership
+            (bundler/insider populate in phase 2 — always false until then).
         realized_profit (int | Unset):
         sell_tx_count (int | Unset):
         token_balance (str | Unset):
@@ -32,7 +43,13 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
     cost_basis_lamports: str | Unset = UNSET
     first_buy_ts: str | Unset = UNSET
     holding_pnl_lamports: int | Unset = UNSET
+    is_bundler: bool | Unset = UNSET
+    is_insider: bool | Unset = UNSET
+    is_sniper: bool | Unset = UNSET
+    label: str | Unset = UNSET
+    label_type: str | Unset = UNSET
     last_active_ts: str | Unset = UNSET
+    pct_of_supply: float | Unset = UNSET
     realized_profit: int | Unset = UNSET
     sell_tx_count: int | Unset = UNSET
     token_balance: str | Unset = UNSET
@@ -50,7 +67,19 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
 
         holding_pnl_lamports = self.holding_pnl_lamports
 
+        is_bundler = self.is_bundler
+
+        is_insider = self.is_insider
+
+        is_sniper = self.is_sniper
+
+        label = self.label
+
+        label_type = self.label_type
+
         last_active_ts = self.last_active_ts
+
+        pct_of_supply = self.pct_of_supply
 
         realized_profit = self.realized_profit
 
@@ -75,8 +104,20 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
             field_dict["first_buy_ts"] = first_buy_ts
         if holding_pnl_lamports is not UNSET:
             field_dict["holding_pnl_lamports"] = holding_pnl_lamports
+        if is_bundler is not UNSET:
+            field_dict["is_bundler"] = is_bundler
+        if is_insider is not UNSET:
+            field_dict["is_insider"] = is_insider
+        if is_sniper is not UNSET:
+            field_dict["is_sniper"] = is_sniper
+        if label is not UNSET:
+            field_dict["label"] = label
+        if label_type is not UNSET:
+            field_dict["label_type"] = label_type
         if last_active_ts is not UNSET:
             field_dict["last_active_ts"] = last_active_ts
+        if pct_of_supply is not UNSET:
+            field_dict["pct_of_supply"] = pct_of_supply
         if realized_profit is not UNSET:
             field_dict["realized_profit"] = realized_profit
         if sell_tx_count is not UNSET:
@@ -93,7 +134,7 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
         buy_tx_count = d.pop("buy_tx_count", UNSET)
 
@@ -103,7 +144,19 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
 
         holding_pnl_lamports = d.pop("holding_pnl_lamports", UNSET)
 
+        is_bundler = d.pop("is_bundler", UNSET)
+
+        is_insider = d.pop("is_insider", UNSET)
+
+        is_sniper = d.pop("is_sniper", UNSET)
+
+        label = d.pop("label", UNSET)
+
+        label_type = d.pop("label_type", UNSET)
+
         last_active_ts = d.pop("last_active_ts", UNSET)
+
+        pct_of_supply = d.pop("pct_of_supply", UNSET)
 
         realized_profit = d.pop("realized_profit", UNSET)
 
@@ -122,7 +175,13 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
             cost_basis_lamports=cost_basis_lamports,
             first_buy_ts=first_buy_ts,
             holding_pnl_lamports=holding_pnl_lamports,
+            is_bundler=is_bundler,
+            is_insider=is_insider,
+            is_sniper=is_sniper,
+            label=label,
+            label_type=label_type,
             last_active_ts=last_active_ts,
+            pct_of_supply=pct_of_supply,
             realized_profit=realized_profit,
             sell_tx_count=sell_tx_count,
             token_balance=token_balance,

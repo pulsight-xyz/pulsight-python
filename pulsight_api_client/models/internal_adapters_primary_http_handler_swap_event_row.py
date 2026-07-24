@@ -5,6 +5,7 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 from ..types import UNSET, Unset
 
@@ -18,16 +19,20 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
         amount_in (float | Unset):
         amount_out (float | Unset):
         arb_pnl_lamports (int | Unset):
+        base_decimals (int | Unset):
         dex (str | Unset):
         fee (int | Unset):
         is_arb (bool | Unset):
         is_buy (bool | Unset):
+        label (str | Unset):
+        label_type (str | Unset):
         mint (str | Unset):
         pool (str | Unset):
         priority_fee_lamports (int | Unset):
         quote_mint (str | Unset):
         realized_profit (int | Unset):
         signature (str | Unset):
+        slot (int | Unset):
         sold_more_than_bought (bool | Unset):
         sold_without_buy (bool | Unset):
         tip_lamports (int | Unset):
@@ -41,16 +46,20 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
     amount_in: float | Unset = UNSET
     amount_out: float | Unset = UNSET
     arb_pnl_lamports: int | Unset = UNSET
+    base_decimals: int | Unset = UNSET
     dex: str | Unset = UNSET
     fee: int | Unset = UNSET
     is_arb: bool | Unset = UNSET
     is_buy: bool | Unset = UNSET
+    label: str | Unset = UNSET
+    label_type: str | Unset = UNSET
     mint: str | Unset = UNSET
     pool: str | Unset = UNSET
     priority_fee_lamports: int | Unset = UNSET
     quote_mint: str | Unset = UNSET
     realized_profit: int | Unset = UNSET
     signature: str | Unset = UNSET
+    slot: int | Unset = UNSET
     sold_more_than_bought: bool | Unset = UNSET
     sold_without_buy: bool | Unset = UNSET
     tip_lamports: int | Unset = UNSET
@@ -68,6 +77,8 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
 
         arb_pnl_lamports = self.arb_pnl_lamports
 
+        base_decimals = self.base_decimals
+
         dex = self.dex
 
         fee = self.fee
@@ -75,6 +86,10 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
         is_arb = self.is_arb
 
         is_buy = self.is_buy
+
+        label = self.label
+
+        label_type = self.label_type
 
         mint = self.mint
 
@@ -87,6 +102,8 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
         realized_profit = self.realized_profit
 
         signature = self.signature
+
+        slot = self.slot
 
         sold_more_than_bought = self.sold_more_than_bought
 
@@ -113,6 +130,8 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
             field_dict["amount_out"] = amount_out
         if arb_pnl_lamports is not UNSET:
             field_dict["arb_pnl_lamports"] = arb_pnl_lamports
+        if base_decimals is not UNSET:
+            field_dict["base_decimals"] = base_decimals
         if dex is not UNSET:
             field_dict["dex"] = dex
         if fee is not UNSET:
@@ -121,6 +140,10 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
             field_dict["is_arb"] = is_arb
         if is_buy is not UNSET:
             field_dict["is_buy"] = is_buy
+        if label is not UNSET:
+            field_dict["label"] = label
+        if label_type is not UNSET:
+            field_dict["label_type"] = label_type
         if mint is not UNSET:
             field_dict["mint"] = mint
         if pool is not UNSET:
@@ -133,6 +156,8 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
             field_dict["realized_profit"] = realized_profit
         if signature is not UNSET:
             field_dict["signature"] = signature
+        if slot is not UNSET:
+            field_dict["slot"] = slot
         if sold_more_than_bought is not UNSET:
             field_dict["sold_more_than_bought"] = sold_more_than_bought
         if sold_without_buy is not UNSET:
@@ -153,13 +178,15 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
         amount_in = d.pop("amount_in", UNSET)
 
         amount_out = d.pop("amount_out", UNSET)
 
         arb_pnl_lamports = d.pop("arb_pnl_lamports", UNSET)
+
+        base_decimals = d.pop("base_decimals", UNSET)
 
         dex = d.pop("dex", UNSET)
 
@@ -168,6 +195,10 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
         is_arb = d.pop("is_arb", UNSET)
 
         is_buy = d.pop("is_buy", UNSET)
+
+        label = d.pop("label", UNSET)
+
+        label_type = d.pop("label_type", UNSET)
 
         mint = d.pop("mint", UNSET)
 
@@ -180,6 +211,8 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
         realized_profit = d.pop("realized_profit", UNSET)
 
         signature = d.pop("signature", UNSET)
+
+        slot = d.pop("slot", UNSET)
 
         sold_more_than_bought = d.pop("sold_more_than_bought", UNSET)
 
@@ -201,16 +234,20 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
             amount_in=amount_in,
             amount_out=amount_out,
             arb_pnl_lamports=arb_pnl_lamports,
+            base_decimals=base_decimals,
             dex=dex,
             fee=fee,
             is_arb=is_arb,
             is_buy=is_buy,
+            label=label,
+            label_type=label_type,
             mint=mint,
             pool=pool,
             priority_fee_lamports=priority_fee_lamports,
             quote_mint=quote_mint,
             realized_profit=realized_profit,
             signature=signature,
+            slot=slot,
             sold_more_than_bought=sold_more_than_bought,
             sold_without_buy=sold_without_buy,
             tip_lamports=tip_lamports,

@@ -5,7 +5,11 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
+from ..models.pulsight_internal_core_domain_apikey_kind import (
+    PulsightInternalCoreDomainApikeyKind,
+)
 from ..models.pulsight_internal_core_domain_apikey_scope import (
     PulsightInternalCoreDomainApikeyScope,
 )
@@ -21,6 +25,7 @@ class PulsightInternalCoreDomainApikeyKey:
         created_at (str | Unset):
         expires_at (str | Unset):
         id (str | Unset):
+        kind (PulsightInternalCoreDomainApikeyKind | Unset):
         last_used_at (str | Unset):
         name (str | Unset):
         prefix (str | Unset):
@@ -32,6 +37,7 @@ class PulsightInternalCoreDomainApikeyKey:
     created_at: str | Unset = UNSET
     expires_at: str | Unset = UNSET
     id: str | Unset = UNSET
+    kind: PulsightInternalCoreDomainApikeyKind | Unset = UNSET
     last_used_at: str | Unset = UNSET
     name: str | Unset = UNSET
     prefix: str | Unset = UNSET
@@ -46,6 +52,10 @@ class PulsightInternalCoreDomainApikeyKey:
         expires_at = self.expires_at
 
         id = self.id
+
+        kind: str | Unset = UNSET
+        if not isinstance(self.kind, Unset):
+            kind = self.kind.value
 
         last_used_at = self.last_used_at
 
@@ -73,6 +83,8 @@ class PulsightInternalCoreDomainApikeyKey:
             field_dict["expires_at"] = expires_at
         if id is not UNSET:
             field_dict["id"] = id
+        if kind is not UNSET:
+            field_dict["kind"] = kind
         if last_used_at is not UNSET:
             field_dict["last_used_at"] = last_used_at
         if name is not UNSET:
@@ -89,13 +101,20 @@ class PulsightInternalCoreDomainApikeyKey:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
         created_at = d.pop("created_at", UNSET)
 
         expires_at = d.pop("expires_at", UNSET)
 
         id = d.pop("id", UNSET)
+
+        _kind = d.pop("kind", UNSET)
+        kind: PulsightInternalCoreDomainApikeyKind | Unset
+        if isinstance(_kind, Unset):
+            kind = UNSET
+        else:
+            kind = PulsightInternalCoreDomainApikeyKind(_kind)
 
         last_used_at = d.pop("last_used_at", UNSET)
 
@@ -120,6 +139,7 @@ class PulsightInternalCoreDomainApikeyKey:
             created_at=created_at,
             expires_at=expires_at,
             id=id,
+            kind=kind,
             last_used_at=last_used_at,
             name=name,
             prefix=prefix,

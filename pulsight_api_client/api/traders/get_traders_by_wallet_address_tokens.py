@@ -19,6 +19,7 @@ def _get_kwargs(
     wallet_address: str,
     *,
     sort: str | Unset = UNSET,
+    dir_: str | Unset = "desc",
     limit: int | Unset = 100,
     offset: int | Unset = 0,
 ) -> dict[str, Any]:
@@ -26,6 +27,8 @@ def _get_kwargs(
     params: dict[str, Any] = {}
 
     params["sort"] = sort
+
+    params["dir"] = dir_
 
     params["limit"] = limit
 
@@ -102,6 +105,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     sort: str | Unset = UNSET,
+    dir_: str | Unset = "desc",
     limit: int | Unset = 100,
     offset: int | Unset = 0,
 ) -> Response[
@@ -113,6 +117,7 @@ def sync_detailed(
     Args:
         wallet_address (str):
         sort (str | Unset):
+        dir_ (str | Unset):  Default: 'desc'.
         limit (int | Unset):  Default: 100.
         offset (int | Unset):  Default: 0.
 
@@ -127,6 +132,7 @@ def sync_detailed(
     kwargs = _get_kwargs(
         wallet_address=wallet_address,
         sort=sort,
+        dir_=dir_,
         limit=limit,
         offset=offset,
     )
@@ -143,6 +149,7 @@ def sync(
     *,
     client: AuthenticatedClient,
     sort: str | Unset = UNSET,
+    dir_: str | Unset = "desc",
     limit: int | Unset = 100,
     offset: int | Unset = 0,
 ) -> (
@@ -155,6 +162,7 @@ def sync(
     Args:
         wallet_address (str):
         sort (str | Unset):
+        dir_ (str | Unset):  Default: 'desc'.
         limit (int | Unset):  Default: 100.
         offset (int | Unset):  Default: 0.
 
@@ -170,6 +178,7 @@ def sync(
         wallet_address=wallet_address,
         client=client,
         sort=sort,
+        dir_=dir_,
         limit=limit,
         offset=offset,
     ).parsed
@@ -180,6 +189,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     sort: str | Unset = UNSET,
+    dir_: str | Unset = "desc",
     limit: int | Unset = 100,
     offset: int | Unset = 0,
 ) -> Response[
@@ -191,6 +201,7 @@ async def asyncio_detailed(
     Args:
         wallet_address (str):
         sort (str | Unset):
+        dir_ (str | Unset):  Default: 'desc'.
         limit (int | Unset):  Default: 100.
         offset (int | Unset):  Default: 0.
 
@@ -205,6 +216,7 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         wallet_address=wallet_address,
         sort=sort,
+        dir_=dir_,
         limit=limit,
         offset=offset,
     )
@@ -219,6 +231,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     sort: str | Unset = UNSET,
+    dir_: str | Unset = "desc",
     limit: int | Unset = 100,
     offset: int | Unset = 0,
 ) -> (
@@ -231,6 +244,7 @@ async def asyncio(
     Args:
         wallet_address (str):
         sort (str | Unset):
+        dir_ (str | Unset):  Default: 'desc'.
         limit (int | Unset):  Default: 100.
         offset (int | Unset):  Default: 0.
 
@@ -247,6 +261,7 @@ async def asyncio(
             wallet_address=wallet_address,
             client=client,
             sort=sort,
+            dir_=dir_,
             limit=limit,
             offset=offset,
         )

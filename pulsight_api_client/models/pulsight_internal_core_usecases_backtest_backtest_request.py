@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 from ..models.pulsight_internal_core_domain_aggregator_timeframe import (
     PulsightInternalCoreDomainAggregatorTimeframe,
@@ -30,6 +31,13 @@ T = TypeVar("T", bound="PulsightInternalCoreUsecasesBacktestBacktestRequest")
 class PulsightInternalCoreUsecasesBacktestBacktestRequest:
     """
     Attributes:
+        per_pool (bool | Unset): PerPool, when true, simulates each of a mint's significant markets as an
+            INDEPENDENT instrument — its own candle stream, indicators, ledger and
+            (for copy strategies) the target swaps on THAT pool — instead of a single
+            dominant/pinned pool per mint. Off ⇒ the historical one-position-per-mint
+            behaviour. Mutually exclusive with a SingleMint pool pin (a pin already
+            selects one market). Fans out compute by up to MaxPoolsPerMint per mint,
+            reflected in the tick-budget estimate.
         scope (PulsightInternalCoreUsecasesBacktestTokenScope | Unset):
         starting_balance_sol (float | Unset):
         strategy_id (str | Unset):
@@ -38,6 +46,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
         venue (PulsightInternalCoreDomainStrategyVenueID | Unset):
     """
 
+    per_pool: bool | Unset = UNSET
     scope: PulsightInternalCoreUsecasesBacktestTokenScope | Unset = UNSET
     starting_balance_sol: float | Unset = UNSET
     strategy_id: str | Unset = UNSET
@@ -47,6 +56,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        per_pool = self.per_pool
+
         scope: dict[str, Any] | Unset = UNSET
         if not isinstance(self.scope, Unset):
             scope = self.scope.to_dict()
@@ -70,6 +81,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if per_pool is not UNSET:
+            field_dict["per_pool"] = per_pool
         if scope is not UNSET:
             field_dict["scope"] = scope
         if starting_balance_sol is not UNSET:
@@ -86,7 +99,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         from ..models.pulsight_internal_core_usecases_backtest_time_range import (
             PulsightInternalCoreUsecasesBacktestTimeRange,
         )
@@ -95,6 +108,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
         )
 
         d = dict(src_dict)
+        per_pool = d.pop("per_pool", UNSET)
+
         _scope = d.pop("scope", UNSET)
         scope: PulsightInternalCoreUsecasesBacktestTokenScope | Unset
         if isinstance(_scope, Unset):
@@ -130,6 +145,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
             venue = PulsightInternalCoreDomainStrategyVenueID(_venue)
 
         pulsight_internal_core_usecases_backtest_backtest_request = cls(
+            per_pool=per_pool,
             scope=scope,
             starting_balance_sol=starting_balance_sol,
             strategy_id=strategy_id,

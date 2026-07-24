@@ -5,6 +5,7 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 from ..types import UNSET, Unset
 
@@ -20,6 +21,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestPosition:
         final_price_sol (float | Unset): FinalPriceSol is the last candle mid (SOL/token), for reference next to
             the discounted exit value.
         mint (str | Unset):
+        pool (str | Unset): Pool is the market this held position was simulated on — set for a
+            pinned or PerPool instrument, empty when the run resolved the mint's
+            dominant pool. Disambiguates two open positions of the same mint on
+            different pools under PerPool.
         pool_state (str | Unset): PoolState flags the exit liquidity used to value the position:
             "ok" (priced into a live pool), "drained" (pool empty → unrealizable,
             ~total loss), or "unknown" (no pool snapshot → valued at raw mid).
@@ -31,6 +36,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestPosition:
     exit_value_sol: float | Unset = UNSET
     final_price_sol: float | Unset = UNSET
     mint: str | Unset = UNSET
+    pool: str | Unset = UNSET
     pool_state: str | Unset = UNSET
     remaining_tokens: float | Unset = UNSET
     unrealized_pnl_sol: float | Unset = UNSET
@@ -44,6 +50,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestPosition:
         final_price_sol = self.final_price_sol
 
         mint = self.mint
+
+        pool = self.pool
 
         pool_state = self.pool_state
 
@@ -62,6 +70,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestPosition:
             field_dict["final_price_sol"] = final_price_sol
         if mint is not UNSET:
             field_dict["mint"] = mint
+        if pool is not UNSET:
+            field_dict["pool"] = pool
         if pool_state is not UNSET:
             field_dict["pool_state"] = pool_state
         if remaining_tokens is not UNSET:
@@ -72,7 +82,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestPosition:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
         cost_basis_sol = d.pop("cost_basis_sol", UNSET)
 
@@ -81,6 +91,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestPosition:
         final_price_sol = d.pop("final_price_sol", UNSET)
 
         mint = d.pop("mint", UNSET)
+
+        pool = d.pop("pool", UNSET)
 
         pool_state = d.pop("pool_state", UNSET)
 
@@ -93,6 +105,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestPosition:
             exit_value_sol=exit_value_sol,
             final_price_sol=final_price_sol,
             mint=mint,
+            pool=pool,
             pool_state=pool_state,
             remaining_tokens=remaining_tokens,
             unrealized_pnl_sol=unrealized_pnl_sol,

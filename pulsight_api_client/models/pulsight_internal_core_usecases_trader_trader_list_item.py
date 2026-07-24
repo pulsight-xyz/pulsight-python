@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 from ..types import UNSET, Unset
 
@@ -58,6 +59,9 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             quote for any of the held mints.
         id (str | Unset):
         is_favorite (bool | Unset):
+        label (str | Unset): Label/LabelType identify a known wallet (CEX/fee/KOL/...) from the
+            known_addresses registry; empty when the wallet isn't labelled.
+        label_type (str | Unset):
         last_active_timestamp (int | Unset):
         median_buy_count_per_token (float | Unset):
         median_first_buy_reactivity (float | Unset):
@@ -167,6 +171,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     holding_pnl_lamports: float | Unset = UNSET
     id: str | Unset = UNSET
     is_favorite: bool | Unset = UNSET
+    label: str | Unset = UNSET
+    label_type: str | Unset = UNSET
     last_active_timestamp: int | Unset = UNSET
     median_buy_count_per_token: float | Unset = UNSET
     median_first_buy_reactivity: float | Unset = UNSET
@@ -300,6 +306,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         id = self.id
 
         is_favorite = self.is_favorite
+
+        label = self.label
+
+        label_type = self.label_type
 
         last_active_timestamp = self.last_active_timestamp
 
@@ -491,6 +501,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["id"] = id
         if is_favorite is not UNSET:
             field_dict["is_favorite"] = is_favorite
+        if label is not UNSET:
+            field_dict["label"] = label
+        if label_type is not UNSET:
+            field_dict["label_type"] = label_type
         if last_active_timestamp is not UNSET:
             field_dict["last_active_timestamp"] = last_active_timestamp
         if median_buy_count_per_token is not UNSET:
@@ -617,7 +631,7 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         from ..models.pulsight_internal_core_domain_aggregator_trader_behavioral_stats import (
             PulsightInternalCoreDomainAggregatorTraderBehavioralStats,
         )
@@ -728,6 +742,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         id = d.pop("id", UNSET)
 
         is_favorite = d.pop("is_favorite", UNSET)
+
+        label = d.pop("label", UNSET)
+
+        label_type = d.pop("label_type", UNSET)
 
         last_active_timestamp = d.pop("last_active_timestamp", UNSET)
 
@@ -892,6 +910,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             holding_pnl_lamports=holding_pnl_lamports,
             id=id,
             is_favorite=is_favorite,
+            label=label,
+            label_type=label_type,
             last_active_timestamp=last_active_timestamp,
             median_buy_count_per_token=median_buy_count_per_token,
             median_first_buy_reactivity=median_first_buy_reactivity,

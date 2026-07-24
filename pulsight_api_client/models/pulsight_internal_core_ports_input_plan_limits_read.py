@@ -5,6 +5,7 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 from ..types import UNSET, Unset
 
@@ -19,12 +20,14 @@ class PulsightInternalCorePortsInputPlanLimitsRead:
         can_view_full_data (bool | Unset):
         max_filters (int | Unset):
         max_webhooks (int | Unset):
+        mcp_access (bool | Unset):
     """
 
     can_use_tag_event_filters: bool | Unset = UNSET
     can_view_full_data: bool | Unset = UNSET
     max_filters: int | Unset = UNSET
     max_webhooks: int | Unset = UNSET
+    mcp_access: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -35,6 +38,8 @@ class PulsightInternalCorePortsInputPlanLimitsRead:
         max_filters = self.max_filters
 
         max_webhooks = self.max_webhooks
+
+        mcp_access = self.mcp_access
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -47,11 +52,13 @@ class PulsightInternalCorePortsInputPlanLimitsRead:
             field_dict["max_filters"] = max_filters
         if max_webhooks is not UNSET:
             field_dict["max_webhooks"] = max_webhooks
+        if mcp_access is not UNSET:
+            field_dict["mcp_access"] = mcp_access
 
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
         can_use_tag_event_filters = d.pop("can_use_tag_event_filters", UNSET)
 
@@ -61,11 +68,14 @@ class PulsightInternalCorePortsInputPlanLimitsRead:
 
         max_webhooks = d.pop("max_webhooks", UNSET)
 
+        mcp_access = d.pop("mcp_access", UNSET)
+
         pulsight_internal_core_ports_input_plan_limits_read = cls(
             can_use_tag_event_filters=can_use_tag_event_filters,
             can_view_full_data=can_view_full_data,
             max_filters=max_filters,
             max_webhooks=max_webhooks,
+            mcp_access=mcp_access,
         )
 
         pulsight_internal_core_ports_input_plan_limits_read.additional_properties = d

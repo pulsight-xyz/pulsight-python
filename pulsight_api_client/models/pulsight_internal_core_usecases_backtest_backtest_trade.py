@@ -5,6 +5,7 @@ from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 from ..models.pulsight_internal_core_usecases_backtest_side import (
     PulsightInternalCoreUsecasesBacktestSide,
@@ -25,6 +26,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         fee_sol (float | Unset):
         idx (int | Unset):
         mint (str | Unset):
+        pool (str | Unset): Pool is the AMM market this trade executed in. For a COPY trade it's the
+            pool the mirrored target actually swapped in (per-leg dex_swaps); for an
+            EMIT trade it's the run's pinned pool (SingleMint pin) or nil when the
+            run resolved the mint's dominant pool (whose identity isn't surfaced).
         pool_sol_at_trigger (float | Unset):
         price_impact_pct (float | Unset): PriceImpactPct is OUR own price impact on this fill, as a percent of the
             mid price (size / pool_sol, the constant-product average-fill premium).
@@ -50,6 +55,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
     fee_sol: float | Unset = UNSET
     idx: int | Unset = UNSET
     mint: str | Unset = UNSET
+    pool: str | Unset = UNSET
     pool_sol_at_trigger: float | Unset = UNSET
     price_impact_pct: float | Unset = UNSET
     price_per_token: float | Unset = UNSET
@@ -72,6 +78,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         idx = self.idx
 
         mint = self.mint
+
+        pool = self.pool
 
         pool_sol_at_trigger = self.pool_sol_at_trigger
 
@@ -112,6 +120,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
             field_dict["idx"] = idx
         if mint is not UNSET:
             field_dict["mint"] = mint
+        if pool is not UNSET:
+            field_dict["pool"] = pool
         if pool_sol_at_trigger is not UNSET:
             field_dict["pool_sol_at_trigger"] = pool_sol_at_trigger
         if price_impact_pct is not UNSET:
@@ -140,7 +150,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
         backtest_id = d.pop("backtest_id", UNSET)
 
@@ -149,6 +159,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         idx = d.pop("idx", UNSET)
 
         mint = d.pop("mint", UNSET)
+
+        pool = d.pop("pool", UNSET)
 
         pool_sol_at_trigger = d.pop("pool_sol_at_trigger", UNSET)
 
@@ -189,6 +201,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
             fee_sol=fee_sol,
             idx=idx,
             mint=mint,
+            pool=pool,
             pool_sol_at_trigger=pool_sol_at_trigger,
             price_impact_pct=price_impact_pct,
             price_per_token=price_per_token,

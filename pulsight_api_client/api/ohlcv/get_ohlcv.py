@@ -22,6 +22,8 @@ def _get_kwargs(
     quote: str | Unset = UNSET,
     from_: str | Unset = UNSET,
     to: str | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    remove_outliers: bool | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -37,6 +39,10 @@ def _get_kwargs(
     params["from"] = from_
 
     params["to"] = to
+
+    params["limit"] = limit
+
+    params["removeOutliers"] = remove_outliers
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -120,6 +126,8 @@ def sync_detailed(
     quote: str | Unset = UNSET,
     from_: str | Unset = UNSET,
     to: str | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    remove_outliers: bool | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
@@ -136,6 +144,8 @@ def sync_detailed(
         quote (str | Unset):
         from_ (str | Unset):
         to (str | Unset):
+        limit (int | Unset):
+        remove_outliers (bool | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -152,6 +162,8 @@ def sync_detailed(
         quote=quote,
         from_=from_,
         to=to,
+        limit=limit,
+        remove_outliers=remove_outliers,
     )
 
     response = client.get_httpx_client().request(
@@ -170,6 +182,8 @@ def sync(
     quote: str | Unset = UNSET,
     from_: str | Unset = UNSET,
     to: str | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    remove_outliers: bool | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
@@ -187,6 +201,8 @@ def sync(
         quote (str | Unset):
         from_ (str | Unset):
         to (str | Unset):
+        limit (int | Unset):
+        remove_outliers (bool | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -204,6 +220,8 @@ def sync(
         quote=quote,
         from_=from_,
         to=to,
+        limit=limit,
+        remove_outliers=remove_outliers,
     ).parsed
 
 
@@ -216,6 +234,8 @@ async def asyncio_detailed(
     quote: str | Unset = UNSET,
     from_: str | Unset = UNSET,
     to: str | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    remove_outliers: bool | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
@@ -232,6 +252,8 @@ async def asyncio_detailed(
         quote (str | Unset):
         from_ (str | Unset):
         to (str | Unset):
+        limit (int | Unset):
+        remove_outliers (bool | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -248,6 +270,8 @@ async def asyncio_detailed(
         quote=quote,
         from_=from_,
         to=to,
+        limit=limit,
+        remove_outliers=remove_outliers,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -264,6 +288,8 @@ async def asyncio(
     quote: str | Unset = UNSET,
     from_: str | Unset = UNSET,
     to: str | Unset = UNSET,
+    limit: int | Unset = UNSET,
+    remove_outliers: bool | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
@@ -281,6 +307,8 @@ async def asyncio(
         quote (str | Unset):
         from_ (str | Unset):
         to (str | Unset):
+        limit (int | Unset):
+        remove_outliers (bool | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -299,5 +327,7 @@ async def asyncio(
             quote=quote,
             from_=from_,
             to=to,
+            limit=limit,
+            remove_outliers=remove_outliers,
         )
     ).parsed

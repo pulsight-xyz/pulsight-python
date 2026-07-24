@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
+from typing_extensions import Self
 
 from ..types import UNSET, Unset
 
@@ -21,6 +22,18 @@ T = TypeVar("T", bound="PulsightInternalCoreUsecasesBacktestBacktestSummary")
 class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     """
     Attributes:
+        copies_skipped_unpriced (int | Unset): CopiesSkippedUnpriced counts mirror trades that passed every rule and
+            would have fired, but whose triggering swap carried no post-swap price
+            — so no honest fill price exists for them and they were NOT traded.
+
+            A non-zero value means the run under-represents the strategy: it is a
+            COVERAGE gap, not a signal quality one. It is dominated by venues whose
+            decoder emits no marginal price (every Meteora DLMM leg, and every
+            DAMM v2 / DBC leg ingested before those decoders were fixed), so a
+            launch-sniping mirror over historical data can skip most of its entries
+            while a PumpSwap mirror skips none. Surfaced so a mostly-skipped run
+            reads as "not enough data" instead of quietly looking like a thin
+            strategy. Additive JSONB field — pre-existing rows decode as 0.
         ending_balance_sol (float | Unset):
         fees_paid_sol (float | Unset):
         held_positions (list[PulsightInternalCoreUsecasesBacktestBacktestPosition] | Unset): HeldPositions is every mint
@@ -54,6 +67,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         wins (int | Unset):
     """
 
+    copies_skipped_unpriced: int | Unset = UNSET
     ending_balance_sol: float | Unset = UNSET
     fees_paid_sol: float | Unset = UNSET
     held_positions: (
@@ -77,6 +91,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        copies_skipped_unpriced = self.copies_skipped_unpriced
+
         ending_balance_sol = self.ending_balance_sol
 
         fees_paid_sol = self.fees_paid_sol
@@ -123,6 +139,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if copies_skipped_unpriced is not UNSET:
+            field_dict["copies_skipped_unpriced"] = copies_skipped_unpriced
         if ending_balance_sol is not UNSET:
             field_dict["ending_balance_sol"] = ending_balance_sol
         if fees_paid_sol is not UNSET:
@@ -165,12 +183,14 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         return field_dict
 
     @classmethod
-    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+    def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         from ..models.pulsight_internal_core_usecases_backtest_backtest_position import (
             PulsightInternalCoreUsecasesBacktestBacktestPosition,
         )
 
         d = dict(src_dict)
+        copies_skipped_unpriced = d.pop("copies_skipped_unpriced", UNSET)
+
         ending_balance_sol = d.pop("ending_balance_sol", UNSET)
 
         fees_paid_sol = d.pop("fees_paid_sol", UNSET)
@@ -221,6 +241,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         wins = d.pop("wins", UNSET)
 
         pulsight_internal_core_usecases_backtest_backtest_summary = cls(
+            copies_skipped_unpriced=copies_skipped_unpriced,
             ending_balance_sol=ending_balance_sol,
             fees_paid_sol=fees_paid_sol,
             held_positions=held_positions,
