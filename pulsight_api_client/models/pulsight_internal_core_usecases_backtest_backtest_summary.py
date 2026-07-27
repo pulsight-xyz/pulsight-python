@@ -23,17 +23,22 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     """
     Attributes:
         copies_skipped_unpriced (int | Unset): CopiesSkippedUnpriced counts mirror trades that passed every rule and
-            would have fired, but whose triggering swap carried no post-swap price
-            — so no honest fill price exists for them and they were NOT traded.
+            would have fired, but whose triggering swap could not be priced honestly
+            — so they were NOT traded. Two causes, both data-side:
+
+              1. no post-swap price on the leg at all (every Meteora DLMM leg, and
+                 every DAMM v2 / DBC leg ingested before those decoders were fixed);
+              2. a leg whose reserve is impossible for a post-swap snapshot, which
+                 means it is a PRE-swap one and its price is the pre-swap price
+                 (PumpSwap — see postSwapReserveConsistent).
 
             A non-zero value means the run under-represents the strategy: it is a
-            COVERAGE gap, not a signal quality one. It is dominated by venues whose
-            decoder emits no marginal price (every Meteora DLMM leg, and every
-            DAMM v2 / DBC leg ingested before those decoders were fixed), so a
-            launch-sniping mirror over historical data can skip most of its entries
-            while a PumpSwap mirror skips none. Surfaced so a mostly-skipped run
-            reads as "not enough data" instead of quietly looking like a thin
-            strategy. Additive JSONB field — pre-existing rows decode as 0.
+            COVERAGE gap, not a signal quality one. Cause 1 makes a launch-sniping
+            mirror over historical data skip most of its entries; cause 2 fires on
+            exactly the large launch buys such a strategy targets. Surfaced so a
+            mostly-skipped run reads as "not enough data" instead of quietly looking
+            like a thin strategy — or worse, than being filled at a fictional price
+            and looking profitable. Additive JSONB field — old rows decode as 0.
         ending_balance_sol (float | Unset):
         fees_paid_sol (float | Unset):
         held_positions (list[PulsightInternalCoreUsecasesBacktestBacktestPosition] | Unset): HeldPositions is every mint

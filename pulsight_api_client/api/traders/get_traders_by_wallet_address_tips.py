@@ -68,13 +68,6 @@ def _parse_response(
 
         return response_401
 
-    if response.status_code == 404:
-        response_404 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
-            response.json()
-        )
-
-        return response_404
-
     if response.status_code == 500:
         response_500 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
             response.json()

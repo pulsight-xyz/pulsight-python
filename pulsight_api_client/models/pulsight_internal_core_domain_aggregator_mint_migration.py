@@ -21,6 +21,12 @@ class PulsightInternalCoreDomainAggregatorMintMigration:
         mint (str | Unset):
         slot (int | Unset):
         source (str | Unset): Source ∈ {"observed","inferred"} (CHECK constraint).
+        source_pool (str | Unset): SourcePool is the bonding-curve pool the mint traded on BEFORE
+            graduating. Together with DestinationPool it is the mint's market
+            lineage — the pools /api/ohlcv merges into one continuous chart when
+            no pool is pinned. Empty when unknown (rows predating
+            carbon-aggregator CH migration 000073, or a venue whose migration ix
+            doesn't expose the curve); treat '' as "no pre-graduation side".
         timestamp (str | Unset):
         to_dex (str | Unset):
     """
@@ -30,6 +36,7 @@ class PulsightInternalCoreDomainAggregatorMintMigration:
     mint: str | Unset = UNSET
     slot: int | Unset = UNSET
     source: str | Unset = UNSET
+    source_pool: str | Unset = UNSET
     timestamp: str | Unset = UNSET
     to_dex: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -44,6 +51,8 @@ class PulsightInternalCoreDomainAggregatorMintMigration:
         slot = self.slot
 
         source = self.source
+
+        source_pool = self.source_pool
 
         timestamp = self.timestamp
 
@@ -62,6 +71,8 @@ class PulsightInternalCoreDomainAggregatorMintMigration:
             field_dict["slot"] = slot
         if source is not UNSET:
             field_dict["source"] = source
+        if source_pool is not UNSET:
+            field_dict["source_pool"] = source_pool
         if timestamp is not UNSET:
             field_dict["timestamp"] = timestamp
         if to_dex is not UNSET:
@@ -82,6 +93,8 @@ class PulsightInternalCoreDomainAggregatorMintMigration:
 
         source = d.pop("source", UNSET)
 
+        source_pool = d.pop("source_pool", UNSET)
+
         timestamp = d.pop("timestamp", UNSET)
 
         to_dex = d.pop("to_dex", UNSET)
@@ -92,6 +105,7 @@ class PulsightInternalCoreDomainAggregatorMintMigration:
             mint=mint,
             slot=slot,
             source=source,
+            source_pool=source_pool,
             timestamp=timestamp,
             to_dex=to_dex,
         )

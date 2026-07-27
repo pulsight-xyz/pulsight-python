@@ -19,6 +19,7 @@ def _get_kwargs(
     mint: str,
     tf: str,
     pool: str | Unset = UNSET,
+    market: str | Unset = UNSET,
     quote: str | Unset = UNSET,
     from_: str | Unset = UNSET,
     to: str | Unset = UNSET,
@@ -33,6 +34,8 @@ def _get_kwargs(
     params["tf"] = tf
 
     params["pool"] = pool
+
+    params["market"] = market
 
     params["quote"] = quote
 
@@ -123,6 +126,7 @@ def sync_detailed(
     mint: str,
     tf: str,
     pool: str | Unset = UNSET,
+    market: str | Unset = UNSET,
     quote: str | Unset = UNSET,
     from_: str | Unset = UNSET,
     to: str | Unset = UNSET,
@@ -141,6 +145,7 @@ def sync_detailed(
         mint (str):
         tf (str):
         pool (str | Unset):
+        market (str | Unset):
         quote (str | Unset):
         from_ (str | Unset):
         to (str | Unset):
@@ -159,6 +164,7 @@ def sync_detailed(
         mint=mint,
         tf=tf,
         pool=pool,
+        market=market,
         quote=quote,
         from_=from_,
         to=to,
@@ -179,6 +185,7 @@ def sync(
     mint: str,
     tf: str,
     pool: str | Unset = UNSET,
+    market: str | Unset = UNSET,
     quote: str | Unset = UNSET,
     from_: str | Unset = UNSET,
     to: str | Unset = UNSET,
@@ -198,6 +205,7 @@ def sync(
         mint (str):
         tf (str):
         pool (str | Unset):
+        market (str | Unset):
         quote (str | Unset):
         from_ (str | Unset):
         to (str | Unset):
@@ -217,6 +225,7 @@ def sync(
         mint=mint,
         tf=tf,
         pool=pool,
+        market=market,
         quote=quote,
         from_=from_,
         to=to,
@@ -231,6 +240,7 @@ async def asyncio_detailed(
     mint: str,
     tf: str,
     pool: str | Unset = UNSET,
+    market: str | Unset = UNSET,
     quote: str | Unset = UNSET,
     from_: str | Unset = UNSET,
     to: str | Unset = UNSET,
@@ -249,6 +259,7 @@ async def asyncio_detailed(
         mint (str):
         tf (str):
         pool (str | Unset):
+        market (str | Unset):
         quote (str | Unset):
         from_ (str | Unset):
         to (str | Unset):
@@ -267,6 +278,7 @@ async def asyncio_detailed(
         mint=mint,
         tf=tf,
         pool=pool,
+        market=market,
         quote=quote,
         from_=from_,
         to=to,
@@ -285,6 +297,7 @@ async def asyncio(
     mint: str,
     tf: str,
     pool: str | Unset = UNSET,
+    market: str | Unset = UNSET,
     quote: str | Unset = UNSET,
     from_: str | Unset = UNSET,
     to: str | Unset = UNSET,
@@ -304,6 +317,7 @@ async def asyncio(
         mint (str):
         tf (str):
         pool (str | Unset):
+        market (str | Unset):
         quote (str | Unset):
         from_ (str | Unset):
         to (str | Unset):
@@ -324,6 +338,7 @@ async def asyncio(
             mint=mint,
             tf=tf,
             pool=pool,
+            market=market,
             quote=quote,
             from_=from_,
             to=to,

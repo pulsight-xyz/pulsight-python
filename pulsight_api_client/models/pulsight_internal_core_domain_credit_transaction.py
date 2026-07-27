@@ -22,6 +22,9 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainCreditTransaction")
 class PulsightInternalCoreDomainCreditTransaction:
     """
     Attributes:
+        api_key_id (str | Unset): APIKeyID attributes a metered consume to the api token that caused
+            it. nil for interactive sessions, OAuth callers, admin adjustments
+            and period grants — and for every row written before changeset 079.
         created_at (str | Unset):
         delta (int | Unset):
         id (str | Unset):
@@ -31,6 +34,7 @@ class PulsightInternalCoreDomainCreditTransaction:
         user_id (str | Unset):
     """
 
+    api_key_id: str | Unset = UNSET
     created_at: str | Unset = UNSET
     delta: int | Unset = UNSET
     id: str | Unset = UNSET
@@ -41,6 +45,8 @@ class PulsightInternalCoreDomainCreditTransaction:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        api_key_id = self.api_key_id
+
         created_at = self.created_at
 
         delta = self.delta
@@ -62,6 +68,8 @@ class PulsightInternalCoreDomainCreditTransaction:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if api_key_id is not UNSET:
+            field_dict["api_key_id"] = api_key_id
         if created_at is not UNSET:
             field_dict["created_at"] = created_at
         if delta is not UNSET:
@@ -82,6 +90,8 @@ class PulsightInternalCoreDomainCreditTransaction:
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
+        api_key_id = d.pop("api_key_id", UNSET)
+
         created_at = d.pop("created_at", UNSET)
 
         delta = d.pop("delta", UNSET)
@@ -107,6 +117,7 @@ class PulsightInternalCoreDomainCreditTransaction:
         user_id = d.pop("user_id", UNSET)
 
         pulsight_internal_core_domain_credit_transaction = cls(
+            api_key_id=api_key_id,
             created_at=created_at,
             delta=delta,
             id=id,
