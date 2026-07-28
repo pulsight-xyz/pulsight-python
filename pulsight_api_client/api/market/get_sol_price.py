@@ -8,31 +8,19 @@ from ...client import AuthenticatedClient, Client
 from ...models.internal_adapters_primary_http_handler_error_response import (
     InternalAdaptersPrimaryHttpHandlerErrorResponse,
 )
-from ...models.internal_adapters_primary_http_handler_pick_tokens_request import (
-    InternalAdaptersPrimaryHttpHandlerPickTokensRequest,
-)
-from ...models.internal_adapters_primary_http_handler_pick_tokens_response import (
-    InternalAdaptersPrimaryHttpHandlerPickTokensResponse,
+from ...models.internal_adapters_primary_http_handler_sol_price_response import (
+    InternalAdaptersPrimaryHttpHandlerSolPriceResponse,
 )
 from ...types import Response
 
 
-def _get_kwargs(
-    *,
-    body: InternalAdaptersPrimaryHttpHandlerPickTokensRequest,
-) -> dict[str, Any]:
-    headers: dict[str, Any] = {}
+def _get_kwargs() -> dict[str, Any]:
 
     _kwargs: dict[str, Any] = {
-        "method": "post",
-        "url": "/api/backtests/pick-tokens",
+        "method": "get",
+        "url": "/api/sol-price",
     }
 
-    _kwargs["json"] = body.to_dict()
-
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
@@ -40,29 +28,22 @@ def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | InternalAdaptersPrimaryHttpHandlerPickTokensResponse
+    | InternalAdaptersPrimaryHttpHandlerSolPriceResponse
     | None
 ):
     if response.status_code == 200:
-        response_200 = InternalAdaptersPrimaryHttpHandlerPickTokensResponse.from_dict(
+        response_200 = InternalAdaptersPrimaryHttpHandlerSolPriceResponse.from_dict(
             response.json()
         )
 
         return response_200
 
-    if response.status_code == 400:
-        response_400 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
+    if response.status_code == 500:
+        response_500 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
             response.json()
         )
 
-        return response_400
-
-    if response.status_code == 404:
-        response_404 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
-            response.json()
-        )
-
-        return response_404
+        return response_500
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -74,7 +55,7 @@ def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | InternalAdaptersPrimaryHttpHandlerPickTokensResponse
+    | InternalAdaptersPrimaryHttpHandlerSolPriceResponse
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -86,28 +67,27 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: AuthenticatedClient,
-    body: InternalAdaptersPrimaryHttpHandlerPickTokensRequest,
+    client: AuthenticatedClient | Client,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | InternalAdaptersPrimaryHttpHandlerPickTokensResponse
+    | InternalAdaptersPrimaryHttpHandlerSolPriceResponse
 ]:
-    """Pick Backtest Tokens
+    """Get the SOL/USD reference rate
 
-    Args:
-        body (InternalAdaptersPrimaryHttpHandlerPickTokensRequest):
+     Returns USD per 1 SOL — the same volume-weighted WSOL/USDC reference the token catalog prices market
+    caps and USD candles with, so displayed figures agree with computed ones. `sol_usd` is `null` when
+    the reference is unavailable (cold analytics store, or no WSOL/USDC trade in the lookback window);
+    it is never `0`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | InternalAdaptersPrimaryHttpHandlerPickTokensResponse]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | InternalAdaptersPrimaryHttpHandlerSolPriceResponse]
     """
 
-    kwargs = _get_kwargs(
-        body=body,
-    )
+    kwargs = _get_kwargs()
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -118,56 +98,55 @@ def sync_detailed(
 
 def sync(
     *,
-    client: AuthenticatedClient,
-    body: InternalAdaptersPrimaryHttpHandlerPickTokensRequest,
+    client: AuthenticatedClient | Client,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | InternalAdaptersPrimaryHttpHandlerPickTokensResponse
+    | InternalAdaptersPrimaryHttpHandlerSolPriceResponse
     | None
 ):
-    """Pick Backtest Tokens
+    """Get the SOL/USD reference rate
 
-    Args:
-        body (InternalAdaptersPrimaryHttpHandlerPickTokensRequest):
+     Returns USD per 1 SOL — the same volume-weighted WSOL/USDC reference the token catalog prices market
+    caps and USD candles with, so displayed figures agree with computed ones. `sol_usd` is `null` when
+    the reference is unavailable (cold analytics store, or no WSOL/USDC trade in the lookback window);
+    it is never `0`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | InternalAdaptersPrimaryHttpHandlerPickTokensResponse
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | InternalAdaptersPrimaryHttpHandlerSolPriceResponse
     """
 
     return sync_detailed(
         client=client,
-        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
-    client: AuthenticatedClient,
-    body: InternalAdaptersPrimaryHttpHandlerPickTokensRequest,
+    client: AuthenticatedClient | Client,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | InternalAdaptersPrimaryHttpHandlerPickTokensResponse
+    | InternalAdaptersPrimaryHttpHandlerSolPriceResponse
 ]:
-    """Pick Backtest Tokens
+    """Get the SOL/USD reference rate
 
-    Args:
-        body (InternalAdaptersPrimaryHttpHandlerPickTokensRequest):
+     Returns USD per 1 SOL — the same volume-weighted WSOL/USDC reference the token catalog prices market
+    caps and USD candles with, so displayed figures agree with computed ones. `sol_usd` is `null` when
+    the reference is unavailable (cold analytics store, or no WSOL/USDC trade in the lookback window);
+    it is never `0`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | InternalAdaptersPrimaryHttpHandlerPickTokensResponse]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | InternalAdaptersPrimaryHttpHandlerSolPriceResponse]
     """
 
-    kwargs = _get_kwargs(
-        body=body,
-    )
+    kwargs = _get_kwargs()
 
     response = await client.get_async_httpx_client().request(**kwargs)
 
@@ -176,29 +155,29 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: AuthenticatedClient,
-    body: InternalAdaptersPrimaryHttpHandlerPickTokensRequest,
+    client: AuthenticatedClient | Client,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | InternalAdaptersPrimaryHttpHandlerPickTokensResponse
+    | InternalAdaptersPrimaryHttpHandlerSolPriceResponse
     | None
 ):
-    """Pick Backtest Tokens
+    """Get the SOL/USD reference rate
 
-    Args:
-        body (InternalAdaptersPrimaryHttpHandlerPickTokensRequest):
+     Returns USD per 1 SOL — the same volume-weighted WSOL/USDC reference the token catalog prices market
+    caps and USD candles with, so displayed figures agree with computed ones. `sol_usd` is `null` when
+    the reference is unavailable (cold analytics store, or no WSOL/USDC trade in the lookback window);
+    it is never `0`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | InternalAdaptersPrimaryHttpHandlerPickTokensResponse
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | InternalAdaptersPrimaryHttpHandlerSolPriceResponse
     """
 
     return (
         await asyncio_detailed(
             client=client,
-            body=body,
         )
     ).parsed

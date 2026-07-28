@@ -28,11 +28,13 @@ class PulsightInternalCoreDomainStrategyStrategyDef:
         constraints (PulsightInternalCoreDomainStrategyGlobalConstraints | Unset):
         entry (PulsightInternalCoreDomainStrategySubGraph | Unset):
         exit_ (PulsightInternalCoreDomainStrategySubGraph | Unset):
+        selection (PulsightInternalCoreDomainStrategySubGraph | Unset):
     """
 
     constraints: PulsightInternalCoreDomainStrategyGlobalConstraints | Unset = UNSET
     entry: PulsightInternalCoreDomainStrategySubGraph | Unset = UNSET
     exit_: PulsightInternalCoreDomainStrategySubGraph | Unset = UNSET
+    selection: PulsightInternalCoreDomainStrategySubGraph | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -48,6 +50,10 @@ class PulsightInternalCoreDomainStrategyStrategyDef:
         if not isinstance(self.exit_, Unset):
             exit_ = self.exit_.to_dict()
 
+        selection: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.selection, Unset):
+            selection = self.selection.to_dict()
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -57,6 +63,8 @@ class PulsightInternalCoreDomainStrategyStrategyDef:
             field_dict["entry"] = entry
         if exit_ is not UNSET:
             field_dict["exit"] = exit_
+        if selection is not UNSET:
+            field_dict["selection"] = selection
 
         return field_dict
 
@@ -93,10 +101,18 @@ class PulsightInternalCoreDomainStrategyStrategyDef:
         else:
             exit_ = PulsightInternalCoreDomainStrategySubGraph.from_dict(_exit_)
 
+        _selection = d.pop("selection", UNSET)
+        selection: PulsightInternalCoreDomainStrategySubGraph | Unset
+        if isinstance(_selection, Unset):
+            selection = UNSET
+        else:
+            selection = PulsightInternalCoreDomainStrategySubGraph.from_dict(_selection)
+
         pulsight_internal_core_domain_strategy_strategy_def = cls(
             constraints=constraints,
             entry=entry,
             exit_=exit_,
+            selection=selection,
         )
 
         pulsight_internal_core_domain_strategy_strategy_def.additional_properties = d

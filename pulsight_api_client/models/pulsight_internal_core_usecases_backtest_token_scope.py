@@ -31,7 +31,10 @@ class PulsightInternalCoreUsecasesBacktestTokenScope:
         exclude (PulsightInternalCoreUsecasesBacktestSelectionFilter | Unset):
         include (PulsightInternalCoreUsecasesBacktestSelectionFilter | Unset):
         kind (PulsightInternalCoreUsecasesBacktestTokenScopeKind | Unset):
-        max_mints (int | Unset): MirrorsTraded + TraderTraded + Standalone (cap on selected mints).
+        max_mints (int | Unset): MaxMints — on a Strategy scope this is STAMPED BY THE RUNNER at submit
+            (from the def's Universe node / mirror default) so the tick-budget and
+            credit math have a mint bound; requests don't set it. Legacy kinds
+            carried it on the wire.
         mint (str | Unset): SingleMint
         mints (list[str] | Unset): Mints
         pool (str | Unset): Pool optionally pins a SingleMint run to one specific market (the AMM
@@ -41,7 +44,7 @@ class PulsightInternalCoreUsecasesBacktestTokenScope:
             it is meaningless on a multi-mint / dynamic scope. Mirrors the preview's
             PreviewRequest.Pool so a pinned run replays the same market the builder
             previewed.
-        trader (str | Unset): TraderTraded only.
+        trader (str | Unset): Legacy TraderTraded only.
         window (PulsightInternalCoreUsecasesBacktestTimeRange | Unset):
     """
 

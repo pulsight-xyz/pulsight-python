@@ -38,6 +38,9 @@ from .internal_adapters_primary_http_handler_snapshot_response import (
 from .internal_adapters_primary_http_handler_snapshot_row import (
     InternalAdaptersPrimaryHttpHandlerSnapshotRow,
 )
+from .internal_adapters_primary_http_handler_sol_price_response import (
+    InternalAdaptersPrimaryHttpHandlerSolPriceResponse,
+)
 from .internal_adapters_primary_http_handler_strategy_create_request import (
     InternalAdaptersPrimaryHttpHandlerStrategyCreateRequest,
 )
@@ -405,6 +408,7 @@ __all__ = (
     "InternalAdaptersPrimaryHttpHandlerServiceLoyaltyRow",
     "InternalAdaptersPrimaryHttpHandlerSnapshotResponse",
     "InternalAdaptersPrimaryHttpHandlerSnapshotRow",
+    "InternalAdaptersPrimaryHttpHandlerSolPriceResponse",
     "InternalAdaptersPrimaryHttpHandlerStrategyCreateRequest",
     "InternalAdaptersPrimaryHttpHandlerStrategyListItem",
     "InternalAdaptersPrimaryHttpHandlerStrategyStats",

@@ -10,6 +10,9 @@ from typing_extensions import Self
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
+    from ..models.pulsight_internal_core_domain_strategy_strategy_def import (
+        PulsightInternalCoreDomainStrategyStrategyDef,
+    )
     from ..models.pulsight_internal_core_usecases_backtest_time_range import (
         PulsightInternalCoreUsecasesBacktestTimeRange,
     )
@@ -25,18 +28,28 @@ T = TypeVar("T", bound="InternalAdaptersPrimaryHttpHandlerPickTokensRequest")
 class InternalAdaptersPrimaryHttpHandlerPickTokensRequest:
     """
     Attributes:
+        def_ (PulsightInternalCoreDomainStrategyStrategyDef | Unset):
         scope (PulsightInternalCoreUsecasesBacktestTokenScope | Unset):
+        strategy_id (str | Unset):
         time_range (PulsightInternalCoreUsecasesBacktestTimeRange | Unset):
     """
 
+    def_: PulsightInternalCoreDomainStrategyStrategyDef | Unset = UNSET
     scope: PulsightInternalCoreUsecasesBacktestTokenScope | Unset = UNSET
+    strategy_id: str | Unset = UNSET
     time_range: PulsightInternalCoreUsecasesBacktestTimeRange | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        def_: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.def_, Unset):
+            def_ = self.def_.to_dict()
+
         scope: dict[str, Any] | Unset = UNSET
         if not isinstance(self.scope, Unset):
             scope = self.scope.to_dict()
+
+        strategy_id = self.strategy_id
 
         time_range: dict[str, Any] | Unset = UNSET
         if not isinstance(self.time_range, Unset):
@@ -45,8 +58,12 @@ class InternalAdaptersPrimaryHttpHandlerPickTokensRequest:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if def_ is not UNSET:
+            field_dict["def"] = def_
         if scope is not UNSET:
             field_dict["scope"] = scope
+        if strategy_id is not UNSET:
+            field_dict["strategy_id"] = strategy_id
         if time_range is not UNSET:
             field_dict["time_range"] = time_range
 
@@ -54,6 +71,9 @@ class InternalAdaptersPrimaryHttpHandlerPickTokensRequest:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
+        from ..models.pulsight_internal_core_domain_strategy_strategy_def import (
+            PulsightInternalCoreDomainStrategyStrategyDef,
+        )
         from ..models.pulsight_internal_core_usecases_backtest_time_range import (
             PulsightInternalCoreUsecasesBacktestTimeRange,
         )
@@ -62,12 +82,21 @@ class InternalAdaptersPrimaryHttpHandlerPickTokensRequest:
         )
 
         d = dict(src_dict)
+        _def_ = d.pop("def", UNSET)
+        def_: PulsightInternalCoreDomainStrategyStrategyDef | Unset
+        if isinstance(_def_, Unset):
+            def_ = UNSET
+        else:
+            def_ = PulsightInternalCoreDomainStrategyStrategyDef.from_dict(_def_)
+
         _scope = d.pop("scope", UNSET)
         scope: PulsightInternalCoreUsecasesBacktestTokenScope | Unset
         if isinstance(_scope, Unset):
             scope = UNSET
         else:
             scope = PulsightInternalCoreUsecasesBacktestTokenScope.from_dict(_scope)
+
+        strategy_id = d.pop("strategy_id", UNSET)
 
         _time_range = d.pop("time_range", UNSET)
         time_range: PulsightInternalCoreUsecasesBacktestTimeRange | Unset
@@ -79,7 +108,9 @@ class InternalAdaptersPrimaryHttpHandlerPickTokensRequest:
             )
 
         internal_adapters_primary_http_handler_pick_tokens_request = cls(
+            def_=def_,
             scope=scope,
+            strategy_id=strategy_id,
             time_range=time_range,
         )
 
