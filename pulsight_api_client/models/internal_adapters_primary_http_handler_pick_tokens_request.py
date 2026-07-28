@@ -16,9 +16,6 @@ if TYPE_CHECKING:
     from ..models.pulsight_internal_core_usecases_backtest_time_range import (
         PulsightInternalCoreUsecasesBacktestTimeRange,
     )
-    from ..models.pulsight_internal_core_usecases_backtest_token_scope import (
-        PulsightInternalCoreUsecasesBacktestTokenScope,
-    )
 
 
 T = TypeVar("T", bound="InternalAdaptersPrimaryHttpHandlerPickTokensRequest")
@@ -29,13 +26,11 @@ class InternalAdaptersPrimaryHttpHandlerPickTokensRequest:
     """
     Attributes:
         def_ (PulsightInternalCoreDomainStrategyStrategyDef | Unset):
-        scope (PulsightInternalCoreUsecasesBacktestTokenScope | Unset):
         strategy_id (str | Unset):
         time_range (PulsightInternalCoreUsecasesBacktestTimeRange | Unset):
     """
 
     def_: PulsightInternalCoreDomainStrategyStrategyDef | Unset = UNSET
-    scope: PulsightInternalCoreUsecasesBacktestTokenScope | Unset = UNSET
     strategy_id: str | Unset = UNSET
     time_range: PulsightInternalCoreUsecasesBacktestTimeRange | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -44,10 +39,6 @@ class InternalAdaptersPrimaryHttpHandlerPickTokensRequest:
         def_: dict[str, Any] | Unset = UNSET
         if not isinstance(self.def_, Unset):
             def_ = self.def_.to_dict()
-
-        scope: dict[str, Any] | Unset = UNSET
-        if not isinstance(self.scope, Unset):
-            scope = self.scope.to_dict()
 
         strategy_id = self.strategy_id
 
@@ -60,8 +51,6 @@ class InternalAdaptersPrimaryHttpHandlerPickTokensRequest:
         field_dict.update({})
         if def_ is not UNSET:
             field_dict["def"] = def_
-        if scope is not UNSET:
-            field_dict["scope"] = scope
         if strategy_id is not UNSET:
             field_dict["strategy_id"] = strategy_id
         if time_range is not UNSET:
@@ -77,9 +66,6 @@ class InternalAdaptersPrimaryHttpHandlerPickTokensRequest:
         from ..models.pulsight_internal_core_usecases_backtest_time_range import (
             PulsightInternalCoreUsecasesBacktestTimeRange,
         )
-        from ..models.pulsight_internal_core_usecases_backtest_token_scope import (
-            PulsightInternalCoreUsecasesBacktestTokenScope,
-        )
 
         d = dict(src_dict)
         _def_ = d.pop("def", UNSET)
@@ -88,13 +74,6 @@ class InternalAdaptersPrimaryHttpHandlerPickTokensRequest:
             def_ = UNSET
         else:
             def_ = PulsightInternalCoreDomainStrategyStrategyDef.from_dict(_def_)
-
-        _scope = d.pop("scope", UNSET)
-        scope: PulsightInternalCoreUsecasesBacktestTokenScope | Unset
-        if isinstance(_scope, Unset):
-            scope = UNSET
-        else:
-            scope = PulsightInternalCoreUsecasesBacktestTokenScope.from_dict(_scope)
 
         strategy_id = d.pop("strategy_id", UNSET)
 
@@ -109,7 +88,6 @@ class InternalAdaptersPrimaryHttpHandlerPickTokensRequest:
 
         internal_adapters_primary_http_handler_pick_tokens_request = cls(
             def_=def_,
-            scope=scope,
             strategy_id=strategy_id,
             time_range=time_range,
         )

@@ -221,17 +221,11 @@ from .pulsight_internal_core_domain_credit_reason import (
 from .pulsight_internal_core_domain_credit_transaction import (
     PulsightInternalCoreDomainCreditTransaction,
 )
-from .pulsight_internal_core_domain_strategy_comparison_op import (
-    PulsightInternalCoreDomainStrategyComparisonOp,
-)
 from .pulsight_internal_core_domain_strategy_edge import (
     PulsightInternalCoreDomainStrategyEdge,
 )
 from .pulsight_internal_core_domain_strategy_edge_port import (
     PulsightInternalCoreDomainStrategyEdgePort,
-)
-from .pulsight_internal_core_domain_strategy_event_kind import (
-    PulsightInternalCoreDomainStrategyEventKind,
 )
 from .pulsight_internal_core_domain_strategy_global_constraints import (
     PulsightInternalCoreDomainStrategyGlobalConstraints,
@@ -332,12 +326,6 @@ from .pulsight_internal_core_usecases_backtest_backtest_summary import (
 from .pulsight_internal_core_usecases_backtest_backtest_trade import (
     PulsightInternalCoreUsecasesBacktestBacktestTrade,
 )
-from .pulsight_internal_core_usecases_backtest_event_predicate import (
-    PulsightInternalCoreUsecasesBacktestEventPredicate,
-)
-from .pulsight_internal_core_usecases_backtest_metric_predicate import (
-    PulsightInternalCoreUsecasesBacktestMetricPredicate,
-)
 from .pulsight_internal_core_usecases_backtest_preview_marker import (
     PulsightInternalCoreUsecasesBacktestPreviewMarker,
 )
@@ -346,15 +334,6 @@ from .pulsight_internal_core_usecases_backtest_preview_request import (
 )
 from .pulsight_internal_core_usecases_backtest_preview_response import (
     PulsightInternalCoreUsecasesBacktestPreviewResponse,
-)
-from .pulsight_internal_core_usecases_backtest_selection_filter import (
-    PulsightInternalCoreUsecasesBacktestSelectionFilter,
-)
-from .pulsight_internal_core_usecases_backtest_selection_metric import (
-    PulsightInternalCoreUsecasesBacktestSelectionMetric,
-)
-from .pulsight_internal_core_usecases_backtest_selection_metric_window import (
-    PulsightInternalCoreUsecasesBacktestSelectionMetricWindow,
 )
 from .pulsight_internal_core_usecases_backtest_side import (
     PulsightInternalCoreUsecasesBacktestSide,
@@ -469,10 +448,8 @@ __all__ = (
     "PulsightInternalCoreDomainCreditPool",
     "PulsightInternalCoreDomainCreditReason",
     "PulsightInternalCoreDomainCreditTransaction",
-    "PulsightInternalCoreDomainStrategyComparisonOp",
     "PulsightInternalCoreDomainStrategyEdge",
     "PulsightInternalCoreDomainStrategyEdgePort",
-    "PulsightInternalCoreDomainStrategyEventKind",
     "PulsightInternalCoreDomainStrategyGlobalConstraints",
     "PulsightInternalCoreDomainStrategyNode",
     "PulsightInternalCoreDomainStrategyNodeKind",
@@ -506,14 +483,9 @@ __all__ = (
     "PulsightInternalCoreUsecasesBacktestBacktestStatus",
     "PulsightInternalCoreUsecasesBacktestBacktestSummary",
     "PulsightInternalCoreUsecasesBacktestBacktestTrade",
-    "PulsightInternalCoreUsecasesBacktestEventPredicate",
-    "PulsightInternalCoreUsecasesBacktestMetricPredicate",
     "PulsightInternalCoreUsecasesBacktestPreviewMarker",
     "PulsightInternalCoreUsecasesBacktestPreviewRequest",
     "PulsightInternalCoreUsecasesBacktestPreviewResponse",
-    "PulsightInternalCoreUsecasesBacktestSelectionFilter",
-    "PulsightInternalCoreUsecasesBacktestSelectionMetric",
-    "PulsightInternalCoreUsecasesBacktestSelectionMetricWindow",
     "PulsightInternalCoreUsecasesBacktestSide",
     "PulsightInternalCoreUsecasesBacktestTimeRange",
     "PulsightInternalCoreUsecasesBacktestTokenScope",
