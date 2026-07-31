@@ -16,8 +16,22 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorMintTraderRow")
 class PulsightInternalCoreDomainAggregatorMintTraderRow:
     """
     Attributes:
+        arb_tx_count (int | Unset): Distinct is_arb transactions for this (trader, mint). Same rationale
+            as TraderTokenPosition.ArbTxCount: shown alongside buy/sell, never
+            subtracted, so lopsided counts on arbitrage wallets are legible.
         buy_tx_count (int | Unset):
         cost_basis_lamports (str | Unset):
+        directional_buy_tx_count (int | Unset): Directional counts EXCLUDE arbitrage rows, so the three numbers the UI
+            shows are disjoint: directional buys / directional sells / arb txs.
+            Overlapping them is what made an arb wallet read "11 buys / 2 sells /
+            11 arb" -- every one of those buys WAS one of the arbs. A pure
+            arbitrageur now reads 0 / 0 / N, which is the truth: it never took a
+            directional position in the token.
+
+            buy_tx_count / sell_tx_count keep their original meaning (all rows,
+            matching the trader_token_stats rollup that the leaderboard and its
+            `f=` filters read) so nothing downstream shifts under them.
+        directional_sell_tx_count (int | Unset):
         first_buy_ts (str | Unset):
         holding_pnl_lamports (int | Unset):
         is_bundler (bool | Unset):
@@ -39,8 +53,11 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         trader (str | Unset):
     """
 
+    arb_tx_count: int | Unset = UNSET
     buy_tx_count: int | Unset = UNSET
     cost_basis_lamports: str | Unset = UNSET
+    directional_buy_tx_count: int | Unset = UNSET
+    directional_sell_tx_count: int | Unset = UNSET
     first_buy_ts: str | Unset = UNSET
     holding_pnl_lamports: int | Unset = UNSET
     is_bundler: bool | Unset = UNSET
@@ -59,9 +76,15 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        arb_tx_count = self.arb_tx_count
+
         buy_tx_count = self.buy_tx_count
 
         cost_basis_lamports = self.cost_basis_lamports
+
+        directional_buy_tx_count = self.directional_buy_tx_count
+
+        directional_sell_tx_count = self.directional_sell_tx_count
 
         first_buy_ts = self.first_buy_ts
 
@@ -96,10 +119,16 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if arb_tx_count is not UNSET:
+            field_dict["arb_tx_count"] = arb_tx_count
         if buy_tx_count is not UNSET:
             field_dict["buy_tx_count"] = buy_tx_count
         if cost_basis_lamports is not UNSET:
             field_dict["cost_basis_lamports"] = cost_basis_lamports
+        if directional_buy_tx_count is not UNSET:
+            field_dict["directional_buy_tx_count"] = directional_buy_tx_count
+        if directional_sell_tx_count is not UNSET:
+            field_dict["directional_sell_tx_count"] = directional_sell_tx_count
         if first_buy_ts is not UNSET:
             field_dict["first_buy_ts"] = first_buy_ts
         if holding_pnl_lamports is not UNSET:
@@ -136,9 +165,15 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
+        arb_tx_count = d.pop("arb_tx_count", UNSET)
+
         buy_tx_count = d.pop("buy_tx_count", UNSET)
 
         cost_basis_lamports = d.pop("cost_basis_lamports", UNSET)
+
+        directional_buy_tx_count = d.pop("directional_buy_tx_count", UNSET)
+
+        directional_sell_tx_count = d.pop("directional_sell_tx_count", UNSET)
 
         first_buy_ts = d.pop("first_buy_ts", UNSET)
 
@@ -171,8 +206,11 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         trader = d.pop("trader", UNSET)
 
         pulsight_internal_core_domain_aggregator_mint_trader_row = cls(
+            arb_tx_count=arb_tx_count,
             buy_tx_count=buy_tx_count,
             cost_basis_lamports=cost_basis_lamports,
+            directional_buy_tx_count=directional_buy_tx_count,
+            directional_sell_tx_count=directional_sell_tx_count,
             first_buy_ts=first_buy_ts,
             holding_pnl_lamports=holding_pnl_lamports,
             is_bundler=is_bundler,

@@ -16,8 +16,20 @@ T = TypeVar("T", bound="InternalAdaptersPrimaryHttpHandlerTokensRow")
 class InternalAdaptersPrimaryHttpHandlerTokensRow:
     """
     Attributes:
+        arb_tx_count (int | Unset): Distinct is_arb transactions on this (trader, mint). Shown alongside
+            buy/sell, never subtracted from them -- an arb still emits a buy row,
+            a sell row or both. It exists because those counts otherwise read as
+            broken on arbitrage wallets: a multi-hop arb bridging through a
+            non-quote token has its target buy leg quoted in that token, which is
+            not a registry quote, so only the quote-anchored sell reaches `swaps`.
+            0 on the legacy Pnl path, which has no arb data -- the frontend hides
+            the segment at 0.
         buy_tx_count (int | Unset):
         cost_basis_lamports (str | Unset):
+        directional_buy_tx_count (int | Unset): Disjoint from ArbTxCount: these EXCLUDE arbitrage rows, so the UI shows
+            directional buys / directional sells / arb txs without the three
+            overlapping. 0 on the legacy Pnl path.
+        directional_sell_tx_count (int | Unset):
         first_buy_ts (str | Unset):
         holding_pnl_lamports (float | Unset):
         last_active_ts (str | Unset):
@@ -35,8 +47,11 @@ class InternalAdaptersPrimaryHttpHandlerTokensRow:
         updated_at (str | Unset):
     """
 
+    arb_tx_count: int | Unset = UNSET
     buy_tx_count: int | Unset = UNSET
     cost_basis_lamports: str | Unset = UNSET
+    directional_buy_tx_count: int | Unset = UNSET
+    directional_sell_tx_count: int | Unset = UNSET
     first_buy_ts: str | Unset = UNSET
     holding_pnl_lamports: float | Unset = UNSET
     last_active_ts: str | Unset = UNSET
@@ -55,9 +70,15 @@ class InternalAdaptersPrimaryHttpHandlerTokensRow:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        arb_tx_count = self.arb_tx_count
+
         buy_tx_count = self.buy_tx_count
 
         cost_basis_lamports = self.cost_basis_lamports
+
+        directional_buy_tx_count = self.directional_buy_tx_count
+
+        directional_sell_tx_count = self.directional_sell_tx_count
 
         first_buy_ts = self.first_buy_ts
 
@@ -92,10 +113,16 @@ class InternalAdaptersPrimaryHttpHandlerTokensRow:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if arb_tx_count is not UNSET:
+            field_dict["arb_tx_count"] = arb_tx_count
         if buy_tx_count is not UNSET:
             field_dict["buy_tx_count"] = buy_tx_count
         if cost_basis_lamports is not UNSET:
             field_dict["cost_basis_lamports"] = cost_basis_lamports
+        if directional_buy_tx_count is not UNSET:
+            field_dict["directional_buy_tx_count"] = directional_buy_tx_count
+        if directional_sell_tx_count is not UNSET:
+            field_dict["directional_sell_tx_count"] = directional_sell_tx_count
         if first_buy_ts is not UNSET:
             field_dict["first_buy_ts"] = first_buy_ts
         if holding_pnl_lamports is not UNSET:
@@ -132,9 +159,15 @@ class InternalAdaptersPrimaryHttpHandlerTokensRow:
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
+        arb_tx_count = d.pop("arb_tx_count", UNSET)
+
         buy_tx_count = d.pop("buy_tx_count", UNSET)
 
         cost_basis_lamports = d.pop("cost_basis_lamports", UNSET)
+
+        directional_buy_tx_count = d.pop("directional_buy_tx_count", UNSET)
+
+        directional_sell_tx_count = d.pop("directional_sell_tx_count", UNSET)
 
         first_buy_ts = d.pop("first_buy_ts", UNSET)
 
@@ -167,8 +200,11 @@ class InternalAdaptersPrimaryHttpHandlerTokensRow:
         updated_at = d.pop("updated_at", UNSET)
 
         internal_adapters_primary_http_handler_tokens_row = cls(
+            arb_tx_count=arb_tx_count,
             buy_tx_count=buy_tx_count,
             cost_basis_lamports=cost_basis_lamports,
+            directional_buy_tx_count=directional_buy_tx_count,
+            directional_sell_tx_count=directional_sell_tx_count,
             first_buy_ts=first_buy_ts,
             holding_pnl_lamports=holding_pnl_lamports,
             last_active_ts=last_active_ts,

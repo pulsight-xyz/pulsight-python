@@ -139,10 +139,13 @@ def sync_detailed(
     """List Swaps
 
      Returns swaps filtered by `mint` and/or one-or-more `trader` params (AND-combined; at least one
-    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. All time params are
-    optional; with none supplied the latest swaps are returned regardless of age. Supports RFC3339
-    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest swaps strictly
-    older than the cursor — no lower bound, so pagination crosses activity gaps).
+    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool` narrows to one or
+    more markets and accepts the same repeated/comma-separated forms, OR-combined — pass the whole set
+    when a token's market spans several pools (a graduated token's bonding curve plus the pool it
+    migrated to). All time params are optional; with none supplied the latest swaps are returned
+    regardless of age. Supports RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts
+    (returns the latest swaps strictly older than the cursor — no lower bound, so pagination crosses
+    activity gaps).
 
     Args:
         mint (str | Unset):
@@ -202,10 +205,13 @@ def sync(
     """List Swaps
 
      Returns swaps filtered by `mint` and/or one-or-more `trader` params (AND-combined; at least one
-    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. All time params are
-    optional; with none supplied the latest swaps are returned regardless of age. Supports RFC3339
-    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest swaps strictly
-    older than the cursor — no lower bound, so pagination crosses activity gaps).
+    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool` narrows to one or
+    more markets and accepts the same repeated/comma-separated forms, OR-combined — pass the whole set
+    when a token's market spans several pools (a graduated token's bonding curve plus the pool it
+    migrated to). All time params are optional; with none supplied the latest swaps are returned
+    regardless of age. Supports RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts
+    (returns the latest swaps strictly older than the cursor — no lower bound, so pagination crosses
+    activity gaps).
 
     Args:
         mint (str | Unset):
@@ -259,10 +265,13 @@ async def asyncio_detailed(
     """List Swaps
 
      Returns swaps filtered by `mint` and/or one-or-more `trader` params (AND-combined; at least one
-    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. All time params are
-    optional; with none supplied the latest swaps are returned regardless of age. Supports RFC3339
-    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest swaps strictly
-    older than the cursor — no lower bound, so pagination crosses activity gaps).
+    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool` narrows to one or
+    more markets and accepts the same repeated/comma-separated forms, OR-combined — pass the whole set
+    when a token's market spans several pools (a graduated token's bonding curve plus the pool it
+    migrated to). All time params are optional; with none supplied the latest swaps are returned
+    regardless of age. Supports RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts
+    (returns the latest swaps strictly older than the cursor — no lower bound, so pagination crosses
+    activity gaps).
 
     Args:
         mint (str | Unset):
@@ -320,10 +329,13 @@ async def asyncio(
     """List Swaps
 
      Returns swaps filtered by `mint` and/or one-or-more `trader` params (AND-combined; at least one
-    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. All time params are
-    optional; with none supplied the latest swaps are returned regardless of age. Supports RFC3339
-    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest swaps strictly
-    older than the cursor — no lower bound, so pagination crosses activity gaps).
+    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool` narrows to one or
+    more markets and accepts the same repeated/comma-separated forms, OR-combined — pass the whole set
+    when a token's market spans several pools (a graduated token's bonding curve plus the pool it
+    migrated to). All time params are optional; with none supplied the latest swaps are returned
+    regardless of age. Supports RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts
+    (returns the latest swaps strictly older than the cursor — no lower bound, so pagination crosses
+    activity gaps).
 
     Args:
         mint (str | Unset):
