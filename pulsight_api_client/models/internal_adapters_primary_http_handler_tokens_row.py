@@ -38,6 +38,12 @@ class InternalAdaptersPrimaryHttpHandlerTokensRow:
         mint_logo_uri (str | Unset):
         mint_name (str | Unset):
         mint_symbol (str | Unset):
+        pool_liquidity (str | Unset):
+        pool_quote_reserves (float | Unset): Rug-aware effective quote reserves of the mint's pool (lamports) and the
+            exitability tier derived from them server-side. Together they let the row
+            explain WHY a bag marks at ~0. null / "" mean unknown -- which is what
+            the legacy Pnl fallback path below always reports, since it has no pool
+            data; the frontend renders no badge rather than a false rug.
         realized_profit (float | Unset):
         sell_tx_count (int | Unset):
         token_balance (str | Unset):
@@ -60,6 +66,8 @@ class InternalAdaptersPrimaryHttpHandlerTokensRow:
     mint_logo_uri: str | Unset = UNSET
     mint_name: str | Unset = UNSET
     mint_symbol: str | Unset = UNSET
+    pool_liquidity: str | Unset = UNSET
+    pool_quote_reserves: float | Unset = UNSET
     realized_profit: float | Unset = UNSET
     sell_tx_count: int | Unset = UNSET
     token_balance: str | Unset = UNSET
@@ -95,6 +103,10 @@ class InternalAdaptersPrimaryHttpHandlerTokensRow:
         mint_name = self.mint_name
 
         mint_symbol = self.mint_symbol
+
+        pool_liquidity = self.pool_liquidity
+
+        pool_quote_reserves = self.pool_quote_reserves
 
         realized_profit = self.realized_profit
 
@@ -139,6 +151,10 @@ class InternalAdaptersPrimaryHttpHandlerTokensRow:
             field_dict["mint_name"] = mint_name
         if mint_symbol is not UNSET:
             field_dict["mint_symbol"] = mint_symbol
+        if pool_liquidity is not UNSET:
+            field_dict["pool_liquidity"] = pool_liquidity
+        if pool_quote_reserves is not UNSET:
+            field_dict["pool_quote_reserves"] = pool_quote_reserves
         if realized_profit is not UNSET:
             field_dict["realized_profit"] = realized_profit
         if sell_tx_count is not UNSET:
@@ -185,6 +201,10 @@ class InternalAdaptersPrimaryHttpHandlerTokensRow:
 
         mint_symbol = d.pop("mint_symbol", UNSET)
 
+        pool_liquidity = d.pop("pool_liquidity", UNSET)
+
+        pool_quote_reserves = d.pop("pool_quote_reserves", UNSET)
+
         realized_profit = d.pop("realized_profit", UNSET)
 
         sell_tx_count = d.pop("sell_tx_count", UNSET)
@@ -213,6 +233,8 @@ class InternalAdaptersPrimaryHttpHandlerTokensRow:
             mint_logo_uri=mint_logo_uri,
             mint_name=mint_name,
             mint_symbol=mint_symbol,
+            pool_liquidity=pool_liquidity,
+            pool_quote_reserves=pool_quote_reserves,
             realized_profit=realized_profit,
             sell_tx_count=sell_tx_count,
             token_balance=token_balance,

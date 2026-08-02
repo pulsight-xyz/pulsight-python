@@ -23,6 +23,23 @@ class PulsightInternalCoreDomainStrategyGlobalConstraints:
             Raise it above 1 to enable DCA / pyramiding.
         max_buys_per_token_per_hour (int | Unset):
         max_buys_per_token_per_minute (int | Unset):
+        max_concurrent_tokens (int | Unset): MaxConcurrentTokens caps how many tokens the strategy may hold at
+            once, OVERRIDING the Token Selection root's MaxMints when set. Three
+            states, because "not set" and "unlimited" are different answers:
+
+              nil       ⇒ inherit — the Token Selection cap, or
+                          DefaultUniverseMaxMints for a def with no selection
+                          plane. Every def written before this field existed reads
+                          this way, so adding it changed no existing strategy.
+              &0        ⇒ unlimited.
+              &n        ⇒ n, whatever the Token Selection root says.
+
+            Resolve it through StrategyDef.ConcurrencyCap — inheritance needs the
+            selection plane, so the constraint alone cannot answer.
+
+            It is a POINTER on purpose: `uint32` + omitempty serializes an explicit
+            0 as absent, which would silently turn "unlimited" back into "inherit"
+            (the tightest cap) on every round-trip through the JSONB column.
         max_position_exposure_sol (float | Unset): MaxPositionExposureSol caps the cumulative cost basis (SOL spent) of
             a
             single open position. 0 ⇒ unlimited. An add that would push the open
@@ -34,6 +51,7 @@ class PulsightInternalCoreDomainStrategyGlobalConstraints:
     max_buys_per_open_position: int | Unset = UNSET
     max_buys_per_token_per_hour: int | Unset = UNSET
     max_buys_per_token_per_minute: int | Unset = UNSET
+    max_concurrent_tokens: int | Unset = UNSET
     max_position_exposure_sol: float | Unset = UNSET
     min_buy_sol: float | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -46,6 +64,8 @@ class PulsightInternalCoreDomainStrategyGlobalConstraints:
         max_buys_per_token_per_hour = self.max_buys_per_token_per_hour
 
         max_buys_per_token_per_minute = self.max_buys_per_token_per_minute
+
+        max_concurrent_tokens = self.max_concurrent_tokens
 
         max_position_exposure_sol = self.max_position_exposure_sol
 
@@ -62,6 +82,8 @@ class PulsightInternalCoreDomainStrategyGlobalConstraints:
             field_dict["max_buys_per_token_per_hour"] = max_buys_per_token_per_hour
         if max_buys_per_token_per_minute is not UNSET:
             field_dict["max_buys_per_token_per_minute"] = max_buys_per_token_per_minute
+        if max_concurrent_tokens is not UNSET:
+            field_dict["max_concurrent_tokens"] = max_concurrent_tokens
         if max_position_exposure_sol is not UNSET:
             field_dict["max_position_exposure_sol"] = max_position_exposure_sol
         if min_buy_sol is not UNSET:
@@ -80,6 +102,8 @@ class PulsightInternalCoreDomainStrategyGlobalConstraints:
 
         max_buys_per_token_per_minute = d.pop("max_buys_per_token_per_minute", UNSET)
 
+        max_concurrent_tokens = d.pop("max_concurrent_tokens", UNSET)
+
         max_position_exposure_sol = d.pop("max_position_exposure_sol", UNSET)
 
         min_buy_sol = d.pop("min_buy_sol", UNSET)
@@ -89,6 +113,7 @@ class PulsightInternalCoreDomainStrategyGlobalConstraints:
             max_buys_per_open_position=max_buys_per_open_position,
             max_buys_per_token_per_hour=max_buys_per_token_per_hour,
             max_buys_per_token_per_minute=max_buys_per_token_per_minute,
+            max_concurrent_tokens=max_concurrent_tokens,
             max_position_exposure_sol=max_position_exposure_sol,
             min_buy_sol=min_buy_sol,
         )
