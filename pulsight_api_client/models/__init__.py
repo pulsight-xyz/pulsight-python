@@ -11,6 +11,9 @@ from .internal_adapters_primary_http_handler_api_key_rename_request import (
 from .internal_adapters_primary_http_handler_backtest_settings_response import (
     InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponse,
 )
+from .internal_adapters_primary_http_handler_backtest_settings_response_max_window_secs import (
+    InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponseMaxWindowSecs,
+)
 from .internal_adapters_primary_http_handler_best_run_ref import (
     InternalAdaptersPrimaryHttpHandlerBestRunRef,
 )
@@ -378,6 +381,7 @@ __all__ = (
     "GetTradersByWalletAddressPnlSeriesWindow",
     "InternalAdaptersPrimaryHttpHandlerApiKeyRenameRequest",
     "InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponse",
+    "InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponseMaxWindowSecs",
     "InternalAdaptersPrimaryHttpHandlerBestRunRef",
     "InternalAdaptersPrimaryHttpHandlerDashboardStats",
     "InternalAdaptersPrimaryHttpHandlerErrorResponse",

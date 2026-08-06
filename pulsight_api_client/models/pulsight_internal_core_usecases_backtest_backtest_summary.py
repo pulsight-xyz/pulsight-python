@@ -55,6 +55,17 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             no trade contributed (e.g. an indicator-only strategy, or a run with no
             pool data). Additive JSONB fields — pre-existing rows decode as 0.
         our_median_price_impact_pct (float | Unset):
+        per_pool (bool | Unset): PerPool records whether the run simulated each market as an INDEPENDENT
+            instrument (req.PerPool). It is persisted because it is the LEDGER
+            BOUNDARY, and a reader cannot recover it from the trades: per-pool
+            fidelity stamps every fill with the pool it priced against in EVERY mode,
+            so a token that graduates mid-window (bonding curve → PumpSwap) carries
+            two pools on ONE merged ledger and looks exactly like two independent
+            instruments. The result page's per-token rollup used to guess from that
+            stamp and split a graduating token in two — the buys on a row reading
+            0.000, the realizing sells and all of the profit on another. Additive
+            JSONB field; pre-existing rows decode as false, which is what all but an
+            opt-in run was.
         realized_pnl_sol (float | Unset):
         roi_pct (float | Unset):
         simulation_assumptions (list[str] | Unset): SimulationAssumptions is free-text notes about which real-world
@@ -82,6 +93,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     max_drawdown_sol: float | Unset = UNSET
     our_avg_price_impact_pct: float | Unset = UNSET
     our_median_price_impact_pct: float | Unset = UNSET
+    per_pool: bool | Unset = UNSET
     realized_pnl_sol: float | Unset = UNSET
     roi_pct: float | Unset = UNSET
     simulation_assumptions: list[str] | Unset = UNSET
@@ -116,6 +128,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         our_avg_price_impact_pct = self.our_avg_price_impact_pct
 
         our_median_price_impact_pct = self.our_median_price_impact_pct
+
+        per_pool = self.per_pool
 
         realized_pnl_sol = self.realized_pnl_sol
 
@@ -160,6 +174,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["our_avg_price_impact_pct"] = our_avg_price_impact_pct
         if our_median_price_impact_pct is not UNSET:
             field_dict["our_median_price_impact_pct"] = our_median_price_impact_pct
+        if per_pool is not UNSET:
+            field_dict["per_pool"] = per_pool
         if realized_pnl_sol is not UNSET:
             field_dict["realized_pnl_sol"] = realized_pnl_sol
         if roi_pct is not UNSET:
@@ -223,6 +239,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         our_median_price_impact_pct = d.pop("our_median_price_impact_pct", UNSET)
 
+        per_pool = d.pop("per_pool", UNSET)
+
         realized_pnl_sol = d.pop("realized_pnl_sol", UNSET)
 
         roi_pct = d.pop("roi_pct", UNSET)
@@ -254,6 +272,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             max_drawdown_sol=max_drawdown_sol,
             our_avg_price_impact_pct=our_avg_price_impact_pct,
             our_median_price_impact_pct=our_median_price_impact_pct,
+            per_pool=per_pool,
             realized_pnl_sol=realized_pnl_sol,
             roi_pct=roi_pct,
             simulation_assumptions=simulation_assumptions,
