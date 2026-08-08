@@ -9,53 +9,49 @@ from typing_extensions import Self
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorOHLCVCandle")
+T = TypeVar("T", bound="InternalAdaptersPrimaryHttpHandlerOhlcvRow")
 
 
 @_attrs_define
-class PulsightInternalCoreDomainAggregatorOHLCVCandle:
+class InternalAdaptersPrimaryHttpHandlerOhlcvRow:
     """
     Attributes:
-        bucket (str | Unset):
         buy_volume_sol (float | Unset):
-        c (float | Unset):
-        h (float | Unset):
-        l (float | Unset):
-        mint (str | Unset):
-        o (float | Unset):
+        close (float | Unset):
+        high (float | Unset):
+        low (float | Unset):
+        open_ (float | Unset):
         pool_sol (float | Unset):
         sell_volume_sol (float | Unset):
         swap_count (int | Unset):
+        time (int | Unset):
         token_volume (float | Unset):
+        volume_sol (float | Unset): buy + sell
     """
 
-    bucket: str | Unset = UNSET
     buy_volume_sol: float | Unset = UNSET
-    c: float | Unset = UNSET
-    h: float | Unset = UNSET
-    l: float | Unset = UNSET
-    mint: str | Unset = UNSET
-    o: float | Unset = UNSET
+    close: float | Unset = UNSET
+    high: float | Unset = UNSET
+    low: float | Unset = UNSET
+    open_: float | Unset = UNSET
     pool_sol: float | Unset = UNSET
     sell_volume_sol: float | Unset = UNSET
     swap_count: int | Unset = UNSET
+    time: int | Unset = UNSET
     token_volume: float | Unset = UNSET
+    volume_sol: float | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        bucket = self.bucket
-
         buy_volume_sol = self.buy_volume_sol
 
-        c = self.c
+        close = self.close
 
-        h = self.h
+        high = self.high
 
-        l = self.l
+        low = self.low
 
-        mint = self.mint
-
-        o = self.o
+        open_ = self.open_
 
         pool_sol = self.pool_sol
 
@@ -63,52 +59,52 @@ class PulsightInternalCoreDomainAggregatorOHLCVCandle:
 
         swap_count = self.swap_count
 
+        time = self.time
+
         token_volume = self.token_volume
+
+        volume_sol = self.volume_sol
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if bucket is not UNSET:
-            field_dict["bucket"] = bucket
         if buy_volume_sol is not UNSET:
             field_dict["buy_volume_sol"] = buy_volume_sol
-        if c is not UNSET:
-            field_dict["c"] = c
-        if h is not UNSET:
-            field_dict["h"] = h
-        if l is not UNSET:
-            field_dict["l"] = l
-        if mint is not UNSET:
-            field_dict["mint"] = mint
-        if o is not UNSET:
-            field_dict["o"] = o
+        if close is not UNSET:
+            field_dict["close"] = close
+        if high is not UNSET:
+            field_dict["high"] = high
+        if low is not UNSET:
+            field_dict["low"] = low
+        if open_ is not UNSET:
+            field_dict["open"] = open_
         if pool_sol is not UNSET:
             field_dict["pool_sol"] = pool_sol
         if sell_volume_sol is not UNSET:
             field_dict["sell_volume_sol"] = sell_volume_sol
         if swap_count is not UNSET:
             field_dict["swap_count"] = swap_count
+        if time is not UNSET:
+            field_dict["time"] = time
         if token_volume is not UNSET:
             field_dict["token_volume"] = token_volume
+        if volume_sol is not UNSET:
+            field_dict["volume_sol"] = volume_sol
 
         return field_dict
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
-        bucket = d.pop("bucket", UNSET)
-
         buy_volume_sol = d.pop("buy_volume_sol", UNSET)
 
-        c = d.pop("c", UNSET)
+        close = d.pop("close", UNSET)
 
-        h = d.pop("h", UNSET)
+        high = d.pop("high", UNSET)
 
-        l = d.pop("l", UNSET)
+        low = d.pop("low", UNSET)
 
-        mint = d.pop("mint", UNSET)
-
-        o = d.pop("o", UNSET)
+        open_ = d.pop("open", UNSET)
 
         pool_sol = d.pop("pool_sol", UNSET)
 
@@ -116,24 +112,28 @@ class PulsightInternalCoreDomainAggregatorOHLCVCandle:
 
         swap_count = d.pop("swap_count", UNSET)
 
+        time = d.pop("time", UNSET)
+
         token_volume = d.pop("token_volume", UNSET)
 
-        pulsight_internal_core_domain_aggregator_ohlcv_candle = cls(
-            bucket=bucket,
+        volume_sol = d.pop("volume_sol", UNSET)
+
+        internal_adapters_primary_http_handler_ohlcv_row = cls(
             buy_volume_sol=buy_volume_sol,
-            c=c,
-            h=h,
-            l=l,
-            mint=mint,
-            o=o,
+            close=close,
+            high=high,
+            low=low,
+            open_=open_,
             pool_sol=pool_sol,
             sell_volume_sol=sell_volume_sol,
             swap_count=swap_count,
+            time=time,
             token_volume=token_volume,
+            volume_sol=volume_sol,
         )
 
-        pulsight_internal_core_domain_aggregator_ohlcv_candle.additional_properties = d
-        return pulsight_internal_core_domain_aggregator_ohlcv_candle
+        internal_adapters_primary_http_handler_ohlcv_row.additional_properties = d
+        return internal_adapters_primary_http_handler_ohlcv_row
 
     @property
     def additional_keys(self) -> list[str]:

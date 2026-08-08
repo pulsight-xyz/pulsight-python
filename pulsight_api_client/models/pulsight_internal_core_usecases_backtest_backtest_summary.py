@@ -66,6 +66,27 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             0.000, the realizing sells and all of the profit on another. Additive
             JSONB field; pre-existing rows decode as false, which is what all but an
             opt-in run was.
+        positions_opened_unmarked (int | Unset): PositionsOpenedUnmarked counts positions the run opened while it had NO
+            price to mark them with — so for as long as that lasted, every
+            price-based exit rule (take-profit, stop, trailing stop, max-drawdown)
+            evaluated as undefined and could not fire.
+
+            It happens because a copy fills at the price the TARGET left behind, on
+            the pool THEY traded, while the position is marked against the run's own
+            candle stream. Normally those are the same market. They are not when the
+            fill lands somewhere the stream does not cover — a parallel venue, or a
+            market whose candles simply have not started yet.
+
+            Like CopiesSkippedUnpriced this is a COVERAGE number, not a result: an
+            exit rule that could not be evaluated did not decline to fire, it never
+            ran, and the position rode on until something else closed it. A non-zero
+            value means the run UNDER-represents its own exit rules — read the ROI
+            with that in mind.
+
+            Mid-window graduations used to dominate this and no longer do: the
+            candle stream now merges a token's whole migration lineage, so a
+            bonding-curve entry is marked from the moment it opens. Additive JSONB
+            field — old rows decode as 0.
         realized_pnl_sol (float | Unset):
         roi_pct (float | Unset):
         simulation_assumptions (list[str] | Unset): SimulationAssumptions is free-text notes about which real-world
@@ -94,6 +115,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     our_avg_price_impact_pct: float | Unset = UNSET
     our_median_price_impact_pct: float | Unset = UNSET
     per_pool: bool | Unset = UNSET
+    positions_opened_unmarked: int | Unset = UNSET
     realized_pnl_sol: float | Unset = UNSET
     roi_pct: float | Unset = UNSET
     simulation_assumptions: list[str] | Unset = UNSET
@@ -130,6 +152,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         our_median_price_impact_pct = self.our_median_price_impact_pct
 
         per_pool = self.per_pool
+
+        positions_opened_unmarked = self.positions_opened_unmarked
 
         realized_pnl_sol = self.realized_pnl_sol
 
@@ -176,6 +200,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["our_median_price_impact_pct"] = our_median_price_impact_pct
         if per_pool is not UNSET:
             field_dict["per_pool"] = per_pool
+        if positions_opened_unmarked is not UNSET:
+            field_dict["positions_opened_unmarked"] = positions_opened_unmarked
         if realized_pnl_sol is not UNSET:
             field_dict["realized_pnl_sol"] = realized_pnl_sol
         if roi_pct is not UNSET:
@@ -241,6 +267,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         per_pool = d.pop("per_pool", UNSET)
 
+        positions_opened_unmarked = d.pop("positions_opened_unmarked", UNSET)
+
         realized_pnl_sol = d.pop("realized_pnl_sol", UNSET)
 
         roi_pct = d.pop("roi_pct", UNSET)
@@ -273,6 +301,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             our_avg_price_impact_pct=our_avg_price_impact_pct,
             our_median_price_impact_pct=our_median_price_impact_pct,
             per_pool=per_pool,
+            positions_opened_unmarked=positions_opened_unmarked,
             realized_pnl_sol=realized_pnl_sol,
             roi_pct=roi_pct,
             simulation_assumptions=simulation_assumptions,

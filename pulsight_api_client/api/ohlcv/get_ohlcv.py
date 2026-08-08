@@ -8,8 +8,8 @@ from ...client import AuthenticatedClient, Client
 from ...models.internal_adapters_primary_http_handler_error_response import (
     InternalAdaptersPrimaryHttpHandlerErrorResponse,
 )
-from ...models.pulsight_internal_core_domain_aggregator_ohlcv_candle import (
-    PulsightInternalCoreDomainAggregatorOHLCVCandle,
+from ...models.internal_adapters_primary_http_handler_ohlcv_row import (
+    InternalAdaptersPrimaryHttpHandlerOhlcvRow,
 )
 from ...types import UNSET, Response, Unset
 
@@ -62,17 +62,15 @@ def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
+    | list[InternalAdaptersPrimaryHttpHandlerOhlcvRow]
     | None
 ):
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
-            response_200_item = (
-                PulsightInternalCoreDomainAggregatorOHLCVCandle.from_dict(
-                    response_200_item_data
-                )
+            response_200_item = InternalAdaptersPrimaryHttpHandlerOhlcvRow.from_dict(
+                response_200_item_data
             )
 
             response_200.append(response_200_item)
@@ -110,7 +108,7 @@ def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
+    | list[InternalAdaptersPrimaryHttpHandlerOhlcvRow]
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -134,7 +132,7 @@ def sync_detailed(
     remove_outliers: bool | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
+    | list[InternalAdaptersPrimaryHttpHandlerOhlcvRow]
 ]:
     """List OHLCV Candles
 
@@ -157,7 +155,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[InternalAdaptersPrimaryHttpHandlerOhlcvRow]]
     """
 
     kwargs = _get_kwargs(
@@ -193,7 +191,7 @@ def sync(
     remove_outliers: bool | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
+    | list[InternalAdaptersPrimaryHttpHandlerOhlcvRow]
     | None
 ):
     """List OHLCV Candles
@@ -217,7 +215,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[InternalAdaptersPrimaryHttpHandlerOhlcvRow]
     """
 
     return sync_detailed(
@@ -248,7 +246,7 @@ async def asyncio_detailed(
     remove_outliers: bool | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
+    | list[InternalAdaptersPrimaryHttpHandlerOhlcvRow]
 ]:
     """List OHLCV Candles
 
@@ -271,7 +269,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[InternalAdaptersPrimaryHttpHandlerOhlcvRow]]
     """
 
     kwargs = _get_kwargs(
@@ -305,7 +303,7 @@ async def asyncio(
     remove_outliers: bool | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
+    | list[InternalAdaptersPrimaryHttpHandlerOhlcvRow]
     | None
 ):
     """List OHLCV Candles
@@ -329,7 +327,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorOHLCVCandle]
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[InternalAdaptersPrimaryHttpHandlerOhlcvRow]
     """
 
     return (
