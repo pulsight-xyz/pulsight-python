@@ -218,6 +218,9 @@ from .pulsight_internal_core_domain_aggregator_trader_behavioral_stats import (
 from .pulsight_internal_core_domain_aggregator_trader_period_stats_row import (
     PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow,
 )
+from .pulsight_internal_core_domain_aggregator_trader_price_impact_stats import (
+    PulsightInternalCoreDomainAggregatorTraderPriceImpactStats,
+)
 from .pulsight_internal_core_domain_aggregator_window import (
     PulsightInternalCoreDomainAggregatorWindow,
 )
@@ -483,6 +486,7 @@ __all__ = (
     "PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint",
     "PulsightInternalCoreDomainAggregatorTraderBehavioralStats",
     "PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow",
+    "PulsightInternalCoreDomainAggregatorTraderPriceImpactStats",
     "PulsightInternalCoreDomainAggregatorWindow",
     "PulsightInternalCoreDomainApikeyKey",
     "PulsightInternalCoreDomainApikeyKind",
