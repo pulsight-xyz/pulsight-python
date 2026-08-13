@@ -17,6 +17,12 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
     """
     Attributes:
         dex (str | Unset):
+        is_default (bool | Unset): IsDefault marks the mint's default market — the pool an unpinned
+            /api/ohlcv chart resolves to (lifetime-dominant, recency-aware; one
+            definition, server-side: defaultMarketPool). Resolved independently
+            of the requested window, so a listing may carry no flagged row when
+            the default market is idle (short windows) or older than swap
+            retention. Resolve defaults from `window=all`.
         last_swap_ts (str | Unset):
         pool (str | Unset):
         sol_volume_lamports (int | Unset):
@@ -25,6 +31,7 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
     """
 
     dex: str | Unset = UNSET
+    is_default: bool | Unset = UNSET
     last_swap_ts: str | Unset = UNSET
     pool: str | Unset = UNSET
     sol_volume_lamports: int | Unset = UNSET
@@ -34,6 +41,8 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
 
     def to_dict(self) -> dict[str, Any]:
         dex = self.dex
+
+        is_default = self.is_default
 
         last_swap_ts = self.last_swap_ts
 
@@ -50,6 +59,8 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
         field_dict.update({})
         if dex is not UNSET:
             field_dict["dex"] = dex
+        if is_default is not UNSET:
+            field_dict["is_default"] = is_default
         if last_swap_ts is not UNSET:
             field_dict["last_swap_ts"] = last_swap_ts
         if pool is not UNSET:
@@ -68,6 +79,8 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
         d = dict(src_dict)
         dex = d.pop("dex", UNSET)
 
+        is_default = d.pop("is_default", UNSET)
+
         last_swap_ts = d.pop("last_swap_ts", UNSET)
 
         pool = d.pop("pool", UNSET)
@@ -80,6 +93,7 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
 
         pulsight_internal_core_domain_aggregator_mint_market = cls(
             dex=dex,
+            is_default=is_default,
             last_swap_ts=last_swap_ts,
             pool=pool,
             sol_volume_lamports=sol_volume_lamports,
