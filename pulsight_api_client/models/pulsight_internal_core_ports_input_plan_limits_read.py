@@ -19,6 +19,9 @@ class PulsightInternalCorePortsInputPlanLimitsRead:
         can_use_tag_event_filters (bool | Unset):
         can_view_full_data (bool | Unset):
         max_filters (int | Unset):
+        max_strategies (int | Unset): MaxStrategies is the strategy cap, 0 meaning UNLIMITED (see
+            subscription.PlanLimits.MaxStrategies). It carries the admin's
+            `tier_plan_limits` override, not the compiled-in default.
         max_webhooks (int | Unset):
         mcp_access (bool | Unset):
     """
@@ -26,6 +29,7 @@ class PulsightInternalCorePortsInputPlanLimitsRead:
     can_use_tag_event_filters: bool | Unset = UNSET
     can_view_full_data: bool | Unset = UNSET
     max_filters: int | Unset = UNSET
+    max_strategies: int | Unset = UNSET
     max_webhooks: int | Unset = UNSET
     mcp_access: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -36,6 +40,8 @@ class PulsightInternalCorePortsInputPlanLimitsRead:
         can_view_full_data = self.can_view_full_data
 
         max_filters = self.max_filters
+
+        max_strategies = self.max_strategies
 
         max_webhooks = self.max_webhooks
 
@@ -50,6 +56,8 @@ class PulsightInternalCorePortsInputPlanLimitsRead:
             field_dict["can_view_full_data"] = can_view_full_data
         if max_filters is not UNSET:
             field_dict["max_filters"] = max_filters
+        if max_strategies is not UNSET:
+            field_dict["max_strategies"] = max_strategies
         if max_webhooks is not UNSET:
             field_dict["max_webhooks"] = max_webhooks
         if mcp_access is not UNSET:
@@ -66,6 +74,8 @@ class PulsightInternalCorePortsInputPlanLimitsRead:
 
         max_filters = d.pop("max_filters", UNSET)
 
+        max_strategies = d.pop("max_strategies", UNSET)
+
         max_webhooks = d.pop("max_webhooks", UNSET)
 
         mcp_access = d.pop("mcp_access", UNSET)
@@ -74,6 +84,7 @@ class PulsightInternalCorePortsInputPlanLimitsRead:
             can_use_tag_event_filters=can_use_tag_event_filters,
             can_view_full_data=can_view_full_data,
             max_filters=max_filters,
+            max_strategies=max_strategies,
             max_webhooks=max_webhooks,
             mcp_access=mcp_access,
         )

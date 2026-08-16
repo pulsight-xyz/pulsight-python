@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -74,6 +74,16 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             nil with AuthoritiesObservedAt set = renounced; nil with
             AuthoritiesObservedAt nil = unknown (not yet observed).
         name (str | Unset):
+        price_sparkline (list[float] | Unset): PriceSparkline is the mint's last-24h price shape: WSOL-quoted closes
+            bucketed at priceSparklineBucketMin, oldest→newest, at most
+            priceSparklineMaxPoints values. It rides the SAME scan as PriceUsd, so
+            it carries the same denomination caveat: WSOL-quoted only, which is why
+            a USDC-only mint has none rather than a series in another unit (mixing
+            quotes would draw a step that never happened). Values are raw SOL per
+            whole token — the client normalises to its own min/max, so the unit only
+            has to be CONSISTENT within the series. Omitted below 2 points: one
+            point is not a line, and a listing-wide 24h span is what makes the shape
+            comparable row to row (a mint minutes old legitimately has none yet).
         price_usd (float | Unset): PriceUsd is the latest price per WHOLE token in USD, derived from the
             dominant WSOL-quoted OHLCV close × the SOL/USD reference rate. nil
             when there's no WSOL pool, decimals are unknown, or no SOL/USD ref.
@@ -131,6 +141,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
     mint: str | Unset = UNSET
     mint_authority: str | Unset = UNSET
     name: str | Unset = UNSET
+    price_sparkline: list[float] | Unset = UNSET
     price_usd: float | Unset = UNSET
     risk_score: int | Unset = UNSET
     risk_verdict: str | Unset = UNSET
@@ -197,6 +208,10 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         mint_authority = self.mint_authority
 
         name = self.name
+
+        price_sparkline: list[float] | Unset = UNSET
+        if not isinstance(self.price_sparkline, Unset):
+            price_sparkline = self.price_sparkline
 
         price_usd = self.price_usd
 
@@ -267,6 +282,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             field_dict["mint_authority"] = mint_authority
         if name is not UNSET:
             field_dict["name"] = name
+        if price_sparkline is not UNSET:
+            field_dict["price_sparkline"] = price_sparkline
         if price_usd is not UNSET:
             field_dict["price_usd"] = price_usd
         if risk_score is not UNSET:
@@ -393,6 +410,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         name = d.pop("name", UNSET)
 
+        price_sparkline = cast(list[float], d.pop("price_sparkline", UNSET))
+
         price_usd = d.pop("price_usd", UNSET)
 
         risk_score = d.pop("risk_score", UNSET)
@@ -443,6 +462,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             mint=mint,
             mint_authority=mint_authority,
             name=name,
+            price_sparkline=price_sparkline,
             price_usd=price_usd,
             risk_score=risk_score,
             risk_verdict=risk_verdict,
