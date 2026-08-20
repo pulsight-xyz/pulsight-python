@@ -134,9 +134,6 @@ from .pulsight_internal_core_domain_aggregator_heatmap_response import (
 from .pulsight_internal_core_domain_aggregator_holder_entry import (
     PulsightInternalCoreDomainAggregatorHolderEntry,
 )
-from .pulsight_internal_core_domain_aggregator_jito_efficiency_row import (
-    PulsightInternalCoreDomainAggregatorJitoEfficiencyRow,
-)
 from .pulsight_internal_core_domain_aggregator_lp_event import (
     PulsightInternalCoreDomainAggregatorLpEvent,
 )
@@ -440,7 +437,6 @@ __all__ = (
     "PulsightInternalCoreDomainAggregatorGlobalTipStats",
     "PulsightInternalCoreDomainAggregatorHeatmapResponse",
     "PulsightInternalCoreDomainAggregatorHolderEntry",
-    "PulsightInternalCoreDomainAggregatorJitoEfficiencyRow",
     "PulsightInternalCoreDomainAggregatorLpEvent",
     "PulsightInternalCoreDomainAggregatorLpStat",
     "PulsightInternalCoreDomainAggregatorMarketStat",

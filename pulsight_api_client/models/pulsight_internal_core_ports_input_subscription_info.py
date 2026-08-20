@@ -28,6 +28,9 @@ T = TypeVar("T", bound="PulsightInternalCorePortsInputSubscriptionInfo")
 class PulsightInternalCorePortsInputSubscriptionInfo:
     """
     Attributes:
+        cancel_at (str | Unset): CancelAt is set while the provider-linked subscription is scheduled to
+            cancel at the end of the paid period (status stays "active"; the user
+            can resume). Absent when renewing normally or already canceled.
         expires_at (str | Unset):
         interval (str | Unset):
         is_active (bool | Unset):
@@ -43,6 +46,7 @@ class PulsightInternalCorePortsInputSubscriptionInfo:
         usage (PulsightInternalCorePortsInputUsageCounts | Unset):
     """
 
+    cancel_at: str | Unset = UNSET
     expires_at: str | Unset = UNSET
     interval: str | Unset = UNSET
     is_active: bool | Unset = UNSET
@@ -57,6 +61,8 @@ class PulsightInternalCorePortsInputSubscriptionInfo:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        cancel_at = self.cancel_at
+
         expires_at = self.expires_at
 
         interval = self.interval
@@ -88,6 +94,8 @@ class PulsightInternalCorePortsInputSubscriptionInfo:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if cancel_at is not UNSET:
+            field_dict["cancel_at"] = cancel_at
         if expires_at is not UNSET:
             field_dict["expires_at"] = expires_at
         if interval is not UNSET:
@@ -123,6 +131,8 @@ class PulsightInternalCorePortsInputSubscriptionInfo:
         )
 
         d = dict(src_dict)
+        cancel_at = d.pop("cancel_at", UNSET)
+
         expires_at = d.pop("expires_at", UNSET)
 
         interval = d.pop("interval", UNSET)
@@ -161,6 +171,7 @@ class PulsightInternalCorePortsInputSubscriptionInfo:
             usage = PulsightInternalCorePortsInputUsageCounts.from_dict(_usage)
 
         pulsight_internal_core_ports_input_subscription_info = cls(
+            cancel_at=cancel_at,
             expires_at=expires_at,
             interval=interval,
             is_active=is_active,
