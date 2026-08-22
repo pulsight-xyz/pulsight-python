@@ -215,6 +215,9 @@ from .pulsight_internal_core_domain_aggregator_trader_period_stats_row import (
 from .pulsight_internal_core_domain_aggregator_trader_price_impact_stats import (
     PulsightInternalCoreDomainAggregatorTraderPriceImpactStats,
 )
+from .pulsight_internal_core_domain_aggregator_trader_reliability_stats import (
+    PulsightInternalCoreDomainAggregatorTraderReliabilityStats,
+)
 from .pulsight_internal_core_domain_aggregator_window import (
     PulsightInternalCoreDomainAggregatorWindow,
 )
@@ -464,6 +467,7 @@ __all__ = (
     "PulsightInternalCoreDomainAggregatorTraderBehavioralStats",
     "PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow",
     "PulsightInternalCoreDomainAggregatorTraderPriceImpactStats",
+    "PulsightInternalCoreDomainAggregatorTraderReliabilityStats",
     "PulsightInternalCoreDomainAggregatorWindow",
     "PulsightInternalCoreDomainCreditPool",
     "PulsightInternalCoreDomainCreditReason",

@@ -24,8 +24,14 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             sells: countIf(sold_without_buy) and countIf(sold_more_than_bought)
             over `swaps`. Replaces the retired phantom proceeds split (CA
             migration 000018_remove_phantom_tracking).
+        failed_cost_lamports (int | Unset): FailedCostLamports — fees burned on failed venue-mentioning txs plus
+            the fees+tips of landed no-CPI arb probes, from the failed-tx rollups
+            (CA 000094). 0 when the ledger isn't populated for the window.
         loss_profit (int | Unset):
         loss_sells (int | Unset):
+        net_realized_profit (int | Unset): NetRealizedProfit = RealizedProfit − TotalFees − TotalTips −
+            FailedCostLamports: what the wallet actually kept. This is the
+            HEADLINE PnL; RealizedProfit stays as the flat/gross component.
         realized_profit (int | Unset):
         sell_amount_lamports (int | Unset):
         sold_gt_bought_sells (int | Unset):
@@ -35,8 +41,14 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             toInt64() in SQL, and clickhouse-go scans an Int64 column only into
             *int64 (it rejects *int with code-typed "try using *int64"). JSON
             serialisation is identical either way.
-        total_fees (int | Unset):
+        total_fees (int | Unset): TotalFees is the window's tx fees (base + priority) counted ONCE PER
+            TRANSACTION: sum(priority_fee_lamports) + 5000 × uniq(signature).
+            `swaps.fee` itself is stamped on every trade row of a tx, so the old
+            sumIf(fee) double-counted multi-trade (arb) txs; priority/tips are
+            first-row-only stamped, so their plain sums are exact and only the
+            5000-lamport base rides the (near-exact) uniq count.
         total_sells (int | Unset):
+        total_tips (int | Unset): TotalTips — builder/MEV tips paid on the window's successful txs.
         trader (str | Unset):
         win_profit (int | Unset):
         win_sells (int | Unset):
@@ -48,8 +60,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
     buy_amount_lamports: int | Unset = UNSET
     buy_sell_ratio: float | Unset = UNSET
     didnt_buy_sells: int | Unset = UNSET
+    failed_cost_lamports: int | Unset = UNSET
     loss_profit: int | Unset = UNSET
     loss_sells: int | Unset = UNSET
+    net_realized_profit: int | Unset = UNSET
     realized_profit: int | Unset = UNSET
     sell_amount_lamports: int | Unset = UNSET
     sold_gt_bought_sells: int | Unset = UNSET
@@ -58,6 +72,7 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
     total_buys: int | Unset = UNSET
     total_fees: int | Unset = UNSET
     total_sells: int | Unset = UNSET
+    total_tips: int | Unset = UNSET
     trader: str | Unset = UNSET
     win_profit: int | Unset = UNSET
     win_sells: int | Unset = UNSET
@@ -74,9 +89,13 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
 
         didnt_buy_sells = self.didnt_buy_sells
 
+        failed_cost_lamports = self.failed_cost_lamports
+
         loss_profit = self.loss_profit
 
         loss_sells = self.loss_sells
+
+        net_realized_profit = self.net_realized_profit
 
         realized_profit = self.realized_profit
 
@@ -93,6 +112,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         total_fees = self.total_fees
 
         total_sells = self.total_sells
+
+        total_tips = self.total_tips
 
         trader = self.trader
 
@@ -115,10 +136,14 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             field_dict["buy_sell_ratio"] = buy_sell_ratio
         if didnt_buy_sells is not UNSET:
             field_dict["didnt_buy_sells"] = didnt_buy_sells
+        if failed_cost_lamports is not UNSET:
+            field_dict["failed_cost_lamports"] = failed_cost_lamports
         if loss_profit is not UNSET:
             field_dict["loss_profit"] = loss_profit
         if loss_sells is not UNSET:
             field_dict["loss_sells"] = loss_sells
+        if net_realized_profit is not UNSET:
+            field_dict["net_realized_profit"] = net_realized_profit
         if realized_profit is not UNSET:
             field_dict["realized_profit"] = realized_profit
         if sell_amount_lamports is not UNSET:
@@ -135,6 +160,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             field_dict["total_fees"] = total_fees
         if total_sells is not UNSET:
             field_dict["total_sells"] = total_sells
+        if total_tips is not UNSET:
+            field_dict["total_tips"] = total_tips
         if trader is not UNSET:
             field_dict["trader"] = trader
         if win_profit is not UNSET:
@@ -159,9 +186,13 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
 
         didnt_buy_sells = d.pop("didnt_buy_sells", UNSET)
 
+        failed_cost_lamports = d.pop("failed_cost_lamports", UNSET)
+
         loss_profit = d.pop("loss_profit", UNSET)
 
         loss_sells = d.pop("loss_sells", UNSET)
+
+        net_realized_profit = d.pop("net_realized_profit", UNSET)
 
         realized_profit = d.pop("realized_profit", UNSET)
 
@@ -179,6 +210,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
 
         total_sells = d.pop("total_sells", UNSET)
 
+        total_tips = d.pop("total_tips", UNSET)
+
         trader = d.pop("trader", UNSET)
 
         win_profit = d.pop("win_profit", UNSET)
@@ -194,8 +227,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             buy_amount_lamports=buy_amount_lamports,
             buy_sell_ratio=buy_sell_ratio,
             didnt_buy_sells=didnt_buy_sells,
+            failed_cost_lamports=failed_cost_lamports,
             loss_profit=loss_profit,
             loss_sells=loss_sells,
+            net_realized_profit=net_realized_profit,
             realized_profit=realized_profit,
             sell_amount_lamports=sell_amount_lamports,
             sold_gt_bought_sells=sold_gt_bought_sells,
@@ -204,6 +239,7 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             total_buys=total_buys,
             total_fees=total_fees,
             total_sells=total_sells,
+            total_tips=total_tips,
             trader=trader,
             win_profit=win_profit,
             win_sells=win_sells,

@@ -53,6 +53,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             observed buy of the mint / sells exceeding the observed bought
             balance, scoped to the window.
         dust_tx_ratio (float | Unset):
+        failed_txs_30d (int | Unset):
+        failed_txs_7d (int | Unset):
         has_avatar (bool | Unset):
         holding_pnl_lamports (float | Unset): HoldingPnlLamports is the wallet's current unrealised PnL across
             all open positions, in lamports. Nil when CA has no live price
@@ -62,6 +64,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         label (str | Unset): Label/LabelType identify a known wallet (CEX/fee/KOL/...) from the
             known_addresses registry; empty when the wallet isn't labelled.
         label_type (str | Unset):
+        landed_txs_30d (int | Unset):
+        landed_txs_7d (int | Unset):
         last_active_timestamp (int | Unset):
         median_buy_count_per_token (float | Unset):
         median_first_buy_reactivity (float | Unset):
@@ -71,6 +75,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         median_sell_count_per_token (float | Unset):
         mm_score (int | Unset):
         name (str | Unset):
+        net_profit_30d (float | Unset):
+        net_profit_7d (float | Unset): Net-of-costs figures — see trader.Trader for the definitions.
         oldest_trade_at (int | Unset):
         periods (list[PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow] | Unset): Periods is one row per
             canonical UTC-aligned window (1d, 7d, 30d,
@@ -107,6 +113,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         sol_balance (float | Unset):
         sold_gt_bought_sells_30d (int | Unset):
         sold_gt_bought_sells_7d (int | Unset):
+        spam_rate_30d (float | Unset):
+        spam_rate_7d (float | Unset):
+        success_rate_30d (float | Unset):
+        success_rate_7d (float | Unset):
         tags (list[str] | Unset):
         token_num_30d (int | Unset):
         token_num_7d (int | Unset):
@@ -115,6 +125,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             graduated). Inlined from the folded snapshot; nil when the snapshot
             wasn't inlined. Mirror the creator_tokens_* leaderboard filters.
         tokens_graduated (int | Unset):
+        total_costs_30d (float | Unset):
+        total_costs_7d (float | Unset):
         total_profit (float | Unset):
         total_profit_30d (float | Unset):
         total_profit_7d (float | Unset):
@@ -167,12 +179,16 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     didnt_buy_sells_30d: int | Unset = UNSET
     didnt_buy_sells_7d: int | Unset = UNSET
     dust_tx_ratio: float | Unset = UNSET
+    failed_txs_30d: int | Unset = UNSET
+    failed_txs_7d: int | Unset = UNSET
     has_avatar: bool | Unset = UNSET
     holding_pnl_lamports: float | Unset = UNSET
     id: str | Unset = UNSET
     is_favorite: bool | Unset = UNSET
     label: str | Unset = UNSET
     label_type: str | Unset = UNSET
+    landed_txs_30d: int | Unset = UNSET
+    landed_txs_7d: int | Unset = UNSET
     last_active_timestamp: int | Unset = UNSET
     median_buy_count_per_token: float | Unset = UNSET
     median_first_buy_reactivity: float | Unset = UNSET
@@ -182,6 +198,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     median_sell_count_per_token: float | Unset = UNSET
     mm_score: int | Unset = UNSET
     name: str | Unset = UNSET
+    net_profit_30d: float | Unset = UNSET
+    net_profit_7d: float | Unset = UNSET
     oldest_trade_at: int | Unset = UNSET
     periods: list[PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow] | Unset = (
         UNSET
@@ -212,11 +230,17 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     sol_balance: float | Unset = UNSET
     sold_gt_bought_sells_30d: int | Unset = UNSET
     sold_gt_bought_sells_7d: int | Unset = UNSET
+    spam_rate_30d: float | Unset = UNSET
+    spam_rate_7d: float | Unset = UNSET
+    success_rate_30d: float | Unset = UNSET
+    success_rate_7d: float | Unset = UNSET
     tags: list[str] | Unset = UNSET
     token_num_30d: int | Unset = UNSET
     token_num_7d: int | Unset = UNSET
     tokens_created: int | Unset = UNSET
     tokens_graduated: int | Unset = UNSET
+    total_costs_30d: float | Unset = UNSET
+    total_costs_7d: float | Unset = UNSET
     total_profit: float | Unset = UNSET
     total_profit_30d: float | Unset = UNSET
     total_profit_7d: float | Unset = UNSET
@@ -299,6 +323,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         dust_tx_ratio = self.dust_tx_ratio
 
+        failed_txs_30d = self.failed_txs_30d
+
+        failed_txs_7d = self.failed_txs_7d
+
         has_avatar = self.has_avatar
 
         holding_pnl_lamports = self.holding_pnl_lamports
@@ -310,6 +338,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         label = self.label
 
         label_type = self.label_type
+
+        landed_txs_30d = self.landed_txs_30d
+
+        landed_txs_7d = self.landed_txs_7d
 
         last_active_timestamp = self.last_active_timestamp
 
@@ -328,6 +360,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         mm_score = self.mm_score
 
         name = self.name
+
+        net_profit_30d = self.net_profit_30d
+
+        net_profit_7d = self.net_profit_7d
 
         oldest_trade_at = self.oldest_trade_at
 
@@ -394,6 +430,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         sold_gt_bought_sells_7d = self.sold_gt_bought_sells_7d
 
+        spam_rate_30d = self.spam_rate_30d
+
+        spam_rate_7d = self.spam_rate_7d
+
+        success_rate_30d = self.success_rate_30d
+
+        success_rate_7d = self.success_rate_7d
+
         tags: list[str] | Unset = UNSET
         if not isinstance(self.tags, Unset):
             tags = self.tags
@@ -405,6 +449,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         tokens_created = self.tokens_created
 
         tokens_graduated = self.tokens_graduated
+
+        total_costs_30d = self.total_costs_30d
+
+        total_costs_7d = self.total_costs_7d
 
         total_profit = self.total_profit
 
@@ -493,6 +541,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["didnt_buy_sells_7d"] = didnt_buy_sells_7d
         if dust_tx_ratio is not UNSET:
             field_dict["dust_tx_ratio"] = dust_tx_ratio
+        if failed_txs_30d is not UNSET:
+            field_dict["failed_txs_30d"] = failed_txs_30d
+        if failed_txs_7d is not UNSET:
+            field_dict["failed_txs_7d"] = failed_txs_7d
         if has_avatar is not UNSET:
             field_dict["has_avatar"] = has_avatar
         if holding_pnl_lamports is not UNSET:
@@ -505,6 +557,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["label"] = label
         if label_type is not UNSET:
             field_dict["label_type"] = label_type
+        if landed_txs_30d is not UNSET:
+            field_dict["landed_txs_30d"] = landed_txs_30d
+        if landed_txs_7d is not UNSET:
+            field_dict["landed_txs_7d"] = landed_txs_7d
         if last_active_timestamp is not UNSET:
             field_dict["last_active_timestamp"] = last_active_timestamp
         if median_buy_count_per_token is not UNSET:
@@ -523,6 +579,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["mm_score"] = mm_score
         if name is not UNSET:
             field_dict["name"] = name
+        if net_profit_30d is not UNSET:
+            field_dict["net_profit_30d"] = net_profit_30d
+        if net_profit_7d is not UNSET:
+            field_dict["net_profit_7d"] = net_profit_7d
         if oldest_trade_at is not UNSET:
             field_dict["oldest_trade_at"] = oldest_trade_at
         if periods is not UNSET:
@@ -579,6 +639,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["sold_gt_bought_sells_30d"] = sold_gt_bought_sells_30d
         if sold_gt_bought_sells_7d is not UNSET:
             field_dict["sold_gt_bought_sells_7d"] = sold_gt_bought_sells_7d
+        if spam_rate_30d is not UNSET:
+            field_dict["spam_rate_30d"] = spam_rate_30d
+        if spam_rate_7d is not UNSET:
+            field_dict["spam_rate_7d"] = spam_rate_7d
+        if success_rate_30d is not UNSET:
+            field_dict["success_rate_30d"] = success_rate_30d
+        if success_rate_7d is not UNSET:
+            field_dict["success_rate_7d"] = success_rate_7d
         if tags is not UNSET:
             field_dict["tags"] = tags
         if token_num_30d is not UNSET:
@@ -589,6 +657,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["tokens_created"] = tokens_created
         if tokens_graduated is not UNSET:
             field_dict["tokens_graduated"] = tokens_graduated
+        if total_costs_30d is not UNSET:
+            field_dict["total_costs_30d"] = total_costs_30d
+        if total_costs_7d is not UNSET:
+            field_dict["total_costs_7d"] = total_costs_7d
         if total_profit is not UNSET:
             field_dict["total_profit"] = total_profit
         if total_profit_30d is not UNSET:
@@ -735,6 +807,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         dust_tx_ratio = d.pop("dust_tx_ratio", UNSET)
 
+        failed_txs_30d = d.pop("failed_txs_30d", UNSET)
+
+        failed_txs_7d = d.pop("failed_txs_7d", UNSET)
+
         has_avatar = d.pop("has_avatar", UNSET)
 
         holding_pnl_lamports = d.pop("holding_pnl_lamports", UNSET)
@@ -746,6 +822,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         label = d.pop("label", UNSET)
 
         label_type = d.pop("label_type", UNSET)
+
+        landed_txs_30d = d.pop("landed_txs_30d", UNSET)
+
+        landed_txs_7d = d.pop("landed_txs_7d", UNSET)
 
         last_active_timestamp = d.pop("last_active_timestamp", UNSET)
 
@@ -764,6 +844,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         mm_score = d.pop("mm_score", UNSET)
 
         name = d.pop("name", UNSET)
+
+        net_profit_30d = d.pop("net_profit_30d", UNSET)
+
+        net_profit_7d = d.pop("net_profit_7d", UNSET)
 
         oldest_trade_at = d.pop("oldest_trade_at", UNSET)
 
@@ -834,6 +918,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         sold_gt_bought_sells_7d = d.pop("sold_gt_bought_sells_7d", UNSET)
 
+        spam_rate_30d = d.pop("spam_rate_30d", UNSET)
+
+        spam_rate_7d = d.pop("spam_rate_7d", UNSET)
+
+        success_rate_30d = d.pop("success_rate_30d", UNSET)
+
+        success_rate_7d = d.pop("success_rate_7d", UNSET)
+
         tags = cast(list[str], d.pop("tags", UNSET))
 
         token_num_30d = d.pop("token_num_30d", UNSET)
@@ -843,6 +935,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         tokens_created = d.pop("tokens_created", UNSET)
 
         tokens_graduated = d.pop("tokens_graduated", UNSET)
+
+        total_costs_30d = d.pop("total_costs_30d", UNSET)
+
+        total_costs_7d = d.pop("total_costs_7d", UNSET)
 
         total_profit = d.pop("total_profit", UNSET)
 
@@ -906,12 +1002,16 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             didnt_buy_sells_30d=didnt_buy_sells_30d,
             didnt_buy_sells_7d=didnt_buy_sells_7d,
             dust_tx_ratio=dust_tx_ratio,
+            failed_txs_30d=failed_txs_30d,
+            failed_txs_7d=failed_txs_7d,
             has_avatar=has_avatar,
             holding_pnl_lamports=holding_pnl_lamports,
             id=id,
             is_favorite=is_favorite,
             label=label,
             label_type=label_type,
+            landed_txs_30d=landed_txs_30d,
+            landed_txs_7d=landed_txs_7d,
             last_active_timestamp=last_active_timestamp,
             median_buy_count_per_token=median_buy_count_per_token,
             median_first_buy_reactivity=median_first_buy_reactivity,
@@ -921,6 +1021,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             median_sell_count_per_token=median_sell_count_per_token,
             mm_score=mm_score,
             name=name,
+            net_profit_30d=net_profit_30d,
+            net_profit_7d=net_profit_7d,
             oldest_trade_at=oldest_trade_at,
             periods=periods,
             pnl_0x_2x_num_30d=pnl_0x_2x_num_30d,
@@ -949,11 +1051,17 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             sol_balance=sol_balance,
             sold_gt_bought_sells_30d=sold_gt_bought_sells_30d,
             sold_gt_bought_sells_7d=sold_gt_bought_sells_7d,
+            spam_rate_30d=spam_rate_30d,
+            spam_rate_7d=spam_rate_7d,
+            success_rate_30d=success_rate_30d,
+            success_rate_7d=success_rate_7d,
             tags=tags,
             token_num_30d=token_num_30d,
             token_num_7d=token_num_7d,
             tokens_created=tokens_created,
             tokens_graduated=tokens_graduated,
+            total_costs_30d=total_costs_30d,
+            total_costs_7d=total_costs_7d,
             total_profit=total_profit,
             total_profit_30d=total_profit_30d,
             total_profit_7d=total_profit_7d,
