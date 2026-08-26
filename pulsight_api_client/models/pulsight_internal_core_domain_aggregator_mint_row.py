@@ -83,8 +83,10 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             AuthoritiesObservedAt nil = unknown (not yet observed).
         name (str | Unset):
         price_sparkline (list[float] | Unset): PriceSparkline is the mint's last-24h price shape: WSOL-quoted per-minute
-            closes, oldest→newest, at most priceSparklineMaxPoints values. A mint
-            that traded through the whole window is sampled evenly down to that cap
+            closes of the mint's DOMINANT pool (highest 24h quote volume — one pool,
+            never a merge, so a dust side-market's prints can't flatten the line),
+            oldest→newest, at most priceSparklineMaxPoints values. A mint that
+            traded through the whole window is sampled evenly down to that cap
             (so the series still spans 24h, just coarser); one that traded for an
             hour carries all of it. It rides the SAME scan as PriceUsd, so it
             carries the same denomination caveat: WSOL-quoted only, which is why a
@@ -94,18 +96,20 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             its own min/max, so the unit only has to be CONSISTENT within the
             series, and this is a SHAPE, not a price read (use PriceUsd for that).
             Only minutes that actually traded appear, so the x axis is trade
-            sequence, not wall clock. Omitted below 2 points: one point is not a
-            line (a mint minutes old legitimately has none yet).
+            sequence, not wall clock. Omitted below 2 points — but a mint younger
+            than ~10 minutes gets its points from 1-SECOND candles instead, so a
+            fresh row draws a line as soon as it has two seconds of trading.
         price_usd (float | Unset): PriceUsd is the latest price per WHOLE token in USD, derived from the
             dominant WSOL-quoted OHLCV close × the SOL/USD reference rate. nil
             when there's no WSOL pool, decimals are unknown, or no SOL/USD ref.
         risk_score (int | Unset): RiskScore/RiskVerdict are a fast at-a-glance risk score (0..100 +
             low|caution|high|critical) computed from the signals already on this row
-            (authorities, honeypot/copycat/sell-trap, dev %, bundle) via the same
+            (authorities, honeypot/copycat/sell-trap, dev %, bundle, top-10
+            concentration, lifetime fees per tx, trader quality) via the same
             domain ScoreRisk as the per-mint risk card. The listing omits the inputs
-            that need per-mint queries (top-10 concentration, snipers, insider %,
-            liquidity), so this is a LOWER BOUND of the card's full score — the token
-            page is authoritative. nil only if scoring was skipped.
+            that need per-mint queries (snipers, insider %, liquidity), so this is a
+            LOWER BOUND of the card's full score — the token page is authoritative.
+            nil only if scoring was skipped.
         risk_verdict (str | Unset):
         sell_count (int | Unset):
         stats (PulsightInternalCoreDomainAggregatorMintStatsByWindow | Unset):
@@ -138,6 +142,11 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             retention at each healer finalize). Unlike the counts above it is NOT
             hours-window-bound. nil until the migration is applied or when the
             page decoration read fails.
+        total_tx_count (int | Unset): TotalTxCount — LIFETIME swap count for the mint, from the same
+            mint_activity_totals seek as TotalFeesSol (and on its same sawtooth
+            basis). It is the fee figure's denominator: the bot-fee-pattern risk
+            rule scores fees PER transaction, so the two must share a basis —
+            the hours-window SwapCount would not. nil whenever TotalFeesSol is.
         trader_count (int | Unset):
         trader_quality (PulsightInternalCoreDomainAggregatorMintTraderQuality | Unset):
         unique_traders (int | Unset): UniqueTraders is the number of distinct wallets that have EVER traded
@@ -190,6 +199,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
     top10_pct: float | Unset = UNSET
     top_dex: str | Unset = UNSET
     total_fees_sol: int | Unset = UNSET
+    total_tx_count: int | Unset = UNSET
     trader_count: int | Unset = UNSET
     trader_quality: PulsightInternalCoreDomainAggregatorMintTraderQuality | Unset = (
         UNSET
@@ -283,6 +293,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         total_fees_sol = self.total_fees_sol
 
+        total_tx_count = self.total_tx_count
+
         trader_count = self.trader_count
 
         trader_quality: dict[str, Any] | Unset = UNSET
@@ -366,6 +378,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             field_dict["top_dex"] = top_dex
         if total_fees_sol is not UNSET:
             field_dict["total_fees_sol"] = total_fees_sol
+        if total_tx_count is not UNSET:
+            field_dict["total_tx_count"] = total_tx_count
         if trader_count is not UNSET:
             field_dict["trader_count"] = trader_count
         if trader_quality is not UNSET:
@@ -516,6 +530,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         total_fees_sol = d.pop("total_fees_sol", UNSET)
 
+        total_tx_count = d.pop("total_tx_count", UNSET)
+
         trader_count = d.pop("trader_count", UNSET)
 
         _trader_quality = d.pop("trader_quality", UNSET)
@@ -569,6 +585,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             top10_pct=top10_pct,
             top_dex=top_dex,
             total_fees_sol=total_fees_sol,
+            total_tx_count=total_tx_count,
             trader_count=trader_count,
             trader_quality=trader_quality,
             unique_traders=unique_traders,

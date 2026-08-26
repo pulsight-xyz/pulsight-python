@@ -31,6 +31,9 @@ if TYPE_CHECKING:
     from ..models.pulsight_internal_core_domain_aggregator_market_stat import (
         PulsightInternalCoreDomainAggregatorMarketStat,
     )
+    from ..models.pulsight_internal_core_domain_aggregator_mint_trader_quality import (
+        PulsightInternalCoreDomainAggregatorMintTraderQuality,
+    )
     from ..models.pulsight_internal_core_domain_aggregator_risk_item import (
         PulsightInternalCoreDomainAggregatorRiskItem,
     )
@@ -59,6 +62,7 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
         snipers (PulsightInternalCoreDomainAggregatorCohortStat | Unset):
         supply_known (bool | Unset):
         top10 (float | Unset): % of circulating
+        trader_quality (PulsightInternalCoreDomainAggregatorMintTraderQuality | Unset):
         verdict (str | Unset): low|caution|high|critical
     """
 
@@ -78,6 +82,9 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
     snipers: PulsightInternalCoreDomainAggregatorCohortStat | Unset = UNSET
     supply_known: bool | Unset = UNSET
     top10: float | Unset = UNSET
+    trader_quality: PulsightInternalCoreDomainAggregatorMintTraderQuality | Unset = (
+        UNSET
+    )
     verdict: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -138,6 +145,10 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
 
         top10 = self.top10
 
+        trader_quality: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.trader_quality, Unset):
+            trader_quality = self.trader_quality.to_dict()
+
         verdict = self.verdict
 
         field_dict: dict[str, Any] = {}
@@ -175,6 +186,8 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
             field_dict["supply_known"] = supply_known
         if top10 is not UNSET:
             field_dict["top10"] = top10
+        if trader_quality is not UNSET:
+            field_dict["trader_quality"] = trader_quality
         if verdict is not UNSET:
             field_dict["verdict"] = verdict
 
@@ -202,6 +215,9 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
         )
         from ..models.pulsight_internal_core_domain_aggregator_market_stat import (
             PulsightInternalCoreDomainAggregatorMarketStat,
+        )
+        from ..models.pulsight_internal_core_domain_aggregator_mint_trader_quality import (
+            PulsightInternalCoreDomainAggregatorMintTraderQuality,
         )
         from ..models.pulsight_internal_core_domain_aggregator_risk_item import (
             PulsightInternalCoreDomainAggregatorRiskItem,
@@ -301,6 +317,17 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
 
         top10 = d.pop("top10", UNSET)
 
+        _trader_quality = d.pop("trader_quality", UNSET)
+        trader_quality: PulsightInternalCoreDomainAggregatorMintTraderQuality | Unset
+        if isinstance(_trader_quality, Unset):
+            trader_quality = UNSET
+        else:
+            trader_quality = (
+                PulsightInternalCoreDomainAggregatorMintTraderQuality.from_dict(
+                    _trader_quality
+                )
+            )
+
         verdict = d.pop("verdict", UNSET)
 
         pulsight_internal_core_domain_aggregator_risk_report = cls(
@@ -320,6 +347,7 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
             snipers=snipers,
             supply_known=supply_known,
             top10=top10,
+            trader_quality=trader_quality,
             verdict=verdict,
         )
 
