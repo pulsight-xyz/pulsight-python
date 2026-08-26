@@ -28,6 +28,9 @@ if TYPE_CHECKING:
     from ..models.pulsight_internal_core_domain_aggregator_mint_stats_by_window import (
         PulsightInternalCoreDomainAggregatorMintStatsByWindow,
     )
+    from ..models.pulsight_internal_core_domain_aggregator_mint_trader_quality import (
+        PulsightInternalCoreDomainAggregatorMintTraderQuality,
+    )
 
 
 T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorMintRow")
@@ -61,6 +64,11 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             from the mint_mayhem table; omitted when false.
         last_trade_ts (str | Unset):
         logo_uri (str | Unset):
+        lp_burned (bool | Unset): LpBurned reports whether ANY LP burn is on file for the mint — the same
+            `lp_events(op='burn')` set the `lp_burned=1` listing filter uses, so the
+            audit glyph and the filter can never disagree. Page-scoped, so it is a
+            definite true/false for every returned row (never nil on the list path);
+            nil on the detail path, where the batch does not run.
         market_cap_usd (float | Unset): MarketCapUsd is PriceUsd × circulating supply. Equivalently
             close_sol × supply_raw × sol_usd / 1e6 (token decimals cancel), so
             it's populated even when decimals are unknown (unlike PriceUsd). nil
@@ -112,7 +120,26 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             default to 0 if the LATERAL came up empty; the frontend's `formatNum`
             renders 0 cleanly.
         symbol (str | Unset):
+        top10_pct (float | Unset): Top10Pct is the top-10 holder concentration as a PERCENT of circulating
+            supply (0..100). Already read per page by top10ConcentrationBatch to
+            score the row — emitting it costs nothing extra and is what the listing's
+            Distribution column leads with. nil when the accumulator has no row for
+            the mint (fresh token, or holder balances not yet folded).
+        top_dex (str | Unset): TopDex is the venue slug of the mint's DOMINANT pool over the activity
+            window — the pool with the most quote volume, i.e. the venue the token
+            actually trades on. Same vocabulary as `?dex=` and `swaps.dex`; look up
+            the display label via DEX_LABEL. Rides fillMarketsCount's existing scan
+            (same GROUP BY, one more aggregate), so it is free. nil when the mint had
+            no dex_swaps row in the window.
+        total_fees_sol (int | Unset): TotalFeesSol — LIFETIME network fees paid trading the mint, in
+            lamports: tx fees (base + priority) plus MEV tips summed over its
+            swaps (CA 000137 on mint_activity_totals; the 000064 sawtooth basis —
+            lifetime between stats rebuilds, re-synced to the swaps 3-month
+            retention at each healer finalize). Unlike the counts above it is NOT
+            hours-window-bound. nil until the migration is applied or when the
+            page decoration read fails.
         trader_count (int | Unset):
+        trader_quality (PulsightInternalCoreDomainAggregatorMintTraderQuality | Unset):
         unique_traders (int | Unset): UniqueTraders is the number of distinct wallets that have EVER traded
             this mint (all-time count() over trader_token_stats, the same
             projection-served source as HolderCount). Distinct from TraderCount
@@ -121,6 +148,11 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             the list column and the /api/mints/:pubkey detail render the same value.
             Populated on BOTH paths, best-effort: nil when the trader_token_stats
             read is unavailable.
+        verified (bool | Unset): Verified marks a mint on the curated verified token list (Jupiter's,
+            refreshed hourly by the jupverified registry). Also the copycat
+            CANONICAL exemption: a verified member of a name-dupe farm keeps its
+            listing spot and loses the copycat badge while the clones stay
+            flagged. Omitted when false or when no registry is wired.
     """
 
     authorities_observed_at: str | Unset = UNSET
@@ -139,6 +171,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
     is_mayhem_mode: bool | Unset = UNSET
     last_trade_ts: str | Unset = UNSET
     logo_uri: str | Unset = UNSET
+    lp_burned: bool | Unset = UNSET
     market_cap_usd: float | Unset = UNSET
     markets_count: int | Unset = UNSET
     metadata_uri: str | Unset = UNSET
@@ -154,8 +187,15 @@ class PulsightInternalCoreDomainAggregatorMintRow:
     supply: str | Unset = UNSET
     swap_count: int | Unset = UNSET
     symbol: str | Unset = UNSET
+    top10_pct: float | Unset = UNSET
+    top_dex: str | Unset = UNSET
+    total_fees_sol: int | Unset = UNSET
     trader_count: int | Unset = UNSET
+    trader_quality: PulsightInternalCoreDomainAggregatorMintTraderQuality | Unset = (
+        UNSET
+    )
     unique_traders: int | Unset = UNSET
+    verified: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -201,6 +241,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         logo_uri = self.logo_uri
 
+        lp_burned = self.lp_burned
+
         market_cap_usd = self.market_cap_usd
 
         markets_count = self.markets_count
@@ -235,9 +277,21 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         symbol = self.symbol
 
+        top10_pct = self.top10_pct
+
+        top_dex = self.top_dex
+
+        total_fees_sol = self.total_fees_sol
+
         trader_count = self.trader_count
 
+        trader_quality: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.trader_quality, Unset):
+            trader_quality = self.trader_quality.to_dict()
+
         unique_traders = self.unique_traders
+
+        verified = self.verified
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -274,6 +328,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             field_dict["last_trade_ts"] = last_trade_ts
         if logo_uri is not UNSET:
             field_dict["logo_uri"] = logo_uri
+        if lp_burned is not UNSET:
+            field_dict["lp_burned"] = lp_burned
         if market_cap_usd is not UNSET:
             field_dict["market_cap_usd"] = market_cap_usd
         if markets_count is not UNSET:
@@ -304,10 +360,20 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             field_dict["swap_count"] = swap_count
         if symbol is not UNSET:
             field_dict["symbol"] = symbol
+        if top10_pct is not UNSET:
+            field_dict["top10_pct"] = top10_pct
+        if top_dex is not UNSET:
+            field_dict["top_dex"] = top_dex
+        if total_fees_sol is not UNSET:
+            field_dict["total_fees_sol"] = total_fees_sol
         if trader_count is not UNSET:
             field_dict["trader_count"] = trader_count
+        if trader_quality is not UNSET:
+            field_dict["trader_quality"] = trader_quality
         if unique_traders is not UNSET:
             field_dict["unique_traders"] = unique_traders
+        if verified is not UNSET:
+            field_dict["verified"] = verified
 
         return field_dict
 
@@ -330,6 +396,9 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         )
         from ..models.pulsight_internal_core_domain_aggregator_mint_stats_by_window import (
             PulsightInternalCoreDomainAggregatorMintStatsByWindow,
+        )
+        from ..models.pulsight_internal_core_domain_aggregator_mint_trader_quality import (
+            PulsightInternalCoreDomainAggregatorMintTraderQuality,
         )
 
         d = dict(src_dict)
@@ -402,6 +471,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         logo_uri = d.pop("logo_uri", UNSET)
 
+        lp_burned = d.pop("lp_burned", UNSET)
+
         market_cap_usd = d.pop("market_cap_usd", UNSET)
 
         markets_count = d.pop("markets_count", UNSET)
@@ -439,9 +510,28 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         symbol = d.pop("symbol", UNSET)
 
+        top10_pct = d.pop("top10_pct", UNSET)
+
+        top_dex = d.pop("top_dex", UNSET)
+
+        total_fees_sol = d.pop("total_fees_sol", UNSET)
+
         trader_count = d.pop("trader_count", UNSET)
 
+        _trader_quality = d.pop("trader_quality", UNSET)
+        trader_quality: PulsightInternalCoreDomainAggregatorMintTraderQuality | Unset
+        if isinstance(_trader_quality, Unset):
+            trader_quality = UNSET
+        else:
+            trader_quality = (
+                PulsightInternalCoreDomainAggregatorMintTraderQuality.from_dict(
+                    _trader_quality
+                )
+            )
+
         unique_traders = d.pop("unique_traders", UNSET)
+
+        verified = d.pop("verified", UNSET)
 
         pulsight_internal_core_domain_aggregator_mint_row = cls(
             authorities_observed_at=authorities_observed_at,
@@ -460,6 +550,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             is_mayhem_mode=is_mayhem_mode,
             last_trade_ts=last_trade_ts,
             logo_uri=logo_uri,
+            lp_burned=lp_burned,
             market_cap_usd=market_cap_usd,
             markets_count=markets_count,
             metadata_uri=metadata_uri,
@@ -475,8 +566,13 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             supply=supply,
             swap_count=swap_count,
             symbol=symbol,
+            top10_pct=top10_pct,
+            top_dex=top_dex,
+            total_fees_sol=total_fees_sol,
             trader_count=trader_count,
+            trader_quality=trader_quality,
             unique_traders=unique_traders,
+            verified=verified,
         )
 
         pulsight_internal_core_domain_aggregator_mint_row.additional_properties = d

@@ -24,6 +24,10 @@ class PulsightInternalCoreDomainAggregatorMintWindowStats:
         sell_swap_count (int | Unset):
         sell_volume_sol (int | Unset): SOL received from sells, in lamports.
         swap_count (int | Unset):
+        total_fees_sol (int | Unset): Total network fees paid trading the mint in the window, in lamports:
+            tx fees (base + priority) plus MEV tips, summed over its swaps.
+            Populated by the per-mint stats endpoint only; the listing endpoint
+            (/api/mints) leaves it nil (the OHLCV planes carry no fee data).
         volume_sol (int | Unset): Total SOL traded (buy + sell), in lamports.
     """
 
@@ -35,6 +39,7 @@ class PulsightInternalCoreDomainAggregatorMintWindowStats:
     sell_swap_count: int | Unset = UNSET
     sell_volume_sol: int | Unset = UNSET
     swap_count: int | Unset = UNSET
+    total_fees_sol: int | Unset = UNSET
     volume_sol: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -54,6 +59,8 @@ class PulsightInternalCoreDomainAggregatorMintWindowStats:
         sell_volume_sol = self.sell_volume_sol
 
         swap_count = self.swap_count
+
+        total_fees_sol = self.total_fees_sol
 
         volume_sol = self.volume_sol
 
@@ -76,6 +83,8 @@ class PulsightInternalCoreDomainAggregatorMintWindowStats:
             field_dict["sell_volume_sol"] = sell_volume_sol
         if swap_count is not UNSET:
             field_dict["swap_count"] = swap_count
+        if total_fees_sol is not UNSET:
+            field_dict["total_fees_sol"] = total_fees_sol
         if volume_sol is not UNSET:
             field_dict["volume_sol"] = volume_sol
 
@@ -100,6 +109,8 @@ class PulsightInternalCoreDomainAggregatorMintWindowStats:
 
         swap_count = d.pop("swap_count", UNSET)
 
+        total_fees_sol = d.pop("total_fees_sol", UNSET)
+
         volume_sol = d.pop("volume_sol", UNSET)
 
         pulsight_internal_core_domain_aggregator_mint_window_stats = cls(
@@ -111,6 +122,7 @@ class PulsightInternalCoreDomainAggregatorMintWindowStats:
             sell_swap_count=sell_swap_count,
             sell_volume_sol=sell_volume_sol,
             swap_count=swap_count,
+            total_fees_sol=total_fees_sol,
             volume_sol=volume_sol,
         )
 

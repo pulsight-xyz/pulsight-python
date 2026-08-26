@@ -23,6 +23,7 @@ def _get_kwargs(
     hours: int | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
+    min_fees_sol: float | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> dict[str, Any]:
@@ -46,6 +47,8 @@ def _get_kwargs(
     params["min_pool_sol"] = min_pool_sol
 
     params["min_market_cap_usd"] = min_market_cap_usd
+
+    params["min_fees_sol"] = min_fees_sol
 
     params["limit"] = limit
 
@@ -102,6 +105,20 @@ def _parse_response(
 
         return response_500
 
+    if response.status_code == 503:
+        response_503 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
+            response.json()
+        )
+
+        return response_503
+
+    if response.status_code == 504:
+        response_504 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
+            response.json()
+        )
+
+        return response_504
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -132,6 +149,7 @@ def sync_detailed(
     hours: int | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
+    min_fees_sol: float | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> Response[
@@ -141,8 +159,9 @@ def sync_detailed(
     """List Active Mints
 
      Returns the active-mint catalog with windowed stats. The activity gate is
-    `hourly_mint_trader_activity`; rows ordered by window-bound activity desc. By default the list hides
-    low-liquidity (dust / drained-pool) mints — see `min_pool_sol`.
+    `hourly_mint_trader_activity`; rows ordered by distinct traders desc (the wash-resistant default —
+    pass `sort=trades` for raw swap-count order). By default the list hides low-liquidity (dust /
+    drained-pool) mints — see `min_pool_sol`.
 
     Args:
         window (str):
@@ -152,6 +171,7 @@ def sync_detailed(
         hours (int | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
+        min_fees_sol (float | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -171,6 +191,7 @@ def sync_detailed(
         hours=hours,
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
+        min_fees_sol=min_fees_sol,
         limit=limit,
         offset=offset,
     )
@@ -192,6 +213,7 @@ def sync(
     hours: int | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
+    min_fees_sol: float | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> (
@@ -202,8 +224,9 @@ def sync(
     """List Active Mints
 
      Returns the active-mint catalog with windowed stats. The activity gate is
-    `hourly_mint_trader_activity`; rows ordered by window-bound activity desc. By default the list hides
-    low-liquidity (dust / drained-pool) mints — see `min_pool_sol`.
+    `hourly_mint_trader_activity`; rows ordered by distinct traders desc (the wash-resistant default —
+    pass `sort=trades` for raw swap-count order). By default the list hides low-liquidity (dust /
+    drained-pool) mints — see `min_pool_sol`.
 
     Args:
         window (str):
@@ -213,6 +236,7 @@ def sync(
         hours (int | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
+        min_fees_sol (float | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -233,6 +257,7 @@ def sync(
         hours=hours,
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
+        min_fees_sol=min_fees_sol,
         limit=limit,
         offset=offset,
     ).parsed
@@ -248,6 +273,7 @@ async def asyncio_detailed(
     hours: int | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
+    min_fees_sol: float | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> Response[
@@ -257,8 +283,9 @@ async def asyncio_detailed(
     """List Active Mints
 
      Returns the active-mint catalog with windowed stats. The activity gate is
-    `hourly_mint_trader_activity`; rows ordered by window-bound activity desc. By default the list hides
-    low-liquidity (dust / drained-pool) mints — see `min_pool_sol`.
+    `hourly_mint_trader_activity`; rows ordered by distinct traders desc (the wash-resistant default —
+    pass `sort=trades` for raw swap-count order). By default the list hides low-liquidity (dust /
+    drained-pool) mints — see `min_pool_sol`.
 
     Args:
         window (str):
@@ -268,6 +295,7 @@ async def asyncio_detailed(
         hours (int | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
+        min_fees_sol (float | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -287,6 +315,7 @@ async def asyncio_detailed(
         hours=hours,
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
+        min_fees_sol=min_fees_sol,
         limit=limit,
         offset=offset,
     )
@@ -306,6 +335,7 @@ async def asyncio(
     hours: int | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
+    min_fees_sol: float | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> (
@@ -316,8 +346,9 @@ async def asyncio(
     """List Active Mints
 
      Returns the active-mint catalog with windowed stats. The activity gate is
-    `hourly_mint_trader_activity`; rows ordered by window-bound activity desc. By default the list hides
-    low-liquidity (dust / drained-pool) mints — see `min_pool_sol`.
+    `hourly_mint_trader_activity`; rows ordered by distinct traders desc (the wash-resistant default —
+    pass `sort=trades` for raw swap-count order). By default the list hides low-liquidity (dust /
+    drained-pool) mints — see `min_pool_sol`.
 
     Args:
         window (str):
@@ -327,6 +358,7 @@ async def asyncio(
         hours (int | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
+        min_fees_sol (float | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -348,6 +380,7 @@ async def asyncio(
             hours=hours,
             min_pool_sol=min_pool_sol,
             min_market_cap_usd=min_market_cap_usd,
+            min_fees_sol=min_fees_sol,
             limit=limit,
             offset=offset,
         )

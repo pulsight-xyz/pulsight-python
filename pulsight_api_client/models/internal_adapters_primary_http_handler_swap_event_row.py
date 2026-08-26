@@ -29,6 +29,7 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
         mint (str | Unset):
         pool (str | Unset):
         priority_fee_lamports (int | Unset):
+        quote_lamports (int | Unset):
         quote_mint (str | Unset):
         realized_profit (int | Unset):
         signature (str | Unset):
@@ -56,6 +57,7 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
     mint: str | Unset = UNSET
     pool: str | Unset = UNSET
     priority_fee_lamports: int | Unset = UNSET
+    quote_lamports: int | Unset = UNSET
     quote_mint: str | Unset = UNSET
     realized_profit: int | Unset = UNSET
     signature: str | Unset = UNSET
@@ -96,6 +98,8 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
         pool = self.pool
 
         priority_fee_lamports = self.priority_fee_lamports
+
+        quote_lamports = self.quote_lamports
 
         quote_mint = self.quote_mint
 
@@ -150,6 +154,8 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
             field_dict["pool"] = pool
         if priority_fee_lamports is not UNSET:
             field_dict["priority_fee_lamports"] = priority_fee_lamports
+        if quote_lamports is not UNSET:
+            field_dict["quote_lamports"] = quote_lamports
         if quote_mint is not UNSET:
             field_dict["quote_mint"] = quote_mint
         if realized_profit is not UNSET:
@@ -206,6 +212,8 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
 
         priority_fee_lamports = d.pop("priority_fee_lamports", UNSET)
 
+        quote_lamports = d.pop("quote_lamports", UNSET)
+
         quote_mint = d.pop("quote_mint", UNSET)
 
         realized_profit = d.pop("realized_profit", UNSET)
@@ -244,6 +252,7 @@ class InternalAdaptersPrimaryHttpHandlerSwapEventRow:
             mint=mint,
             pool=pool,
             priority_fee_lamports=priority_fee_lamports,
+            quote_lamports=quote_lamports,
             quote_mint=quote_mint,
             realized_profit=realized_profit,
             signature=signature,

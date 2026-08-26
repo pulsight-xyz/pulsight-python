@@ -43,6 +43,16 @@ class PulsightInternalCoreDomainTraderTrader:
         buy_sell_ratio_30d (float | Unset):
         buy_sell_ratio_7d (float | Unset): Computed ratios
         buy_size_cv (float | Unset):
+        cashback_30d (float | Unset):
+        cashback_7d (float | Unset): Pump cashback, lamports. `Cashback*` is what ACCRUED in the window
+            (the screening signal); `CashbackClaimed*` is what was swept, and is
+            the component already folded into NetProfit* — do not add it again.
+        cashback_claim_count_30d (int | Unset):
+        cashback_claim_count_7d (int | Unset):
+        cashback_claimed_30d (float | Unset):
+        cashback_claimed_7d (float | Unset):
+        cashback_share_30d (float | Unset):
+        cashback_share_7d (float | Unset):
         chain (str | Unset): "sol" | "eth"
         created_at (str | Unset):
         daily_profits (list[PulsightInternalCoreDomainTraderDailyProfit] | Unset):
@@ -152,6 +162,14 @@ class PulsightInternalCoreDomainTraderTrader:
     buy_sell_ratio_30d: float | Unset = UNSET
     buy_sell_ratio_7d: float | Unset = UNSET
     buy_size_cv: float | Unset = UNSET
+    cashback_30d: float | Unset = UNSET
+    cashback_7d: float | Unset = UNSET
+    cashback_claim_count_30d: int | Unset = UNSET
+    cashback_claim_count_7d: int | Unset = UNSET
+    cashback_claimed_30d: float | Unset = UNSET
+    cashback_claimed_7d: float | Unset = UNSET
+    cashback_share_30d: float | Unset = UNSET
+    cashback_share_7d: float | Unset = UNSET
     chain: str | Unset = UNSET
     created_at: str | Unset = UNSET
     daily_profits: list[PulsightInternalCoreDomainTraderDailyProfit] | Unset = UNSET
@@ -263,6 +281,22 @@ class PulsightInternalCoreDomainTraderTrader:
         buy_sell_ratio_7d = self.buy_sell_ratio_7d
 
         buy_size_cv = self.buy_size_cv
+
+        cashback_30d = self.cashback_30d
+
+        cashback_7d = self.cashback_7d
+
+        cashback_claim_count_30d = self.cashback_claim_count_30d
+
+        cashback_claim_count_7d = self.cashback_claim_count_7d
+
+        cashback_claimed_30d = self.cashback_claimed_30d
+
+        cashback_claimed_7d = self.cashback_claimed_7d
+
+        cashback_share_30d = self.cashback_share_30d
+
+        cashback_share_7d = self.cashback_share_7d
 
         chain = self.chain
 
@@ -470,6 +504,22 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["buy_sell_ratio_7d"] = buy_sell_ratio_7d
         if buy_size_cv is not UNSET:
             field_dict["buy_size_cv"] = buy_size_cv
+        if cashback_30d is not UNSET:
+            field_dict["cashback_30d"] = cashback_30d
+        if cashback_7d is not UNSET:
+            field_dict["cashback_7d"] = cashback_7d
+        if cashback_claim_count_30d is not UNSET:
+            field_dict["cashback_claim_count_30d"] = cashback_claim_count_30d
+        if cashback_claim_count_7d is not UNSET:
+            field_dict["cashback_claim_count_7d"] = cashback_claim_count_7d
+        if cashback_claimed_30d is not UNSET:
+            field_dict["cashback_claimed_30d"] = cashback_claimed_30d
+        if cashback_claimed_7d is not UNSET:
+            field_dict["cashback_claimed_7d"] = cashback_claimed_7d
+        if cashback_share_30d is not UNSET:
+            field_dict["cashback_share_30d"] = cashback_share_30d
+        if cashback_share_7d is not UNSET:
+            field_dict["cashback_share_7d"] = cashback_share_7d
         if chain is not UNSET:
             field_dict["chain"] = chain
         if created_at is not UNSET:
@@ -674,6 +724,22 @@ class PulsightInternalCoreDomainTraderTrader:
 
         buy_size_cv = d.pop("buy_size_cv", UNSET)
 
+        cashback_30d = d.pop("cashback_30d", UNSET)
+
+        cashback_7d = d.pop("cashback_7d", UNSET)
+
+        cashback_claim_count_30d = d.pop("cashback_claim_count_30d", UNSET)
+
+        cashback_claim_count_7d = d.pop("cashback_claim_count_7d", UNSET)
+
+        cashback_claimed_30d = d.pop("cashback_claimed_30d", UNSET)
+
+        cashback_claimed_7d = d.pop("cashback_claimed_7d", UNSET)
+
+        cashback_share_30d = d.pop("cashback_share_30d", UNSET)
+
+        cashback_share_7d = d.pop("cashback_share_7d", UNSET)
+
         chain = d.pop("chain", UNSET)
 
         created_at = d.pop("created_at", UNSET)
@@ -877,6 +943,14 @@ class PulsightInternalCoreDomainTraderTrader:
             buy_sell_ratio_30d=buy_sell_ratio_30d,
             buy_sell_ratio_7d=buy_sell_ratio_7d,
             buy_size_cv=buy_size_cv,
+            cashback_30d=cashback_30d,
+            cashback_7d=cashback_7d,
+            cashback_claim_count_30d=cashback_claim_count_30d,
+            cashback_claim_count_7d=cashback_claim_count_7d,
+            cashback_claimed_30d=cashback_claimed_30d,
+            cashback_claimed_7d=cashback_claimed_7d,
+            cashback_share_30d=cashback_share_30d,
+            cashback_share_7d=cashback_share_7d,
             chain=chain,
             created_at=created_at,
             daily_profits=daily_profits,

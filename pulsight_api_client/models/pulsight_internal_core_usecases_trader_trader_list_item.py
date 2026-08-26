@@ -19,6 +19,9 @@ if TYPE_CHECKING:
     from ..models.pulsight_internal_core_usecases_trader_daily_profit_entry import (
         PulsightInternalCoreUsecasesTraderDailyProfitEntry,
     )
+    from ..models.pulsight_internal_core_usecases_trader_trader_pnl_distribution_row import (
+        PulsightInternalCoreUsecasesTraderTraderPnlDistributionRow,
+    )
 
 
 T = TypeVar("T", bound="PulsightInternalCoreUsecasesTraderTraderListItem")
@@ -37,13 +40,24 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         avg_realized_profit_30d (float | Unset):
         avg_realized_profit_7d (float | Unset):
         avg_sell_count_per_token (float | Unset):
+        behavioral_1d (PulsightInternalCoreDomainAggregatorTraderBehavioralStats | Unset):
         behavioral_30d (PulsightInternalCoreDomainAggregatorTraderBehavioralStats | Unset):
         behavioral_7d (PulsightInternalCoreDomainAggregatorTraderBehavioralStats | Unset):
+        behavioral_all (PulsightInternalCoreDomainAggregatorTraderBehavioralStats | Unset):
         buy_30d (int | Unset):
         buy_7d (int | Unset):
         buy_sell_ratio_30d (float | Unset):
         buy_sell_ratio_7d (float | Unset):
         buy_size_cv (float | Unset):
+        cashback_30d (float | Unset):
+        cashback_7d (float | Unset): Pump cashback: accrued in the window (the screening signal) and
+            swept. Claimed is ALREADY inside NetProfit7d — never add it on top.
+        cashback_claim_count_30d (int | Unset):
+        cashback_claim_count_7d (int | Unset):
+        cashback_claimed_30d (float | Unset):
+        cashback_claimed_7d (float | Unset):
+        cashback_share_30d (float | Unset):
+        cashback_share_7d (float | Unset):
         chain (str | Unset):
         created_at (str | Unset):
         daily_profit_30d (list[PulsightInternalCoreUsecasesTraderDailyProfitEntry] | Unset):
@@ -89,6 +103,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         pnl_distribution (list[int] | Unset): PnlDistribution is the 5-bucket realised-PnL distribution for
             the request window: [<-50%, -50–0%, 0–2×, 2–5×, >5×]. Nil when
             the snapshot wasn't inlined.
+        pnl_distributions (list[PulsightInternalCoreUsecasesTraderTraderPnlDistributionRow] | Unset): PnlDistributions
+            is one 5-bucket realised-PnL distribution row per
+            canonical window (1d, 7d, 30d, all), windowed for real — unlike the
+            list path's snapshot-folded PnlDistribution above, which is the
+            leaderboard's all-time buckets. Drives the trader-detail "PnL
+            distribution" chips and their window toggle.
         pnl_gt_5x_num_30d (int | Unset):
         pnl_gt_5x_num_7d (int | Unset):
         pnl_lt_nd5_num_30d (int | Unset):
@@ -157,17 +177,31 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     avg_realized_profit_30d: float | Unset = UNSET
     avg_realized_profit_7d: float | Unset = UNSET
     avg_sell_count_per_token: float | Unset = UNSET
+    behavioral_1d: PulsightInternalCoreDomainAggregatorTraderBehavioralStats | Unset = (
+        UNSET
+    )
     behavioral_30d: (
         PulsightInternalCoreDomainAggregatorTraderBehavioralStats | Unset
     ) = UNSET
     behavioral_7d: PulsightInternalCoreDomainAggregatorTraderBehavioralStats | Unset = (
         UNSET
     )
+    behavioral_all: (
+        PulsightInternalCoreDomainAggregatorTraderBehavioralStats | Unset
+    ) = UNSET
     buy_30d: int | Unset = UNSET
     buy_7d: int | Unset = UNSET
     buy_sell_ratio_30d: float | Unset = UNSET
     buy_sell_ratio_7d: float | Unset = UNSET
     buy_size_cv: float | Unset = UNSET
+    cashback_30d: float | Unset = UNSET
+    cashback_7d: float | Unset = UNSET
+    cashback_claim_count_30d: int | Unset = UNSET
+    cashback_claim_count_7d: int | Unset = UNSET
+    cashback_claimed_30d: float | Unset = UNSET
+    cashback_claimed_7d: float | Unset = UNSET
+    cashback_share_30d: float | Unset = UNSET
+    cashback_share_7d: float | Unset = UNSET
     chain: str | Unset = UNSET
     created_at: str | Unset = UNSET
     daily_profit_30d: (
@@ -209,6 +243,9 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     pnl_2x_5x_num_30d: int | Unset = UNSET
     pnl_2x_5x_num_7d: int | Unset = UNSET
     pnl_distribution: list[int] | Unset = UNSET
+    pnl_distributions: (
+        list[PulsightInternalCoreUsecasesTraderTraderPnlDistributionRow] | Unset
+    ) = UNSET
     pnl_gt_5x_num_30d: int | Unset = UNSET
     pnl_gt_5x_num_7d: int | Unset = UNSET
     pnl_lt_nd5_num_30d: int | Unset = UNSET
@@ -281,6 +318,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         avg_sell_count_per_token = self.avg_sell_count_per_token
 
+        behavioral_1d: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.behavioral_1d, Unset):
+            behavioral_1d = self.behavioral_1d.to_dict()
+
         behavioral_30d: dict[str, Any] | Unset = UNSET
         if not isinstance(self.behavioral_30d, Unset):
             behavioral_30d = self.behavioral_30d.to_dict()
@@ -288,6 +329,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         behavioral_7d: dict[str, Any] | Unset = UNSET
         if not isinstance(self.behavioral_7d, Unset):
             behavioral_7d = self.behavioral_7d.to_dict()
+
+        behavioral_all: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.behavioral_all, Unset):
+            behavioral_all = self.behavioral_all.to_dict()
 
         buy_30d = self.buy_30d
 
@@ -298,6 +343,22 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         buy_sell_ratio_7d = self.buy_sell_ratio_7d
 
         buy_size_cv = self.buy_size_cv
+
+        cashback_30d = self.cashback_30d
+
+        cashback_7d = self.cashback_7d
+
+        cashback_claim_count_30d = self.cashback_claim_count_30d
+
+        cashback_claim_count_7d = self.cashback_claim_count_7d
+
+        cashback_claimed_30d = self.cashback_claimed_30d
+
+        cashback_claimed_7d = self.cashback_claimed_7d
+
+        cashback_share_30d = self.cashback_share_30d
+
+        cashback_share_7d = self.cashback_share_7d
 
         chain = self.chain
 
@@ -385,6 +446,13 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         pnl_distribution: list[int] | Unset = UNSET
         if not isinstance(self.pnl_distribution, Unset):
             pnl_distribution = self.pnl_distribution
+
+        pnl_distributions: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.pnl_distributions, Unset):
+            pnl_distributions = []
+            for pnl_distributions_item_data in self.pnl_distributions:
+                pnl_distributions_item = pnl_distributions_item_data.to_dict()
+                pnl_distributions.append(pnl_distributions_item)
 
         pnl_gt_5x_num_30d = self.pnl_gt_5x_num_30d
 
@@ -513,10 +581,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["avg_realized_profit_7d"] = avg_realized_profit_7d
         if avg_sell_count_per_token is not UNSET:
             field_dict["avg_sell_count_per_token"] = avg_sell_count_per_token
+        if behavioral_1d is not UNSET:
+            field_dict["behavioral_1d"] = behavioral_1d
         if behavioral_30d is not UNSET:
             field_dict["behavioral_30d"] = behavioral_30d
         if behavioral_7d is not UNSET:
             field_dict["behavioral_7d"] = behavioral_7d
+        if behavioral_all is not UNSET:
+            field_dict["behavioral_all"] = behavioral_all
         if buy_30d is not UNSET:
             field_dict["buy_30d"] = buy_30d
         if buy_7d is not UNSET:
@@ -527,6 +599,22 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["buy_sell_ratio_7d"] = buy_sell_ratio_7d
         if buy_size_cv is not UNSET:
             field_dict["buy_size_cv"] = buy_size_cv
+        if cashback_30d is not UNSET:
+            field_dict["cashback_30d"] = cashback_30d
+        if cashback_7d is not UNSET:
+            field_dict["cashback_7d"] = cashback_7d
+        if cashback_claim_count_30d is not UNSET:
+            field_dict["cashback_claim_count_30d"] = cashback_claim_count_30d
+        if cashback_claim_count_7d is not UNSET:
+            field_dict["cashback_claim_count_7d"] = cashback_claim_count_7d
+        if cashback_claimed_30d is not UNSET:
+            field_dict["cashback_claimed_30d"] = cashback_claimed_30d
+        if cashback_claimed_7d is not UNSET:
+            field_dict["cashback_claimed_7d"] = cashback_claimed_7d
+        if cashback_share_30d is not UNSET:
+            field_dict["cashback_share_30d"] = cashback_share_30d
+        if cashback_share_7d is not UNSET:
+            field_dict["cashback_share_7d"] = cashback_share_7d
         if chain is not UNSET:
             field_dict["chain"] = chain
         if created_at is not UNSET:
@@ -597,6 +685,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["pnl_2x_5x_num_7d"] = pnl_2x_5x_num_7d
         if pnl_distribution is not UNSET:
             field_dict["pnl_distribution"] = pnl_distribution
+        if pnl_distributions is not UNSET:
+            field_dict["pnl_distributions"] = pnl_distributions
         if pnl_gt_5x_num_30d is not UNSET:
             field_dict["pnl_gt_5x_num_30d"] = pnl_gt_5x_num_30d
         if pnl_gt_5x_num_7d is not UNSET:
@@ -713,6 +803,9 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         from ..models.pulsight_internal_core_usecases_trader_daily_profit_entry import (
             PulsightInternalCoreUsecasesTraderDailyProfitEntry,
         )
+        from ..models.pulsight_internal_core_usecases_trader_trader_pnl_distribution_row import (
+            PulsightInternalCoreUsecasesTraderTraderPnlDistributionRow,
+        )
 
         d = dict(src_dict)
         active_hours_count = d.pop("active_hours_count", UNSET)
@@ -732,6 +825,17 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         avg_realized_profit_7d = d.pop("avg_realized_profit_7d", UNSET)
 
         avg_sell_count_per_token = d.pop("avg_sell_count_per_token", UNSET)
+
+        _behavioral_1d = d.pop("behavioral_1d", UNSET)
+        behavioral_1d: PulsightInternalCoreDomainAggregatorTraderBehavioralStats | Unset
+        if isinstance(_behavioral_1d, Unset):
+            behavioral_1d = UNSET
+        else:
+            behavioral_1d = (
+                PulsightInternalCoreDomainAggregatorTraderBehavioralStats.from_dict(
+                    _behavioral_1d
+                )
+            )
 
         _behavioral_30d = d.pop("behavioral_30d", UNSET)
         behavioral_30d: (
@@ -757,6 +861,19 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
                 )
             )
 
+        _behavioral_all = d.pop("behavioral_all", UNSET)
+        behavioral_all: (
+            PulsightInternalCoreDomainAggregatorTraderBehavioralStats | Unset
+        )
+        if isinstance(_behavioral_all, Unset):
+            behavioral_all = UNSET
+        else:
+            behavioral_all = (
+                PulsightInternalCoreDomainAggregatorTraderBehavioralStats.from_dict(
+                    _behavioral_all
+                )
+            )
+
         buy_30d = d.pop("buy_30d", UNSET)
 
         buy_7d = d.pop("buy_7d", UNSET)
@@ -766,6 +883,22 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         buy_sell_ratio_7d = d.pop("buy_sell_ratio_7d", UNSET)
 
         buy_size_cv = d.pop("buy_size_cv", UNSET)
+
+        cashback_30d = d.pop("cashback_30d", UNSET)
+
+        cashback_7d = d.pop("cashback_7d", UNSET)
+
+        cashback_claim_count_30d = d.pop("cashback_claim_count_30d", UNSET)
+
+        cashback_claim_count_7d = d.pop("cashback_claim_count_7d", UNSET)
+
+        cashback_claimed_30d = d.pop("cashback_claimed_30d", UNSET)
+
+        cashback_claimed_7d = d.pop("cashback_claimed_7d", UNSET)
+
+        cashback_share_30d = d.pop("cashback_share_30d", UNSET)
+
+        cashback_share_7d = d.pop("cashback_share_7d", UNSET)
 
         chain = d.pop("chain", UNSET)
 
@@ -875,6 +1008,19 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         pnl_2x_5x_num_7d = d.pop("pnl_2x_5x_num_7d", UNSET)
 
         pnl_distribution = cast(list[int], d.pop("pnl_distribution", UNSET))
+
+        _pnl_distributions = d.pop("pnl_distributions", UNSET)
+        pnl_distributions: (
+            list[PulsightInternalCoreUsecasesTraderTraderPnlDistributionRow] | Unset
+        ) = UNSET
+        if _pnl_distributions is not UNSET:
+            pnl_distributions = []
+            for pnl_distributions_item_data in _pnl_distributions:
+                pnl_distributions_item = PulsightInternalCoreUsecasesTraderTraderPnlDistributionRow.from_dict(
+                    pnl_distributions_item_data
+                )
+
+                pnl_distributions.append(pnl_distributions_item)
 
         pnl_gt_5x_num_30d = d.pop("pnl_gt_5x_num_30d", UNSET)
 
@@ -988,13 +1134,23 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             avg_realized_profit_30d=avg_realized_profit_30d,
             avg_realized_profit_7d=avg_realized_profit_7d,
             avg_sell_count_per_token=avg_sell_count_per_token,
+            behavioral_1d=behavioral_1d,
             behavioral_30d=behavioral_30d,
             behavioral_7d=behavioral_7d,
+            behavioral_all=behavioral_all,
             buy_30d=buy_30d,
             buy_7d=buy_7d,
             buy_sell_ratio_30d=buy_sell_ratio_30d,
             buy_sell_ratio_7d=buy_sell_ratio_7d,
             buy_size_cv=buy_size_cv,
+            cashback_30d=cashback_30d,
+            cashback_7d=cashback_7d,
+            cashback_claim_count_30d=cashback_claim_count_30d,
+            cashback_claim_count_7d=cashback_claim_count_7d,
+            cashback_claimed_30d=cashback_claimed_30d,
+            cashback_claimed_7d=cashback_claimed_7d,
+            cashback_share_30d=cashback_share_30d,
+            cashback_share_7d=cashback_share_7d,
             chain=chain,
             created_at=created_at,
             daily_profit_30d=daily_profit_30d,
@@ -1030,6 +1186,7 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             pnl_2x_5x_num_30d=pnl_2x_5x_num_30d,
             pnl_2x_5x_num_7d=pnl_2x_5x_num_7d,
             pnl_distribution=pnl_distribution,
+            pnl_distributions=pnl_distributions,
             pnl_gt_5x_num_30d=pnl_gt_5x_num_30d,
             pnl_gt_5x_num_7d=pnl_gt_5x_num_7d,
             pnl_lt_nd5_num_30d=pnl_lt_nd5_num_30d,

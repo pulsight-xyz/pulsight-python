@@ -25,11 +25,17 @@ class PulsightInternalCoreDomainAggregatorMintWindowStatsBundle:
         as_of (str | Unset):
         mint (str | Unset):
         stats (PulsightInternalCoreDomainAggregatorMintStatsByWindow | Unset):
+        total_fees_lifetime_sol (int | Unset): TotalFeesLifetimeSol — LIFETIME network fees paid trading the mint,
+            in lamports (same basis and plane as MintRow.TotalFeesSol on the
+            listing: CA 000137's `fees` on mint_activity_totals, NOT bound to any
+            window). Feeds the token detail page's header bar. nil until the
+            migration is applied or when the best-effort read fails.
     """
 
     as_of: str | Unset = UNSET
     mint: str | Unset = UNSET
     stats: PulsightInternalCoreDomainAggregatorMintStatsByWindow | Unset = UNSET
+    total_fees_lifetime_sol: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -41,6 +47,8 @@ class PulsightInternalCoreDomainAggregatorMintWindowStatsBundle:
         if not isinstance(self.stats, Unset):
             stats = self.stats.to_dict()
 
+        total_fees_lifetime_sol = self.total_fees_lifetime_sol
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -50,6 +58,8 @@ class PulsightInternalCoreDomainAggregatorMintWindowStatsBundle:
             field_dict["mint"] = mint
         if stats is not UNSET:
             field_dict["stats"] = stats
+        if total_fees_lifetime_sol is not UNSET:
+            field_dict["total_fees_lifetime_sol"] = total_fees_lifetime_sol
 
         return field_dict
 
@@ -73,10 +83,13 @@ class PulsightInternalCoreDomainAggregatorMintWindowStatsBundle:
                 _stats
             )
 
+        total_fees_lifetime_sol = d.pop("total_fees_lifetime_sol", UNSET)
+
         pulsight_internal_core_domain_aggregator_mint_window_stats_bundle = cls(
             as_of=as_of,
             mint=mint,
             stats=stats,
+            total_fees_lifetime_sol=total_fees_lifetime_sol,
         )
 
         pulsight_internal_core_domain_aggregator_mint_window_stats_bundle.additional_properties = d

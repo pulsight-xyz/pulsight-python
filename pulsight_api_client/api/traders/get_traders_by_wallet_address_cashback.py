@@ -9,21 +9,30 @@ from ...client import AuthenticatedClient, Client
 from ...models.internal_adapters_primary_http_handler_error_response import (
     InternalAdaptersPrimaryHttpHandlerErrorResponse,
 )
-from ...models.pulsight_internal_core_usecases_trader_trader_list_item import (
-    PulsightInternalCoreUsecasesTraderTraderListItem,
+from ...models.pulsight_internal_core_domain_aggregator_trader_cashback_stats import (
+    PulsightInternalCoreDomainAggregatorTraderCashbackStats,
 )
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     wallet_address: str,
+    *,
+    window: str | Unset = UNSET,
 ) -> dict[str, Any]:
+
+    params: dict[str, Any] = {}
+
+    params["window"] = window
+
+    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/traders/by-wallet/{wallet_address}".format(
+        "url": "/api/traders/{wallet_address}/cashback".format(
             wallet_address=quote(str(wallet_address), safe=""),
         ),
+        "params": params,
     }
 
     return _kwargs
@@ -33,50 +42,24 @@ def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreUsecasesTraderTraderListItem
+    | PulsightInternalCoreDomainAggregatorTraderCashbackStats
     | None
 ):
     if response.status_code == 200:
-        response_200 = PulsightInternalCoreUsecasesTraderTraderListItem.from_dict(
-            response.json()
+        response_200 = (
+            PulsightInternalCoreDomainAggregatorTraderCashbackStats.from_dict(
+                response.json()
+            )
         )
 
         return response_200
 
-    if response.status_code == 401:
-        response_401 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
+    if response.status_code == 400:
+        response_400 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
             response.json()
         )
 
-        return response_401
-
-    if response.status_code == 404:
-        response_404 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
-            response.json()
-        )
-
-        return response_404
-
-    if response.status_code == 500:
-        response_500 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
-            response.json()
-        )
-
-        return response_500
-
-    if response.status_code == 503:
-        response_503 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
-            response.json()
-        )
-
-        return response_503
-
-    if response.status_code == 504:
-        response_504 = InternalAdaptersPrimaryHttpHandlerErrorResponse.from_dict(
-            response.json()
-        )
-
-        return response_504
+        return response_400
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -88,7 +71,7 @@ def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreUsecasesTraderTraderListItem
+    | PulsightInternalCoreDomainAggregatorTraderCashbackStats
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -101,28 +84,29 @@ def _build_response(
 def sync_detailed(
     wallet_address: str,
     *,
-    client: AuthenticatedClient,
+    client: AuthenticatedClient | Client,
+    window: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreUsecasesTraderTraderListItem
+    | PulsightInternalCoreDomainAggregatorTraderCashbackStats
 ]:
-    """Get Trader by Wallet
-
-     Retrieves a trader's aggregated statistics by their wallet address.
+    """Pump cashback rewards of a wallet
 
     Args:
         wallet_address (str):
+        window (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreUsecasesTraderTraderListItem]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTraderCashbackStats]
     """
 
     kwargs = _get_kwargs(
         wallet_address=wallet_address,
+        window=window,
     )
 
     response = client.get_httpx_client().request(
@@ -135,58 +119,60 @@ def sync_detailed(
 def sync(
     wallet_address: str,
     *,
-    client: AuthenticatedClient,
+    client: AuthenticatedClient | Client,
+    window: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreUsecasesTraderTraderListItem
+    | PulsightInternalCoreDomainAggregatorTraderCashbackStats
     | None
 ):
-    """Get Trader by Wallet
-
-     Retrieves a trader's aggregated statistics by their wallet address.
+    """Pump cashback rewards of a wallet
 
     Args:
         wallet_address (str):
+        window (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreUsecasesTraderTraderListItem
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTraderCashbackStats
     """
 
     return sync_detailed(
         wallet_address=wallet_address,
         client=client,
+        window=window,
     ).parsed
 
 
 async def asyncio_detailed(
     wallet_address: str,
     *,
-    client: AuthenticatedClient,
+    client: AuthenticatedClient | Client,
+    window: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreUsecasesTraderTraderListItem
+    | PulsightInternalCoreDomainAggregatorTraderCashbackStats
 ]:
-    """Get Trader by Wallet
-
-     Retrieves a trader's aggregated statistics by their wallet address.
+    """Pump cashback rewards of a wallet
 
     Args:
         wallet_address (str):
+        window (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreUsecasesTraderTraderListItem]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTraderCashbackStats]
     """
 
     kwargs = _get_kwargs(
         wallet_address=wallet_address,
+        window=window,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -197,30 +183,31 @@ async def asyncio_detailed(
 async def asyncio(
     wallet_address: str,
     *,
-    client: AuthenticatedClient,
+    client: AuthenticatedClient | Client,
+    window: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreUsecasesTraderTraderListItem
+    | PulsightInternalCoreDomainAggregatorTraderCashbackStats
     | None
 ):
-    """Get Trader by Wallet
-
-     Retrieves a trader's aggregated statistics by their wallet address.
+    """Pump cashback rewards of a wallet
 
     Args:
         wallet_address (str):
+        window (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreUsecasesTraderTraderListItem
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTraderCashbackStats
     """
 
     return (
         await asyncio_detailed(
             wallet_address=wallet_address,
             client=client,
+            window=window,
         )
     ).parsed

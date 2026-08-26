@@ -30,12 +30,20 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
         no_cpi_fee_lamports (int | Unset):
         no_cpi_tip_lamports (int | Unset):
         no_cpi_txs (int | Unset):
+        observed_landed_txs (int | Unset): ObservedLandedTxs is LandedTxs narrowed to the hours the failed-tx
+            stream was actually running. Failed transactions are only recorded for
+            those hours — a historical backfill drops them at the fetch layer, and
+            nothing observed them before the feature shipped — so this is the only
+            landed count the rates below may divide by. It equals LandedTxs once a
+            window is fully observed; the gap is how much of the window is
+            un-scored.
         pubkey (str | Unset):
         spam_rate (float | Unset):
-        success_rate (float | Unset): SuccessRate = LandedTxs / (LandedTxs + FailedTxs); SpamRate =
-            (FailedTxs + NoCpiTxs) / (LandedTxs + FailedTxs + NoCpiTxs).
-            POINTERS: nil when the denominator is 0 — a wallet with no activity
-            has no rate, and that must not read as 0%.
+        success_rate (float | Unset): SuccessRate = ObservedLandedTxs / (ObservedLandedTxs + FailedTxs);
+            SpamRate = (FailedTxs + NoCpiTxs) / (ObservedLandedTxs + FailedTxs +
+            NoCpiTxs). POINTERS: nil when the denominator is 0 — a wallet with no
+            OBSERVED activity has no rate, and that must not read as 0% (or, worse,
+            as a 100% success score for a window nobody watched).
         window (PulsightInternalCoreDomainAggregatorWindow | Unset):
     """
 
@@ -48,6 +56,7 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
     no_cpi_fee_lamports: int | Unset = UNSET
     no_cpi_tip_lamports: int | Unset = UNSET
     no_cpi_txs: int | Unset = UNSET
+    observed_landed_txs: int | Unset = UNSET
     pubkey: str | Unset = UNSET
     spam_rate: float | Unset = UNSET
     success_rate: float | Unset = UNSET
@@ -72,6 +81,8 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
         no_cpi_tip_lamports = self.no_cpi_tip_lamports
 
         no_cpi_txs = self.no_cpi_txs
+
+        observed_landed_txs = self.observed_landed_txs
 
         pubkey = self.pubkey
 
@@ -104,6 +115,8 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
             field_dict["no_cpi_tip_lamports"] = no_cpi_tip_lamports
         if no_cpi_txs is not UNSET:
             field_dict["no_cpi_txs"] = no_cpi_txs
+        if observed_landed_txs is not UNSET:
+            field_dict["observed_landed_txs"] = observed_landed_txs
         if pubkey is not UNSET:
             field_dict["pubkey"] = pubkey
         if spam_rate is not UNSET:
@@ -136,6 +149,8 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
 
         no_cpi_txs = d.pop("no_cpi_txs", UNSET)
 
+        observed_landed_txs = d.pop("observed_landed_txs", UNSET)
+
         pubkey = d.pop("pubkey", UNSET)
 
         spam_rate = d.pop("spam_rate", UNSET)
@@ -159,6 +174,7 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
             no_cpi_fee_lamports=no_cpi_fee_lamports,
             no_cpi_tip_lamports=no_cpi_tip_lamports,
             no_cpi_txs=no_cpi_txs,
+            observed_landed_txs=observed_landed_txs,
             pubkey=pubkey,
             spam_rate=spam_rate,
             success_rate=success_rate,

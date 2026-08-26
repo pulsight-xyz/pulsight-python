@@ -20,6 +20,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             arbitrage txs (is_arb). 0 when the window has no swaps.
         buy_amount_lamports (int | Unset):
         buy_sell_ratio (float | Unset):
+        cashback_claimed_lamports (int | Unset): CashbackClaimedLamports — WSOL pump cashback the wallet CLAIMED in the
+            window (cash basis; CA 000097). The one POSITIVE cost-block component.
         didnt_buy_sells (int | Unset): DidntBuySells / SoldGtBoughtSells count the window's uncovered
             sells: countIf(sold_without_buy) and countIf(sold_more_than_bought)
             over `swaps`. Replaces the retired phantom proceeds split (CA
@@ -30,8 +32,9 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         loss_profit (int | Unset):
         loss_sells (int | Unset):
         net_realized_profit (int | Unset): NetRealizedProfit = RealizedProfit − TotalFees − TotalTips −
-            FailedCostLamports: what the wallet actually kept. This is the
-            HEADLINE PnL; RealizedProfit stays as the flat/gross component.
+            FailedCostLamports + CashbackClaimedLamports: what the wallet actually
+            kept. This is the HEADLINE PnL; RealizedProfit stays as the flat/gross
+            component. Mirrors rollupWindowAgg.netPnl and boardWindowExpr (#c22).
         realized_profit (int | Unset):
         sell_amount_lamports (int | Unset):
         sold_gt_bought_sells (int | Unset):
@@ -59,6 +62,7 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
     arb_tx_ratio: float | Unset = UNSET
     buy_amount_lamports: int | Unset = UNSET
     buy_sell_ratio: float | Unset = UNSET
+    cashback_claimed_lamports: int | Unset = UNSET
     didnt_buy_sells: int | Unset = UNSET
     failed_cost_lamports: int | Unset = UNSET
     loss_profit: int | Unset = UNSET
@@ -86,6 +90,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         buy_amount_lamports = self.buy_amount_lamports
 
         buy_sell_ratio = self.buy_sell_ratio
+
+        cashback_claimed_lamports = self.cashback_claimed_lamports
 
         didnt_buy_sells = self.didnt_buy_sells
 
@@ -134,6 +140,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             field_dict["buy_amount_lamports"] = buy_amount_lamports
         if buy_sell_ratio is not UNSET:
             field_dict["buy_sell_ratio"] = buy_sell_ratio
+        if cashback_claimed_lamports is not UNSET:
+            field_dict["cashback_claimed_lamports"] = cashback_claimed_lamports
         if didnt_buy_sells is not UNSET:
             field_dict["didnt_buy_sells"] = didnt_buy_sells
         if failed_cost_lamports is not UNSET:
@@ -184,6 +192,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
 
         buy_sell_ratio = d.pop("buy_sell_ratio", UNSET)
 
+        cashback_claimed_lamports = d.pop("cashback_claimed_lamports", UNSET)
+
         didnt_buy_sells = d.pop("didnt_buy_sells", UNSET)
 
         failed_cost_lamports = d.pop("failed_cost_lamports", UNSET)
@@ -226,6 +236,7 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             arb_tx_ratio=arb_tx_ratio,
             buy_amount_lamports=buy_amount_lamports,
             buy_sell_ratio=buy_sell_ratio,
+            cashback_claimed_lamports=cashback_claimed_lamports,
             didnt_buy_sells=didnt_buy_sells,
             failed_cost_lamports=failed_cost_lamports,
             loss_profit=loss_profit,

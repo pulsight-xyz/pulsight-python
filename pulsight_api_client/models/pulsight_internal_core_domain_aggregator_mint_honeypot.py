@@ -21,21 +21,32 @@ class PulsightInternalCoreDomainAggregatorMintHoneypot:
             Buyers/Sellers are distinct wallets.
         buyers (int | Unset):
         duplicate_count (int | Unset): DuplicateCount backs "copycat": how many mints share this (symbol, name).
+        fee_sell_buy_ratio (float | Unset):
+        fee_trap_buckets (int | Unset): FeeTrapBuckets/FeeSellBuyRatio back "fee_trap" (confiscatory sell
+            tax, CA 000133/r59): distinct 15-minute buckets in the last 7 days
+            whose sells executed below half that bucket's buy VWAP, and the
+            window's overall sell/buy exec-price ratio (display only).
         freeze_count (int | Unset): FreezeCount/ThawCount back the "freezes_holders" reason.
         reasons (list[str] | Unset):
         sell_count (int | Unset):
         sellers (int | Unset):
         thaw_count (int | Unset):
+        transfer_fee_bps (int | Unset): TransferFeeBps backs "transfer_fee" (Token-2022, CA 000134/r61): the
+            on-chain transfer fee in basis points (max of the current and
+            scheduled fee).
     """
 
     buy_count: int | Unset = UNSET
     buyers: int | Unset = UNSET
     duplicate_count: int | Unset = UNSET
+    fee_sell_buy_ratio: float | Unset = UNSET
+    fee_trap_buckets: int | Unset = UNSET
     freeze_count: int | Unset = UNSET
     reasons: list[str] | Unset = UNSET
     sell_count: int | Unset = UNSET
     sellers: int | Unset = UNSET
     thaw_count: int | Unset = UNSET
+    transfer_fee_bps: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -44,6 +55,10 @@ class PulsightInternalCoreDomainAggregatorMintHoneypot:
         buyers = self.buyers
 
         duplicate_count = self.duplicate_count
+
+        fee_sell_buy_ratio = self.fee_sell_buy_ratio
+
+        fee_trap_buckets = self.fee_trap_buckets
 
         freeze_count = self.freeze_count
 
@@ -57,6 +72,8 @@ class PulsightInternalCoreDomainAggregatorMintHoneypot:
 
         thaw_count = self.thaw_count
 
+        transfer_fee_bps = self.transfer_fee_bps
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -66,6 +83,10 @@ class PulsightInternalCoreDomainAggregatorMintHoneypot:
             field_dict["buyers"] = buyers
         if duplicate_count is not UNSET:
             field_dict["duplicate_count"] = duplicate_count
+        if fee_sell_buy_ratio is not UNSET:
+            field_dict["fee_sell_buy_ratio"] = fee_sell_buy_ratio
+        if fee_trap_buckets is not UNSET:
+            field_dict["fee_trap_buckets"] = fee_trap_buckets
         if freeze_count is not UNSET:
             field_dict["freeze_count"] = freeze_count
         if reasons is not UNSET:
@@ -76,6 +97,8 @@ class PulsightInternalCoreDomainAggregatorMintHoneypot:
             field_dict["sellers"] = sellers
         if thaw_count is not UNSET:
             field_dict["thaw_count"] = thaw_count
+        if transfer_fee_bps is not UNSET:
+            field_dict["transfer_fee_bps"] = transfer_fee_bps
 
         return field_dict
 
@@ -88,6 +111,10 @@ class PulsightInternalCoreDomainAggregatorMintHoneypot:
 
         duplicate_count = d.pop("duplicate_count", UNSET)
 
+        fee_sell_buy_ratio = d.pop("fee_sell_buy_ratio", UNSET)
+
+        fee_trap_buckets = d.pop("fee_trap_buckets", UNSET)
+
         freeze_count = d.pop("freeze_count", UNSET)
 
         reasons = cast(list[str], d.pop("reasons", UNSET))
@@ -98,15 +125,20 @@ class PulsightInternalCoreDomainAggregatorMintHoneypot:
 
         thaw_count = d.pop("thaw_count", UNSET)
 
+        transfer_fee_bps = d.pop("transfer_fee_bps", UNSET)
+
         pulsight_internal_core_domain_aggregator_mint_honeypot = cls(
             buy_count=buy_count,
             buyers=buyers,
             duplicate_count=duplicate_count,
+            fee_sell_buy_ratio=fee_sell_buy_ratio,
+            fee_trap_buckets=fee_trap_buckets,
             freeze_count=freeze_count,
             reasons=reasons,
             sell_count=sell_count,
             sellers=sellers,
             thaw_count=thaw_count,
+            transfer_fee_bps=transfer_fee_bps,
         )
 
         pulsight_internal_core_domain_aggregator_mint_honeypot.additional_properties = d
