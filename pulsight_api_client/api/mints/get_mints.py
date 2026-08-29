@@ -24,6 +24,8 @@ def _get_kwargs(
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
+    max_age_secs: int | Unset = UNSET,
+    min_age_secs: int | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> dict[str, Any]:
@@ -49,6 +51,10 @@ def _get_kwargs(
     params["min_market_cap_usd"] = min_market_cap_usd
 
     params["min_fees_sol"] = min_fees_sol
+
+    params["max_age_secs"] = max_age_secs
+
+    params["min_age_secs"] = min_age_secs
 
     params["limit"] = limit
 
@@ -150,6 +156,8 @@ def sync_detailed(
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
+    max_age_secs: int | Unset = UNSET,
+    min_age_secs: int | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> Response[
@@ -172,6 +180,8 @@ def sync_detailed(
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
+        max_age_secs (int | Unset):
+        min_age_secs (int | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -192,6 +202,8 @@ def sync_detailed(
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
         min_fees_sol=min_fees_sol,
+        max_age_secs=max_age_secs,
+        min_age_secs=min_age_secs,
         limit=limit,
         offset=offset,
     )
@@ -214,6 +226,8 @@ def sync(
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
+    max_age_secs: int | Unset = UNSET,
+    min_age_secs: int | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> (
@@ -237,6 +251,8 @@ def sync(
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
+        max_age_secs (int | Unset):
+        min_age_secs (int | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -258,6 +274,8 @@ def sync(
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
         min_fees_sol=min_fees_sol,
+        max_age_secs=max_age_secs,
+        min_age_secs=min_age_secs,
         limit=limit,
         offset=offset,
     ).parsed
@@ -274,6 +292,8 @@ async def asyncio_detailed(
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
+    max_age_secs: int | Unset = UNSET,
+    min_age_secs: int | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> Response[
@@ -296,6 +316,8 @@ async def asyncio_detailed(
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
+        max_age_secs (int | Unset):
+        min_age_secs (int | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -316,6 +338,8 @@ async def asyncio_detailed(
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
         min_fees_sol=min_fees_sol,
+        max_age_secs=max_age_secs,
+        min_age_secs=min_age_secs,
         limit=limit,
         offset=offset,
     )
@@ -336,6 +360,8 @@ async def asyncio(
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
+    max_age_secs: int | Unset = UNSET,
+    min_age_secs: int | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> (
@@ -359,6 +385,8 @@ async def asyncio(
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
+        max_age_secs (int | Unset):
+        min_age_secs (int | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -381,6 +409,8 @@ async def asyncio(
             min_pool_sol=min_pool_sol,
             min_market_cap_usd=min_market_cap_usd,
             min_fees_sol=min_fees_sol,
+            max_age_secs=max_age_secs,
+            min_age_secs=min_age_secs,
             limit=limit,
             offset=offset,
         )

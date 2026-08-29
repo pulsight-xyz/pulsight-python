@@ -7,52 +7,29 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
-from ..types import UNSET, Unset
-
-T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorMintInsiders")
+T = TypeVar("T", bound="PulsightInternalCoreDomainTokenviewFilterFilters")
 
 
 @_attrs_define
-class PulsightInternalCoreDomainAggregatorMintInsiders:
-    """
-    Attributes:
-        pct_of_supply (float | Unset):
-        wallets (int | Unset):
-    """
+class PulsightInternalCoreDomainTokenviewFilterFilters:
+    """ """
 
-    pct_of_supply: float | Unset = UNSET
-    wallets: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        pct_of_supply = self.pct_of_supply
-
-        wallets = self.wallets
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if pct_of_supply is not UNSET:
-            field_dict["pct_of_supply"] = pct_of_supply
-        if wallets is not UNSET:
-            field_dict["wallets"] = wallets
 
         return field_dict
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
-        pct_of_supply = d.pop("pct_of_supply", UNSET)
+        pulsight_internal_core_domain_tokenview_filter_filters = cls()
 
-        wallets = d.pop("wallets", UNSET)
-
-        pulsight_internal_core_domain_aggregator_mint_insiders = cls(
-            pct_of_supply=pct_of_supply,
-            wallets=wallets,
-        )
-
-        pulsight_internal_core_domain_aggregator_mint_insiders.additional_properties = d
-        return pulsight_internal_core_domain_aggregator_mint_insiders
+        pulsight_internal_core_domain_tokenview_filter_filters.additional_properties = d
+        return pulsight_internal_core_domain_tokenview_filter_filters
 
     @property
     def additional_keys(self) -> list[str]:
