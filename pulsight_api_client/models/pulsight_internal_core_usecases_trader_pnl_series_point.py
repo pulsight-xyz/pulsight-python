@@ -16,6 +16,10 @@ T = TypeVar("T", bound="PulsightInternalCoreUsecasesTraderPnlSeriesPoint")
 class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
     """
     Attributes:
+        arb_pnl (int | Unset): ArbPnl is the day's arbitrage take-home (tx-grain, CA 000158). It is
+            ALREADY included in Profit and Net — exposed separately so the UI can
+            show the split. Arb round-trip rows book zero realized PnL upstream,
+            so the inclusion never double-counts.
         cashback (int | Unset):
         day (str | Unset):
         failed_cost (int | Unset):
@@ -23,7 +27,8 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         fees (int | Unset): Costs of the day (lamports): per-tx fees, tips, and failed-tx burn,
             plus the day's CLAIMED pump cashback (cash basis, the one positive
             component), with `net = profit - fees - tips - failed_cost +
-            cashback`. The charts plot NET as the headline series; `profit` stays
+            cashback` (profit already includes the arbitrage take-home). The charts plot NET as the headline series;
+            `profit` stays
             as the flat/gross component.
         net (int | Unset):
         profit (int | Unset):
@@ -36,6 +41,7 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
             pre-ledger history reads "not measured" rather than a fake 100%.
     """
 
+    arb_pnl: int | Unset = UNSET
     cashback: int | Unset = UNSET
     day: str | Unset = UNSET
     failed_cost: int | Unset = UNSET
@@ -49,6 +55,8 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        arb_pnl = self.arb_pnl
+
         cashback = self.cashback
 
         day = self.day
@@ -72,6 +80,8 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if arb_pnl is not UNSET:
+            field_dict["arb_pnl"] = arb_pnl
         if cashback is not UNSET:
             field_dict["cashback"] = cashback
         if day is not UNSET:
@@ -98,6 +108,8 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
+        arb_pnl = d.pop("arb_pnl", UNSET)
+
         cashback = d.pop("cashback", UNSET)
 
         day = d.pop("day", UNSET)
@@ -119,6 +131,7 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         txs = d.pop("txs", UNSET)
 
         pulsight_internal_core_usecases_trader_pnl_series_point = cls(
+            arb_pnl=arb_pnl,
             cashback=cashback,
             day=day,
             failed_cost=failed_cost,

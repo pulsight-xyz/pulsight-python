@@ -16,6 +16,9 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow
 class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
     """
     Attributes:
+        arb_pnl_lamports (int | Unset): ArbPnlLamports — the window's arbitrage take-home (tx-grain, CA
+            000158), ALREADY included in RealizedProfit and NetRealizedProfit.
+            Exposed so the UI can show the split.
         arb_tx_ratio (float | Unset): ArbTxRatio is the fraction (0..1) of the window's swaps that were
             arbitrage txs (is_arb). 0 when the window has no swaps.
         buy_amount_lamports (int | Unset):
@@ -32,10 +35,13 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         loss_profit (int | Unset):
         loss_sells (int | Unset):
         net_realized_profit (int | Unset): NetRealizedProfit = RealizedProfit − TotalFees − TotalTips −
-            FailedCostLamports + CashbackClaimedLamports: what the wallet actually
-            kept. This is the HEADLINE PnL; RealizedProfit stays as the flat/gross
-            component. Mirrors rollupWindowAgg.netPnl and boardWindowExpr (#c22).
-        realized_profit (int | Unset):
+            FailedCostLamports + CashbackClaimedLamports: what the wallet
+            actually kept. This is the HEADLINE PnL; RealizedProfit is the
+            pre-cost component (accrual + arb take-home). Mirrors
+            rollupWindowAgg.netPnl and boardWindowExpr (#c22).
+        realized_profit (int | Unset): RealizedProfit is the window's PnL: accrual realized profit PLUS the
+            arbitrage take-home (ArbPnlLamports). The two are disjoint upstream
+            (arb round-trip rows book zero realized, r71), so the sum is exact.
         sell_amount_lamports (int | Unset):
         sold_gt_bought_sells (int | Unset):
         swap_count (int | Unset):
@@ -59,6 +65,7 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         winrate (float | Unset):
     """
 
+    arb_pnl_lamports: int | Unset = UNSET
     arb_tx_ratio: float | Unset = UNSET
     buy_amount_lamports: int | Unset = UNSET
     buy_sell_ratio: float | Unset = UNSET
@@ -85,6 +92,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        arb_pnl_lamports = self.arb_pnl_lamports
+
         arb_tx_ratio = self.arb_tx_ratio
 
         buy_amount_lamports = self.buy_amount_lamports
@@ -134,6 +143,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if arb_pnl_lamports is not UNSET:
+            field_dict["arb_pnl_lamports"] = arb_pnl_lamports
         if arb_tx_ratio is not UNSET:
             field_dict["arb_tx_ratio"] = arb_tx_ratio
         if buy_amount_lamports is not UNSET:
@@ -186,6 +197,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
+        arb_pnl_lamports = d.pop("arb_pnl_lamports", UNSET)
+
         arb_tx_ratio = d.pop("arb_tx_ratio", UNSET)
 
         buy_amount_lamports = d.pop("buy_amount_lamports", UNSET)
@@ -233,6 +246,7 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         winrate = d.pop("winrate", UNSET)
 
         pulsight_internal_core_domain_aggregator_trader_period_stats_row = cls(
+            arb_pnl_lamports=arb_pnl_lamports,
             arb_tx_ratio=arb_tx_ratio,
             buy_amount_lamports=buy_amount_lamports,
             buy_sell_ratio=buy_sell_ratio,

@@ -10,6 +10,9 @@ from typing_extensions import Self
 from ..models.pulsight_internal_core_domain_aggregator_timeframe import (
     PulsightInternalCoreDomainAggregatorTimeframe,
 )
+from ..models.pulsight_internal_core_domain_strategy_venue_id import (
+    PulsightInternalCoreDomainStrategyVenueID,
+)
 from ..models.pulsight_internal_core_usecases_backtest_backtest_status import (
     PulsightInternalCoreUsecasesBacktestBacktestStatus,
 )
@@ -38,6 +41,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
         error (str | Unset):
         finished_at (str | Unset):
         id (str | Unset):
+        latency_slots (int | Unset):
+        per_pool (bool | Unset):
         progress_note (str | Unset):
         progress_pct (int | Unset):
         scope (PulsightInternalCoreUsecasesBacktestTokenScope | Unset):
@@ -52,12 +57,15 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
         time_to (str | Unset):
         timeframe (PulsightInternalCoreDomainAggregatorTimeframe | Unset):
         user_id (str | Unset):
+        venue (PulsightInternalCoreDomainStrategyVenueID | Unset):
     """
 
     created_at: str | Unset = UNSET
     error: str | Unset = UNSET
     finished_at: str | Unset = UNSET
     id: str | Unset = UNSET
+    latency_slots: int | Unset = UNSET
+    per_pool: bool | Unset = UNSET
     progress_note: str | Unset = UNSET
     progress_pct: int | Unset = UNSET
     scope: PulsightInternalCoreUsecasesBacktestTokenScope | Unset = UNSET
@@ -72,6 +80,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
     time_to: str | Unset = UNSET
     timeframe: PulsightInternalCoreDomainAggregatorTimeframe | Unset = UNSET
     user_id: str | Unset = UNSET
+    venue: PulsightInternalCoreDomainStrategyVenueID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -82,6 +91,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
         finished_at = self.finished_at
 
         id = self.id
+
+        latency_slots = self.latency_slots
+
+        per_pool = self.per_pool
 
         progress_note = self.progress_note
 
@@ -121,6 +134,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
 
         user_id = self.user_id
 
+        venue: str | Unset = UNSET
+        if not isinstance(self.venue, Unset):
+            venue = self.venue.value
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -132,6 +149,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
             field_dict["finished_at"] = finished_at
         if id is not UNSET:
             field_dict["id"] = id
+        if latency_slots is not UNSET:
+            field_dict["latency_slots"] = latency_slots
+        if per_pool is not UNSET:
+            field_dict["per_pool"] = per_pool
         if progress_note is not UNSET:
             field_dict["progress_note"] = progress_note
         if progress_pct is not UNSET:
@@ -160,6 +181,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
             field_dict["timeframe"] = timeframe
         if user_id is not UNSET:
             field_dict["user_id"] = user_id
+        if venue is not UNSET:
+            field_dict["venue"] = venue
 
         return field_dict
 
@@ -183,6 +206,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
         finished_at = d.pop("finished_at", UNSET)
 
         id = d.pop("id", UNSET)
+
+        latency_slots = d.pop("latency_slots", UNSET)
+
+        per_pool = d.pop("per_pool", UNSET)
 
         progress_note = d.pop("progress_note", UNSET)
 
@@ -241,11 +268,20 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
 
         user_id = d.pop("user_id", UNSET)
 
+        _venue = d.pop("venue", UNSET)
+        venue: PulsightInternalCoreDomainStrategyVenueID | Unset
+        if isinstance(_venue, Unset):
+            venue = UNSET
+        else:
+            venue = PulsightInternalCoreDomainStrategyVenueID(_venue)
+
         pulsight_internal_core_usecases_backtest_backtest_record = cls(
             created_at=created_at,
             error=error,
             finished_at=finished_at,
             id=id,
+            latency_slots=latency_slots,
+            per_pool=per_pool,
             progress_note=progress_note,
             progress_pct=progress_pct,
             scope=scope,
@@ -260,6 +296,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
             time_to=time_to,
             timeframe=timeframe,
             user_id=user_id,
+            venue=venue,
         )
 
         pulsight_internal_core_usecases_backtest_backtest_record.additional_properties = d

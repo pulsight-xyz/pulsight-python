@@ -31,6 +31,16 @@ T = TypeVar("T", bound="PulsightInternalCoreUsecasesBacktestBacktestRequest")
 class PulsightInternalCoreUsecasesBacktestBacktestRequest:
     """
     Attributes:
+        latency_slots (int | Unset): LatencySlots is the copy-fill landing latency in slots (blocks),
+            0..MaxLatencySlots. 0 (default) keeps the zero-latency model: a copy
+            fills at the target's own post-swap price with slippage charged as a
+            flat haircut. 1..3 fills at the pool's EMPIRICAL resting price that many
+            slots after the target's swap, and the exec's slippage_bps becomes a
+            REVERT GATE instead of a charge — the fill is rejected (tip + priority
+            fee still paid) when the landing price drifted past the tolerance,
+            matching how the live executor's min_out floor behaves. Only copy-style
+            fills (Copy* and Target-signal-driven Emits) are affected; candle-driven
+            fills already price on the bucket close.
         per_pool (bool | Unset): PerPool, when true, simulates each of a mint's significant markets as an
             INDEPENDENT instrument — its own candle stream, indicators, ledger and
             (for copy strategies) the target swaps on THAT pool — instead of a single
@@ -46,6 +56,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
         venue (PulsightInternalCoreDomainStrategyVenueID | Unset):
     """
 
+    latency_slots: int | Unset = UNSET
     per_pool: bool | Unset = UNSET
     scope: PulsightInternalCoreUsecasesBacktestTokenScope | Unset = UNSET
     starting_balance_sol: float | Unset = UNSET
@@ -56,6 +67,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        latency_slots = self.latency_slots
+
         per_pool = self.per_pool
 
         scope: dict[str, Any] | Unset = UNSET
@@ -81,6 +94,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if latency_slots is not UNSET:
+            field_dict["latency_slots"] = latency_slots
         if per_pool is not UNSET:
             field_dict["per_pool"] = per_pool
         if scope is not UNSET:
@@ -108,6 +123,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
         )
 
         d = dict(src_dict)
+        latency_slots = d.pop("latency_slots", UNSET)
+
         per_pool = d.pop("per_pool", UNSET)
 
         _scope = d.pop("scope", UNSET)
@@ -145,6 +162,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
             venue = PulsightInternalCoreDomainStrategyVenueID(_venue)
 
         pulsight_internal_core_usecases_backtest_backtest_request = cls(
+            latency_slots=latency_slots,
             per_pool=per_pool,
             scope=scope,
             starting_balance_sol=starting_balance_sol,

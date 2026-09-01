@@ -22,6 +22,18 @@ T = TypeVar("T", bound="PulsightInternalCoreUsecasesBacktestBacktestSummary")
 class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     """
     Attributes:
+        avg_landing_drift_bps (float | Unset): AvgLandingDriftBps is the mean ADVERSE-signed drift (bps) actually
+            crossed by the run's FILLED copies — what latency cost on the fills that
+            went through (reverted ones are excluded; their cost shows as
+            RevertFeesSol + missed entries). Nil when the run had no landing fills.
+        copies_reverted (int | Unset): CopiesReverted counts copy fills the slippage gate REJECTED: the pool's
+            landing price had drifted past the exec's slippage_bps between the
+            target's swap and our simulated landing. Unlike CopiesSkippedUnpriced
+            this is an EXECUTION OUTCOME, not a coverage gap — the data was fine,
+            the market moved, and a live bot's tx would have landed and reverted.
+            Each revert still pays its tip + priority fee (folded into
+            FeesPaidSol/TipsPaidSol and broken out in RevertFeesSol). Only possible
+            on latency_slots > 0 runs. Additive JSONB field — old rows decode as 0.
         copies_skipped_unpriced (int | Unset): CopiesSkippedUnpriced counts mirror trades that passed every rule and
             would have fired, but whose triggering swap could not be priced honestly
             — so they were NOT traded. Two causes, both data-side:
@@ -47,6 +59,13 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             BacktestPosition). Their UnrealizedPnlSol sums into UnrealizedPnlSol
             above. Empty when the strategy closed everything (all "Sold all").
             Additive JSONB field — pre-existing rows decode as nil.
+        landing_contested_pct (float | Unset): LandingContestedPct is the share (0-100) of filled copies whose pool saw
+            at least one other tx inside the latency gap — how often somebody beat
+            the bot to the pool. Nil when the run had no landing fills.
+        latency_slots (int | Unset): LatencySlots echoes the run's landing latency (req.LatencySlots) so a
+            result is readable as which fill model produced it. 0 ⇒ the zero-latency
+            model. Additive JSONB field — old rows decode as 0, which is what they
+            ran. When > 0, the four fields below describe the landing plane.
         losses (int | Unset):
         max_drawdown_sol (float | Unset):
         our_avg_price_impact_pct (float | Unset): Price-impact rollups, in percent of mid. "Our*" averages over every
@@ -88,6 +107,12 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             bonding-curve entry is marked from the moment it opens. Additive JSONB
             field — old rows decode as 0.
         realized_pnl_sol (float | Unset):
+        revert_fees_sol (float | Unset): RevertFeesSol is the tip + priority-fee total burned by CopiesReverted
+            fills — money spent on txs that opened or closed nothing. Already
+            included in FeesPaidSol/TipsPaidSol; broken out so the cost of a
+            too-tight slippage setting is visible on its own. NOT walked into
+            MaxDrawdownSol (the drawdown walk only sees trade rows) — a documented
+            approximation.
         roi_pct (float | Unset):
         simulation_assumptions (list[str] | Unset): SimulationAssumptions is free-text notes about which real-world
             cost components the simulator did NOT model (route hops, MEV,
@@ -104,12 +129,16 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         wins (int | Unset):
     """
 
+    avg_landing_drift_bps: float | Unset = UNSET
+    copies_reverted: int | Unset = UNSET
     copies_skipped_unpriced: int | Unset = UNSET
     ending_balance_sol: float | Unset = UNSET
     fees_paid_sol: float | Unset = UNSET
     held_positions: (
         list[PulsightInternalCoreUsecasesBacktestBacktestPosition] | Unset
     ) = UNSET
+    landing_contested_pct: float | Unset = UNSET
+    latency_slots: int | Unset = UNSET
     losses: int | Unset = UNSET
     max_drawdown_sol: float | Unset = UNSET
     our_avg_price_impact_pct: float | Unset = UNSET
@@ -117,6 +146,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     per_pool: bool | Unset = UNSET
     positions_opened_unmarked: int | Unset = UNSET
     realized_pnl_sol: float | Unset = UNSET
+    revert_fees_sol: float | Unset = UNSET
     roi_pct: float | Unset = UNSET
     simulation_assumptions: list[str] | Unset = UNSET
     starting_balance_sol: float | Unset = UNSET
@@ -130,6 +160,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        avg_landing_drift_bps = self.avg_landing_drift_bps
+
+        copies_reverted = self.copies_reverted
+
         copies_skipped_unpriced = self.copies_skipped_unpriced
 
         ending_balance_sol = self.ending_balance_sol
@@ -142,6 +176,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             for held_positions_item_data in self.held_positions:
                 held_positions_item = held_positions_item_data.to_dict()
                 held_positions.append(held_positions_item)
+
+        landing_contested_pct = self.landing_contested_pct
+
+        latency_slots = self.latency_slots
 
         losses = self.losses
 
@@ -156,6 +194,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         positions_opened_unmarked = self.positions_opened_unmarked
 
         realized_pnl_sol = self.realized_pnl_sol
+
+        revert_fees_sol = self.revert_fees_sol
 
         roi_pct = self.roi_pct
 
@@ -182,6 +222,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if avg_landing_drift_bps is not UNSET:
+            field_dict["avg_landing_drift_bps"] = avg_landing_drift_bps
+        if copies_reverted is not UNSET:
+            field_dict["copies_reverted"] = copies_reverted
         if copies_skipped_unpriced is not UNSET:
             field_dict["copies_skipped_unpriced"] = copies_skipped_unpriced
         if ending_balance_sol is not UNSET:
@@ -190,6 +234,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["fees_paid_sol"] = fees_paid_sol
         if held_positions is not UNSET:
             field_dict["held_positions"] = held_positions
+        if landing_contested_pct is not UNSET:
+            field_dict["landing_contested_pct"] = landing_contested_pct
+        if latency_slots is not UNSET:
+            field_dict["latency_slots"] = latency_slots
         if losses is not UNSET:
             field_dict["losses"] = losses
         if max_drawdown_sol is not UNSET:
@@ -204,6 +252,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["positions_opened_unmarked"] = positions_opened_unmarked
         if realized_pnl_sol is not UNSET:
             field_dict["realized_pnl_sol"] = realized_pnl_sol
+        if revert_fees_sol is not UNSET:
+            field_dict["revert_fees_sol"] = revert_fees_sol
         if roi_pct is not UNSET:
             field_dict["roi_pct"] = roi_pct
         if simulation_assumptions is not UNSET:
@@ -236,6 +286,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         )
 
         d = dict(src_dict)
+        avg_landing_drift_bps = d.pop("avg_landing_drift_bps", UNSET)
+
+        copies_reverted = d.pop("copies_reverted", UNSET)
+
         copies_skipped_unpriced = d.pop("copies_skipped_unpriced", UNSET)
 
         ending_balance_sol = d.pop("ending_balance_sol", UNSET)
@@ -257,6 +311,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
                 held_positions.append(held_positions_item)
 
+        landing_contested_pct = d.pop("landing_contested_pct", UNSET)
+
+        latency_slots = d.pop("latency_slots", UNSET)
+
         losses = d.pop("losses", UNSET)
 
         max_drawdown_sol = d.pop("max_drawdown_sol", UNSET)
@@ -270,6 +328,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         positions_opened_unmarked = d.pop("positions_opened_unmarked", UNSET)
 
         realized_pnl_sol = d.pop("realized_pnl_sol", UNSET)
+
+        revert_fees_sol = d.pop("revert_fees_sol", UNSET)
 
         roi_pct = d.pop("roi_pct", UNSET)
 
@@ -292,10 +352,14 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         wins = d.pop("wins", UNSET)
 
         pulsight_internal_core_usecases_backtest_backtest_summary = cls(
+            avg_landing_drift_bps=avg_landing_drift_bps,
+            copies_reverted=copies_reverted,
             copies_skipped_unpriced=copies_skipped_unpriced,
             ending_balance_sol=ending_balance_sol,
             fees_paid_sol=fees_paid_sol,
             held_positions=held_positions,
+            landing_contested_pct=landing_contested_pct,
+            latency_slots=latency_slots,
             losses=losses,
             max_drawdown_sol=max_drawdown_sol,
             our_avg_price_impact_pct=our_avg_price_impact_pct,
@@ -303,6 +367,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             per_pool=per_pool,
             positions_opened_unmarked=positions_opened_unmarked,
             realized_pnl_sol=realized_pnl_sol,
+            revert_fees_sol=revert_fees_sol,
             roi_pct=roi_pct,
             simulation_assumptions=simulation_assumptions,
             starting_balance_sol=starting_balance_sol,

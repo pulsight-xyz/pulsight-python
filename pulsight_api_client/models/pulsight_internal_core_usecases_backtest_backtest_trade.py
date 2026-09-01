@@ -25,6 +25,12 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         backtest_id (str | Unset):
         fee_sol (float | Unset):
         idx (int | Unset):
+        landing_drift_bps (float | Unset): LandingDriftBps is the ADVERSE-signed price drift this copy actually
+            crossed between the target's post-swap price and the landing price it
+            filled at, in basis points (positive = the gap cost you, for buys and
+            sells alike). Set only on fills of a latency_slots > 0 run; 0 means
+            nobody traded the pool inside the gap. Nil on zero-latency runs and
+            candle-driven fills.
         mint (str | Unset):
         pool (str | Unset): Pool is the AMM market this trade executed in. For a COPY trade it's the
             pool the mirrored target actually swapped in (per-leg dex_swaps); for an
@@ -42,9 +48,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         sol_amount (float | Unset):
         source (PulsightInternalCoreUsecasesBacktestTradeSource | Unset):
         target_price_impact_pct (float | Unset): TargetPriceImpactPct is the MIRRORED trader's own price impact on the
-            swap we copied — set only on copy trades that executed at the same
-            timestamp as the target (a true 1:1 mirror), where the target's move is
-            folded into our fill price. Nil for emit trades and delayed copies.
+            swap we copied — set on copy trades triggered by a target swap, measured
+            against the reconstructed pre-swap reserve. It describes THEIR fill, so
+            it is reported the same under a landing-latency run; it is never folded
+            into our own price. Nil for candle-driven emit trades.
         tip_sol (float | Unset):
         token_amount (float | Unset):
         triggering_swap_sig (str | Unset):
@@ -54,6 +61,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
     backtest_id: str | Unset = UNSET
     fee_sol: float | Unset = UNSET
     idx: int | Unset = UNSET
+    landing_drift_bps: float | Unset = UNSET
     mint: str | Unset = UNSET
     pool: str | Unset = UNSET
     pool_sol_at_trigger: float | Unset = UNSET
@@ -76,6 +84,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         fee_sol = self.fee_sol
 
         idx = self.idx
+
+        landing_drift_bps = self.landing_drift_bps
 
         mint = self.mint
 
@@ -118,6 +128,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
             field_dict["fee_sol"] = fee_sol
         if idx is not UNSET:
             field_dict["idx"] = idx
+        if landing_drift_bps is not UNSET:
+            field_dict["landing_drift_bps"] = landing_drift_bps
         if mint is not UNSET:
             field_dict["mint"] = mint
         if pool is not UNSET:
@@ -157,6 +169,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         fee_sol = d.pop("fee_sol", UNSET)
 
         idx = d.pop("idx", UNSET)
+
+        landing_drift_bps = d.pop("landing_drift_bps", UNSET)
 
         mint = d.pop("mint", UNSET)
 
@@ -200,6 +214,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
             backtest_id=backtest_id,
             fee_sol=fee_sol,
             idx=idx,
+            landing_drift_bps=landing_drift_bps,
             mint=mint,
             pool=pool,
             pool_sol_at_trigger=pool_sol_at_trigger,
