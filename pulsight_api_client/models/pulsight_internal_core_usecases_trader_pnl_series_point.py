@@ -16,12 +16,15 @@ T = TypeVar("T", bound="PulsightInternalCoreUsecasesTraderPnlSeriesPoint")
 class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
     """
     Attributes:
+        cashback (int | Unset):
         day (str | Unset):
         failed_cost (int | Unset):
         failed_txs (int | Unset):
         fees (int | Unset): Costs of the day (lamports): per-tx fees, tips, and failed-tx burn,
-            with `net = profit - fees - tips - failed_cost`. The charts plot NET
-            as the headline series; `profit` stays as the flat/gross component.
+            plus the day's CLAIMED pump cashback (cash basis, the one positive
+            component), with `net = profit - fees - tips - failed_cost +
+            cashback`. The charts plot NET as the headline series; `profit` stays
+            as the flat/gross component.
         net (int | Unset):
         profit (int | Unset):
         success_rate (float | Unset):
@@ -33,6 +36,7 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
             pre-ledger history reads "not measured" rather than a fake 100%.
     """
 
+    cashback: int | Unset = UNSET
     day: str | Unset = UNSET
     failed_cost: int | Unset = UNSET
     failed_txs: int | Unset = UNSET
@@ -45,6 +49,8 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        cashback = self.cashback
+
         day = self.day
 
         failed_cost = self.failed_cost
@@ -66,6 +72,8 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if cashback is not UNSET:
+            field_dict["cashback"] = cashback
         if day is not UNSET:
             field_dict["day"] = day
         if failed_cost is not UNSET:
@@ -90,6 +98,8 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
+        cashback = d.pop("cashback", UNSET)
+
         day = d.pop("day", UNSET)
 
         failed_cost = d.pop("failed_cost", UNSET)
@@ -109,6 +119,7 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         txs = d.pop("txs", UNSET)
 
         pulsight_internal_core_usecases_trader_pnl_series_point = cls(
+            cashback=cashback,
             day=day,
             failed_cost=failed_cost,
             failed_txs=failed_txs,

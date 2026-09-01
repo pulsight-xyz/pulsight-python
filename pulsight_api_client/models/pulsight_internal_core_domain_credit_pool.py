@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreDomainCreditPool(str, Enum):
+class PulsightInternalCoreDomainCreditPool(StrEnum):
     POOL_API = "api"
 
     def __str__(self) -> str:

@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreDomainSubscriptionSubscriptionTier(str, Enum):
+class PulsightInternalCoreDomainSubscriptionSubscriptionTier(StrEnum):
     TIER_ENTERPRISE = "enterprise"
     TIER_FREE = "free"
     TIER_ONE = "tier1"

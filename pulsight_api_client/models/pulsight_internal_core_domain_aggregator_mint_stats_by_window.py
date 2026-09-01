@@ -22,19 +22,29 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorMintStatsByWindow")
 class PulsightInternalCoreDomainAggregatorMintStatsByWindow:
     """
     Attributes:
+        field_12h (PulsightInternalCoreDomainAggregatorMintWindowStats | Unset):
         field_1h (PulsightInternalCoreDomainAggregatorMintWindowStats | Unset):
         field_1m (PulsightInternalCoreDomainAggregatorMintWindowStats | Unset):
         field_24h (PulsightInternalCoreDomainAggregatorMintWindowStats | Unset):
+        field_30m (PulsightInternalCoreDomainAggregatorMintWindowStats | Unset):
         field_5m (PulsightInternalCoreDomainAggregatorMintWindowStats | Unset):
+        field_6h (PulsightInternalCoreDomainAggregatorMintWindowStats | Unset):
     """
 
+    field_12h: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset = UNSET
     field_1h: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset = UNSET
     field_1m: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset = UNSET
     field_24h: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset = UNSET
+    field_30m: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset = UNSET
     field_5m: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset = UNSET
+    field_6h: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        field_12h: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.field_12h, Unset):
+            field_12h = self.field_12h.to_dict()
+
         field_1h: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_1h, Unset):
             field_1h = self.field_1h.to_dict()
@@ -47,21 +57,35 @@ class PulsightInternalCoreDomainAggregatorMintStatsByWindow:
         if not isinstance(self.field_24h, Unset):
             field_24h = self.field_24h.to_dict()
 
+        field_30m: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.field_30m, Unset):
+            field_30m = self.field_30m.to_dict()
+
         field_5m: dict[str, Any] | Unset = UNSET
         if not isinstance(self.field_5m, Unset):
             field_5m = self.field_5m.to_dict()
 
+        field_6h: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.field_6h, Unset):
+            field_6h = self.field_6h.to_dict()
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if field_12h is not UNSET:
+            field_dict["12h"] = field_12h
         if field_1h is not UNSET:
             field_dict["1h"] = field_1h
         if field_1m is not UNSET:
             field_dict["1m"] = field_1m
         if field_24h is not UNSET:
             field_dict["24h"] = field_24h
+        if field_30m is not UNSET:
+            field_dict["30m"] = field_30m
         if field_5m is not UNSET:
             field_dict["5m"] = field_5m
+        if field_6h is not UNSET:
+            field_dict["6h"] = field_6h
 
         return field_dict
 
@@ -72,6 +96,15 @@ class PulsightInternalCoreDomainAggregatorMintStatsByWindow:
         )
 
         d = dict(src_dict)
+        _field_12h = d.pop("12h", UNSET)
+        field_12h: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset
+        if isinstance(_field_12h, Unset):
+            field_12h = UNSET
+        else:
+            field_12h = PulsightInternalCoreDomainAggregatorMintWindowStats.from_dict(
+                _field_12h
+            )
+
         _field_1h = d.pop("1h", UNSET)
         field_1h: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset
         if isinstance(_field_1h, Unset):
@@ -99,6 +132,15 @@ class PulsightInternalCoreDomainAggregatorMintStatsByWindow:
                 _field_24h
             )
 
+        _field_30m = d.pop("30m", UNSET)
+        field_30m: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset
+        if isinstance(_field_30m, Unset):
+            field_30m = UNSET
+        else:
+            field_30m = PulsightInternalCoreDomainAggregatorMintWindowStats.from_dict(
+                _field_30m
+            )
+
         _field_5m = d.pop("5m", UNSET)
         field_5m: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset
         if isinstance(_field_5m, Unset):
@@ -108,11 +150,23 @@ class PulsightInternalCoreDomainAggregatorMintStatsByWindow:
                 _field_5m
             )
 
+        _field_6h = d.pop("6h", UNSET)
+        field_6h: PulsightInternalCoreDomainAggregatorMintWindowStats | Unset
+        if isinstance(_field_6h, Unset):
+            field_6h = UNSET
+        else:
+            field_6h = PulsightInternalCoreDomainAggregatorMintWindowStats.from_dict(
+                _field_6h
+            )
+
         pulsight_internal_core_domain_aggregator_mint_stats_by_window = cls(
+            field_12h=field_12h,
             field_1h=field_1h,
             field_1m=field_1m,
             field_24h=field_24h,
+            field_30m=field_30m,
             field_5m=field_5m,
+            field_6h=field_6h,
         )
 
         pulsight_internal_core_domain_aggregator_mint_stats_by_window.additional_properties = d

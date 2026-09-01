@@ -88,10 +88,11 @@ def sync_detailed(
     """Copyability of a wallet set at simulated latencies
 
      For each wallet's fills, the price a copier filling N blocks later would have got — an entry/exit
-    slippage curve and the share of the wallet's edge that survives. Latency is counted in SLOTS, since
-    the stored swap timestamp resolves only to whole seconds. Measures PRICE TRANSFER, not PnL. Supply
-    size_lamports to also get the EXECUTION half: the slippage band each fill needed (split signal-buy
-    vs follow-on) and what each widening step buys, priced at the target's own exit.
+    slippage curve and the share of the wallet's edge that survives. The window is a half-open [from_ts,
+    to_ts) in Unix epoch SECONDS. Latency is counted in SLOTS, since the stored swap timestamp resolves
+    only to whole seconds. Measures PRICE TRANSFER, not PnL. Supply size_lamports to also get the
+    EXECUTION half: the slippage band each fill needed (split signal-buy vs follow-on) and what each
+    widening step buys, priced at the target's own exit.
 
     Args:
         body (InternalAdaptersPrimaryHttpHandlerCopyabilityRequest):
@@ -127,10 +128,11 @@ def sync(
     """Copyability of a wallet set at simulated latencies
 
      For each wallet's fills, the price a copier filling N blocks later would have got — an entry/exit
-    slippage curve and the share of the wallet's edge that survives. Latency is counted in SLOTS, since
-    the stored swap timestamp resolves only to whole seconds. Measures PRICE TRANSFER, not PnL. Supply
-    size_lamports to also get the EXECUTION half: the slippage band each fill needed (split signal-buy
-    vs follow-on) and what each widening step buys, priced at the target's own exit.
+    slippage curve and the share of the wallet's edge that survives. The window is a half-open [from_ts,
+    to_ts) in Unix epoch SECONDS. Latency is counted in SLOTS, since the stored swap timestamp resolves
+    only to whole seconds. Measures PRICE TRANSFER, not PnL. Supply size_lamports to also get the
+    EXECUTION half: the slippage band each fill needed (split signal-buy vs follow-on) and what each
+    widening step buys, priced at the target's own exit.
 
     Args:
         body (InternalAdaptersPrimaryHttpHandlerCopyabilityRequest):
@@ -160,10 +162,11 @@ async def asyncio_detailed(
     """Copyability of a wallet set at simulated latencies
 
      For each wallet's fills, the price a copier filling N blocks later would have got — an entry/exit
-    slippage curve and the share of the wallet's edge that survives. Latency is counted in SLOTS, since
-    the stored swap timestamp resolves only to whole seconds. Measures PRICE TRANSFER, not PnL. Supply
-    size_lamports to also get the EXECUTION half: the slippage band each fill needed (split signal-buy
-    vs follow-on) and what each widening step buys, priced at the target's own exit.
+    slippage curve and the share of the wallet's edge that survives. The window is a half-open [from_ts,
+    to_ts) in Unix epoch SECONDS. Latency is counted in SLOTS, since the stored swap timestamp resolves
+    only to whole seconds. Measures PRICE TRANSFER, not PnL. Supply size_lamports to also get the
+    EXECUTION half: the slippage band each fill needed (split signal-buy vs follow-on) and what each
+    widening step buys, priced at the target's own exit.
 
     Args:
         body (InternalAdaptersPrimaryHttpHandlerCopyabilityRequest):
@@ -197,10 +200,11 @@ async def asyncio(
     """Copyability of a wallet set at simulated latencies
 
      For each wallet's fills, the price a copier filling N blocks later would have got — an entry/exit
-    slippage curve and the share of the wallet's edge that survives. Latency is counted in SLOTS, since
-    the stored swap timestamp resolves only to whole seconds. Measures PRICE TRANSFER, not PnL. Supply
-    size_lamports to also get the EXECUTION half: the slippage band each fill needed (split signal-buy
-    vs follow-on) and what each widening step buys, priced at the target's own exit.
+    slippage curve and the share of the wallet's edge that survives. The window is a half-open [from_ts,
+    to_ts) in Unix epoch SECONDS. Latency is counted in SLOTS, since the stored swap timestamp resolves
+    only to whole seconds. Measures PRICE TRANSFER, not PnL. Supply size_lamports to also get the
+    EXECUTION half: the slippage band each fill needed (split signal-buy vs follow-on) and what each
+    widening step buys, priced at the target's own exit.
 
     Args:
         body (InternalAdaptersPrimaryHttpHandlerCopyabilityRequest):

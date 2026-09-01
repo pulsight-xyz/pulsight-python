@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreDomainAggregatorRiskLevel(str, Enum):
+class PulsightInternalCoreDomainAggregatorRiskLevel(StrEnum):
     RISK_DANGER = "danger"
     RISK_WARN = "warn"
 

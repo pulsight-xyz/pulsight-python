@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreDomainWebhookType(str, Enum):
+class PulsightInternalCoreDomainWebhookType(StrEnum):
     TYPE_DISCORD = "discord"
     TYPE_TELEGRAM = "telegram"
 

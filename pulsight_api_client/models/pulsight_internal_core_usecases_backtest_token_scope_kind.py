@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreUsecasesBacktestTokenScopeKind(str, Enum):
+class PulsightInternalCoreUsecasesBacktestTokenScopeKind(StrEnum):
     TOKEN_SCOPE_MINTS = "mints"
     TOKEN_SCOPE_MIRRORS_TRADED = "mirrors_traded"
     TOKEN_SCOPE_SINGLE_MINT = "single_mint"

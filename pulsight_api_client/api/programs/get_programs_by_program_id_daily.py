@@ -78,15 +78,15 @@ def sync_detailed(
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorProgramDailySeries
 ]:
-    r"""Program daily stats
+    """Program daily stats
 
      One program's per-day activity over the trailing 3 months: landed txs by kind (swap/arb/other),
     unique users, SOL-projected volume for both attribution roles, the raw arb + fee revenue components
     (the client folds them by the program's resolved category), and the failed side (failed
     swaps/arbs/other, landed no-CPI probes, fees burned). Days with no activity are absent. Also carries
-    the derived per-window figures (\"7d\"/\"30d\"/\"3m\" — volume both roles, users, category-gated
-    revenue, landed/failed txs, success/spam/non-swap rates), computed with the same formulas as the
-    leaderboard rows.
+    the derived per-window figures ("7d"/"30d"/"3m" — volume both roles, users, category-gated revenue,
+    landed/failed txs, success/spam/non-swap rates), computed with the same formulas as the leaderboard
+    rows.
 
     Args:
         program_id (str):
@@ -119,15 +119,15 @@ def sync(
     | PulsightInternalCoreDomainAggregatorProgramDailySeries
     | None
 ):
-    r"""Program daily stats
+    """Program daily stats
 
      One program's per-day activity over the trailing 3 months: landed txs by kind (swap/arb/other),
     unique users, SOL-projected volume for both attribution roles, the raw arb + fee revenue components
     (the client folds them by the program's resolved category), and the failed side (failed
     swaps/arbs/other, landed no-CPI probes, fees burned). Days with no activity are absent. Also carries
-    the derived per-window figures (\"7d\"/\"30d\"/\"3m\" — volume both roles, users, category-gated
-    revenue, landed/failed txs, success/spam/non-swap rates), computed with the same formulas as the
-    leaderboard rows.
+    the derived per-window figures ("7d"/"30d"/"3m" — volume both roles, users, category-gated revenue,
+    landed/failed txs, success/spam/non-swap rates), computed with the same formulas as the leaderboard
+    rows.
 
     Args:
         program_id (str):
@@ -154,15 +154,15 @@ async def asyncio_detailed(
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorProgramDailySeries
 ]:
-    r"""Program daily stats
+    """Program daily stats
 
      One program's per-day activity over the trailing 3 months: landed txs by kind (swap/arb/other),
     unique users, SOL-projected volume for both attribution roles, the raw arb + fee revenue components
     (the client folds them by the program's resolved category), and the failed side (failed
     swaps/arbs/other, landed no-CPI probes, fees burned). Days with no activity are absent. Also carries
-    the derived per-window figures (\"7d\"/\"30d\"/\"3m\" — volume both roles, users, category-gated
-    revenue, landed/failed txs, success/spam/non-swap rates), computed with the same formulas as the
-    leaderboard rows.
+    the derived per-window figures ("7d"/"30d"/"3m" — volume both roles, users, category-gated revenue,
+    landed/failed txs, success/spam/non-swap rates), computed with the same formulas as the leaderboard
+    rows.
 
     Args:
         program_id (str):
@@ -193,15 +193,15 @@ async def asyncio(
     | PulsightInternalCoreDomainAggregatorProgramDailySeries
     | None
 ):
-    r"""Program daily stats
+    """Program daily stats
 
      One program's per-day activity over the trailing 3 months: landed txs by kind (swap/arb/other),
     unique users, SOL-projected volume for both attribution roles, the raw arb + fee revenue components
     (the client folds them by the program's resolved category), and the failed side (failed
     swaps/arbs/other, landed no-CPI probes, fees burned). Days with no activity are absent. Also carries
-    the derived per-window figures (\"7d\"/\"30d\"/\"3m\" — volume both roles, users, category-gated
-    revenue, landed/failed txs, success/spam/non-swap rates), computed with the same formulas as the
-    leaderboard rows.
+    the derived per-window figures ("7d"/"30d"/"3m" — volume both roles, users, category-gated revenue,
+    landed/failed txs, success/spam/non-swap rates), computed with the same formulas as the leaderboard
+    rows.
 
     Args:
         program_id (str):

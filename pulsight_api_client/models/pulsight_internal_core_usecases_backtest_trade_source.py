@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreUsecasesBacktestTradeSource(str, Enum):
+class PulsightInternalCoreUsecasesBacktestTradeSource(StrEnum):
     TRADE_SOURCE_COPY_BUY = "copy_buy"
     TRADE_SOURCE_COPY_SELL = "copy_sell"
     TRADE_SOURCE_EMIT_BUY = "emit_buy"

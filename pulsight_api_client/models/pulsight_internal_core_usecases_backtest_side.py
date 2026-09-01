@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreUsecasesBacktestSide(str, Enum):
+class PulsightInternalCoreUsecasesBacktestSide(StrEnum):
     SIDE_BUY = "buy"
     SIDE_SELL = "sell"
 

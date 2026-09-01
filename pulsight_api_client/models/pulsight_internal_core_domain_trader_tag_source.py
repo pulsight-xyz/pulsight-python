@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreDomainTraderTagSource(str, Enum):
+class PulsightInternalCoreDomainTraderTagSource(StrEnum):
     TAG_SOURCE_AGGREGATOR = "aggregator"
     TAG_SOURCE_COMPUTED = "computed"
     TAG_SOURCE_MANUAL = "manual"

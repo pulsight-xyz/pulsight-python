@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class GetTradersByWalletAddressPnlSeriesWindow(str, Enum):
+class GetTradersByWalletAddressPnlSeriesWindow(StrEnum):
     ALL = "all"
     VALUE_0 = "1d"
     VALUE_1 = "7d"

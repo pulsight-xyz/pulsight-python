@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreDomainCreditReason(str, Enum):
+class PulsightInternalCoreDomainCreditReason(StrEnum):
     REASON_ADJUST = "adjust"
     REASON_CONSUME = "consume"
     REASON_GRANT = "grant"

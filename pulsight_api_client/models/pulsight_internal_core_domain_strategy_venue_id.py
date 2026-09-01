@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreDomainStrategyVenueID(str, Enum):
+class PulsightInternalCoreDomainStrategyVenueID(StrEnum):
     VENUE_HYPERLIQUID = "hyperliquid"
     VENUE_POLYMARKET = "polymarket"
     VENUE_SOLANA = "solana"

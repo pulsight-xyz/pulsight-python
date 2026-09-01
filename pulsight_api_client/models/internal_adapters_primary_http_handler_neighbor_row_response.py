@@ -24,7 +24,13 @@ class InternalAdaptersPrimaryHttpHandlerNeighborRowResponse:
     Attributes:
         follow_rate (float | Unset):
         hits (int | Unset):
-        med_slot_delta (int | Unset):
+        med_slot_delta (int | Unset): MedSlotDelta is the median signed slot gap (neighbour minus subject), so
+            a negative value means the neighbour traded first. Real copy-trading
+            clusters at 1-2 slots, roughly 0.3-0.6s at current block times, while
+            coincidence scatters over tens of slots. Zero means the SAME block, the
+            tightest gap this endpoint can report: the source data carries no
+            transaction index, so which of the two went first inside that block is
+            unknown, not absent.
         mutual_rate (float | Unset):
         neighbor_entries (int | Unset):
         stats (InternalAdaptersPrimaryHttpHandlerNeighborStatsResponse | Unset):

@@ -23,6 +23,13 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
         avg_buy_count_per_token (float | Unset):
         avg_holding_time_secs (float | Unset):
         avg_reactivity_secs (float | Unset):
+        avg_realized_profit_lamports (float | Unset): Avg/MedianRealizedProfitLamports are the window's realized profit
+            per
+            TOKEN — one figure per mint the wallet actually sold, then averaged and
+            medianed across them. Mints with no sell in the window are excluded
+            rather than counted as zero: an unclosed position has no realized
+            outcome, and zeros would drag the median toward it. The pair is the
+            per-window twin of the leaderboard's Avg RP / Med RP columns.
         avg_sell_count_per_token (float | Unset):
         avg_trade_size_lamports (float | Unset): AvgTradeSizeLamports is TotalVolumeLamports over the window's swap
             count — the wallet's typical clip. It is what makes the price-impact
@@ -31,6 +38,7 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
         median_buy_count_per_token (float | Unset):
         median_holding_time_secs (float | Unset):
         median_reactivity_secs (float | Unset):
+        median_realized_profit_lamports (float | Unset):
         median_sell_count_per_token (float | Unset):
         oldest_trade_at (str | Unset):
         profit_per_trade_lamports (float | Unset):
@@ -47,11 +55,13 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
     avg_buy_count_per_token: float | Unset = UNSET
     avg_holding_time_secs: float | Unset = UNSET
     avg_reactivity_secs: float | Unset = UNSET
+    avg_realized_profit_lamports: float | Unset = UNSET
     avg_sell_count_per_token: float | Unset = UNSET
     avg_trade_size_lamports: float | Unset = UNSET
     median_buy_count_per_token: float | Unset = UNSET
     median_holding_time_secs: float | Unset = UNSET
     median_reactivity_secs: float | Unset = UNSET
+    median_realized_profit_lamports: float | Unset = UNSET
     median_sell_count_per_token: float | Unset = UNSET
     oldest_trade_at: str | Unset = UNSET
     profit_per_trade_lamports: float | Unset = UNSET
@@ -70,6 +80,8 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
 
         avg_reactivity_secs = self.avg_reactivity_secs
 
+        avg_realized_profit_lamports = self.avg_realized_profit_lamports
+
         avg_sell_count_per_token = self.avg_sell_count_per_token
 
         avg_trade_size_lamports = self.avg_trade_size_lamports
@@ -79,6 +91,8 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
         median_holding_time_secs = self.median_holding_time_secs
 
         median_reactivity_secs = self.median_reactivity_secs
+
+        median_realized_profit_lamports = self.median_realized_profit_lamports
 
         median_sell_count_per_token = self.median_sell_count_per_token
 
@@ -107,6 +121,8 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
             field_dict["avg_holding_time_secs"] = avg_holding_time_secs
         if avg_reactivity_secs is not UNSET:
             field_dict["avg_reactivity_secs"] = avg_reactivity_secs
+        if avg_realized_profit_lamports is not UNSET:
+            field_dict["avg_realized_profit_lamports"] = avg_realized_profit_lamports
         if avg_sell_count_per_token is not UNSET:
             field_dict["avg_sell_count_per_token"] = avg_sell_count_per_token
         if avg_trade_size_lamports is not UNSET:
@@ -117,6 +133,10 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
             field_dict["median_holding_time_secs"] = median_holding_time_secs
         if median_reactivity_secs is not UNSET:
             field_dict["median_reactivity_secs"] = median_reactivity_secs
+        if median_realized_profit_lamports is not UNSET:
+            field_dict["median_realized_profit_lamports"] = (
+                median_realized_profit_lamports
+            )
         if median_sell_count_per_token is not UNSET:
             field_dict["median_sell_count_per_token"] = median_sell_count_per_token
         if oldest_trade_at is not UNSET:
@@ -145,6 +165,8 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
 
         avg_reactivity_secs = d.pop("avg_reactivity_secs", UNSET)
 
+        avg_realized_profit_lamports = d.pop("avg_realized_profit_lamports", UNSET)
+
         avg_sell_count_per_token = d.pop("avg_sell_count_per_token", UNSET)
 
         avg_trade_size_lamports = d.pop("avg_trade_size_lamports", UNSET)
@@ -154,6 +176,10 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
         median_holding_time_secs = d.pop("median_holding_time_secs", UNSET)
 
         median_reactivity_secs = d.pop("median_reactivity_secs", UNSET)
+
+        median_realized_profit_lamports = d.pop(
+            "median_realized_profit_lamports", UNSET
+        )
 
         median_sell_count_per_token = d.pop("median_sell_count_per_token", UNSET)
 
@@ -179,11 +205,13 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
             avg_buy_count_per_token=avg_buy_count_per_token,
             avg_holding_time_secs=avg_holding_time_secs,
             avg_reactivity_secs=avg_reactivity_secs,
+            avg_realized_profit_lamports=avg_realized_profit_lamports,
             avg_sell_count_per_token=avg_sell_count_per_token,
             avg_trade_size_lamports=avg_trade_size_lamports,
             median_buy_count_per_token=median_buy_count_per_token,
             median_holding_time_secs=median_holding_time_secs,
             median_reactivity_secs=median_reactivity_secs,
+            median_realized_profit_lamports=median_realized_profit_lamports,
             median_sell_count_per_token=median_sell_count_per_token,
             oldest_trade_at=oldest_trade_at,
             profit_per_trade_lamports=profit_per_trade_lamports,

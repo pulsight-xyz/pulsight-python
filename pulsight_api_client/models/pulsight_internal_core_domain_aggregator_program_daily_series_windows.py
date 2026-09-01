@@ -18,8 +18,6 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorProgramDailySeriesWi
 
 @_attrs_define
 class PulsightInternalCoreDomainAggregatorProgramDailySeriesWindows:
-    """ """
-
     additional_properties: dict[
         str, PulsightInternalCoreDomainAggregatorProgramWindowFigures
     ] = _attrs_field(init=False, factory=dict)

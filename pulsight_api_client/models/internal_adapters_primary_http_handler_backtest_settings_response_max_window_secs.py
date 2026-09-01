@@ -14,8 +14,6 @@ T = TypeVar(
 
 @_attrs_define
 class InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponseMaxWindowSecs:
-    """ """
-
     additional_properties: dict[str, int] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreUsecasesBacktestBacktestStatus(str, Enum):
+class PulsightInternalCoreUsecasesBacktestBacktestStatus(StrEnum):
     BACKTEST_STATUS_CANCELLED = "cancelled"
     BACKTEST_STATUS_DONE = "done"
     BACKTEST_STATUS_FAILED = "failed"

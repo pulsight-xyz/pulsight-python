@@ -24,19 +24,19 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityResponse:
     Attributes:
         bands_bps (list[int] | Unset):
         delays_slots (list[int] | Unset):
-        from_ (str | Unset):
+        from_ts (int | Unset):
         reports (list[PulsightInternalCoreDomainTraderCopyabilityReport] | Unset):
         size_lamports (int | Unset): Echoed only when a size was supplied, alongside the band ladder the
             execution half was evaluated on.
-        to (str | Unset):
+        to_ts (int | Unset):
     """
 
     bands_bps: list[int] | Unset = UNSET
     delays_slots: list[int] | Unset = UNSET
-    from_: str | Unset = UNSET
+    from_ts: int | Unset = UNSET
     reports: list[PulsightInternalCoreDomainTraderCopyabilityReport] | Unset = UNSET
     size_lamports: int | Unset = UNSET
-    to: str | Unset = UNSET
+    to_ts: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -48,7 +48,7 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityResponse:
         if not isinstance(self.delays_slots, Unset):
             delays_slots = self.delays_slots
 
-        from_ = self.from_
+        from_ts = self.from_ts
 
         reports: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.reports, Unset):
@@ -59,7 +59,7 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityResponse:
 
         size_lamports = self.size_lamports
 
-        to = self.to
+        to_ts = self.to_ts
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -68,14 +68,14 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityResponse:
             field_dict["bands_bps"] = bands_bps
         if delays_slots is not UNSET:
             field_dict["delays_slots"] = delays_slots
-        if from_ is not UNSET:
-            field_dict["from"] = from_
+        if from_ts is not UNSET:
+            field_dict["from_ts"] = from_ts
         if reports is not UNSET:
             field_dict["reports"] = reports
         if size_lamports is not UNSET:
             field_dict["size_lamports"] = size_lamports
-        if to is not UNSET:
-            field_dict["to"] = to
+        if to_ts is not UNSET:
+            field_dict["to_ts"] = to_ts
 
         return field_dict
 
@@ -90,7 +90,7 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityResponse:
 
         delays_slots = cast(list[int], d.pop("delays_slots", UNSET))
 
-        from_ = d.pop("from", UNSET)
+        from_ts = d.pop("from_ts", UNSET)
 
         _reports = d.pop("reports", UNSET)
         reports: list[PulsightInternalCoreDomainTraderCopyabilityReport] | Unset = UNSET
@@ -107,15 +107,15 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityResponse:
 
         size_lamports = d.pop("size_lamports", UNSET)
 
-        to = d.pop("to", UNSET)
+        to_ts = d.pop("to_ts", UNSET)
 
         internal_adapters_primary_http_handler_copyability_response = cls(
             bands_bps=bands_bps,
             delays_slots=delays_slots,
-            from_=from_,
+            from_ts=from_ts,
             reports=reports,
             size_lamports=size_lamports,
-            to=to,
+            to_ts=to_ts,
         )
 
         internal_adapters_primary_http_handler_copyability_response.additional_properties = d

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -35,6 +35,11 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
             username and avatar when it has a profile. Always nil on a censored
             row — enrichment runs only on rows whose identity ships.
         rank (int | Unset): Rank is 1-based within the requested window + filters (offset-aware).
+        tags (list[str] | Unset): Tags are the derived classification tags (`deriveTags`), resolved for
+            the whole page in one round trip so a row states what the wallet is
+            without being expanded. Empty on a censored row, and nil when the
+            enrichment query failed — best-effort by contract, never an error the
+            board surfaces.
         total_volume_lamports (int | Unset):
         trader (str | Unset): Trader is empty on a censored landing row (Censored true): the figures
             stay real, the identity is withheld server-side.
@@ -51,6 +56,7 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
     pump_image: str | Unset = UNSET
     pump_username: str | Unset = UNSET
     rank: int | Unset = UNSET
+    tags: list[str] | Unset = UNSET
     total_volume_lamports: int | Unset = UNSET
     trader: str | Unset = UNSET
     volume_share: float | Unset = UNSET
@@ -76,6 +82,10 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
         pump_username = self.pump_username
 
         rank = self.rank
+
+        tags: list[str] | Unset = UNSET
+        if not isinstance(self.tags, Unset):
+            tags = self.tags
 
         total_volume_lamports = self.total_volume_lamports
 
@@ -106,6 +116,8 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
             field_dict["pump_username"] = pump_username
         if rank is not UNSET:
             field_dict["rank"] = rank
+        if tags is not UNSET:
+            field_dict["tags"] = tags
         if total_volume_lamports is not UNSET:
             field_dict["total_volume_lamports"] = total_volume_lamports
         if trader is not UNSET:
@@ -138,6 +150,8 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
 
         rank = d.pop("rank", UNSET)
 
+        tags = cast(list[str], d.pop("tags", UNSET))
+
         total_volume_lamports = d.pop("total_volume_lamports", UNSET)
 
         trader = d.pop("trader", UNSET)
@@ -155,6 +169,7 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
             pump_image=pump_image,
             pump_username=pump_username,
             rank=rank,
+            tags=tags,
             total_volume_lamports=total_volume_lamports,
             trader=trader,
             volume_share=volume_share,

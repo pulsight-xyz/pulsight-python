@@ -20,20 +20,23 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityRequest:
             default ladder. Blocks rather than milliseconds because the stored swap
             timestamp resolves only to whole seconds, so a sub-second ladder cannot
             be answered — see domain/trader/copyability.go.
-        from_ (str | Unset):
+        from_ts (int | Unset): Half-open measurement window [from_ts, to_ts) in Unix epoch SECONDS.
+            Seconds rather than an RFC3339 string because every timestamp this
+            measurement touches already is one: Solana's blockTime is an i64 of whole
+            seconds, and the per-leg ledger stores it unchanged.
         size_lamports (int | Unset): OPTIONAL copier trade size in lamports. Supplying it attaches the
             execution half — what slippage band each fill needed, and what each
             widening step buys. Optional because a band is a threshold for a
             concrete size against a concrete depth, while the price-transfer curve
             above is deliberately unit-free; both come from one read either way.
-        to (str | Unset):
+        to_ts (int | Unset):
         wallets (list[str] | Unset):
     """
 
     delays_slots: list[int] | Unset = UNSET
-    from_: str | Unset = UNSET
+    from_ts: int | Unset = UNSET
     size_lamports: int | Unset = UNSET
-    to: str | Unset = UNSET
+    to_ts: int | Unset = UNSET
     wallets: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -42,11 +45,11 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityRequest:
         if not isinstance(self.delays_slots, Unset):
             delays_slots = self.delays_slots
 
-        from_ = self.from_
+        from_ts = self.from_ts
 
         size_lamports = self.size_lamports
 
-        to = self.to
+        to_ts = self.to_ts
 
         wallets: list[str] | Unset = UNSET
         if not isinstance(self.wallets, Unset):
@@ -57,12 +60,12 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityRequest:
         field_dict.update({})
         if delays_slots is not UNSET:
             field_dict["delays_slots"] = delays_slots
-        if from_ is not UNSET:
-            field_dict["from"] = from_
+        if from_ts is not UNSET:
+            field_dict["from_ts"] = from_ts
         if size_lamports is not UNSET:
             field_dict["size_lamports"] = size_lamports
-        if to is not UNSET:
-            field_dict["to"] = to
+        if to_ts is not UNSET:
+            field_dict["to_ts"] = to_ts
         if wallets is not UNSET:
             field_dict["wallets"] = wallets
 
@@ -73,19 +76,19 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityRequest:
         d = dict(src_dict)
         delays_slots = cast(list[int], d.pop("delays_slots", UNSET))
 
-        from_ = d.pop("from", UNSET)
+        from_ts = d.pop("from_ts", UNSET)
 
         size_lamports = d.pop("size_lamports", UNSET)
 
-        to = d.pop("to", UNSET)
+        to_ts = d.pop("to_ts", UNSET)
 
         wallets = cast(list[str], d.pop("wallets", UNSET))
 
         internal_adapters_primary_http_handler_copyability_request = cls(
             delays_slots=delays_slots,
-            from_=from_,
+            from_ts=from_ts,
             size_lamports=size_lamports,
-            to=to,
+            to_ts=to_ts,
             wallets=wallets,
         )
 

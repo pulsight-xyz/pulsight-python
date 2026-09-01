@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreDomainAggregatorWindow(str, Enum):
+class PulsightInternalCoreDomainAggregatorWindow(StrEnum):
     WINDOW_1_D = "1d"
     WINDOW_30_D = "30d"
     WINDOW_3_M = "3m"

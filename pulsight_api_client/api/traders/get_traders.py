@@ -21,6 +21,7 @@ def _get_kwargs(
     sort_by: str | Unset = "total_profit_7d",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
+    extra_windows: str | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -34,6 +35,8 @@ def _get_kwargs(
     params["direction"] = direction
 
     params["favorites_only"] = favorites_only
+
+    params["extra_windows"] = extra_windows
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -130,6 +133,7 @@ def sync_detailed(
     sort_by: str | Unset = "total_profit_7d",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
+    extra_windows: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -144,6 +148,7 @@ def sync_detailed(
         sort_by (str | Unset):  Default: 'total_profit_7d'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
+        extra_windows (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -159,6 +164,7 @@ def sync_detailed(
         sort_by=sort_by,
         direction=direction,
         favorites_only=favorites_only,
+        extra_windows=extra_windows,
     )
 
     response = client.get_httpx_client().request(
@@ -176,6 +182,7 @@ def sync(
     sort_by: str | Unset = "total_profit_7d",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
+    extra_windows: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -191,6 +198,7 @@ def sync(
         sort_by (str | Unset):  Default: 'total_profit_7d'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
+        extra_windows (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -207,6 +215,7 @@ def sync(
         sort_by=sort_by,
         direction=direction,
         favorites_only=favorites_only,
+        extra_windows=extra_windows,
     ).parsed
 
 
@@ -218,6 +227,7 @@ async def asyncio_detailed(
     sort_by: str | Unset = "total_profit_7d",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
+    extra_windows: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -232,6 +242,7 @@ async def asyncio_detailed(
         sort_by (str | Unset):  Default: 'total_profit_7d'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
+        extra_windows (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -247,6 +258,7 @@ async def asyncio_detailed(
         sort_by=sort_by,
         direction=direction,
         favorites_only=favorites_only,
+        extra_windows=extra_windows,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -262,6 +274,7 @@ async def asyncio(
     sort_by: str | Unset = "total_profit_7d",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
+    extra_windows: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -277,6 +290,7 @@ async def asyncio(
         sort_by (str | Unset):  Default: 'total_profit_7d'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
+        extra_windows (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -294,5 +308,6 @@ async def asyncio(
             sort_by=sort_by,
             direction=direction,
             favorites_only=favorites_only,
+            extra_windows=extra_windows,
         )
     ).parsed

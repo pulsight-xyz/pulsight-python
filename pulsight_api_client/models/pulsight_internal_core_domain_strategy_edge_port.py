@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class PulsightInternalCoreDomainStrategyEdgePort(str, Enum):
+class PulsightInternalCoreDomainStrategyEdgePort(StrEnum):
     EDGE_PORT_COND = "cond"
     EDGE_PORT_DEFAULT = "default"
     EDGE_PORT_ELSE = "else"
