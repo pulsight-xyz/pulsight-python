@@ -19,16 +19,15 @@ class PulsightInternalCoreDomainTraderCopyBandPoint:
         band_bps (int | Unset):
         fill_rate_pct (float | Unset):
         filled (int | Unset):
-        marginal_fills (int | Unset): Fills this rung adds over the previous (tighter) rung, and what they are
-            worth priced at the target's own realised exit. This is the number the
-            band decision turns on: a rung that adds fills at a negative return is
-            buying losses, however much it improves the fill rate.
+        marginal_fills (int | Unset): Buys this rung adds over the previous, tighter one, and their mean
+            return priced at the copier's own exit from the position. A rung that
+            adds buys at a negative return is buying losses, whatever it does to
+            the fill rate.
         marginal_pnl_pct (float | Unset):
-        mean_entry_vs_target_bps (float | Unset): Mean execution price of the filled trades against the target's own
-            fill
-            price. Positive is worse for the copier, matching copyability's sign.
-        mean_pnl_pct (float | Unset): Expected return over everything filled at this band, same pricing.
-            NULL when no filled trade has a priceable exit.
+        mean_entry_vs_target_bps (float | Unset): Mean price the filled buys execute at against the wallet's own price
+            for the same buy. Positive is worse for the copier.
+        mean_pnl_pct (float | Unset): Mean return over every buy filled at this setting, same pricing. NULL
+            when nothing filled.
     """
 
     band_bps: int | Unset = UNSET

@@ -16,17 +16,14 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainTraderCopyExecutionSummary")
 class PulsightInternalCoreDomainTraderCopyExecutionSummary:
     """
     Attributes:
-        exits_unpriced (int | Unset):
         fills (int | Unset):
         follow_ons (int | Unset):
-        median_pool_quote_lamports (int | Unset): Context that explains the numbers: how deep the pools are when this
-            wallet buys, and how hard its own buy hits them.
+        median_pool_quote_lamports (int | Unset):
         median_target_impact_bps (float | Unset):
         signal_buys (int | Unset):
         size_lamports (int | Unset):
     """
 
-    exits_unpriced: int | Unset = UNSET
     fills: int | Unset = UNSET
     follow_ons: int | Unset = UNSET
     median_pool_quote_lamports: int | Unset = UNSET
@@ -36,8 +33,6 @@ class PulsightInternalCoreDomainTraderCopyExecutionSummary:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        exits_unpriced = self.exits_unpriced
-
         fills = self.fills
 
         follow_ons = self.follow_ons
@@ -53,8 +48,6 @@ class PulsightInternalCoreDomainTraderCopyExecutionSummary:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if exits_unpriced is not UNSET:
-            field_dict["exits_unpriced"] = exits_unpriced
         if fills is not UNSET:
             field_dict["fills"] = fills
         if follow_ons is not UNSET:
@@ -73,8 +66,6 @@ class PulsightInternalCoreDomainTraderCopyExecutionSummary:
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         d = dict(src_dict)
-        exits_unpriced = d.pop("exits_unpriced", UNSET)
-
         fills = d.pop("fills", UNSET)
 
         follow_ons = d.pop("follow_ons", UNSET)
@@ -88,7 +79,6 @@ class PulsightInternalCoreDomainTraderCopyExecutionSummary:
         size_lamports = d.pop("size_lamports", UNSET)
 
         pulsight_internal_core_domain_trader_copy_execution_summary = cls(
-            exits_unpriced=exits_unpriced,
             fills=fills,
             follow_ons=follow_ons,
             median_pool_quote_lamports=median_pool_quote_lamports,

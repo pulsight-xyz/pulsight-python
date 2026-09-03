@@ -24,11 +24,8 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityRequest:
             Seconds rather than an RFC3339 string because every timestamp this
             measurement touches already is one: Solana's blockTime is an i64 of whole
             seconds, and the per-leg ledger stores it unchanged.
-        size_lamports (int | Unset): OPTIONAL copier trade size in lamports. Supplying it attaches the
-            execution half — what slippage band each fill needed, and what each
-            widening step buys. Optional because a band is a threshold for a
-            concrete size against a concrete depth, while the price-transfer curve
-            above is deliberately unit-free; both come from one read either way.
+        size_lamports (int | Unset): Size of each mirrored buy in lamports; 1e9 (1 SOL) when omitted. Every
+            return in the report is on the capital this size deploys.
         to_ts (int | Unset):
         wallets (list[str] | Unset):
     """

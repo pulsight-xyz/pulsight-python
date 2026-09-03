@@ -26,10 +26,9 @@ class PulsightInternalCoreDomainTraderCopyExecutionAtDelay:
     """
     Attributes:
         bands (list[PulsightInternalCoreDomainTraderCopyBandPoint] | Unset):
-        in_block_move_bps (float | Unset): Where the adverse move comes from. `InBlockSharePct` is the share of the
-            total move that had already happened by the end of the target's OWN
-            block — i.e. from the copy wave the target's trade set off, not from
-            latency. Only populated when the ladder includes slot 0.
+        in_block_move_bps (float | Unset): Where the adverse entry move comes from: the share that had already
+            happened by the end of the wallet's own block, before any latency of
+            the copier's. Populated only when the ladder includes block 0.
         in_block_share_pct (float | Unset):
         measured_fills (int | Unset):
         required (PulsightInternalCoreDomainTraderCopyBandQuantiles | Unset):

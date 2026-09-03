@@ -23,36 +23,54 @@ class PulsightInternalCoreDomainTraderCopyDelayPoint:
     """
     Attributes:
         delay_slots (int | Unset):
-        edge_retained_pct (float | Unset): Share of the target's edge left after paying the round-trip cost.
-            NULL when the target's edge is not positive: you cannot "retain" a
-            share of an edge that is not there, and reporting 0% would read as
-            "latency destroyed it" when latency was never the problem.
-        entry_slippage_bps (float | Unset): Positive is ALWAYS worse for the copier, on both sides: a buy filled
-            higher than the target's, a sell filled lower.
+        deployed_lamports (int | Unset): The copier's outcome at the requested size: one order of size_lamports
+            mirrored on each of the wallet's buys, every sell mirrored in proportion,
+            unsold tokens valued at the pool's last price in the window.
+        entry_cost_bps (float | Unset): What copying costs, in order: buying after the wallet at the copier's
+            size, selling after it, and transaction fees plus tips on every
+            mirrored transaction.
+        entry_slippage_bps (float | Unset): Price drift alone, independent of size: the pool's worst price in the
+            landing block against the price the wallet's own trade left, averaged
+            over positions. Positive is always worse for the copier.
         execution (PulsightInternalCoreDomainTraderCopyExecutionAtDelay | Unset):
+        exit_cost_bps (float | Unset):
         exit_slippage_bps (float | Unset):
+        fees_bps (float | Unset):
         measured_fills (int | Unset):
-        round_trip_cost_bps (float | Unset):
-        target_edge_bps (float | Unset): The target's own gross round-trip return over the same fills, so the
-            comparison below is self-consistent — one price source, one window.
-        unmeasurable_fills (int | Unset): Fills with no trade to copy into at this latency.
+        pnl_lamports (int | Unset):
+        positions (int | Unset): Positions the replay could price at this latency, and how they ended
+            for the copier after fees.
+        positions_lost (int | Unset):
+        positions_won (int | Unset):
+        return_bps (float | Unset):
+        target_return_bps (float | Unset): What the wallet itself made on the same positions, at its own fills.
+        unmeasurable_fills (int | Unset): Swap legs with and without a pool state to execute into.
     """
 
     delay_slots: int | Unset = UNSET
-    edge_retained_pct: float | Unset = UNSET
+    deployed_lamports: int | Unset = UNSET
+    entry_cost_bps: float | Unset = UNSET
     entry_slippage_bps: float | Unset = UNSET
     execution: PulsightInternalCoreDomainTraderCopyExecutionAtDelay | Unset = UNSET
+    exit_cost_bps: float | Unset = UNSET
     exit_slippage_bps: float | Unset = UNSET
+    fees_bps: float | Unset = UNSET
     measured_fills: int | Unset = UNSET
-    round_trip_cost_bps: float | Unset = UNSET
-    target_edge_bps: float | Unset = UNSET
+    pnl_lamports: int | Unset = UNSET
+    positions: int | Unset = UNSET
+    positions_lost: int | Unset = UNSET
+    positions_won: int | Unset = UNSET
+    return_bps: float | Unset = UNSET
+    target_return_bps: float | Unset = UNSET
     unmeasurable_fills: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         delay_slots = self.delay_slots
 
-        edge_retained_pct = self.edge_retained_pct
+        deployed_lamports = self.deployed_lamports
+
+        entry_cost_bps = self.entry_cost_bps
 
         entry_slippage_bps = self.entry_slippage_bps
 
@@ -60,13 +78,25 @@ class PulsightInternalCoreDomainTraderCopyDelayPoint:
         if not isinstance(self.execution, Unset):
             execution = self.execution.to_dict()
 
+        exit_cost_bps = self.exit_cost_bps
+
         exit_slippage_bps = self.exit_slippage_bps
+
+        fees_bps = self.fees_bps
 
         measured_fills = self.measured_fills
 
-        round_trip_cost_bps = self.round_trip_cost_bps
+        pnl_lamports = self.pnl_lamports
 
-        target_edge_bps = self.target_edge_bps
+        positions = self.positions
+
+        positions_lost = self.positions_lost
+
+        positions_won = self.positions_won
+
+        return_bps = self.return_bps
+
+        target_return_bps = self.target_return_bps
 
         unmeasurable_fills = self.unmeasurable_fills
 
@@ -75,20 +105,34 @@ class PulsightInternalCoreDomainTraderCopyDelayPoint:
         field_dict.update({})
         if delay_slots is not UNSET:
             field_dict["delay_slots"] = delay_slots
-        if edge_retained_pct is not UNSET:
-            field_dict["edge_retained_pct"] = edge_retained_pct
+        if deployed_lamports is not UNSET:
+            field_dict["deployed_lamports"] = deployed_lamports
+        if entry_cost_bps is not UNSET:
+            field_dict["entry_cost_bps"] = entry_cost_bps
         if entry_slippage_bps is not UNSET:
             field_dict["entry_slippage_bps"] = entry_slippage_bps
         if execution is not UNSET:
             field_dict["execution"] = execution
+        if exit_cost_bps is not UNSET:
+            field_dict["exit_cost_bps"] = exit_cost_bps
         if exit_slippage_bps is not UNSET:
             field_dict["exit_slippage_bps"] = exit_slippage_bps
+        if fees_bps is not UNSET:
+            field_dict["fees_bps"] = fees_bps
         if measured_fills is not UNSET:
             field_dict["measured_fills"] = measured_fills
-        if round_trip_cost_bps is not UNSET:
-            field_dict["round_trip_cost_bps"] = round_trip_cost_bps
-        if target_edge_bps is not UNSET:
-            field_dict["target_edge_bps"] = target_edge_bps
+        if pnl_lamports is not UNSET:
+            field_dict["pnl_lamports"] = pnl_lamports
+        if positions is not UNSET:
+            field_dict["positions"] = positions
+        if positions_lost is not UNSET:
+            field_dict["positions_lost"] = positions_lost
+        if positions_won is not UNSET:
+            field_dict["positions_won"] = positions_won
+        if return_bps is not UNSET:
+            field_dict["return_bps"] = return_bps
+        if target_return_bps is not UNSET:
+            field_dict["target_return_bps"] = target_return_bps
         if unmeasurable_fills is not UNSET:
             field_dict["unmeasurable_fills"] = unmeasurable_fills
 
@@ -103,7 +147,9 @@ class PulsightInternalCoreDomainTraderCopyDelayPoint:
         d = dict(src_dict)
         delay_slots = d.pop("delay_slots", UNSET)
 
-        edge_retained_pct = d.pop("edge_retained_pct", UNSET)
+        deployed_lamports = d.pop("deployed_lamports", UNSET)
+
+        entry_cost_bps = d.pop("entry_cost_bps", UNSET)
 
         entry_slippage_bps = d.pop("entry_slippage_bps", UNSET)
 
@@ -116,25 +162,44 @@ class PulsightInternalCoreDomainTraderCopyDelayPoint:
                 _execution
             )
 
+        exit_cost_bps = d.pop("exit_cost_bps", UNSET)
+
         exit_slippage_bps = d.pop("exit_slippage_bps", UNSET)
+
+        fees_bps = d.pop("fees_bps", UNSET)
 
         measured_fills = d.pop("measured_fills", UNSET)
 
-        round_trip_cost_bps = d.pop("round_trip_cost_bps", UNSET)
+        pnl_lamports = d.pop("pnl_lamports", UNSET)
 
-        target_edge_bps = d.pop("target_edge_bps", UNSET)
+        positions = d.pop("positions", UNSET)
+
+        positions_lost = d.pop("positions_lost", UNSET)
+
+        positions_won = d.pop("positions_won", UNSET)
+
+        return_bps = d.pop("return_bps", UNSET)
+
+        target_return_bps = d.pop("target_return_bps", UNSET)
 
         unmeasurable_fills = d.pop("unmeasurable_fills", UNSET)
 
         pulsight_internal_core_domain_trader_copy_delay_point = cls(
             delay_slots=delay_slots,
-            edge_retained_pct=edge_retained_pct,
+            deployed_lamports=deployed_lamports,
+            entry_cost_bps=entry_cost_bps,
             entry_slippage_bps=entry_slippage_bps,
             execution=execution,
+            exit_cost_bps=exit_cost_bps,
             exit_slippage_bps=exit_slippage_bps,
+            fees_bps=fees_bps,
             measured_fills=measured_fills,
-            round_trip_cost_bps=round_trip_cost_bps,
-            target_edge_bps=target_edge_bps,
+            pnl_lamports=pnl_lamports,
+            positions=positions,
+            positions_lost=positions_lost,
+            positions_won=positions_won,
+            return_bps=return_bps,
+            target_return_bps=target_return_bps,
             unmeasurable_fills=unmeasurable_fills,
         )
 

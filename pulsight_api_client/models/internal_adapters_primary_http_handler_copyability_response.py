@@ -26,8 +26,8 @@ class InternalAdaptersPrimaryHttpHandlerCopyabilityResponse:
         delays_slots (list[int] | Unset):
         from_ts (int | Unset):
         reports (list[PulsightInternalCoreDomainTraderCopyabilityReport] | Unset):
-        size_lamports (int | Unset): Echoed only when a size was supplied, alongside the band ladder the
-            execution half was evaluated on.
+        size_lamports (int | Unset): The mirrored buy size the reports were replayed at, and the slippage
+            ladder their execution profile was evaluated on.
         to_ts (int | Unset):
     """
 
