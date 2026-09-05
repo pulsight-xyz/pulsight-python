@@ -19,6 +19,7 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         arb_tx_count (int | Unset): Distinct is_arb transactions for this (trader, mint). Same rationale
             as TraderTokenPosition.ArbTxCount: shown alongside buy/sell, never
             subtracted, so lopsided counts on arbitrage wallets are legible.
+        bundle_slot (int | Unset):
         buy_tx_count (int | Unset):
         cost_basis_lamports (str | Unset):
         directional_buy_tx_count (int | Unset): Directional counts EXCLUDE arbitrage rows, so the three numbers the UI
@@ -34,6 +35,9 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         directional_sell_tx_count (int | Unset):
         first_buy_ts (str | Unset):
         holding_pnl_lamports (int | Unset):
+        initial_pct_of_supply (float | Unset): InitialPctOfSupply is a bundler's net launch acquisition as % of total
+            supply, and BundleSlot the first bundle slot it bought in. Both are set
+            only on the bundlers path.
         is_bundler (bool | Unset):
         is_insider (bool | Unset):
         is_sniper (bool | Unset):
@@ -42,9 +46,9 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         label_type (str | Unset):
         last_active_ts (str | Unset):
         pct_of_supply (float | Unset): PctOfSupply is the holder's % of circulating supply, set on the
-            top-holders path (now sourced from on-chain holder_balances). nil on the
-            top-traders path. IsSniper/IsBundler/IsInsider flag cohort membership
-            (bundler/insider populate in phase 2 — always false until then).
+            top-holders and cohort paths (sourced from on-chain holder_balances).
+            nil on the top-traders path. IsSniper/IsBundler/IsInsider flag cohort
+            membership on every per-mint trader list.
         realized_profit (int | Unset):
         sell_tx_count (int | Unset):
         token_balance (str | Unset):
@@ -54,12 +58,14 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
     """
 
     arb_tx_count: int | Unset = UNSET
+    bundle_slot: int | Unset = UNSET
     buy_tx_count: int | Unset = UNSET
     cost_basis_lamports: str | Unset = UNSET
     directional_buy_tx_count: int | Unset = UNSET
     directional_sell_tx_count: int | Unset = UNSET
     first_buy_ts: str | Unset = UNSET
     holding_pnl_lamports: int | Unset = UNSET
+    initial_pct_of_supply: float | Unset = UNSET
     is_bundler: bool | Unset = UNSET
     is_insider: bool | Unset = UNSET
     is_sniper: bool | Unset = UNSET
@@ -78,6 +84,8 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
     def to_dict(self) -> dict[str, Any]:
         arb_tx_count = self.arb_tx_count
 
+        bundle_slot = self.bundle_slot
+
         buy_tx_count = self.buy_tx_count
 
         cost_basis_lamports = self.cost_basis_lamports
@@ -89,6 +97,8 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         first_buy_ts = self.first_buy_ts
 
         holding_pnl_lamports = self.holding_pnl_lamports
+
+        initial_pct_of_supply = self.initial_pct_of_supply
 
         is_bundler = self.is_bundler
 
@@ -121,6 +131,8 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         field_dict.update({})
         if arb_tx_count is not UNSET:
             field_dict["arb_tx_count"] = arb_tx_count
+        if bundle_slot is not UNSET:
+            field_dict["bundle_slot"] = bundle_slot
         if buy_tx_count is not UNSET:
             field_dict["buy_tx_count"] = buy_tx_count
         if cost_basis_lamports is not UNSET:
@@ -133,6 +145,8 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
             field_dict["first_buy_ts"] = first_buy_ts
         if holding_pnl_lamports is not UNSET:
             field_dict["holding_pnl_lamports"] = holding_pnl_lamports
+        if initial_pct_of_supply is not UNSET:
+            field_dict["initial_pct_of_supply"] = initial_pct_of_supply
         if is_bundler is not UNSET:
             field_dict["is_bundler"] = is_bundler
         if is_insider is not UNSET:
@@ -167,6 +181,8 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         d = dict(src_dict)
         arb_tx_count = d.pop("arb_tx_count", UNSET)
 
+        bundle_slot = d.pop("bundle_slot", UNSET)
+
         buy_tx_count = d.pop("buy_tx_count", UNSET)
 
         cost_basis_lamports = d.pop("cost_basis_lamports", UNSET)
@@ -178,6 +194,8 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         first_buy_ts = d.pop("first_buy_ts", UNSET)
 
         holding_pnl_lamports = d.pop("holding_pnl_lamports", UNSET)
+
+        initial_pct_of_supply = d.pop("initial_pct_of_supply", UNSET)
 
         is_bundler = d.pop("is_bundler", UNSET)
 
@@ -207,12 +225,14 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
 
         pulsight_internal_core_domain_aggregator_mint_trader_row = cls(
             arb_tx_count=arb_tx_count,
+            bundle_slot=bundle_slot,
             buy_tx_count=buy_tx_count,
             cost_basis_lamports=cost_basis_lamports,
             directional_buy_tx_count=directional_buy_tx_count,
             directional_sell_tx_count=directional_sell_tx_count,
             first_buy_ts=first_buy_ts,
             holding_pnl_lamports=holding_pnl_lamports,
+            initial_pct_of_supply=initial_pct_of_supply,
             is_bundler=is_bundler,
             is_insider=is_insider,
             is_sniper=is_sniper,
