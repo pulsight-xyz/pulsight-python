@@ -25,6 +25,10 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
             retention. Resolve defaults from `window=all`.
         last_swap_ts (str | Unset):
         pool (str | Unset):
+        quote_mint (str | Unset): QuoteMint is the pool's quote side under CA's registry ranking (USDC >
+            USDT > USD1 > WSOL), so a SOL/USDC pool quotes in USDC. This market's
+            candle prices and quote volumes are denominated in it, and the live
+            chart folds only ticks that carry the same quote.
         sol_volume_lamports (int | Unset):
         sol_volume_share (float | Unset):
         swap_count (int | Unset):
@@ -34,6 +38,7 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
     is_default: bool | Unset = UNSET
     last_swap_ts: str | Unset = UNSET
     pool: str | Unset = UNSET
+    quote_mint: str | Unset = UNSET
     sol_volume_lamports: int | Unset = UNSET
     sol_volume_share: float | Unset = UNSET
     swap_count: int | Unset = UNSET
@@ -47,6 +52,8 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
         last_swap_ts = self.last_swap_ts
 
         pool = self.pool
+
+        quote_mint = self.quote_mint
 
         sol_volume_lamports = self.sol_volume_lamports
 
@@ -65,6 +72,8 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
             field_dict["last_swap_ts"] = last_swap_ts
         if pool is not UNSET:
             field_dict["pool"] = pool
+        if quote_mint is not UNSET:
+            field_dict["quote_mint"] = quote_mint
         if sol_volume_lamports is not UNSET:
             field_dict["sol_volume_lamports"] = sol_volume_lamports
         if sol_volume_share is not UNSET:
@@ -85,6 +94,8 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
 
         pool = d.pop("pool", UNSET)
 
+        quote_mint = d.pop("quote_mint", UNSET)
+
         sol_volume_lamports = d.pop("sol_volume_lamports", UNSET)
 
         sol_volume_share = d.pop("sol_volume_share", UNSET)
@@ -96,6 +107,7 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
             is_default=is_default,
             last_swap_ts=last_swap_ts,
             pool=pool,
+            quote_mint=quote_mint,
             sol_volume_lamports=sol_volume_lamports,
             sol_volume_share=sol_volume_share,
             swap_count=swap_count,

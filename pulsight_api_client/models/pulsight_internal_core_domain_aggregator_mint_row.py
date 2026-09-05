@@ -156,7 +156,9 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             is set on the list path only): UniqueTraders is exact and lifetime, so
             the list column and the /api/mints/:pubkey detail render the same value.
             Populated on BOTH paths, best-effort: nil when the trader_token_stats
-            read is unavailable.
+            read is unavailable. A quote-registry mint (WSOL, the USD stables) has
+            no trader_token_stats rows, so its detail counts the distinct wallets of
+            its last 30 days of per-leg dex_swaps instead.
         verified (bool | Unset): Verified marks a mint on the curated verified token list (Jupiter's,
             refreshed hourly by the jupverified registry). Also the copycat
             CANONICAL exemption: a verified member of a name-dupe farm keeps its
