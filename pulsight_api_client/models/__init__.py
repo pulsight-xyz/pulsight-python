@@ -396,6 +396,9 @@ from .pulsight_internal_core_ports_input_usage_counts import (
 from .pulsight_internal_core_ports_input_user_pool_credits import (
     PulsightInternalCorePortsInputUserPoolCredits,
 )
+from .pulsight_internal_core_usecases_backtest_backtest_decline import (
+    PulsightInternalCoreUsecasesBacktestBacktestDecline,
+)
 from .pulsight_internal_core_usecases_backtest_backtest_position import (
     PulsightInternalCoreUsecasesBacktestBacktestPosition,
 )
@@ -413,6 +416,9 @@ from .pulsight_internal_core_usecases_backtest_backtest_summary import (
 )
 from .pulsight_internal_core_usecases_backtest_backtest_trade import (
     PulsightInternalCoreUsecasesBacktestBacktestTrade,
+)
+from .pulsight_internal_core_usecases_backtest_decline_reason import (
+    PulsightInternalCoreUsecasesBacktestDeclineReason,
 )
 from .pulsight_internal_core_usecases_backtest_preview_marker import (
     PulsightInternalCoreUsecasesBacktestPreviewMarker,
@@ -598,12 +604,14 @@ __all__ = (
     "PulsightInternalCorePortsInputSubscriptionInfo",
     "PulsightInternalCorePortsInputUsageCounts",
     "PulsightInternalCorePortsInputUserPoolCredits",
+    "PulsightInternalCoreUsecasesBacktestBacktestDecline",
     "PulsightInternalCoreUsecasesBacktestBacktestPosition",
     "PulsightInternalCoreUsecasesBacktestBacktestRecord",
     "PulsightInternalCoreUsecasesBacktestBacktestRequest",
     "PulsightInternalCoreUsecasesBacktestBacktestStatus",
     "PulsightInternalCoreUsecasesBacktestBacktestSummary",
     "PulsightInternalCoreUsecasesBacktestBacktestTrade",
+    "PulsightInternalCoreUsecasesBacktestDeclineReason",
     "PulsightInternalCoreUsecasesBacktestPreviewMarker",
     "PulsightInternalCoreUsecasesBacktestPreviewRequest",
     "PulsightInternalCoreUsecasesBacktestPreviewResponse",

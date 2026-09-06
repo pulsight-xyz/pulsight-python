@@ -26,6 +26,14 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             crossed by the run's FILLED copies — what latency cost on the fills that
             went through (reverted ones are excluded; their cost shows as
             RevertFeesSol + missed entries). Nil when the run had no landing fills.
+        copies_declined (int | Unset): CopiesDeclined counts target swaps a signal-driven exec wanted to act
+            on but that a RULE refused: cooldown, sizing, max_buys_per_open_position,
+            exposure cap, bracket placement, rate limit — plus the sells this run sat
+            out because the target only sold tokens it had never mirrored. Reverts
+            and unpriced skips have their own counters and are not in here. Every
+            one is persisted as a `backtest_declines` row with its reason, so the
+            trade history reads as a complete account of the target's swaps.
+            Additive JSONB field — old rows decode as 0.
         copies_reverted (int | Unset): CopiesReverted counts copy fills the slippage gate REJECTED: the pool's
             landing price had drifted past the exec's slippage_bps between the
             target's swap and our simulated landing. Unlike CopiesSkippedUnpriced
@@ -130,6 +138,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     """
 
     avg_landing_drift_bps: float | Unset = UNSET
+    copies_declined: int | Unset = UNSET
     copies_reverted: int | Unset = UNSET
     copies_skipped_unpriced: int | Unset = UNSET
     ending_balance_sol: float | Unset = UNSET
@@ -161,6 +170,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
     def to_dict(self) -> dict[str, Any]:
         avg_landing_drift_bps = self.avg_landing_drift_bps
+
+        copies_declined = self.copies_declined
 
         copies_reverted = self.copies_reverted
 
@@ -224,6 +235,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         field_dict.update({})
         if avg_landing_drift_bps is not UNSET:
             field_dict["avg_landing_drift_bps"] = avg_landing_drift_bps
+        if copies_declined is not UNSET:
+            field_dict["copies_declined"] = copies_declined
         if copies_reverted is not UNSET:
             field_dict["copies_reverted"] = copies_reverted
         if copies_skipped_unpriced is not UNSET:
@@ -287,6 +300,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         d = dict(src_dict)
         avg_landing_drift_bps = d.pop("avg_landing_drift_bps", UNSET)
+
+        copies_declined = d.pop("copies_declined", UNSET)
 
         copies_reverted = d.pop("copies_reverted", UNSET)
 
@@ -353,6 +368,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         pulsight_internal_core_usecases_backtest_backtest_summary = cls(
             avg_landing_drift_bps=avg_landing_drift_bps,
+            copies_declined=copies_declined,
             copies_reverted=copies_reverted,
             copies_skipped_unpriced=copies_skipped_unpriced,
             ending_balance_sol=ending_balance_sol,

@@ -18,9 +18,12 @@ class PulsightInternalCoreDomainStrategyGlobalConstraints:
     Attributes:
         max_buy_sol (float | Unset):
         max_buys_per_open_position (int | Unset): MaxBuysPerOpenPosition is the max number of buys (initial open + adds)
-            allowed within ONE open position. 0 ⇒ 1 — the historical single-buy-
-            per-position behaviour; read it through EffectiveMaxBuysPerOpenPosition.
-            Raise it above 1 to enable DCA / pyramiding.
+            allowed within ONE open position. An explicit value caps every buy exec.
+            Absent (0) resolves per exec kind — read it through BuyCapFor: an Emit
+            buy gets 1 (no adds — the historical single-buy-per-position behaviour;
+            raise it for DCA / pyramiding), a Copy buy gets NO cap, because a
+            mirror's add cadence is the target's, not ours — refusing their adds
+            while mirroring their sells pro-rata decays the position to dust.
         max_buys_per_token_per_hour (int | Unset):
         max_buys_per_token_per_minute (int | Unset):
         max_concurrent_tokens (int | Unset): MaxConcurrentTokens caps how many tokens the strategy may hold at
