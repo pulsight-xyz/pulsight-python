@@ -15,12 +15,6 @@ from .internal_adapters_primary_http_handler_backtest_settings_response_max_wind
 from .internal_adapters_primary_http_handler_best_run_ref import (
     InternalAdaptersPrimaryHttpHandlerBestRunRef,
 )
-from .internal_adapters_primary_http_handler_copyability_request import (
-    InternalAdaptersPrimaryHttpHandlerCopyabilityRequest,
-)
-from .internal_adapters_primary_http_handler_copyability_response import (
-    InternalAdaptersPrimaryHttpHandlerCopyabilityResponse,
-)
 from .internal_adapters_primary_http_handler_dashboard_stats import (
     InternalAdaptersPrimaryHttpHandlerDashboardStats,
 )
@@ -327,24 +321,6 @@ from .pulsight_internal_core_domain_tokenview_filter import (
 from .pulsight_internal_core_domain_tokenview_filter_filters import (
     PulsightInternalCoreDomainTokenviewFilterFilters,
 )
-from .pulsight_internal_core_domain_trader_copy_band_point import (
-    PulsightInternalCoreDomainTraderCopyBandPoint,
-)
-from .pulsight_internal_core_domain_trader_copy_band_quantiles import (
-    PulsightInternalCoreDomainTraderCopyBandQuantiles,
-)
-from .pulsight_internal_core_domain_trader_copy_delay_point import (
-    PulsightInternalCoreDomainTraderCopyDelayPoint,
-)
-from .pulsight_internal_core_domain_trader_copy_execution_at_delay import (
-    PulsightInternalCoreDomainTraderCopyExecutionAtDelay,
-)
-from .pulsight_internal_core_domain_trader_copy_execution_summary import (
-    PulsightInternalCoreDomainTraderCopyExecutionSummary,
-)
-from .pulsight_internal_core_domain_trader_copyability_report import (
-    PulsightInternalCoreDomainTraderCopyabilityReport,
-)
 from .pulsight_internal_core_domain_trader_daily_profit import (
     PulsightInternalCoreDomainTraderDailyProfit,
 )
@@ -477,8 +453,6 @@ __all__ = (
     "InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponse",
     "InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponseMaxWindowSecs",
     "InternalAdaptersPrimaryHttpHandlerBestRunRef",
-    "InternalAdaptersPrimaryHttpHandlerCopyabilityRequest",
-    "InternalAdaptersPrimaryHttpHandlerCopyabilityResponse",
     "InternalAdaptersPrimaryHttpHandlerDashboardStats",
     "InternalAdaptersPrimaryHttpHandlerErrorResponse",
     "InternalAdaptersPrimaryHttpHandlerNeighborRowResponse",
@@ -581,12 +555,6 @@ __all__ = (
     "PulsightInternalCoreDomainSubscriptionSubscriptionTier",
     "PulsightInternalCoreDomainTokenviewFilter",
     "PulsightInternalCoreDomainTokenviewFilterFilters",
-    "PulsightInternalCoreDomainTraderCopyBandPoint",
-    "PulsightInternalCoreDomainTraderCopyBandQuantiles",
-    "PulsightInternalCoreDomainTraderCopyDelayPoint",
-    "PulsightInternalCoreDomainTraderCopyExecutionAtDelay",
-    "PulsightInternalCoreDomainTraderCopyExecutionSummary",
-    "PulsightInternalCoreDomainTraderCopyabilityReport",
     "PulsightInternalCoreDomainTraderDailyProfit",
     "PulsightInternalCoreDomainTraderFilter",
     "PulsightInternalCoreDomainTraderFilterFilters",

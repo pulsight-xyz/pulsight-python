@@ -19,8 +19,9 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorTraderPriceImpactSta
 class PulsightInternalCoreDomainAggregatorTraderPriceImpactStats:
     """
     Attributes:
-        avg_price_impact_bps (float | Unset): AvgBps is the mean and MedianBps the p50 over the window's measurable
-            legs. Both are reported because the population is heavy-tailed — a
+        avg_price_impact_bps (float | Unset): AvgBps is the mean and MedianBps the p50 over the measurable legs of the
+            wallet's most recent fills in the window (a bounded sample, up to 3000
+            fills). Both are reported because the population is heavy-tailed — a
             handful of large fills into thin curves dominate the mean while the
             median describes the wallet's ordinary fill.
 
