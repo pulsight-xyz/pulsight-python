@@ -150,15 +150,18 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         trader_count (int | Unset):
         trader_quality (PulsightInternalCoreDomainAggregatorMintTraderQuality | Unset):
         unique_traders (int | Unset): UniqueTraders is the number of distinct wallets that have EVER traded
-            this mint (all-time count() over trader_token_stats, the same
-            projection-served source as HolderCount). Distinct from TraderCount
-            (which is a WINDOWED, HLL-approximate count over the `?hours` gate and
-            is set on the list path only): UniqueTraders is exact and lifetime, so
-            the list column and the /api/mints/:pubkey detail render the same value.
-            Populated on BOTH paths, best-effort: nil when the trader_token_stats
-            read is unavailable. A quote-registry mint (WSOL, the USD stables) has
-            no trader_token_stats rows, so its detail counts the distinct wallets of
-            its last 30 days of per-leg dex_swaps instead.
+            this mint, folded from the insert-time uniq plane (`mint_trader_uniq`)
+            that accumulates one `uniq` state per mint off `swaps`. Distinct from
+            TraderCount (a WINDOWED count over the `?hours` gate, list path only):
+            UniqueTraders is LIFETIME, so the list column and the
+            /api/mints/:pubkey detail render the same value. Exact below ~10k
+            distinct wallets and HLL-approximate above — a trader set only ever
+            grows, which is what lets it be an accumulator at all (a holder set does
+            not, and HolderCount keeps its fold). Populated on BOTH paths,
+            best-effort: nil when the read is unavailable. A quote-registry mint
+            (WSOL, the USD stables) never appears as `swaps.mint`, so its detail
+            counts the distinct wallets of its last 30 days of per-leg dex_swaps
+            instead.
         verified (bool | Unset): Verified marks a mint on the curated verified token list (Jupiter's,
             refreshed hourly by the jupverified registry). Also the copycat
             CANONICAL exemption: a verified member of a name-dupe farm keeps its
