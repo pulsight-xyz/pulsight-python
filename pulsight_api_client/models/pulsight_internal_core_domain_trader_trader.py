@@ -83,6 +83,17 @@ class PulsightInternalCoreDomainTraderTrader:
         failed_txs_30d (int | Unset):
         failed_txs_7d (int | Unset):
         failed_txs_all (int | Unset):
+        holder_reward_payouts_1d (int | Unset):
+        holder_reward_payouts_30d (int | Unset):
+        holder_reward_payouts_7d (int | Unset):
+        holder_reward_payouts_all (int | Unset):
+        holder_rewards_1d (float | Unset):
+        holder_rewards_30d (float | Unset):
+        holder_rewards_7d (float | Unset): Pump holder rewards, lamports. Pushed rather than claimed, so the one
+            figure is already a receipt and is what net PnL folds; the payout count
+            counts every payout, including one on a coin whose quote could not be
+            priced in SOL and therefore adds no lamports.
+        holder_rewards_all (float | Unset):
         id (str | Unset):
         is_favorite (bool | Unset):
         label (str | Unset): Label/LabelType identify a known wallet (CEX/fee/KOL/...) from the
@@ -244,6 +255,14 @@ class PulsightInternalCoreDomainTraderTrader:
     failed_txs_30d: int | Unset = UNSET
     failed_txs_7d: int | Unset = UNSET
     failed_txs_all: int | Unset = UNSET
+    holder_reward_payouts_1d: int | Unset = UNSET
+    holder_reward_payouts_30d: int | Unset = UNSET
+    holder_reward_payouts_7d: int | Unset = UNSET
+    holder_reward_payouts_all: int | Unset = UNSET
+    holder_rewards_1d: float | Unset = UNSET
+    holder_rewards_30d: float | Unset = UNSET
+    holder_rewards_7d: float | Unset = UNSET
+    holder_rewards_all: float | Unset = UNSET
     id: str | Unset = UNSET
     is_favorite: bool | Unset = UNSET
     label: str | Unset = UNSET
@@ -445,6 +464,22 @@ class PulsightInternalCoreDomainTraderTrader:
         failed_txs_7d = self.failed_txs_7d
 
         failed_txs_all = self.failed_txs_all
+
+        holder_reward_payouts_1d = self.holder_reward_payouts_1d
+
+        holder_reward_payouts_30d = self.holder_reward_payouts_30d
+
+        holder_reward_payouts_7d = self.holder_reward_payouts_7d
+
+        holder_reward_payouts_all = self.holder_reward_payouts_all
+
+        holder_rewards_1d = self.holder_rewards_1d
+
+        holder_rewards_30d = self.holder_rewards_30d
+
+        holder_rewards_7d = self.holder_rewards_7d
+
+        holder_rewards_all = self.holder_rewards_all
 
         id = self.id
 
@@ -745,6 +780,22 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["failed_txs_7d"] = failed_txs_7d
         if failed_txs_all is not UNSET:
             field_dict["failed_txs_all"] = failed_txs_all
+        if holder_reward_payouts_1d is not UNSET:
+            field_dict["holder_reward_payouts_1d"] = holder_reward_payouts_1d
+        if holder_reward_payouts_30d is not UNSET:
+            field_dict["holder_reward_payouts_30d"] = holder_reward_payouts_30d
+        if holder_reward_payouts_7d is not UNSET:
+            field_dict["holder_reward_payouts_7d"] = holder_reward_payouts_7d
+        if holder_reward_payouts_all is not UNSET:
+            field_dict["holder_reward_payouts_all"] = holder_reward_payouts_all
+        if holder_rewards_1d is not UNSET:
+            field_dict["holder_rewards_1d"] = holder_rewards_1d
+        if holder_rewards_30d is not UNSET:
+            field_dict["holder_rewards_30d"] = holder_rewards_30d
+        if holder_rewards_7d is not UNSET:
+            field_dict["holder_rewards_7d"] = holder_rewards_7d
+        if holder_rewards_all is not UNSET:
+            field_dict["holder_rewards_all"] = holder_rewards_all
         if id is not UNSET:
             field_dict["id"] = id
         if is_favorite is not UNSET:
@@ -1058,6 +1109,22 @@ class PulsightInternalCoreDomainTraderTrader:
 
         failed_txs_all = d.pop("failed_txs_all", UNSET)
 
+        holder_reward_payouts_1d = d.pop("holder_reward_payouts_1d", UNSET)
+
+        holder_reward_payouts_30d = d.pop("holder_reward_payouts_30d", UNSET)
+
+        holder_reward_payouts_7d = d.pop("holder_reward_payouts_7d", UNSET)
+
+        holder_reward_payouts_all = d.pop("holder_reward_payouts_all", UNSET)
+
+        holder_rewards_1d = d.pop("holder_rewards_1d", UNSET)
+
+        holder_rewards_30d = d.pop("holder_rewards_30d", UNSET)
+
+        holder_rewards_7d = d.pop("holder_rewards_7d", UNSET)
+
+        holder_rewards_all = d.pop("holder_rewards_all", UNSET)
+
         id = d.pop("id", UNSET)
 
         is_favorite = d.pop("is_favorite", UNSET)
@@ -1312,6 +1379,14 @@ class PulsightInternalCoreDomainTraderTrader:
             failed_txs_30d=failed_txs_30d,
             failed_txs_7d=failed_txs_7d,
             failed_txs_all=failed_txs_all,
+            holder_reward_payouts_1d=holder_reward_payouts_1d,
+            holder_reward_payouts_30d=holder_reward_payouts_30d,
+            holder_reward_payouts_7d=holder_reward_payouts_7d,
+            holder_reward_payouts_all=holder_reward_payouts_all,
+            holder_rewards_1d=holder_rewards_1d,
+            holder_rewards_30d=holder_rewards_30d,
+            holder_rewards_7d=holder_rewards_7d,
+            holder_rewards_all=holder_rewards_all,
             id=id,
             is_favorite=is_favorite,
             label=label,

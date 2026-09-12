@@ -93,6 +93,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             not paid per listing page. The trader-detail reliability panel serves
             them per wallet.
         has_avatar (bool | Unset):
+        holder_reward_payouts_1d (int | Unset):
+        holder_reward_payouts_30d (int | Unset):
+        holder_reward_payouts_7d (int | Unset):
+        holder_reward_payouts_all (int | Unset):
+        holder_rewards_1d (float | Unset):
+        holder_rewards_30d (float | Unset):
+        holder_rewards_7d (float | Unset):
+        holder_rewards_all (float | Unset):
         holding_pnl_lamports (float | Unset): HoldingPnlLamports is the wallet's current unrealised PnL across
             all open positions, in lamports. Nil when CA has no live price
             quote for any of the held mints.
@@ -285,6 +293,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     failed_txs_7d: int | Unset = UNSET
     failed_txs_all: int | Unset = UNSET
     has_avatar: bool | Unset = UNSET
+    holder_reward_payouts_1d: int | Unset = UNSET
+    holder_reward_payouts_30d: int | Unset = UNSET
+    holder_reward_payouts_7d: int | Unset = UNSET
+    holder_reward_payouts_all: int | Unset = UNSET
+    holder_rewards_1d: float | Unset = UNSET
+    holder_rewards_30d: float | Unset = UNSET
+    holder_rewards_7d: float | Unset = UNSET
+    holder_rewards_all: float | Unset = UNSET
     holding_pnl_lamports: float | Unset = UNSET
     id: str | Unset = UNSET
     is_favorite: bool | Unset = UNSET
@@ -519,6 +535,22 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         failed_txs_all = self.failed_txs_all
 
         has_avatar = self.has_avatar
+
+        holder_reward_payouts_1d = self.holder_reward_payouts_1d
+
+        holder_reward_payouts_30d = self.holder_reward_payouts_30d
+
+        holder_reward_payouts_7d = self.holder_reward_payouts_7d
+
+        holder_reward_payouts_all = self.holder_reward_payouts_all
+
+        holder_rewards_1d = self.holder_rewards_1d
+
+        holder_rewards_30d = self.holder_rewards_30d
+
+        holder_rewards_7d = self.holder_rewards_7d
+
+        holder_rewards_all = self.holder_rewards_all
 
         holding_pnl_lamports = self.holding_pnl_lamports
 
@@ -847,6 +879,22 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["failed_txs_all"] = failed_txs_all
         if has_avatar is not UNSET:
             field_dict["has_avatar"] = has_avatar
+        if holder_reward_payouts_1d is not UNSET:
+            field_dict["holder_reward_payouts_1d"] = holder_reward_payouts_1d
+        if holder_reward_payouts_30d is not UNSET:
+            field_dict["holder_reward_payouts_30d"] = holder_reward_payouts_30d
+        if holder_reward_payouts_7d is not UNSET:
+            field_dict["holder_reward_payouts_7d"] = holder_reward_payouts_7d
+        if holder_reward_payouts_all is not UNSET:
+            field_dict["holder_reward_payouts_all"] = holder_reward_payouts_all
+        if holder_rewards_1d is not UNSET:
+            field_dict["holder_rewards_1d"] = holder_rewards_1d
+        if holder_rewards_30d is not UNSET:
+            field_dict["holder_rewards_30d"] = holder_rewards_30d
+        if holder_rewards_7d is not UNSET:
+            field_dict["holder_rewards_7d"] = holder_rewards_7d
+        if holder_rewards_all is not UNSET:
+            field_dict["holder_rewards_all"] = holder_rewards_all
         if holding_pnl_lamports is not UNSET:
             field_dict["holding_pnl_lamports"] = holding_pnl_lamports
         if id is not UNSET:
@@ -1240,6 +1288,22 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         has_avatar = d.pop("has_avatar", UNSET)
 
+        holder_reward_payouts_1d = d.pop("holder_reward_payouts_1d", UNSET)
+
+        holder_reward_payouts_30d = d.pop("holder_reward_payouts_30d", UNSET)
+
+        holder_reward_payouts_7d = d.pop("holder_reward_payouts_7d", UNSET)
+
+        holder_reward_payouts_all = d.pop("holder_reward_payouts_all", UNSET)
+
+        holder_rewards_1d = d.pop("holder_rewards_1d", UNSET)
+
+        holder_rewards_30d = d.pop("holder_rewards_30d", UNSET)
+
+        holder_rewards_7d = d.pop("holder_rewards_7d", UNSET)
+
+        holder_rewards_all = d.pop("holder_rewards_all", UNSET)
+
         holding_pnl_lamports = d.pop("holding_pnl_lamports", UNSET)
 
         id = d.pop("id", UNSET)
@@ -1517,6 +1581,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             failed_txs_7d=failed_txs_7d,
             failed_txs_all=failed_txs_all,
             has_avatar=has_avatar,
+            holder_reward_payouts_1d=holder_reward_payouts_1d,
+            holder_reward_payouts_30d=holder_reward_payouts_30d,
+            holder_reward_payouts_7d=holder_reward_payouts_7d,
+            holder_reward_payouts_all=holder_reward_payouts_all,
+            holder_rewards_1d=holder_rewards_1d,
+            holder_rewards_30d=holder_rewards_30d,
+            holder_rewards_7d=holder_rewards_7d,
+            holder_rewards_all=holder_rewards_all,
             holding_pnl_lamports=holding_pnl_lamports,
             id=id,
             is_favorite=is_favorite,

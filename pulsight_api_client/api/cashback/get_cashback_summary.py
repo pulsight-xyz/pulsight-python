@@ -85,10 +85,10 @@ def sync_detailed(
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorCashbackBoardSummary
 ]:
-    """Pump cashback board summary
+    """Pump rewards board summary
 
-     Pool totals, the median wallet and the top earner for a window. Lifetime claimed figures are
-    retention-bounded sums over the 75-day claim ledger.
+     Pool totals across both programs, the median wallet and the top earner for a window. Lifetime
+    claimed and received figures are retention-bounded sums over the 75-day ledgers.
 
     Args:
         window (str | Unset):
@@ -121,10 +121,10 @@ def sync(
     | PulsightInternalCoreDomainAggregatorCashbackBoardSummary
     | None
 ):
-    """Pump cashback board summary
+    """Pump rewards board summary
 
-     Pool totals, the median wallet and the top earner for a window. Lifetime claimed figures are
-    retention-bounded sums over the 75-day claim ledger.
+     Pool totals across both programs, the median wallet and the top earner for a window. Lifetime
+    claimed and received figures are retention-bounded sums over the 75-day ledgers.
 
     Args:
         window (str | Unset):
@@ -151,10 +151,10 @@ async def asyncio_detailed(
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorCashbackBoardSummary
 ]:
-    """Pump cashback board summary
+    """Pump rewards board summary
 
-     Pool totals, the median wallet and the top earner for a window. Lifetime claimed figures are
-    retention-bounded sums over the 75-day claim ledger.
+     Pool totals across both programs, the median wallet and the top earner for a window. Lifetime
+    claimed and received figures are retention-bounded sums over the 75-day ledgers.
 
     Args:
         window (str | Unset):
@@ -185,10 +185,10 @@ async def asyncio(
     | PulsightInternalCoreDomainAggregatorCashbackBoardSummary
     | None
 ):
-    """Pump cashback board summary
+    """Pump rewards board summary
 
-     Pool totals, the median wallet and the top earner for a window. Lifetime claimed figures are
-    retention-bounded sums over the 75-day claim ledger.
+     Pool totals across both programs, the median wallet and the top earner for a window. Lifetime
+    claimed and received figures are retention-bounded sums over the 75-day ledgers.
 
     Args:
         window (str | Unset):

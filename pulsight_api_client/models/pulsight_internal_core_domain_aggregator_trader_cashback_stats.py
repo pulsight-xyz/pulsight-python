@@ -50,6 +50,14 @@ class PulsightInternalCoreDomainAggregatorTraderCashbackStats:
         earned_lamports (int | Unset): EarnedLamports — cashback ACCRUED by the window's swaps (the exact
             per-swap amounts from the pump trade events, WSOL-quoted markets
             only). Informational: the net-PnL formulas fold CLAIMED, not this.
+        holder_reward_payouts (int | Unset):
+        holder_rewards_lamports (int | Unset): The holder-reward half of the same panel (CA 000220). pump PUSHES
+            these, so there is no accrued/claimed pair and nothing to claim:
+            HolderRewardsLamports is already a receipt, and the payout count is
+            the cadence figure ClaimCount is for cashback. Lifetime is exact —
+            the receipt ledger carries no TTL — but both lamport figures count
+            only payouts whose quote could be priced in SOL, because a coin
+            paired with another token pays in that token (CA r89).
         last_claim_at (str | Unset):
         lifetime_claimed_lamports (int | Unset):
         lifetime_earned_lamports (int | Unset): LifetimeEarnedLamports is exact: it comes from `trader_stats.cashback`,
@@ -58,6 +66,8 @@ class PulsightInternalCoreDomainAggregatorTraderCashbackStats:
             75-day retention (CA 000098) — the same compromise reliability's "all"
             window makes, undercounting rather than inventing. ProgramTotals below
             carries the program's own all-time figures beside it.
+        lifetime_holder_reward_payouts (int | Unset):
+        lifetime_holder_rewards_lamports (int | Unset):
         program_totals (list[PulsightInternalCoreDomainAggregatorCashbackProgramTotals] | Unset): ProgramTotals — the
             lifetime running totals the pump program itself
             stamped on the wallet's LATEST claim event, one row per program
@@ -71,9 +81,10 @@ class PulsightInternalCoreDomainAggregatorTraderCashbackStats:
             Empty array when the wallet never claimed.
         pubkey (str | Unset):
         recent_claims (list[PulsightInternalCoreDomainAggregatorCashbackClaimRow] | Unset): RecentClaims — the wallet's
-            latest claims, newest first (≤10).
-            AmountLamports is in the claim's quote-mint base units — lamports for
-            WSOL rows, which is nearly all of them.
+            latest REWARDS, newest first (≤10):
+            cashback claims and holder-reward payouts interleaved by timestamp,
+            told apart by Kind. AmountLamports is in the row's quote-mint base
+            units — lamports for WSOL rows, which is nearly all of the claims.
         total_volume_lamports (int | Unset):
         volume_share (float | Unset):
         window (PulsightInternalCoreDomainAggregatorWindow | Unset):
@@ -85,9 +96,13 @@ class PulsightInternalCoreDomainAggregatorTraderCashbackStats:
     claimable_lamports: int | Unset = UNSET
     claimed_lamports: int | Unset = UNSET
     earned_lamports: int | Unset = UNSET
+    holder_reward_payouts: int | Unset = UNSET
+    holder_rewards_lamports: int | Unset = UNSET
     last_claim_at: str | Unset = UNSET
     lifetime_claimed_lamports: int | Unset = UNSET
     lifetime_earned_lamports: int | Unset = UNSET
+    lifetime_holder_reward_payouts: int | Unset = UNSET
+    lifetime_holder_rewards_lamports: int | Unset = UNSET
     program_totals: (
         list[PulsightInternalCoreDomainAggregatorCashbackProgramTotals] | Unset
     ) = UNSET
@@ -113,11 +128,19 @@ class PulsightInternalCoreDomainAggregatorTraderCashbackStats:
 
         earned_lamports = self.earned_lamports
 
+        holder_reward_payouts = self.holder_reward_payouts
+
+        holder_rewards_lamports = self.holder_rewards_lamports
+
         last_claim_at = self.last_claim_at
 
         lifetime_claimed_lamports = self.lifetime_claimed_lamports
 
         lifetime_earned_lamports = self.lifetime_earned_lamports
+
+        lifetime_holder_reward_payouts = self.lifetime_holder_reward_payouts
+
+        lifetime_holder_rewards_lamports = self.lifetime_holder_rewards_lamports
 
         program_totals: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.program_totals, Unset):
@@ -158,12 +181,24 @@ class PulsightInternalCoreDomainAggregatorTraderCashbackStats:
             field_dict["claimed_lamports"] = claimed_lamports
         if earned_lamports is not UNSET:
             field_dict["earned_lamports"] = earned_lamports
+        if holder_reward_payouts is not UNSET:
+            field_dict["holder_reward_payouts"] = holder_reward_payouts
+        if holder_rewards_lamports is not UNSET:
+            field_dict["holder_rewards_lamports"] = holder_rewards_lamports
         if last_claim_at is not UNSET:
             field_dict["last_claim_at"] = last_claim_at
         if lifetime_claimed_lamports is not UNSET:
             field_dict["lifetime_claimed_lamports"] = lifetime_claimed_lamports
         if lifetime_earned_lamports is not UNSET:
             field_dict["lifetime_earned_lamports"] = lifetime_earned_lamports
+        if lifetime_holder_reward_payouts is not UNSET:
+            field_dict["lifetime_holder_reward_payouts"] = (
+                lifetime_holder_reward_payouts
+            )
+        if lifetime_holder_rewards_lamports is not UNSET:
+            field_dict["lifetime_holder_rewards_lamports"] = (
+                lifetime_holder_rewards_lamports
+            )
         if program_totals is not UNSET:
             field_dict["program_totals"] = program_totals
         if pubkey is not UNSET:
@@ -201,11 +236,21 @@ class PulsightInternalCoreDomainAggregatorTraderCashbackStats:
 
         earned_lamports = d.pop("earned_lamports", UNSET)
 
+        holder_reward_payouts = d.pop("holder_reward_payouts", UNSET)
+
+        holder_rewards_lamports = d.pop("holder_rewards_lamports", UNSET)
+
         last_claim_at = d.pop("last_claim_at", UNSET)
 
         lifetime_claimed_lamports = d.pop("lifetime_claimed_lamports", UNSET)
 
         lifetime_earned_lamports = d.pop("lifetime_earned_lamports", UNSET)
+
+        lifetime_holder_reward_payouts = d.pop("lifetime_holder_reward_payouts", UNSET)
+
+        lifetime_holder_rewards_lamports = d.pop(
+            "lifetime_holder_rewards_lamports", UNSET
+        )
 
         _program_totals = d.pop("program_totals", UNSET)
         program_totals: (
@@ -257,9 +302,13 @@ class PulsightInternalCoreDomainAggregatorTraderCashbackStats:
             claimable_lamports=claimable_lamports,
             claimed_lamports=claimed_lamports,
             earned_lamports=earned_lamports,
+            holder_reward_payouts=holder_reward_payouts,
+            holder_rewards_lamports=holder_rewards_lamports,
             last_claim_at=last_claim_at,
             lifetime_claimed_lamports=lifetime_claimed_lamports,
             lifetime_earned_lamports=lifetime_earned_lamports,
+            lifetime_holder_reward_payouts=lifetime_holder_reward_payouts,
+            lifetime_holder_rewards_lamports=lifetime_holder_rewards_lamports,
             program_totals=program_totals,
             pubkey=pubkey,
             recent_claims=recent_claims,

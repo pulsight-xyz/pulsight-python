@@ -90,7 +90,7 @@ def sync_detailed(
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorTraderCashbackStats
 ]:
-    """Pump cashback rewards of a wallet
+    """Pump rewards of a wallet
 
     Args:
         wallet_address (str):
@@ -126,7 +126,7 @@ def sync(
     | PulsightInternalCoreDomainAggregatorTraderCashbackStats
     | None
 ):
-    """Pump cashback rewards of a wallet
+    """Pump rewards of a wallet
 
     Args:
         wallet_address (str):
@@ -156,7 +156,7 @@ async def asyncio_detailed(
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorTraderCashbackStats
 ]:
-    """Pump cashback rewards of a wallet
+    """Pump rewards of a wallet
 
     Args:
         wallet_address (str):
@@ -190,7 +190,7 @@ async def asyncio(
     | PulsightInternalCoreDomainAggregatorTraderCashbackStats
     | None
 ):
-    """Pump cashback rewards of a wallet
+    """Pump rewards of a wallet
 
     Args:
         wallet_address (str):

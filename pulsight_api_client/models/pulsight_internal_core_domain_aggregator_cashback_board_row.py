@@ -29,12 +29,20 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
             accumulator belongs to the filler are excluded); the board's primary
             measure (claiming is sporadic, earning is the smooth signal).
         first_seen_ms (int | Unset):
+        holder_reward_payouts (int | Unset):
+        holder_rewards_lamports (int | Unset): HolderRewardsLamports / HolderRewardPayouts — what pump PAID this wallet
+            in holder rewards in the window (CA 000221), in priced lamports, and the
+            number of payouts behind it. Holder rewards are pushed, not claimed, so
+            this one figure is already a receipt. RewardsTotalLamports is the board's
+            default rank: cashback CLAIMED plus holder rewards RECEIVED, both cash
+            basis — never cashback earned, which is an accrual of the same money.
         last_active_ms (int | Unset):
         pump_image (str | Unset):
         pump_username (str | Unset): Pump.fun profile enrichment (server-side, cached): the wallet's pump
             username and avatar when it has a profile. Always nil on a censored
             row — enrichment runs only on rows whose identity ships.
         rank (int | Unset): Rank is 1-based within the requested window + filters (offset-aware).
+        rewards_total_lamports (int | Unset):
         tags (list[str] | Unset): Tags are the derived classification tags (`deriveTags`), resolved for
             the whole page in one round trip so a row states what the wallet is
             without being expanded. Empty on a censored row, and nil when the
@@ -52,10 +60,13 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
     claimed_lamports: int | Unset = UNSET
     earned_lamports: int | Unset = UNSET
     first_seen_ms: int | Unset = UNSET
+    holder_reward_payouts: int | Unset = UNSET
+    holder_rewards_lamports: int | Unset = UNSET
     last_active_ms: int | Unset = UNSET
     pump_image: str | Unset = UNSET
     pump_username: str | Unset = UNSET
     rank: int | Unset = UNSET
+    rewards_total_lamports: int | Unset = UNSET
     tags: list[str] | Unset = UNSET
     total_volume_lamports: int | Unset = UNSET
     trader: str | Unset = UNSET
@@ -75,6 +86,10 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
 
         first_seen_ms = self.first_seen_ms
 
+        holder_reward_payouts = self.holder_reward_payouts
+
+        holder_rewards_lamports = self.holder_rewards_lamports
+
         last_active_ms = self.last_active_ms
 
         pump_image = self.pump_image
@@ -82,6 +97,8 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
         pump_username = self.pump_username
 
         rank = self.rank
+
+        rewards_total_lamports = self.rewards_total_lamports
 
         tags: list[str] | Unset = UNSET
         if not isinstance(self.tags, Unset):
@@ -108,6 +125,10 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
             field_dict["earned_lamports"] = earned_lamports
         if first_seen_ms is not UNSET:
             field_dict["first_seen_ms"] = first_seen_ms
+        if holder_reward_payouts is not UNSET:
+            field_dict["holder_reward_payouts"] = holder_reward_payouts
+        if holder_rewards_lamports is not UNSET:
+            field_dict["holder_rewards_lamports"] = holder_rewards_lamports
         if last_active_ms is not UNSET:
             field_dict["last_active_ms"] = last_active_ms
         if pump_image is not UNSET:
@@ -116,6 +137,8 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
             field_dict["pump_username"] = pump_username
         if rank is not UNSET:
             field_dict["rank"] = rank
+        if rewards_total_lamports is not UNSET:
+            field_dict["rewards_total_lamports"] = rewards_total_lamports
         if tags is not UNSET:
             field_dict["tags"] = tags
         if total_volume_lamports is not UNSET:
@@ -142,6 +165,10 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
 
         first_seen_ms = d.pop("first_seen_ms", UNSET)
 
+        holder_reward_payouts = d.pop("holder_reward_payouts", UNSET)
+
+        holder_rewards_lamports = d.pop("holder_rewards_lamports", UNSET)
+
         last_active_ms = d.pop("last_active_ms", UNSET)
 
         pump_image = d.pop("pump_image", UNSET)
@@ -149,6 +176,8 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
         pump_username = d.pop("pump_username", UNSET)
 
         rank = d.pop("rank", UNSET)
+
+        rewards_total_lamports = d.pop("rewards_total_lamports", UNSET)
 
         tags = cast(list[str], d.pop("tags", UNSET))
 
@@ -165,10 +194,13 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardRow:
             claimed_lamports=claimed_lamports,
             earned_lamports=earned_lamports,
             first_seen_ms=first_seen_ms,
+            holder_reward_payouts=holder_reward_payouts,
+            holder_rewards_lamports=holder_rewards_lamports,
             last_active_ms=last_active_ms,
             pump_image=pump_image,
             pump_username=pump_username,
             rank=rank,
+            rewards_total_lamports=rewards_total_lamports,
             tags=tags,
             total_volume_lamports=total_volume_lamports,
             trader=trader,

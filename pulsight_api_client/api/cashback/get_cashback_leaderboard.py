@@ -107,12 +107,13 @@ def sync_detailed(
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorCashbackBoardPage
 ]:
-    """Pump cashback leaderboard
+    """Pump rewards leaderboard
 
-     Wallets ranked by pump cashback over a window. Accepts the same composable `f=` filter clauses as
-    /api/traders (repeated `f=key|op|value`), plus cashback-specific sorts. Lifetime claimed figures are
-    retention-bounded sums over the 75-day claim ledger (they undercount once rows age out, never
-    invent).
+     Wallets ranked by what pump paid them over a window, across both programs: holder rewards received
+    and cashback claimed. The default rank is their sum, both cash basis — never cashback earned, which
+    is an accrual of the same money. Accepts the same composable `f=` filter clauses as /api/traders
+    (repeated `f=key|op|value`), plus the rewards sorts. Lifetime claimed figures are retention-bounded
+    sums over the 75-day claim ledger (they undercount once rows age out, never invent).
 
     Args:
         window (str | Unset):
@@ -160,12 +161,13 @@ def sync(
     | PulsightInternalCoreDomainAggregatorCashbackBoardPage
     | None
 ):
-    """Pump cashback leaderboard
+    """Pump rewards leaderboard
 
-     Wallets ranked by pump cashback over a window. Accepts the same composable `f=` filter clauses as
-    /api/traders (repeated `f=key|op|value`), plus cashback-specific sorts. Lifetime claimed figures are
-    retention-bounded sums over the 75-day claim ledger (they undercount once rows age out, never
-    invent).
+     Wallets ranked by what pump paid them over a window, across both programs: holder rewards received
+    and cashback claimed. The default rank is their sum, both cash basis — never cashback earned, which
+    is an accrual of the same money. Accepts the same composable `f=` filter clauses as /api/traders
+    (repeated `f=key|op|value`), plus the rewards sorts. Lifetime claimed figures are retention-bounded
+    sums over the 75-day claim ledger (they undercount once rows age out, never invent).
 
     Args:
         window (str | Unset):
@@ -207,12 +209,13 @@ async def asyncio_detailed(
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorCashbackBoardPage
 ]:
-    """Pump cashback leaderboard
+    """Pump rewards leaderboard
 
-     Wallets ranked by pump cashback over a window. Accepts the same composable `f=` filter clauses as
-    /api/traders (repeated `f=key|op|value`), plus cashback-specific sorts. Lifetime claimed figures are
-    retention-bounded sums over the 75-day claim ledger (they undercount once rows age out, never
-    invent).
+     Wallets ranked by what pump paid them over a window, across both programs: holder rewards received
+    and cashback claimed. The default rank is their sum, both cash basis — never cashback earned, which
+    is an accrual of the same money. Accepts the same composable `f=` filter clauses as /api/traders
+    (repeated `f=key|op|value`), plus the rewards sorts. Lifetime claimed figures are retention-bounded
+    sums over the 75-day claim ledger (they undercount once rows age out, never invent).
 
     Args:
         window (str | Unset):
@@ -258,12 +261,13 @@ async def asyncio(
     | PulsightInternalCoreDomainAggregatorCashbackBoardPage
     | None
 ):
-    """Pump cashback leaderboard
+    """Pump rewards leaderboard
 
-     Wallets ranked by pump cashback over a window. Accepts the same composable `f=` filter clauses as
-    /api/traders (repeated `f=key|op|value`), plus cashback-specific sorts. Lifetime claimed figures are
-    retention-bounded sums over the 75-day claim ledger (they undercount once rows age out, never
-    invent).
+     Wallets ranked by what pump paid them over a window, across both programs: holder rewards received
+    and cashback claimed. The default rank is their sum, both cash basis — never cashback earned, which
+    is an accrual of the same money. Accepts the same composable `f=` filter clauses as /api/traders
+    (repeated `f=key|op|value`), plus the rewards sorts. Lifetime claimed figures are retention-bounded
+    sums over the 75-day claim ledger (they undercount once rows age out, never invent).
 
     Args:
         window (str | Unset):

@@ -5,6 +5,7 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.get_mints_hours import GetMintsHours
 from ...models.internal_adapters_primary_http_handler_error_response import (
     InternalAdaptersPrimaryHttpHandlerErrorResponse,
 )
@@ -20,7 +21,7 @@ def _get_kwargs(
     search: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     dex: list[str] | Unset = UNSET,
-    hours: int | Unset = UNSET,
+    hours: GetMintsHours | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
@@ -44,7 +45,11 @@ def _get_kwargs(
 
     params["dex"] = json_dex
 
-    params["hours"] = hours
+    json_hours: int | Unset = UNSET
+    if not isinstance(hours, Unset):
+        json_hours = hours.value
+
+    params["hours"] = json_hours
 
     params["min_pool_sol"] = min_pool_sol
 
@@ -152,7 +157,7 @@ def sync_detailed(
     search: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     dex: list[str] | Unset = UNSET,
-    hours: int | Unset = UNSET,
+    hours: GetMintsHours | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
@@ -176,7 +181,7 @@ def sync_detailed(
         search (str | Unset):
         sort (str | Unset):
         dex (list[str] | Unset):
-        hours (int | Unset):
+        hours (GetMintsHours | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
@@ -222,7 +227,7 @@ def sync(
     search: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     dex: list[str] | Unset = UNSET,
-    hours: int | Unset = UNSET,
+    hours: GetMintsHours | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
@@ -247,7 +252,7 @@ def sync(
         search (str | Unset):
         sort (str | Unset):
         dex (list[str] | Unset):
-        hours (int | Unset):
+        hours (GetMintsHours | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
@@ -288,7 +293,7 @@ async def asyncio_detailed(
     search: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     dex: list[str] | Unset = UNSET,
-    hours: int | Unset = UNSET,
+    hours: GetMintsHours | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
@@ -312,7 +317,7 @@ async def asyncio_detailed(
         search (str | Unset):
         sort (str | Unset):
         dex (list[str] | Unset):
-        hours (int | Unset):
+        hours (GetMintsHours | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
@@ -356,7 +361,7 @@ async def asyncio(
     search: str | Unset = UNSET,
     sort: str | Unset = UNSET,
     dex: list[str] | Unset = UNSET,
-    hours: int | Unset = UNSET,
+    hours: GetMintsHours | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
@@ -381,7 +386,7 @@ async def asyncio(
         search (str | Unset):
         sort (str | Unset):
         dex (list[str] | Unset):
-        hours (int | Unset):
+        hours (GetMintsHours | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
