@@ -89,10 +89,7 @@ class PulsightInternalCoreDomainTraderTrader:
         holder_reward_payouts_all (int | Unset):
         holder_rewards_1d (float | Unset):
         holder_rewards_30d (float | Unset):
-        holder_rewards_7d (float | Unset): Pump holder rewards, lamports. Pushed rather than claimed, so the one
-            figure is already a receipt and is what net PnL folds; the payout count
-            counts every payout, including one on a coin whose quote could not be
-            priced in SOL and therefore adds no lamports.
+        holder_rewards_7d (float | Unset):
         holder_rewards_all (float | Unset):
         id (str | Unset):
         is_favorite (bool | Unset):
@@ -147,6 +144,13 @@ class PulsightInternalCoreDomainTraderTrader:
         realized_profit_pnl_30d (float | Unset):
         realized_profit_pnl_7d (float | Unset):
         rebalancing_ratio (float | Unset):
+        rewards_total_1d (float | Unset):
+        rewards_total_30d (float | Unset):
+        rewards_total_7d (float | Unset): Pump holder rewards, lamports. Pushed rather than claimed, so the one
+            figure is already a receipt and is what net PnL folds; the payout count
+            counts every payout, including one on a coin whose quote could not be
+            priced in SOL and therefore adds no lamports.
+        rewards_total_all (float | Unset):
         risk_level (str | Unset):
         risk_score (int | Unset): Risk assessment
         roi_1d (float | Unset):
@@ -306,6 +310,10 @@ class PulsightInternalCoreDomainTraderTrader:
     realized_profit_pnl_30d: float | Unset = UNSET
     realized_profit_pnl_7d: float | Unset = UNSET
     rebalancing_ratio: float | Unset = UNSET
+    rewards_total_1d: float | Unset = UNSET
+    rewards_total_30d: float | Unset = UNSET
+    rewards_total_7d: float | Unset = UNSET
+    rewards_total_all: float | Unset = UNSET
     risk_level: str | Unset = UNSET
     risk_score: int | Unset = UNSET
     roi_1d: float | Unset = UNSET
@@ -571,6 +579,14 @@ class PulsightInternalCoreDomainTraderTrader:
         realized_profit_pnl_7d = self.realized_profit_pnl_7d
 
         rebalancing_ratio = self.rebalancing_ratio
+
+        rewards_total_1d = self.rewards_total_1d
+
+        rewards_total_30d = self.rewards_total_30d
+
+        rewards_total_7d = self.rewards_total_7d
+
+        rewards_total_all = self.rewards_total_all
 
         risk_level = self.risk_level
 
@@ -882,6 +898,14 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["realized_profit_pnl_7d"] = realized_profit_pnl_7d
         if rebalancing_ratio is not UNSET:
             field_dict["rebalancing_ratio"] = rebalancing_ratio
+        if rewards_total_1d is not UNSET:
+            field_dict["rewards_total_1d"] = rewards_total_1d
+        if rewards_total_30d is not UNSET:
+            field_dict["rewards_total_30d"] = rewards_total_30d
+        if rewards_total_7d is not UNSET:
+            field_dict["rewards_total_7d"] = rewards_total_7d
+        if rewards_total_all is not UNSET:
+            field_dict["rewards_total_all"] = rewards_total_all
         if risk_level is not UNSET:
             field_dict["risk_level"] = risk_level
         if risk_score is not UNSET:
@@ -1220,6 +1244,14 @@ class PulsightInternalCoreDomainTraderTrader:
 
         rebalancing_ratio = d.pop("rebalancing_ratio", UNSET)
 
+        rewards_total_1d = d.pop("rewards_total_1d", UNSET)
+
+        rewards_total_30d = d.pop("rewards_total_30d", UNSET)
+
+        rewards_total_7d = d.pop("rewards_total_7d", UNSET)
+
+        rewards_total_all = d.pop("rewards_total_all", UNSET)
+
         risk_level = d.pop("risk_level", UNSET)
 
         risk_score = d.pop("risk_score", UNSET)
@@ -1430,6 +1462,10 @@ class PulsightInternalCoreDomainTraderTrader:
             realized_profit_pnl_30d=realized_profit_pnl_30d,
             realized_profit_pnl_7d=realized_profit_pnl_7d,
             rebalancing_ratio=rebalancing_ratio,
+            rewards_total_1d=rewards_total_1d,
+            rewards_total_30d=rewards_total_30d,
+            rewards_total_7d=rewards_total_7d,
+            rewards_total_all=rewards_total_all,
             risk_level=risk_level,
             risk_score=risk_score,
             roi_1d=roi_1d,

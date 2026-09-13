@@ -166,6 +166,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         realized_profit_pnl_30d (float | Unset):
         realized_profit_pnl_7d (float | Unset):
         rebalancing_ratio (float | Unset):
+        rewards_total_1d (float | Unset):
+        rewards_total_30d (float | Unset):
+        rewards_total_7d (float | Unset):
+        rewards_total_all (float | Unset):
         risk_level (str | Unset):
         risk_score (int | Unset):
         roi_1d (float | Unset):
@@ -352,6 +356,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     realized_profit_pnl_30d: float | Unset = UNSET
     realized_profit_pnl_7d: float | Unset = UNSET
     rebalancing_ratio: float | Unset = UNSET
+    rewards_total_1d: float | Unset = UNSET
+    rewards_total_30d: float | Unset = UNSET
+    rewards_total_7d: float | Unset = UNSET
+    rewards_total_all: float | Unset = UNSET
     risk_level: str | Unset = UNSET
     risk_score: int | Unset = UNSET
     roi_1d: float | Unset = UNSET
@@ -659,6 +667,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         realized_profit_pnl_7d = self.realized_profit_pnl_7d
 
         rebalancing_ratio = self.rebalancing_ratio
+
+        rewards_total_1d = self.rewards_total_1d
+
+        rewards_total_30d = self.rewards_total_30d
+
+        rewards_total_7d = self.rewards_total_7d
+
+        rewards_total_all = self.rewards_total_all
 
         risk_level = self.risk_level
 
@@ -989,6 +1005,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["realized_profit_pnl_7d"] = realized_profit_pnl_7d
         if rebalancing_ratio is not UNSET:
             field_dict["rebalancing_ratio"] = rebalancing_ratio
+        if rewards_total_1d is not UNSET:
+            field_dict["rewards_total_1d"] = rewards_total_1d
+        if rewards_total_30d is not UNSET:
+            field_dict["rewards_total_30d"] = rewards_total_30d
+        if rewards_total_7d is not UNSET:
+            field_dict["rewards_total_7d"] = rewards_total_7d
+        if rewards_total_all is not UNSET:
+            field_dict["rewards_total_all"] = rewards_total_all
         if risk_level is not UNSET:
             field_dict["risk_level"] = risk_level
         if risk_score is not UNSET:
@@ -1422,6 +1446,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         rebalancing_ratio = d.pop("rebalancing_ratio", UNSET)
 
+        rewards_total_1d = d.pop("rewards_total_1d", UNSET)
+
+        rewards_total_30d = d.pop("rewards_total_30d", UNSET)
+
+        rewards_total_7d = d.pop("rewards_total_7d", UNSET)
+
+        rewards_total_all = d.pop("rewards_total_all", UNSET)
+
         risk_level = d.pop("risk_level", UNSET)
 
         risk_score = d.pop("risk_score", UNSET)
@@ -1636,6 +1668,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             realized_profit_pnl_30d=realized_profit_pnl_30d,
             realized_profit_pnl_7d=realized_profit_pnl_7d,
             rebalancing_ratio=rebalancing_ratio,
+            rewards_total_1d=rewards_total_1d,
+            rewards_total_30d=rewards_total_30d,
+            rewards_total_7d=rewards_total_7d,
+            rewards_total_all=rewards_total_all,
             risk_level=risk_level,
             risk_score=risk_score,
             roi_1d=roi_1d,

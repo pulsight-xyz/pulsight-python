@@ -21,23 +21,31 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
             a claim, whose AmountLamports is already lamports.
         amount_lamports (int | Unset):
         kind (str | Unset): Kind is "cashback_claim" or "holder_reward".
+        logo_uri (str | Unset):
         mint (str | Unset): Mint is the coin that paid a holder reward; empty on a claim, which is
             per-accumulator rather than per-coin.
+        name (str | Unset):
         priced (bool | Unset):
         program (str | Unset):
         quote_mint (str | Unset):
         signature (str | Unset):
+        symbol (str | Unset): Symbol / Name / LogoURI name the paying coin so a payout renders as a
+            token rather than a raw address. Empty on a claim, and on a coin whose
+            metadata has not been fetched yet.
         timestamp (str | Unset):
     """
 
     amount: int | Unset = UNSET
     amount_lamports: int | Unset = UNSET
     kind: str | Unset = UNSET
+    logo_uri: str | Unset = UNSET
     mint: str | Unset = UNSET
+    name: str | Unset = UNSET
     priced: bool | Unset = UNSET
     program: str | Unset = UNSET
     quote_mint: str | Unset = UNSET
     signature: str | Unset = UNSET
+    symbol: str | Unset = UNSET
     timestamp: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -48,7 +56,11 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
 
         kind = self.kind
 
+        logo_uri = self.logo_uri
+
         mint = self.mint
+
+        name = self.name
 
         priced = self.priced
 
@@ -57,6 +69,8 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
         quote_mint = self.quote_mint
 
         signature = self.signature
+
+        symbol = self.symbol
 
         timestamp = self.timestamp
 
@@ -69,8 +83,12 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
             field_dict["amount_lamports"] = amount_lamports
         if kind is not UNSET:
             field_dict["kind"] = kind
+        if logo_uri is not UNSET:
+            field_dict["logo_uri"] = logo_uri
         if mint is not UNSET:
             field_dict["mint"] = mint
+        if name is not UNSET:
+            field_dict["name"] = name
         if priced is not UNSET:
             field_dict["priced"] = priced
         if program is not UNSET:
@@ -79,6 +97,8 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
             field_dict["quote_mint"] = quote_mint
         if signature is not UNSET:
             field_dict["signature"] = signature
+        if symbol is not UNSET:
+            field_dict["symbol"] = symbol
         if timestamp is not UNSET:
             field_dict["timestamp"] = timestamp
 
@@ -93,7 +113,11 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
 
         kind = d.pop("kind", UNSET)
 
+        logo_uri = d.pop("logo_uri", UNSET)
+
         mint = d.pop("mint", UNSET)
+
+        name = d.pop("name", UNSET)
 
         priced = d.pop("priced", UNSET)
 
@@ -103,17 +127,22 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
 
         signature = d.pop("signature", UNSET)
 
+        symbol = d.pop("symbol", UNSET)
+
         timestamp = d.pop("timestamp", UNSET)
 
         pulsight_internal_core_domain_aggregator_cashback_claim_row = cls(
             amount=amount,
             amount_lamports=amount_lamports,
             kind=kind,
+            logo_uri=logo_uri,
             mint=mint,
+            name=name,
             priced=priced,
             program=program,
             quote_mint=quote_mint,
             signature=signature,
+            symbol=symbol,
             timestamp=timestamp,
         )
 

@@ -25,11 +25,16 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         failed_cost (int | Unset):
         failed_txs (int | Unset):
         fees (int | Unset): Costs of the day (lamports): per-tx fees, tips, and failed-tx burn,
-            plus the day's CLAIMED pump cashback (cash basis, the one positive
-            component), with `net = profit - fees - tips - failed_cost +
-            cashback` (profit already includes the arbitrage take-home). The charts plot NET as the headline series;
-            `profit` stays
-            as the flat/gross component.
+            against what pump paid the wallet that day — cashback CLAIMED and
+            holder rewards RECEIVED, both cash basis — with `net = profit - fees
+            - tips - failed_cost + cashback + holder_rewards` (profit already
+            includes the arbitrage take-home). The charts plot NET as the headline
+            series; `profit` stays as the flat/gross component.
+        holder_reward_payouts (int | Unset):
+        holder_rewards (int | Unset): HolderRewards is the day's holder-reward payouts valued in SOL, and
+            HolderRewardPayouts how many payouts there were. A payout in a quote
+            we cannot price in SOL adds nothing to the value but still counts, so
+            a day can carry payouts with zero lamports.
         net (int | Unset):
         profit (int | Unset):
         success_rate (float | Unset):
@@ -47,6 +52,8 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
     failed_cost: int | Unset = UNSET
     failed_txs: int | Unset = UNSET
     fees: int | Unset = UNSET
+    holder_reward_payouts: int | Unset = UNSET
+    holder_rewards: int | Unset = UNSET
     net: int | Unset = UNSET
     profit: int | Unset = UNSET
     success_rate: float | Unset = UNSET
@@ -66,6 +73,10 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         failed_txs = self.failed_txs
 
         fees = self.fees
+
+        holder_reward_payouts = self.holder_reward_payouts
+
+        holder_rewards = self.holder_rewards
 
         net = self.net
 
@@ -92,6 +103,10 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
             field_dict["failed_txs"] = failed_txs
         if fees is not UNSET:
             field_dict["fees"] = fees
+        if holder_reward_payouts is not UNSET:
+            field_dict["holder_reward_payouts"] = holder_reward_payouts
+        if holder_rewards is not UNSET:
+            field_dict["holder_rewards"] = holder_rewards
         if net is not UNSET:
             field_dict["net"] = net
         if profit is not UNSET:
@@ -120,6 +135,10 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
 
         fees = d.pop("fees", UNSET)
 
+        holder_reward_payouts = d.pop("holder_reward_payouts", UNSET)
+
+        holder_rewards = d.pop("holder_rewards", UNSET)
+
         net = d.pop("net", UNSET)
 
         profit = d.pop("profit", UNSET)
@@ -137,6 +156,8 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
             failed_cost=failed_cost,
             failed_txs=failed_txs,
             fees=fees,
+            holder_reward_payouts=holder_reward_payouts,
+            holder_rewards=holder_rewards,
             net=net,
             profit=profit,
             success_rate=success_rate,
