@@ -18,11 +18,14 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     wallet_address: str,
     *,
+    kind: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
+
+    params["kind"] = kind
 
     params["limit"] = limit
 
@@ -86,6 +89,7 @@ def sync_detailed(
     wallet_address: str,
     *,
     client: AuthenticatedClient | Client,
+    kind: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> Response[
@@ -104,6 +108,7 @@ def sync_detailed(
 
     Args:
         wallet_address (str):
+        kind (str | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -117,6 +122,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         wallet_address=wallet_address,
+        kind=kind,
         limit=limit,
         offset=offset,
     )
@@ -132,6 +138,7 @@ def sync(
     wallet_address: str,
     *,
     client: AuthenticatedClient | Client,
+    kind: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> (
@@ -151,6 +158,7 @@ def sync(
 
     Args:
         wallet_address (str):
+        kind (str | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -165,6 +173,7 @@ def sync(
     return sync_detailed(
         wallet_address=wallet_address,
         client=client,
+        kind=kind,
         limit=limit,
         offset=offset,
     ).parsed
@@ -174,6 +183,7 @@ async def asyncio_detailed(
     wallet_address: str,
     *,
     client: AuthenticatedClient | Client,
+    kind: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> Response[
@@ -192,6 +202,7 @@ async def asyncio_detailed(
 
     Args:
         wallet_address (str):
+        kind (str | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -205,6 +216,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         wallet_address=wallet_address,
+        kind=kind,
         limit=limit,
         offset=offset,
     )
@@ -218,6 +230,7 @@ async def asyncio(
     wallet_address: str,
     *,
     client: AuthenticatedClient | Client,
+    kind: str | Unset = UNSET,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
 ) -> (
@@ -237,6 +250,7 @@ async def asyncio(
 
     Args:
         wallet_address (str):
+        kind (str | Unset):
         limit (int | Unset):
         offset (int | Unset):
 
@@ -252,6 +266,7 @@ async def asyncio(
         await asyncio_detailed(
             wallet_address=wallet_address,
             client=client,
+            kind=kind,
             limit=limit,
             offset=offset,
         )

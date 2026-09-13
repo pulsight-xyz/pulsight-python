@@ -23,6 +23,9 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimsPage:
     """
     Attributes:
         items (list[PulsightInternalCoreDomainAggregatorCashbackClaimRow] | Unset):
+        kind (str | Unset): Kind is the reward kind this page was filtered to, empty when it carries
+            both. Total counts the same set the items come from, so a caller never
+            pages one kind against the other's count.
         limit (int | Unset):
         offset (int | Unset):
         pubkey (str | Unset):
@@ -30,6 +33,7 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimsPage:
     """
 
     items: list[PulsightInternalCoreDomainAggregatorCashbackClaimRow] | Unset = UNSET
+    kind: str | Unset = UNSET
     limit: int | Unset = UNSET
     offset: int | Unset = UNSET
     pubkey: str | Unset = UNSET
@@ -44,6 +48,8 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimsPage:
                 items_item = items_item_data.to_dict()
                 items.append(items_item)
 
+        kind = self.kind
+
         limit = self.limit
 
         offset = self.offset
@@ -57,6 +63,8 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimsPage:
         field_dict.update({})
         if items is not UNSET:
             field_dict["items"] = items
+        if kind is not UNSET:
+            field_dict["kind"] = kind
         if limit is not UNSET:
             field_dict["limit"] = limit
         if offset is not UNSET:
@@ -90,6 +98,8 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimsPage:
 
                 items.append(items_item)
 
+        kind = d.pop("kind", UNSET)
+
         limit = d.pop("limit", UNSET)
 
         offset = d.pop("offset", UNSET)
@@ -100,6 +110,7 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimsPage:
 
         pulsight_internal_core_domain_aggregator_cashback_claims_page = cls(
             items=items,
+            kind=kind,
             limit=limit,
             offset=offset,
             pubkey=pubkey,
