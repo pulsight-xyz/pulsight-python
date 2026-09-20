@@ -121,9 +121,9 @@ def sync_detailed(
 
      Launch bundlers of one mint (wallets that bought in a same-slot cluster of ≥3 buyers taking ≥5% of
     supply within 300s of the first observed swap) — the SAME set `/risk` counts — in the top-traders
-    row shape plus `initial_pct_of_supply` (net launch acquisition as % of total supply) and
-    `bundle_slot`. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via
-    offset. Login required (reveals wallet addresses).
+    row shape plus `initial_pct_of_supply` (net launch acquisition as % of total supply). sort ∈
+    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
+    (reveals wallet addresses).
 
     Args:
         pubkey (str):
@@ -169,9 +169,9 @@ def sync(
 
      Launch bundlers of one mint (wallets that bought in a same-slot cluster of ≥3 buyers taking ≥5% of
     supply within 300s of the first observed swap) — the SAME set `/risk` counts — in the top-traders
-    row shape plus `initial_pct_of_supply` (net launch acquisition as % of total supply) and
-    `bundle_slot`. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via
-    offset. Login required (reveals wallet addresses).
+    row shape plus `initial_pct_of_supply` (net launch acquisition as % of total supply). sort ∈
+    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
+    (reveals wallet addresses).
 
     Args:
         pubkey (str):
@@ -211,9 +211,9 @@ async def asyncio_detailed(
 
      Launch bundlers of one mint (wallets that bought in a same-slot cluster of ≥3 buyers taking ≥5% of
     supply within 300s of the first observed swap) — the SAME set `/risk` counts — in the top-traders
-    row shape plus `initial_pct_of_supply` (net launch acquisition as % of total supply) and
-    `bundle_slot`. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via
-    offset. Login required (reveals wallet addresses).
+    row shape plus `initial_pct_of_supply` (net launch acquisition as % of total supply). sort ∈
+    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
+    (reveals wallet addresses).
 
     Args:
         pubkey (str):
@@ -257,9 +257,9 @@ async def asyncio(
 
      Launch bundlers of one mint (wallets that bought in a same-slot cluster of ≥3 buyers taking ≥5% of
     supply within 300s of the first observed swap) — the SAME set `/risk` counts — in the top-traders
-    row shape plus `initial_pct_of_supply` (net launch acquisition as % of total supply) and
-    `bundle_slot`. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via
-    offset. Login required (reveals wallet addresses).
+    row shape plus `initial_pct_of_supply` (net launch acquisition as % of total supply). sort ∈
+    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
+    (reveals wallet addresses).
 
     Args:
         pubkey (str):

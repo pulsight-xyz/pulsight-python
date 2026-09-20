@@ -112,8 +112,8 @@ def sync_detailed(
 ]:
     """List Mint Top Holders
 
-     Current holders (token_balance > 0) of one mint from `trader_token_stats`. sort ∈
-    {balance,holding_pnl,recent} (default balance). Paged via offset.
+     Current holders of one mint by on-chain balance (`holder_accounts`, pool inventory excluded), each
+    with its position figures. sort ∈ {balance,holding_pnl,recent} (default balance). Paged via offset.
 
     Args:
         pubkey (str):
@@ -157,8 +157,8 @@ def sync(
 ):
     """List Mint Top Holders
 
-     Current holders (token_balance > 0) of one mint from `trader_token_stats`. sort ∈
-    {balance,holding_pnl,recent} (default balance). Paged via offset.
+     Current holders of one mint by on-chain balance (`holder_accounts`, pool inventory excluded), each
+    with its position figures. sort ∈ {balance,holding_pnl,recent} (default balance). Paged via offset.
 
     Args:
         pubkey (str):
@@ -196,8 +196,8 @@ async def asyncio_detailed(
 ]:
     """List Mint Top Holders
 
-     Current holders (token_balance > 0) of one mint from `trader_token_stats`. sort ∈
-    {balance,holding_pnl,recent} (default balance). Paged via offset.
+     Current holders of one mint by on-chain balance (`holder_accounts`, pool inventory excluded), each
+    with its position figures. sort ∈ {balance,holding_pnl,recent} (default balance). Paged via offset.
 
     Args:
         pubkey (str):
@@ -239,8 +239,8 @@ async def asyncio(
 ):
     """List Mint Top Holders
 
-     Current holders (token_balance > 0) of one mint from `trader_token_stats`. sort ∈
-    {balance,holding_pnl,recent} (default balance). Paged via offset.
+     Current holders of one mint by on-chain balance (`holder_accounts`, pool inventory excluded), each
+    with its position figures. sort ∈ {balance,holding_pnl,recent} (default balance). Paged via offset.
 
     Args:
         pubkey (str):

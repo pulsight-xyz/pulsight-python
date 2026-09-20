@@ -17,6 +17,7 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     *,
     window: str | Unset = UNSET,
+    unit: str | Unset = "sol",
     sort_by: str | Unset = UNSET,
     direction: str | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -27,6 +28,8 @@ def _get_kwargs(
     params: dict[str, Any] = {}
 
     params["window"] = window
+
+    params["unit"] = unit
 
     params["sort_by"] = sort_by
 
@@ -98,6 +101,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
     window: str | Unset = UNSET,
+    unit: str | Unset = "sol",
     sort_by: str | Unset = UNSET,
     direction: str | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -112,11 +116,11 @@ def sync_detailed(
      Wallets ranked by what pump paid them over a window, across both programs: holder rewards received
     and cashback claimed. The default rank is their sum, both cash basis — never cashback earned, which
     is an accrual of the same money. Accepts the same composable `f=` filter clauses as /api/traders
-    (repeated `f=key|op|value`), plus the rewards sorts. Lifetime claimed figures are retention-bounded
-    sums over the 75-day claim ledger (they undercount once rows age out, never invent).
+    (repeated `f=key|op|value`), plus the rewards sorts.
 
     Args:
         window (str | Unset):
+        unit (str | Unset):  Default: 'sol'.
         sort_by (str | Unset):
         direction (str | Unset):
         limit (int | Unset):
@@ -133,6 +137,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         window=window,
+        unit=unit,
         sort_by=sort_by,
         direction=direction,
         limit=limit,
@@ -151,6 +156,7 @@ def sync(
     *,
     client: AuthenticatedClient | Client,
     window: str | Unset = UNSET,
+    unit: str | Unset = "sol",
     sort_by: str | Unset = UNSET,
     direction: str | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -166,11 +172,11 @@ def sync(
      Wallets ranked by what pump paid them over a window, across both programs: holder rewards received
     and cashback claimed. The default rank is their sum, both cash basis — never cashback earned, which
     is an accrual of the same money. Accepts the same composable `f=` filter clauses as /api/traders
-    (repeated `f=key|op|value`), plus the rewards sorts. Lifetime claimed figures are retention-bounded
-    sums over the 75-day claim ledger (they undercount once rows age out, never invent).
+    (repeated `f=key|op|value`), plus the rewards sorts.
 
     Args:
         window (str | Unset):
+        unit (str | Unset):  Default: 'sol'.
         sort_by (str | Unset):
         direction (str | Unset):
         limit (int | Unset):
@@ -188,6 +194,7 @@ def sync(
     return sync_detailed(
         client=client,
         window=window,
+        unit=unit,
         sort_by=sort_by,
         direction=direction,
         limit=limit,
@@ -200,6 +207,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
     window: str | Unset = UNSET,
+    unit: str | Unset = "sol",
     sort_by: str | Unset = UNSET,
     direction: str | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -214,11 +222,11 @@ async def asyncio_detailed(
      Wallets ranked by what pump paid them over a window, across both programs: holder rewards received
     and cashback claimed. The default rank is their sum, both cash basis — never cashback earned, which
     is an accrual of the same money. Accepts the same composable `f=` filter clauses as /api/traders
-    (repeated `f=key|op|value`), plus the rewards sorts. Lifetime claimed figures are retention-bounded
-    sums over the 75-day claim ledger (they undercount once rows age out, never invent).
+    (repeated `f=key|op|value`), plus the rewards sorts.
 
     Args:
         window (str | Unset):
+        unit (str | Unset):  Default: 'sol'.
         sort_by (str | Unset):
         direction (str | Unset):
         limit (int | Unset):
@@ -235,6 +243,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         window=window,
+        unit=unit,
         sort_by=sort_by,
         direction=direction,
         limit=limit,
@@ -251,6 +260,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient | Client,
     window: str | Unset = UNSET,
+    unit: str | Unset = "sol",
     sort_by: str | Unset = UNSET,
     direction: str | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -266,11 +276,11 @@ async def asyncio(
      Wallets ranked by what pump paid them over a window, across both programs: holder rewards received
     and cashback claimed. The default rank is their sum, both cash basis — never cashback earned, which
     is an accrual of the same money. Accepts the same composable `f=` filter clauses as /api/traders
-    (repeated `f=key|op|value`), plus the rewards sorts. Lifetime claimed figures are retention-bounded
-    sums over the 75-day claim ledger (they undercount once rows age out, never invent).
+    (repeated `f=key|op|value`), plus the rewards sorts.
 
     Args:
         window (str | Unset):
+        unit (str | Unset):  Default: 'sol'.
         sort_by (str | Unset):
         direction (str | Unset):
         limit (int | Unset):
@@ -289,6 +299,7 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             window=window,
+            unit=unit,
             sort_by=sort_by,
             direction=direction,
             limit=limit,

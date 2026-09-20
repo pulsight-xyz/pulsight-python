@@ -24,22 +24,21 @@ class PulsightInternalCoreDomainAggregatorMintLiveMetrics:
             nil when supply or decimals are unknown, exactly when MarketCapUsd is.
         market_cap_usd (float | Unset):
         mint (str | Unset):
-        price_basis_pool (str | Unset): PriceBasisPool is the pool PriceUsd was read from: the mint's DOMINANT
-            pool by 24h quote volume, which is the basis the whole price surface
-            uses so a dust side-market's prints cannot move the displayed number.
+        price_basis_pool (str | Unset): PriceBasisPool is the pool PriceUsd was read from: the mint's reference
+            pool, which is the basis the whole price surface uses so a dust
+            side-market's prints cannot move the displayed number.
             A client that patches the price from the live swap stream between reads
             must believe prints from THIS pool only — and gets the answer from the
             server precisely so it never has to resolve a dominant pool of its own.
             nil whenever PriceUsd is.
         price_usd (float | Unset): PriceUsd / MarketCapUsd carry MintRow.PriceUsd and MintRow.MarketCapUsd
-            verbatim, including their nil conditions (no WSOL pool, unknown
-            decimals, no SOL/USD reference, absent supply).
-        unique_traders (int | Unset): UniqueTraders is MintRow.UniqueTraders read straight off the insert-time
-            uniq plane, so it is as fresh as ingest rather than as fresh as the
-            holder-fold refresh that stamps the identity row. nil without the plane:
-            this route never falls back to the lifetime position-table fold, which is
-            the read it exists to stop paying at poll cadence. A quote-registry mint
-            has no rows on that plane and so never reports a count here.
+            verbatim, including their nil conditions (no priced reference pool,
+            unknown decimals, absent supply).
+        unique_traders (int | Unset): UniqueTraders is read straight off the insert-time `mint_traders`
+            plane, so it is as fresh as ingest. nil when the plane has no row: this
+            route never falls back to a lifetime fold over positions, which is the
+            read it exists to stop paying at poll cadence. A quote-registry mint has
+            no rows on that plane and so never reports a count here.
     """
 
     as_of: str | Unset = UNSET

@@ -30,24 +30,28 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
             rather than counted as zero: an unclosed position has no realized
             outcome, and zeros would drag the median toward it. The pair is the
             per-window twin of the leaderboard's Avg RP / Med RP columns.
+        avg_realized_profit_usd (float | Unset):
         avg_sell_count_per_token (float | Unset):
         avg_trade_size_lamports (float | Unset): AvgTradeSizeLamports is TotalVolumeLamports over the window's swap
             count — the wallet's typical clip. It is what makes the price-impact
             figures legible: impact is size against pool depth, so the two are
             read together.
+        avg_trade_size_usd (float | Unset):
         median_buy_count_per_token (float | Unset):
         median_holding_time_secs (float | Unset):
         median_reactivity_secs (float | Unset):
         median_realized_profit_lamports (float | Unset):
+        median_realized_profit_usd (float | Unset):
         median_sell_count_per_token (float | Unset):
         oldest_trade_at (str | Unset):
         profit_per_trade_lamports (float | Unset):
+        profit_per_trade_usd (float | Unset):
         pubkey (str | Unset):
         rebalancing_ratio (float | Unset):
-        total_volume_lamports (int | Unset): TotalVolumeLamports is the window's traded value, both sides, read as
-            the QUOTE side of each row — see the adapter's swapQuoteSideExpr for
-            why a plain `sum(amount_in)` is not that, and for the one case it is
-            still approximate (non-WSOL quotes count in their own units).
+        total_volume_lamports (int | Unset): TotalVolumeLamports is the window's traded value, buys and sells,
+            stamped in SOL at execution.
+        total_volume_usd (int | Unset): The Usd twins are the same figures on the trades' USD stamps
+            (micro-USD).
         window (PulsightInternalCoreDomainAggregatorWindow | Unset):
     """
 
@@ -56,18 +60,23 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
     avg_holding_time_secs: float | Unset = UNSET
     avg_reactivity_secs: float | Unset = UNSET
     avg_realized_profit_lamports: float | Unset = UNSET
+    avg_realized_profit_usd: float | Unset = UNSET
     avg_sell_count_per_token: float | Unset = UNSET
     avg_trade_size_lamports: float | Unset = UNSET
+    avg_trade_size_usd: float | Unset = UNSET
     median_buy_count_per_token: float | Unset = UNSET
     median_holding_time_secs: float | Unset = UNSET
     median_reactivity_secs: float | Unset = UNSET
     median_realized_profit_lamports: float | Unset = UNSET
+    median_realized_profit_usd: float | Unset = UNSET
     median_sell_count_per_token: float | Unset = UNSET
     oldest_trade_at: str | Unset = UNSET
     profit_per_trade_lamports: float | Unset = UNSET
+    profit_per_trade_usd: float | Unset = UNSET
     pubkey: str | Unset = UNSET
     rebalancing_ratio: float | Unset = UNSET
     total_volume_lamports: int | Unset = UNSET
+    total_volume_usd: int | Unset = UNSET
     window: PulsightInternalCoreDomainAggregatorWindow | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -82,9 +91,13 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
 
         avg_realized_profit_lamports = self.avg_realized_profit_lamports
 
+        avg_realized_profit_usd = self.avg_realized_profit_usd
+
         avg_sell_count_per_token = self.avg_sell_count_per_token
 
         avg_trade_size_lamports = self.avg_trade_size_lamports
+
+        avg_trade_size_usd = self.avg_trade_size_usd
 
         median_buy_count_per_token = self.median_buy_count_per_token
 
@@ -94,17 +107,23 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
 
         median_realized_profit_lamports = self.median_realized_profit_lamports
 
+        median_realized_profit_usd = self.median_realized_profit_usd
+
         median_sell_count_per_token = self.median_sell_count_per_token
 
         oldest_trade_at = self.oldest_trade_at
 
         profit_per_trade_lamports = self.profit_per_trade_lamports
 
+        profit_per_trade_usd = self.profit_per_trade_usd
+
         pubkey = self.pubkey
 
         rebalancing_ratio = self.rebalancing_ratio
 
         total_volume_lamports = self.total_volume_lamports
+
+        total_volume_usd = self.total_volume_usd
 
         window: str | Unset = UNSET
         if not isinstance(self.window, Unset):
@@ -123,10 +142,14 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
             field_dict["avg_reactivity_secs"] = avg_reactivity_secs
         if avg_realized_profit_lamports is not UNSET:
             field_dict["avg_realized_profit_lamports"] = avg_realized_profit_lamports
+        if avg_realized_profit_usd is not UNSET:
+            field_dict["avg_realized_profit_usd"] = avg_realized_profit_usd
         if avg_sell_count_per_token is not UNSET:
             field_dict["avg_sell_count_per_token"] = avg_sell_count_per_token
         if avg_trade_size_lamports is not UNSET:
             field_dict["avg_trade_size_lamports"] = avg_trade_size_lamports
+        if avg_trade_size_usd is not UNSET:
+            field_dict["avg_trade_size_usd"] = avg_trade_size_usd
         if median_buy_count_per_token is not UNSET:
             field_dict["median_buy_count_per_token"] = median_buy_count_per_token
         if median_holding_time_secs is not UNSET:
@@ -137,18 +160,24 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
             field_dict["median_realized_profit_lamports"] = (
                 median_realized_profit_lamports
             )
+        if median_realized_profit_usd is not UNSET:
+            field_dict["median_realized_profit_usd"] = median_realized_profit_usd
         if median_sell_count_per_token is not UNSET:
             field_dict["median_sell_count_per_token"] = median_sell_count_per_token
         if oldest_trade_at is not UNSET:
             field_dict["oldest_trade_at"] = oldest_trade_at
         if profit_per_trade_lamports is not UNSET:
             field_dict["profit_per_trade_lamports"] = profit_per_trade_lamports
+        if profit_per_trade_usd is not UNSET:
+            field_dict["profit_per_trade_usd"] = profit_per_trade_usd
         if pubkey is not UNSET:
             field_dict["pubkey"] = pubkey
         if rebalancing_ratio is not UNSET:
             field_dict["rebalancing_ratio"] = rebalancing_ratio
         if total_volume_lamports is not UNSET:
             field_dict["total_volume_lamports"] = total_volume_lamports
+        if total_volume_usd is not UNSET:
+            field_dict["total_volume_usd"] = total_volume_usd
         if window is not UNSET:
             field_dict["window"] = window
 
@@ -167,9 +196,13 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
 
         avg_realized_profit_lamports = d.pop("avg_realized_profit_lamports", UNSET)
 
+        avg_realized_profit_usd = d.pop("avg_realized_profit_usd", UNSET)
+
         avg_sell_count_per_token = d.pop("avg_sell_count_per_token", UNSET)
 
         avg_trade_size_lamports = d.pop("avg_trade_size_lamports", UNSET)
+
+        avg_trade_size_usd = d.pop("avg_trade_size_usd", UNSET)
 
         median_buy_count_per_token = d.pop("median_buy_count_per_token", UNSET)
 
@@ -181,17 +214,23 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
             "median_realized_profit_lamports", UNSET
         )
 
+        median_realized_profit_usd = d.pop("median_realized_profit_usd", UNSET)
+
         median_sell_count_per_token = d.pop("median_sell_count_per_token", UNSET)
 
         oldest_trade_at = d.pop("oldest_trade_at", UNSET)
 
         profit_per_trade_lamports = d.pop("profit_per_trade_lamports", UNSET)
 
+        profit_per_trade_usd = d.pop("profit_per_trade_usd", UNSET)
+
         pubkey = d.pop("pubkey", UNSET)
 
         rebalancing_ratio = d.pop("rebalancing_ratio", UNSET)
 
         total_volume_lamports = d.pop("total_volume_lamports", UNSET)
+
+        total_volume_usd = d.pop("total_volume_usd", UNSET)
 
         _window = d.pop("window", UNSET)
         window: PulsightInternalCoreDomainAggregatorWindow | Unset
@@ -206,18 +245,23 @@ class PulsightInternalCoreDomainAggregatorTraderBehavioralStats:
             avg_holding_time_secs=avg_holding_time_secs,
             avg_reactivity_secs=avg_reactivity_secs,
             avg_realized_profit_lamports=avg_realized_profit_lamports,
+            avg_realized_profit_usd=avg_realized_profit_usd,
             avg_sell_count_per_token=avg_sell_count_per_token,
             avg_trade_size_lamports=avg_trade_size_lamports,
+            avg_trade_size_usd=avg_trade_size_usd,
             median_buy_count_per_token=median_buy_count_per_token,
             median_holding_time_secs=median_holding_time_secs,
             median_reactivity_secs=median_reactivity_secs,
             median_realized_profit_lamports=median_realized_profit_lamports,
+            median_realized_profit_usd=median_realized_profit_usd,
             median_sell_count_per_token=median_sell_count_per_token,
             oldest_trade_at=oldest_trade_at,
             profit_per_trade_lamports=profit_per_trade_lamports,
+            profit_per_trade_usd=profit_per_trade_usd,
             pubkey=pubkey,
             rebalancing_ratio=rebalancing_ratio,
             total_volume_lamports=total_volume_lamports,
+            total_volume_usd=total_volume_usd,
             window=window,
         )
 

@@ -18,10 +18,11 @@ def _get_kwargs(
     *,
     limit: int | Unset = 20,
     offset: int | Unset = 0,
-    sort_by: str | Unset = "total_profit_7d",
+    sort_by: str | Unset = "realized_profit",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
+    unit: str | Unset = "sol",
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -37,6 +38,8 @@ def _get_kwargs(
     params["favorites_only"] = favorites_only
 
     params["extra_windows"] = extra_windows
+
+    params["unit"] = unit
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -130,10 +133,11 @@ def sync_detailed(
     client: AuthenticatedClient,
     limit: int | Unset = 20,
     offset: int | Unset = 0,
-    sort_by: str | Unset = "total_profit_7d",
+    sort_by: str | Unset = "realized_profit",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
+    unit: str | Unset = "sol",
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -145,10 +149,11 @@ def sync_detailed(
     Args:
         limit (int | Unset):  Default: 20.
         offset (int | Unset):  Default: 0.
-        sort_by (str | Unset):  Default: 'total_profit_7d'.
+        sort_by (str | Unset):  Default: 'realized_profit'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
         extra_windows (str | Unset):
+        unit (str | Unset):  Default: 'sol'.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -165,6 +170,7 @@ def sync_detailed(
         direction=direction,
         favorites_only=favorites_only,
         extra_windows=extra_windows,
+        unit=unit,
     )
 
     response = client.get_httpx_client().request(
@@ -179,10 +185,11 @@ def sync(
     client: AuthenticatedClient,
     limit: int | Unset = 20,
     offset: int | Unset = 0,
-    sort_by: str | Unset = "total_profit_7d",
+    sort_by: str | Unset = "realized_profit",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
+    unit: str | Unset = "sol",
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -195,10 +202,11 @@ def sync(
     Args:
         limit (int | Unset):  Default: 20.
         offset (int | Unset):  Default: 0.
-        sort_by (str | Unset):  Default: 'total_profit_7d'.
+        sort_by (str | Unset):  Default: 'realized_profit'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
         extra_windows (str | Unset):
+        unit (str | Unset):  Default: 'sol'.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -216,6 +224,7 @@ def sync(
         direction=direction,
         favorites_only=favorites_only,
         extra_windows=extra_windows,
+        unit=unit,
     ).parsed
 
 
@@ -224,10 +233,11 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     limit: int | Unset = 20,
     offset: int | Unset = 0,
-    sort_by: str | Unset = "total_profit_7d",
+    sort_by: str | Unset = "realized_profit",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
+    unit: str | Unset = "sol",
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -239,10 +249,11 @@ async def asyncio_detailed(
     Args:
         limit (int | Unset):  Default: 20.
         offset (int | Unset):  Default: 0.
-        sort_by (str | Unset):  Default: 'total_profit_7d'.
+        sort_by (str | Unset):  Default: 'realized_profit'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
         extra_windows (str | Unset):
+        unit (str | Unset):  Default: 'sol'.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -259,6 +270,7 @@ async def asyncio_detailed(
         direction=direction,
         favorites_only=favorites_only,
         extra_windows=extra_windows,
+        unit=unit,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -271,10 +283,11 @@ async def asyncio(
     client: AuthenticatedClient,
     limit: int | Unset = 20,
     offset: int | Unset = 0,
-    sort_by: str | Unset = "total_profit_7d",
+    sort_by: str | Unset = "realized_profit",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
+    unit: str | Unset = "sol",
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -287,10 +300,11 @@ async def asyncio(
     Args:
         limit (int | Unset):  Default: 20.
         offset (int | Unset):  Default: 0.
-        sort_by (str | Unset):  Default: 'total_profit_7d'.
+        sort_by (str | Unset):  Default: 'realized_profit'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
         extra_windows (str | Unset):
+        unit (str | Unset):  Default: 'sol'.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -309,5 +323,6 @@ async def asyncio(
             direction=direction,
             favorites_only=favorites_only,
             extra_windows=extra_windows,
+            unit=unit,
         )
     ).parsed

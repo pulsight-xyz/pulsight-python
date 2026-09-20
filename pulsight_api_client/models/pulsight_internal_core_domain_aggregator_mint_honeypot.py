@@ -23,7 +23,7 @@ class PulsightInternalCoreDomainAggregatorMintHoneypot:
         duplicate_count (int | Unset): DuplicateCount backs "copycat": how many mints share this (symbol, name).
         fee_sell_buy_ratio (float | Unset):
         fee_trap_buckets (int | Unset): FeeTrapBuckets/FeeSellBuyRatio back "fee_trap" (confiscatory sell
-            tax, CA 000133/r59): distinct 15-minute buckets in the last 7 days
+            tax): distinct 15-minute buckets in the last 7 days
             whose sells executed below half that bucket's buy VWAP, and the
             window's overall sell/buy exec-price ratio (display only).
         freeze_count (int | Unset): FreezeCount/ThawCount back the "freezes_holders" reason.
@@ -31,9 +31,8 @@ class PulsightInternalCoreDomainAggregatorMintHoneypot:
         sell_count (int | Unset):
         sellers (int | Unset):
         thaw_count (int | Unset):
-        transfer_fee_bps (int | Unset): TransferFeeBps backs "transfer_fee" (Token-2022, CA 000134/r61): the
-            on-chain transfer fee in basis points (max of the current and
-            scheduled fee).
+        transfer_fee_bps (int | Unset): TransferFeeBps backs "transfer_fee" (Token-2022): the on-chain transfer
+            fee in basis points (max of the current and scheduled fee).
     """
 
     buy_count: int | Unset = UNSET

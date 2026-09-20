@@ -87,8 +87,7 @@ def sync_detailed(
 ]:
     """Pump rewards board summary
 
-     Pool totals across both programs, the median wallet and the top earner for a window. Lifetime
-    claimed and received figures are retention-bounded sums over the 75-day ledgers.
+     Pool totals across both programs, the median wallet and the top earner for a window.
 
     Args:
         window (str | Unset):
@@ -123,8 +122,7 @@ def sync(
 ):
     """Pump rewards board summary
 
-     Pool totals across both programs, the median wallet and the top earner for a window. Lifetime
-    claimed and received figures are retention-bounded sums over the 75-day ledgers.
+     Pool totals across both programs, the median wallet and the top earner for a window.
 
     Args:
         window (str | Unset):
@@ -153,8 +151,7 @@ async def asyncio_detailed(
 ]:
     """Pump rewards board summary
 
-     Pool totals across both programs, the median wallet and the top earner for a window. Lifetime
-    claimed and received figures are retention-bounded sums over the 75-day ledgers.
+     Pool totals across both programs, the median wallet and the top earner for a window.
 
     Args:
         window (str | Unset):
@@ -187,8 +184,7 @@ async def asyncio(
 ):
     """Pump rewards board summary
 
-     Pool totals across both programs, the median wallet and the top earner for a window. Lifetime
-    claimed and received figures are retention-bounded sums over the 75-day ledgers.
+     Pool totals across both programs, the median wallet and the top earner for a window.
 
     Args:
         window (str | Unset):

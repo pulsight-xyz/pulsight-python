@@ -16,28 +16,21 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorMintTraderRow")
 class PulsightInternalCoreDomainAggregatorMintTraderRow:
     """
     Attributes:
-        arb_tx_count (int | Unset): Distinct is_arb transactions for this (trader, mint). Same rationale
-            as TraderTokenPosition.ArbTxCount: shown alongside buy/sell, never
-            subtracted, so lopsided counts on arbitrage wallets are legible.
-        bundle_slot (int | Unset):
+        arb_tx_count (int | Unset): ArbTxCount is the position's arbitrage-flagged trade rows, as on
+            TraderTokenPosition.ArbTxCount: shown alongside buy/sell, never
+            subtracted.
         buy_tx_count (int | Unset):
         cost_basis_lamports (str | Unset):
-        directional_buy_tx_count (int | Unset): Directional counts EXCLUDE arbitrage rows, so the three numbers the UI
-            shows are disjoint: directional buys / directional sells / arb txs.
-            Overlapping them is what made an arb wallet read "11 buys / 2 sells /
-            11 arb" -- every one of those buys WAS one of the arbs. A pure
-            arbitrageur now reads 0 / 0 / N, which is the truth: it never took a
-            directional position in the token.
-
-            buy_tx_count / sell_tx_count keep their original meaning (all rows,
-            matching the trader_token_stats rollup that the leaderboard and its
-            `f=` filters read) so nothing downstream shifts under them.
+        cost_basis_usd (str | Unset): The Usd twins are the position's figures on its trades' USD stamps
+            (micro-USD); HoldingPnlUsd is the same realizable exit marked in USD.
+        directional_buy_tx_count (int | Unset): DirectionalBuyTxCount / DirectionalSellTxCount carry the same position
+            counters as buy_tx_count / sell_tx_count.
         directional_sell_tx_count (int | Unset):
         first_buy_ts (str | Unset):
         holding_pnl_lamports (int | Unset):
+        holding_pnl_usd (int | Unset):
         initial_pct_of_supply (float | Unset): InitialPctOfSupply is a bundler's net launch acquisition as % of total
-            supply, and BundleSlot the first bundle slot it bought in. Both are set
-            only on the bundlers path.
+            supply, set only on the bundlers path.
         is_bundler (bool | Unset):
         is_insider (bool | Unset):
         is_sniper (bool | Unset):
@@ -46,25 +39,29 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         label_type (str | Unset):
         last_active_ts (str | Unset):
         pct_of_supply (float | Unset): PctOfSupply is the holder's % of circulating supply, set on the
-            top-holders and cohort paths (sourced from on-chain holder_balances).
+            top-holders and cohort paths (from the on-chain `holder_accounts`).
             nil on the top-traders path. IsSniper/IsBundler/IsInsider flag cohort
             membership on every per-mint trader list.
         realized_profit (int | Unset):
+        realized_profit_usd (int | Unset):
         sell_tx_count (int | Unset):
         token_balance (str | Unset):
         total_fees (int | Unset):
+        total_fees_usd (int | Unset):
         total_invested (int | Unset):
+        total_invested_usd (int | Unset):
         trader (str | Unset):
     """
 
     arb_tx_count: int | Unset = UNSET
-    bundle_slot: int | Unset = UNSET
     buy_tx_count: int | Unset = UNSET
     cost_basis_lamports: str | Unset = UNSET
+    cost_basis_usd: str | Unset = UNSET
     directional_buy_tx_count: int | Unset = UNSET
     directional_sell_tx_count: int | Unset = UNSET
     first_buy_ts: str | Unset = UNSET
     holding_pnl_lamports: int | Unset = UNSET
+    holding_pnl_usd: int | Unset = UNSET
     initial_pct_of_supply: float | Unset = UNSET
     is_bundler: bool | Unset = UNSET
     is_insider: bool | Unset = UNSET
@@ -74,21 +71,24 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
     last_active_ts: str | Unset = UNSET
     pct_of_supply: float | Unset = UNSET
     realized_profit: int | Unset = UNSET
+    realized_profit_usd: int | Unset = UNSET
     sell_tx_count: int | Unset = UNSET
     token_balance: str | Unset = UNSET
     total_fees: int | Unset = UNSET
+    total_fees_usd: int | Unset = UNSET
     total_invested: int | Unset = UNSET
+    total_invested_usd: int | Unset = UNSET
     trader: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         arb_tx_count = self.arb_tx_count
 
-        bundle_slot = self.bundle_slot
-
         buy_tx_count = self.buy_tx_count
 
         cost_basis_lamports = self.cost_basis_lamports
+
+        cost_basis_usd = self.cost_basis_usd
 
         directional_buy_tx_count = self.directional_buy_tx_count
 
@@ -97,6 +97,8 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         first_buy_ts = self.first_buy_ts
 
         holding_pnl_lamports = self.holding_pnl_lamports
+
+        holding_pnl_usd = self.holding_pnl_usd
 
         initial_pct_of_supply = self.initial_pct_of_supply
 
@@ -116,13 +118,19 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
 
         realized_profit = self.realized_profit
 
+        realized_profit_usd = self.realized_profit_usd
+
         sell_tx_count = self.sell_tx_count
 
         token_balance = self.token_balance
 
         total_fees = self.total_fees
 
+        total_fees_usd = self.total_fees_usd
+
         total_invested = self.total_invested
+
+        total_invested_usd = self.total_invested_usd
 
         trader = self.trader
 
@@ -131,12 +139,12 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         field_dict.update({})
         if arb_tx_count is not UNSET:
             field_dict["arb_tx_count"] = arb_tx_count
-        if bundle_slot is not UNSET:
-            field_dict["bundle_slot"] = bundle_slot
         if buy_tx_count is not UNSET:
             field_dict["buy_tx_count"] = buy_tx_count
         if cost_basis_lamports is not UNSET:
             field_dict["cost_basis_lamports"] = cost_basis_lamports
+        if cost_basis_usd is not UNSET:
+            field_dict["cost_basis_usd"] = cost_basis_usd
         if directional_buy_tx_count is not UNSET:
             field_dict["directional_buy_tx_count"] = directional_buy_tx_count
         if directional_sell_tx_count is not UNSET:
@@ -145,6 +153,8 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
             field_dict["first_buy_ts"] = first_buy_ts
         if holding_pnl_lamports is not UNSET:
             field_dict["holding_pnl_lamports"] = holding_pnl_lamports
+        if holding_pnl_usd is not UNSET:
+            field_dict["holding_pnl_usd"] = holding_pnl_usd
         if initial_pct_of_supply is not UNSET:
             field_dict["initial_pct_of_supply"] = initial_pct_of_supply
         if is_bundler is not UNSET:
@@ -163,14 +173,20 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
             field_dict["pct_of_supply"] = pct_of_supply
         if realized_profit is not UNSET:
             field_dict["realized_profit"] = realized_profit
+        if realized_profit_usd is not UNSET:
+            field_dict["realized_profit_usd"] = realized_profit_usd
         if sell_tx_count is not UNSET:
             field_dict["sell_tx_count"] = sell_tx_count
         if token_balance is not UNSET:
             field_dict["token_balance"] = token_balance
         if total_fees is not UNSET:
             field_dict["total_fees"] = total_fees
+        if total_fees_usd is not UNSET:
+            field_dict["total_fees_usd"] = total_fees_usd
         if total_invested is not UNSET:
             field_dict["total_invested"] = total_invested
+        if total_invested_usd is not UNSET:
+            field_dict["total_invested_usd"] = total_invested_usd
         if trader is not UNSET:
             field_dict["trader"] = trader
 
@@ -181,11 +197,11 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         d = dict(src_dict)
         arb_tx_count = d.pop("arb_tx_count", UNSET)
 
-        bundle_slot = d.pop("bundle_slot", UNSET)
-
         buy_tx_count = d.pop("buy_tx_count", UNSET)
 
         cost_basis_lamports = d.pop("cost_basis_lamports", UNSET)
+
+        cost_basis_usd = d.pop("cost_basis_usd", UNSET)
 
         directional_buy_tx_count = d.pop("directional_buy_tx_count", UNSET)
 
@@ -194,6 +210,8 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         first_buy_ts = d.pop("first_buy_ts", UNSET)
 
         holding_pnl_lamports = d.pop("holding_pnl_lamports", UNSET)
+
+        holding_pnl_usd = d.pop("holding_pnl_usd", UNSET)
 
         initial_pct_of_supply = d.pop("initial_pct_of_supply", UNSET)
 
@@ -213,25 +231,32 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
 
         realized_profit = d.pop("realized_profit", UNSET)
 
+        realized_profit_usd = d.pop("realized_profit_usd", UNSET)
+
         sell_tx_count = d.pop("sell_tx_count", UNSET)
 
         token_balance = d.pop("token_balance", UNSET)
 
         total_fees = d.pop("total_fees", UNSET)
 
+        total_fees_usd = d.pop("total_fees_usd", UNSET)
+
         total_invested = d.pop("total_invested", UNSET)
+
+        total_invested_usd = d.pop("total_invested_usd", UNSET)
 
         trader = d.pop("trader", UNSET)
 
         pulsight_internal_core_domain_aggregator_mint_trader_row = cls(
             arb_tx_count=arb_tx_count,
-            bundle_slot=bundle_slot,
             buy_tx_count=buy_tx_count,
             cost_basis_lamports=cost_basis_lamports,
+            cost_basis_usd=cost_basis_usd,
             directional_buy_tx_count=directional_buy_tx_count,
             directional_sell_tx_count=directional_sell_tx_count,
             first_buy_ts=first_buy_ts,
             holding_pnl_lamports=holding_pnl_lamports,
+            holding_pnl_usd=holding_pnl_usd,
             initial_pct_of_supply=initial_pct_of_supply,
             is_bundler=is_bundler,
             is_insider=is_insider,
@@ -241,10 +266,13 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
             last_active_ts=last_active_ts,
             pct_of_supply=pct_of_supply,
             realized_profit=realized_profit,
+            realized_profit_usd=realized_profit_usd,
             sell_tx_count=sell_tx_count,
             token_balance=token_balance,
             total_fees=total_fees,
+            total_fees_usd=total_fees_usd,
             total_invested=total_invested,
+            total_invested_usd=total_invested_usd,
             trader=trader,
         )
 

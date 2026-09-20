@@ -8,8 +8,8 @@ from ...client import AuthenticatedClient, Client
 from ...models.internal_adapters_primary_http_handler_error_response import (
     InternalAdaptersPrimaryHttpHandlerErrorResponse,
 )
-from ...models.internal_adapters_primary_http_handler_swap_event_row import (
-    InternalAdaptersPrimaryHttpHandlerSwapEventRow,
+from ...models.pulsight_internal_core_domain_aggregator_trade import (
+    PulsightInternalCoreDomainAggregatorTrade,
 )
 from ...types import UNSET, Response, Unset
 
@@ -62,17 +62,15 @@ def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[InternalAdaptersPrimaryHttpHandlerSwapEventRow]
+    | list[PulsightInternalCoreDomainAggregatorTrade]
     | None
 ):
     if response.status_code == 200:
         response_200 = []
         _response_200 = response.json()
         for response_200_item_data in _response_200:
-            response_200_item = (
-                InternalAdaptersPrimaryHttpHandlerSwapEventRow.from_dict(
-                    response_200_item_data
-                )
+            response_200_item = PulsightInternalCoreDomainAggregatorTrade.from_dict(
+                response_200_item_data
             )
 
             response_200.append(response_200_item)
@@ -110,7 +108,7 @@ def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[InternalAdaptersPrimaryHttpHandlerSwapEventRow]
+    | list[PulsightInternalCoreDomainAggregatorTrade]
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -134,18 +132,20 @@ def sync_detailed(
     limit: int | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[InternalAdaptersPrimaryHttpHandlerSwapEventRow]
+    | list[PulsightInternalCoreDomainAggregatorTrade]
 ]:
     """List Swaps
 
-     Returns swaps filtered by `mint` and/or one-or-more `trader` params (AND-combined; at least one
-    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool` narrows to one or
-    more markets and accepts the same repeated/comma-separated forms, OR-combined — pass the whole set
-    when a token's market spans several pools (a graduated token's bonding curve plus the pool it
-    migrated to). All time params are optional; with none supplied the latest swaps are returned
-    regardless of age. Supports RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts
-    (returns the latest swaps strictly older than the cursor — no lower bound, so pagination crosses
-    activity gaps).
+     Returns the ledger's trade rows filtered by `mint` and/or one-or-more `trader` params (AND-combined;
+    at least one required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool`
+    narrows to one or more markets by the trade's primary pool and accepts the same repeated/comma-
+    separated forms, OR-combined — pass the whole set when a token's market spans several pools (a
+    graduated token's bonding curve plus the pool it migrated to). Every money field is a `{sol, usd}`
+    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL, USDC,
+    USDT, USD1) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time params
+    are optional; with none supplied the latest rows are returned regardless of age. Supports RFC3339
+    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows strictly
+    older than the cursor — no lower bound, so pagination crosses activity gaps).
 
     Args:
         mint (str | Unset):
@@ -163,7 +163,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[InternalAdaptersPrimaryHttpHandlerSwapEventRow]]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorTrade]]
     """
 
     kwargs = _get_kwargs(
@@ -199,19 +199,21 @@ def sync(
     limit: int | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[InternalAdaptersPrimaryHttpHandlerSwapEventRow]
+    | list[PulsightInternalCoreDomainAggregatorTrade]
     | None
 ):
     """List Swaps
 
-     Returns swaps filtered by `mint` and/or one-or-more `trader` params (AND-combined; at least one
-    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool` narrows to one or
-    more markets and accepts the same repeated/comma-separated forms, OR-combined — pass the whole set
-    when a token's market spans several pools (a graduated token's bonding curve plus the pool it
-    migrated to). All time params are optional; with none supplied the latest swaps are returned
-    regardless of age. Supports RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts
-    (returns the latest swaps strictly older than the cursor — no lower bound, so pagination crosses
-    activity gaps).
+     Returns the ledger's trade rows filtered by `mint` and/or one-or-more `trader` params (AND-combined;
+    at least one required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool`
+    narrows to one or more markets by the trade's primary pool and accepts the same repeated/comma-
+    separated forms, OR-combined — pass the whole set when a token's market spans several pools (a
+    graduated token's bonding curve plus the pool it migrated to). Every money field is a `{sol, usd}`
+    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL, USDC,
+    USDT, USD1) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time params
+    are optional; with none supplied the latest rows are returned regardless of age. Supports RFC3339
+    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows strictly
+    older than the cursor — no lower bound, so pagination crosses activity gaps).
 
     Args:
         mint (str | Unset):
@@ -229,7 +231,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[InternalAdaptersPrimaryHttpHandlerSwapEventRow]
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorTrade]
     """
 
     return sync_detailed(
@@ -260,18 +262,20 @@ async def asyncio_detailed(
     limit: int | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[InternalAdaptersPrimaryHttpHandlerSwapEventRow]
+    | list[PulsightInternalCoreDomainAggregatorTrade]
 ]:
     """List Swaps
 
-     Returns swaps filtered by `mint` and/or one-or-more `trader` params (AND-combined; at least one
-    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool` narrows to one or
-    more markets and accepts the same repeated/comma-separated forms, OR-combined — pass the whole set
-    when a token's market spans several pools (a graduated token's bonding curve plus the pool it
-    migrated to). All time params are optional; with none supplied the latest swaps are returned
-    regardless of age. Supports RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts
-    (returns the latest swaps strictly older than the cursor — no lower bound, so pagination crosses
-    activity gaps).
+     Returns the ledger's trade rows filtered by `mint` and/or one-or-more `trader` params (AND-combined;
+    at least one required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool`
+    narrows to one or more markets by the trade's primary pool and accepts the same repeated/comma-
+    separated forms, OR-combined — pass the whole set when a token's market spans several pools (a
+    graduated token's bonding curve plus the pool it migrated to). Every money field is a `{sol, usd}`
+    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL, USDC,
+    USDT, USD1) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time params
+    are optional; with none supplied the latest rows are returned regardless of age. Supports RFC3339
+    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows strictly
+    older than the cursor — no lower bound, so pagination crosses activity gaps).
 
     Args:
         mint (str | Unset):
@@ -289,7 +293,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[InternalAdaptersPrimaryHttpHandlerSwapEventRow]]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorTrade]]
     """
 
     kwargs = _get_kwargs(
@@ -323,19 +327,21 @@ async def asyncio(
     limit: int | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[InternalAdaptersPrimaryHttpHandlerSwapEventRow]
+    | list[PulsightInternalCoreDomainAggregatorTrade]
     | None
 ):
     """List Swaps
 
-     Returns swaps filtered by `mint` and/or one-or-more `trader` params (AND-combined; at least one
-    required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool` narrows to one or
-    more markets and accepts the same repeated/comma-separated forms, OR-combined — pass the whole set
-    when a token's market spans several pools (a graduated token's bonding curve plus the pool it
-    migrated to). All time params are optional; with none supplied the latest swaps are returned
-    regardless of age. Supports RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts
-    (returns the latest swaps strictly older than the cursor — no lower bound, so pagination crosses
-    activity gaps).
+     Returns the ledger's trade rows filtered by `mint` and/or one-or-more `trader` params (AND-combined;
+    at least one required). `trader` may be repeated (trader=a&trader=b) or comma-separated. `pool`
+    narrows to one or more markets by the trade's primary pool and accepts the same repeated/comma-
+    separated forms, OR-combined — pass the whole set when a token's market spans several pools (a
+    graduated token's bonding curve plus the pool it migrated to). Every money field is a `{sol, usd}`
+    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL, USDC,
+    USDT, USD1) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time params
+    are optional; with none supplied the latest rows are returned regardless of age. Supports RFC3339
+    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows strictly
+    older than the cursor — no lower bound, so pagination crosses activity gaps).
 
     Args:
         mint (str | Unset):
@@ -353,7 +359,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[InternalAdaptersPrimaryHttpHandlerSwapEventRow]
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorTrade]
     """
 
     return (

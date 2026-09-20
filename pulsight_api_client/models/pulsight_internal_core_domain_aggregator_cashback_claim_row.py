@@ -16,24 +16,24 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorCashbackClaimRow")
 class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
     """
     Attributes:
-        amount (int | Unset): Amount is the raw payout in QuoteMint's base units, and Priced says
-            whether AmountLamports carries a SOL valuation of it. Both are zero on
-            a claim, whose AmountLamports is already lamports.
+        amount (int | Unset): Amount is the event's raw amount in QuoteMint's base units — a claim's
+            KEPT amount, a payout's receipt — and Priced says whether
+            AmountLamports carries a SOL valuation of it.
         amount_gross (int | Unset): AmountGross is a cashback claim's RAW swept amount before the part the
-            wallet immediately re-parked; AmountLamports is what it KEPT. They differ
-            on a park-resweep, where kept is legitimately zero and only the gross
-            shows a claim happened at all. Zero on a payout, which cannot be parked.
+            wallet immediately re-parked; Amount is what it KEPT. They differ on a
+            park-resweep, where kept is legitimately zero and only the gross shows
+            a claim happened at all. Zero on a payout, which cannot be parked.
         amount_lamports (int | Unset):
+        amount_usd (int | Unset): AmountUsd is the event's value on its USD stamp (micro-USD).
         kind (str | Unset): Kind is RewardKindCashbackClaim or RewardKindHolderReward.
         logo_uri (str | Unset):
         mint (str | Unset): Mint is the coin that paid a holder reward; empty on a claim, which is
             per-accumulator rather than per-coin.
         name (str | Unset):
-        price_basis (str | Unset): PriceBasis says HOW AmountLamports was arrived at: "exact" when the
-            payout was already in SOL, "market" when it was valued through the
-            quote's own SOL market at that minute, "unpriced" when no value could
-            be stated. A market figure moves with the quote; an exact one is the
-            amount received. Empty on a cashback claim.
+        price_basis (str | Unset): PriceBasis says HOW AmountLamports was arrived at: "money" when the
+            event was paid in WSOL or a USD stablecoin, "pool" when it was valued
+            through the quote's own market at execution, "unpriced" when no SOL
+            value could be stated.
         priced (bool | Unset):
         program (str | Unset):
         quote_decimals (int | Unset):
@@ -55,6 +55,7 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
     amount: int | Unset = UNSET
     amount_gross: int | Unset = UNSET
     amount_lamports: int | Unset = UNSET
+    amount_usd: int | Unset = UNSET
     kind: str | Unset = UNSET
     logo_uri: str | Unset = UNSET
     mint: str | Unset = UNSET
@@ -78,6 +79,8 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
         amount_gross = self.amount_gross
 
         amount_lamports = self.amount_lamports
+
+        amount_usd = self.amount_usd
 
         kind = self.kind
 
@@ -118,6 +121,8 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
             field_dict["amount_gross"] = amount_gross
         if amount_lamports is not UNSET:
             field_dict["amount_lamports"] = amount_lamports
+        if amount_usd is not UNSET:
+            field_dict["amount_usd"] = amount_usd
         if kind is not UNSET:
             field_dict["kind"] = kind
         if logo_uri is not UNSET:
@@ -160,6 +165,8 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
 
         amount_lamports = d.pop("amount_lamports", UNSET)
 
+        amount_usd = d.pop("amount_usd", UNSET)
+
         kind = d.pop("kind", UNSET)
 
         logo_uri = d.pop("logo_uri", UNSET)
@@ -194,6 +201,7 @@ class PulsightInternalCoreDomainAggregatorCashbackClaimRow:
             amount=amount,
             amount_gross=amount_gross,
             amount_lamports=amount_lamports,
+            amount_usd=amount_usd,
             kind=kind,
             logo_uri=logo_uri,
             mint=mint,

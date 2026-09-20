@@ -87,8 +87,8 @@ def sync_detailed(
 ]:
     """Get Mint
 
-     Returns the mint's identity row (symbol, name, logo_uri, decimals, creator) from the CA catalog. 404
-    when the pubkey is not present — the enricher may not have seen this mint yet.
+     Returns the mint's identity row (symbol, name, logo_uri, decimals, creator) with its `mint_wide`
+    decorations. 404 when the mint is in neither the mint catalog nor the metadata catalog.
 
     Args:
         pubkey (str):
@@ -123,8 +123,8 @@ def sync(
 ):
     """Get Mint
 
-     Returns the mint's identity row (symbol, name, logo_uri, decimals, creator) from the CA catalog. 404
-    when the pubkey is not present — the enricher may not have seen this mint yet.
+     Returns the mint's identity row (symbol, name, logo_uri, decimals, creator) with its `mint_wide`
+    decorations. 404 when the mint is in neither the mint catalog nor the metadata catalog.
 
     Args:
         pubkey (str):
@@ -153,8 +153,8 @@ async def asyncio_detailed(
 ]:
     """Get Mint
 
-     Returns the mint's identity row (symbol, name, logo_uri, decimals, creator) from the CA catalog. 404
-    when the pubkey is not present — the enricher may not have seen this mint yet.
+     Returns the mint's identity row (symbol, name, logo_uri, decimals, creator) with its `mint_wide`
+    decorations. 404 when the mint is in neither the mint catalog nor the metadata catalog.
 
     Args:
         pubkey (str):
@@ -187,8 +187,8 @@ async def asyncio(
 ):
     """Get Mint
 
-     Returns the mint's identity row (symbol, name, logo_uri, decimals, creator) from the CA catalog. 404
-    when the pubkey is not present — the enricher may not have seen this mint yet.
+     Returns the mint's identity row (symbol, name, logo_uri, decimals, creator) with its `mint_wide`
+    decorations. 404 when the mint is in neither the mint catalog nor the metadata catalog.
 
     Args:
         pubkey (str):

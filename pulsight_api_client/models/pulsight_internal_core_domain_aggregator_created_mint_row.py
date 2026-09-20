@@ -17,8 +17,8 @@ class PulsightInternalCoreDomainAggregatorCreatedMintRow:
     """
     Attributes:
         decimals (int | Unset):
-        first_seen_ts (str | Unset): FirstSeenTS proxies "created at" — the create-tx and first buy land in
-            the same flush window. nil for fixture-only edge cases.
+        first_seen_ts (str | Unset): FirstSeenTS proxies "created at" — the mint's first trade. nil when no
+            trade is on file.
         graduated (bool | Unset): Graduated is true iff the mint has any `mint_migrations` row.
         graduation_target_dex (str | Unset): GraduationTargetDex is the most-recent migration's to_dex; nil when not
             graduated.

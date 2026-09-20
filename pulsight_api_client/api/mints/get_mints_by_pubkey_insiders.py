@@ -120,10 +120,9 @@ def sync_detailed(
     """List Mint Insiders
 
      Insiders of one mint (wallets reached from the creator over launch-window token transfers, custodial
-    hops excluded) — the SAME set `/risk` counts — in the top-traders row shape. Empty until the mint's
-    first fold when token-program capture has no transfers for it. sort ∈
-    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
-    (reveals wallet addresses).
+    hops excluded) — the SAME set `/risk` counts — in the top-traders row shape. Empty until the
+    insider-stats fold has stored the mint's set. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent}
+    (default balance). Paged via offset. Login required (reveals wallet addresses).
 
     Args:
         pubkey (str):
@@ -168,10 +167,9 @@ def sync(
     """List Mint Insiders
 
      Insiders of one mint (wallets reached from the creator over launch-window token transfers, custodial
-    hops excluded) — the SAME set `/risk` counts — in the top-traders row shape. Empty until the mint's
-    first fold when token-program capture has no transfers for it. sort ∈
-    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
-    (reveals wallet addresses).
+    hops excluded) — the SAME set `/risk` counts — in the top-traders row shape. Empty until the
+    insider-stats fold has stored the mint's set. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent}
+    (default balance). Paged via offset. Login required (reveals wallet addresses).
 
     Args:
         pubkey (str):
@@ -210,10 +208,9 @@ async def asyncio_detailed(
     """List Mint Insiders
 
      Insiders of one mint (wallets reached from the creator over launch-window token transfers, custodial
-    hops excluded) — the SAME set `/risk` counts — in the top-traders row shape. Empty until the mint's
-    first fold when token-program capture has no transfers for it. sort ∈
-    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
-    (reveals wallet addresses).
+    hops excluded) — the SAME set `/risk` counts — in the top-traders row shape. Empty until the
+    insider-stats fold has stored the mint's set. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent}
+    (default balance). Paged via offset. Login required (reveals wallet addresses).
 
     Args:
         pubkey (str):
@@ -256,10 +253,9 @@ async def asyncio(
     """List Mint Insiders
 
      Insiders of one mint (wallets reached from the creator over launch-window token transfers, custodial
-    hops excluded) — the SAME set `/risk` counts — in the top-traders row shape. Empty until the mint's
-    first fold when token-program capture has no transfers for it. sort ∈
-    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
-    (reveals wallet addresses).
+    hops excluded) — the SAME set `/risk` counts — in the top-traders row shape. Empty until the
+    insider-stats fold has stored the mint's set. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent}
+    (default balance). Paged via offset. Login required (reveals wallet addresses).
 
     Args:
         pubkey (str):

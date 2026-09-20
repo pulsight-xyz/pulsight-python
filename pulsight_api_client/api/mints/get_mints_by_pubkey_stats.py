@@ -89,8 +89,8 @@ def sync_detailed(
 ]:
     """Find Mint Stats Bundle
 
-     Returns per-mint windowed stats (volume, price_change, swap_count, buy/sell split) for all four
-    windows (1m/5m/1h/24h) in one response.
+     Returns per-mint windowed stats (volume, price_change, swap_count, buy/sell split) for every window
+    (1m/5m/30m/1h/6h/12h/24h) in one response.
 
     Args:
         pubkey (str):
@@ -125,8 +125,8 @@ def sync(
 ):
     """Find Mint Stats Bundle
 
-     Returns per-mint windowed stats (volume, price_change, swap_count, buy/sell split) for all four
-    windows (1m/5m/1h/24h) in one response.
+     Returns per-mint windowed stats (volume, price_change, swap_count, buy/sell split) for every window
+    (1m/5m/30m/1h/6h/12h/24h) in one response.
 
     Args:
         pubkey (str):
@@ -155,8 +155,8 @@ async def asyncio_detailed(
 ]:
     """Find Mint Stats Bundle
 
-     Returns per-mint windowed stats (volume, price_change, swap_count, buy/sell split) for all four
-    windows (1m/5m/1h/24h) in one response.
+     Returns per-mint windowed stats (volume, price_change, swap_count, buy/sell split) for every window
+    (1m/5m/30m/1h/6h/12h/24h) in one response.
 
     Args:
         pubkey (str):
@@ -189,8 +189,8 @@ async def asyncio(
 ):
     """Find Mint Stats Bundle
 
-     Returns per-mint windowed stats (volume, price_change, swap_count, buy/sell split) for all four
-    windows (1m/5m/1h/24h) in one response.
+     Returns per-mint windowed stats (volume, price_change, swap_count, buy/sell split) for every window
+    (1m/5m/30m/1h/6h/12h/24h) in one response.
 
     Args:
         pubkey (str):

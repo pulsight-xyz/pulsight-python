@@ -20,13 +20,13 @@ class PulsightInternalCoreDomainAggregatorMintMigration:
         from_dex (str | Unset):
         mint (str | Unset):
         slot (int | Unset):
-        source (str | Unset): Source ∈ {"observed","inferred"} (CHECK constraint).
+        source (str | Unset): Source ∈ {"observed","inferred"}.
         source_pool (str | Unset): SourcePool is the bonding-curve pool the mint traded on BEFORE
             graduating. Together with DestinationPool it is the mint's market
             lineage — the pools /api/ohlcv merges into one continuous chart when
-            no pool is pinned. Empty when unknown (rows predating
-            carbon-aggregator CH migration 000073, or a venue whose migration ix
-            doesn't expose the curve); treat '' as "no pre-graduation side".
+            no pool is pinned. Empty when unknown (a venue whose migration
+            instruction doesn't expose the curve); treat '' as "no pre-graduation
+            side".
         timestamp (str | Unset):
         to_dex (str | Unset):
     """

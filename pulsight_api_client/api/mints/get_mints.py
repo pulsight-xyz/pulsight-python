@@ -22,6 +22,13 @@ def _get_kwargs(
     sort: str | Unset = UNSET,
     dex: list[str] | Unset = UNSET,
     hours: GetMintsHours | Unset = UNSET,
+    unit: str | Unset = "sol",
+    min_volume: float | Unset = UNSET,
+    min_buy_volume: float | Unset = UNSET,
+    min_sell_volume: float | Unset = UNSET,
+    min_net_buy: float | Unset = UNSET,
+    min_pool: float | Unset = UNSET,
+    min_fees: float | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
@@ -50,6 +57,20 @@ def _get_kwargs(
         json_hours = hours.value
 
     params["hours"] = json_hours
+
+    params["unit"] = unit
+
+    params["min_volume"] = min_volume
+
+    params["min_buy_volume"] = min_buy_volume
+
+    params["min_sell_volume"] = min_sell_volume
+
+    params["min_net_buy"] = min_net_buy
+
+    params["min_pool"] = min_pool
+
+    params["min_fees"] = min_fees
 
     params["min_pool_sol"] = min_pool_sol
 
@@ -158,6 +179,13 @@ def sync_detailed(
     sort: str | Unset = UNSET,
     dex: list[str] | Unset = UNSET,
     hours: GetMintsHours | Unset = UNSET,
+    unit: str | Unset = "sol",
+    min_volume: float | Unset = UNSET,
+    min_buy_volume: float | Unset = UNSET,
+    min_sell_volume: float | Unset = UNSET,
+    min_net_buy: float | Unset = UNSET,
+    min_pool: float | Unset = UNSET,
+    min_fees: float | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
@@ -171,10 +199,11 @@ def sync_detailed(
 ]:
     """List Active Mints
 
-     Returns the active-mint catalog with windowed stats. The activity gate is
-    `hourly_mint_trader_activity`; rows ordered by distinct traders desc (the wash-resistant default —
+     Returns the active-mint catalog with windowed stats: one page of the `mint_board` rows that traded
+    inside the `hours` activity gate, ordered by distinct traders desc (the wash-resistant default —
     pass `sort=trades` for raw swap-count order). By default the list hides low-liquidity (dust /
-    drained-pool) mints — see `min_pool_sol`.
+    drained-pool) mints — see `min_pool`. Money floors and money sorts are read in `unit`; every row
+    carries both currencies.
 
     Args:
         window (str):
@@ -182,6 +211,13 @@ def sync_detailed(
         sort (str | Unset):
         dex (list[str] | Unset):
         hours (GetMintsHours | Unset):
+        unit (str | Unset):  Default: 'sol'.
+        min_volume (float | Unset):
+        min_buy_volume (float | Unset):
+        min_sell_volume (float | Unset):
+        min_net_buy (float | Unset):
+        min_pool (float | Unset):
+        min_fees (float | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
@@ -204,6 +240,13 @@ def sync_detailed(
         sort=sort,
         dex=dex,
         hours=hours,
+        unit=unit,
+        min_volume=min_volume,
+        min_buy_volume=min_buy_volume,
+        min_sell_volume=min_sell_volume,
+        min_net_buy=min_net_buy,
+        min_pool=min_pool,
+        min_fees=min_fees,
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
         min_fees_sol=min_fees_sol,
@@ -228,6 +271,13 @@ def sync(
     sort: str | Unset = UNSET,
     dex: list[str] | Unset = UNSET,
     hours: GetMintsHours | Unset = UNSET,
+    unit: str | Unset = "sol",
+    min_volume: float | Unset = UNSET,
+    min_buy_volume: float | Unset = UNSET,
+    min_sell_volume: float | Unset = UNSET,
+    min_net_buy: float | Unset = UNSET,
+    min_pool: float | Unset = UNSET,
+    min_fees: float | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
@@ -242,10 +292,11 @@ def sync(
 ):
     """List Active Mints
 
-     Returns the active-mint catalog with windowed stats. The activity gate is
-    `hourly_mint_trader_activity`; rows ordered by distinct traders desc (the wash-resistant default —
+     Returns the active-mint catalog with windowed stats: one page of the `mint_board` rows that traded
+    inside the `hours` activity gate, ordered by distinct traders desc (the wash-resistant default —
     pass `sort=trades` for raw swap-count order). By default the list hides low-liquidity (dust /
-    drained-pool) mints — see `min_pool_sol`.
+    drained-pool) mints — see `min_pool`. Money floors and money sorts are read in `unit`; every row
+    carries both currencies.
 
     Args:
         window (str):
@@ -253,6 +304,13 @@ def sync(
         sort (str | Unset):
         dex (list[str] | Unset):
         hours (GetMintsHours | Unset):
+        unit (str | Unset):  Default: 'sol'.
+        min_volume (float | Unset):
+        min_buy_volume (float | Unset):
+        min_sell_volume (float | Unset):
+        min_net_buy (float | Unset):
+        min_pool (float | Unset):
+        min_fees (float | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
@@ -276,6 +334,13 @@ def sync(
         sort=sort,
         dex=dex,
         hours=hours,
+        unit=unit,
+        min_volume=min_volume,
+        min_buy_volume=min_buy_volume,
+        min_sell_volume=min_sell_volume,
+        min_net_buy=min_net_buy,
+        min_pool=min_pool,
+        min_fees=min_fees,
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
         min_fees_sol=min_fees_sol,
@@ -294,6 +359,13 @@ async def asyncio_detailed(
     sort: str | Unset = UNSET,
     dex: list[str] | Unset = UNSET,
     hours: GetMintsHours | Unset = UNSET,
+    unit: str | Unset = "sol",
+    min_volume: float | Unset = UNSET,
+    min_buy_volume: float | Unset = UNSET,
+    min_sell_volume: float | Unset = UNSET,
+    min_net_buy: float | Unset = UNSET,
+    min_pool: float | Unset = UNSET,
+    min_fees: float | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
@@ -307,10 +379,11 @@ async def asyncio_detailed(
 ]:
     """List Active Mints
 
-     Returns the active-mint catalog with windowed stats. The activity gate is
-    `hourly_mint_trader_activity`; rows ordered by distinct traders desc (the wash-resistant default —
+     Returns the active-mint catalog with windowed stats: one page of the `mint_board` rows that traded
+    inside the `hours` activity gate, ordered by distinct traders desc (the wash-resistant default —
     pass `sort=trades` for raw swap-count order). By default the list hides low-liquidity (dust /
-    drained-pool) mints — see `min_pool_sol`.
+    drained-pool) mints — see `min_pool`. Money floors and money sorts are read in `unit`; every row
+    carries both currencies.
 
     Args:
         window (str):
@@ -318,6 +391,13 @@ async def asyncio_detailed(
         sort (str | Unset):
         dex (list[str] | Unset):
         hours (GetMintsHours | Unset):
+        unit (str | Unset):  Default: 'sol'.
+        min_volume (float | Unset):
+        min_buy_volume (float | Unset):
+        min_sell_volume (float | Unset):
+        min_net_buy (float | Unset):
+        min_pool (float | Unset):
+        min_fees (float | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
@@ -340,6 +420,13 @@ async def asyncio_detailed(
         sort=sort,
         dex=dex,
         hours=hours,
+        unit=unit,
+        min_volume=min_volume,
+        min_buy_volume=min_buy_volume,
+        min_sell_volume=min_sell_volume,
+        min_net_buy=min_net_buy,
+        min_pool=min_pool,
+        min_fees=min_fees,
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
         min_fees_sol=min_fees_sol,
@@ -362,6 +449,13 @@ async def asyncio(
     sort: str | Unset = UNSET,
     dex: list[str] | Unset = UNSET,
     hours: GetMintsHours | Unset = UNSET,
+    unit: str | Unset = "sol",
+    min_volume: float | Unset = UNSET,
+    min_buy_volume: float | Unset = UNSET,
+    min_sell_volume: float | Unset = UNSET,
+    min_net_buy: float | Unset = UNSET,
+    min_pool: float | Unset = UNSET,
+    min_fees: float | Unset = UNSET,
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
@@ -376,10 +470,11 @@ async def asyncio(
 ):
     """List Active Mints
 
-     Returns the active-mint catalog with windowed stats. The activity gate is
-    `hourly_mint_trader_activity`; rows ordered by distinct traders desc (the wash-resistant default —
+     Returns the active-mint catalog with windowed stats: one page of the `mint_board` rows that traded
+    inside the `hours` activity gate, ordered by distinct traders desc (the wash-resistant default —
     pass `sort=trades` for raw swap-count order). By default the list hides low-liquidity (dust /
-    drained-pool) mints — see `min_pool_sol`.
+    drained-pool) mints — see `min_pool`. Money floors and money sorts are read in `unit`; every row
+    carries both currencies.
 
     Args:
         window (str):
@@ -387,6 +482,13 @@ async def asyncio(
         sort (str | Unset):
         dex (list[str] | Unset):
         hours (GetMintsHours | Unset):
+        unit (str | Unset):  Default: 'sol'.
+        min_volume (float | Unset):
+        min_buy_volume (float | Unset):
+        min_sell_volume (float | Unset):
+        min_net_buy (float | Unset):
+        min_pool (float | Unset):
+        min_fees (float | Unset):
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
@@ -411,6 +513,13 @@ async def asyncio(
             sort=sort,
             dex=dex,
             hours=hours,
+            unit=unit,
+            min_volume=min_volume,
+            min_buy_volume=min_buy_volume,
+            min_sell_volume=min_sell_volume,
+            min_net_buy=min_net_buy,
+            min_pool=min_pool,
+            min_fees=min_fees,
             min_pool_sol=min_pool_sol,
             min_market_cap_usd=min_market_cap_usd,
             min_fees_sol=min_fees_sol,

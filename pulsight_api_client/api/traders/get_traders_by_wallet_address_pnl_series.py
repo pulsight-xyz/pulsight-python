@@ -113,8 +113,9 @@ def sync_detailed(
 ]:
     """Get Trader Daily PnL Series
 
-     Returns daily realised PnL points (oldest first) for a trader, sourced from the aggregator's
-    `trader_daily_pnl_series` SQL function.
+     Returns daily realised PnL points (oldest first) for a trader, folded from its `trader_hourly` rows:
+    realized PnL with the arb take-home, the cost lines, the rewards, net PnL and the transaction
+    record, in both currencies.
 
     Args:
         wallet_address (str):
@@ -154,8 +155,9 @@ def sync(
 ):
     """Get Trader Daily PnL Series
 
-     Returns daily realised PnL points (oldest first) for a trader, sourced from the aggregator's
-    `trader_daily_pnl_series` SQL function.
+     Returns daily realised PnL points (oldest first) for a trader, folded from its `trader_hourly` rows:
+    realized PnL with the arb take-home, the cost lines, the rewards, net PnL and the transaction
+    record, in both currencies.
 
     Args:
         wallet_address (str):
@@ -189,8 +191,9 @@ async def asyncio_detailed(
 ]:
     """Get Trader Daily PnL Series
 
-     Returns daily realised PnL points (oldest first) for a trader, sourced from the aggregator's
-    `trader_daily_pnl_series` SQL function.
+     Returns daily realised PnL points (oldest first) for a trader, folded from its `trader_hourly` rows:
+    realized PnL with the arb take-home, the cost lines, the rewards, net PnL and the transaction
+    record, in both currencies.
 
     Args:
         wallet_address (str):
@@ -228,8 +231,9 @@ async def asyncio(
 ):
     """Get Trader Daily PnL Series
 
-     Returns daily realised PnL points (oldest first) for a trader, sourced from the aggregator's
-    `trader_daily_pnl_series` SQL function.
+     Returns daily realised PnL points (oldest first) for a trader, folded from its `trader_hourly` rows:
+    realized PnL with the arb take-home, the cost lines, the rewards, net PnL and the transaction
+    record, in both currencies.
 
     Args:
         wallet_address (str):

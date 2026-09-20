@@ -20,22 +20,33 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
         avg_hold_secs (float | Unset):
         avg_reactivity_secs (float | Unset):
         avg_rp_1d (float | Unset): lamports
+        avg_rp_1d_usd (float | Unset): micro-USD twins of the eight figures above
         avg_rp_30d (float | Unset): lamports
+        avg_rp_30d_usd (float | Unset): micro-USD
         avg_rp_7d (float | Unset): lamports
+        avg_rp_7d_usd (float | Unset): micro-USD
         avg_rp_all (float | Unset): lamports, per-mint over the wallet's life
+        avg_rp_all_usd (float | Unset): micro-USD
         avg_sells_per_token (float | Unset):
         holding_pnl_lamports (float | Unset):
+        holding_pnl_usd (float | Unset): micro-USD, stamped at execution
         med_buys_per_token (float | Unset):
         med_hold_secs (float | Unset):
         med_reactivity_secs (float | Unset):
         med_rp_1d (float | Unset): lamports
+        med_rp_1d_usd (float | Unset): micro-USD
         med_rp_30d (float | Unset): lamports
+        med_rp_30d_usd (float | Unset): micro-USD
         med_rp_7d (float | Unset): lamports
+        med_rp_7d_usd (float | Unset): micro-USD
         med_rp_all (float | Unset): lamports, per-mint over the wallet's life
+        med_rp_all_usd (float | Unset): micro-USD
         med_sells_per_token (float | Unset):
         oldest_trade_at (str | Unset):
         pnl_distribution (list[int] | Unset):
+        pnl_distribution_usd (list[int] | Unset): the buckets measured on the USD stamps
         pnl_sparkline_7d (list[float] | Unset): lamports per day
+        pnl_sparkline_7d_usd (list[float] | Unset): micro-USD per day
         tags (list[str] | Unset):
         tokens_created (int | Unset): lifetime mints created
         tokens_graduated (int | Unset): subset that graduated
@@ -46,22 +57,33 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
     avg_hold_secs: float | Unset = UNSET
     avg_reactivity_secs: float | Unset = UNSET
     avg_rp_1d: float | Unset = UNSET
+    avg_rp_1d_usd: float | Unset = UNSET
     avg_rp_30d: float | Unset = UNSET
+    avg_rp_30d_usd: float | Unset = UNSET
     avg_rp_7d: float | Unset = UNSET
+    avg_rp_7d_usd: float | Unset = UNSET
     avg_rp_all: float | Unset = UNSET
+    avg_rp_all_usd: float | Unset = UNSET
     avg_sells_per_token: float | Unset = UNSET
     holding_pnl_lamports: float | Unset = UNSET
+    holding_pnl_usd: float | Unset = UNSET
     med_buys_per_token: float | Unset = UNSET
     med_hold_secs: float | Unset = UNSET
     med_reactivity_secs: float | Unset = UNSET
     med_rp_1d: float | Unset = UNSET
+    med_rp_1d_usd: float | Unset = UNSET
     med_rp_30d: float | Unset = UNSET
+    med_rp_30d_usd: float | Unset = UNSET
     med_rp_7d: float | Unset = UNSET
+    med_rp_7d_usd: float | Unset = UNSET
     med_rp_all: float | Unset = UNSET
+    med_rp_all_usd: float | Unset = UNSET
     med_sells_per_token: float | Unset = UNSET
     oldest_trade_at: str | Unset = UNSET
     pnl_distribution: list[int] | Unset = UNSET
+    pnl_distribution_usd: list[int] | Unset = UNSET
     pnl_sparkline_7d: list[float] | Unset = UNSET
+    pnl_sparkline_7d_usd: list[float] | Unset = UNSET
     tags: list[str] | Unset = UNSET
     tokens_created: int | Unset = UNSET
     tokens_graduated: int | Unset = UNSET
@@ -77,15 +99,25 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
 
         avg_rp_1d = self.avg_rp_1d
 
+        avg_rp_1d_usd = self.avg_rp_1d_usd
+
         avg_rp_30d = self.avg_rp_30d
+
+        avg_rp_30d_usd = self.avg_rp_30d_usd
 
         avg_rp_7d = self.avg_rp_7d
 
+        avg_rp_7d_usd = self.avg_rp_7d_usd
+
         avg_rp_all = self.avg_rp_all
+
+        avg_rp_all_usd = self.avg_rp_all_usd
 
         avg_sells_per_token = self.avg_sells_per_token
 
         holding_pnl_lamports = self.holding_pnl_lamports
+
+        holding_pnl_usd = self.holding_pnl_usd
 
         med_buys_per_token = self.med_buys_per_token
 
@@ -95,11 +127,19 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
 
         med_rp_1d = self.med_rp_1d
 
+        med_rp_1d_usd = self.med_rp_1d_usd
+
         med_rp_30d = self.med_rp_30d
+
+        med_rp_30d_usd = self.med_rp_30d_usd
 
         med_rp_7d = self.med_rp_7d
 
+        med_rp_7d_usd = self.med_rp_7d_usd
+
         med_rp_all = self.med_rp_all
+
+        med_rp_all_usd = self.med_rp_all_usd
 
         med_sells_per_token = self.med_sells_per_token
 
@@ -109,9 +149,17 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
         if not isinstance(self.pnl_distribution, Unset):
             pnl_distribution = self.pnl_distribution
 
+        pnl_distribution_usd: list[int] | Unset = UNSET
+        if not isinstance(self.pnl_distribution_usd, Unset):
+            pnl_distribution_usd = self.pnl_distribution_usd
+
         pnl_sparkline_7d: list[float] | Unset = UNSET
         if not isinstance(self.pnl_sparkline_7d, Unset):
             pnl_sparkline_7d = self.pnl_sparkline_7d
+
+        pnl_sparkline_7d_usd: list[float] | Unset = UNSET
+        if not isinstance(self.pnl_sparkline_7d_usd, Unset):
+            pnl_sparkline_7d_usd = self.pnl_sparkline_7d_usd
 
         tags: list[str] | Unset = UNSET
         if not isinstance(self.tags, Unset):
@@ -134,16 +182,26 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
             field_dict["avg_reactivity_secs"] = avg_reactivity_secs
         if avg_rp_1d is not UNSET:
             field_dict["avg_rp_1d"] = avg_rp_1d
+        if avg_rp_1d_usd is not UNSET:
+            field_dict["avg_rp_1d_usd"] = avg_rp_1d_usd
         if avg_rp_30d is not UNSET:
             field_dict["avg_rp_30d"] = avg_rp_30d
+        if avg_rp_30d_usd is not UNSET:
+            field_dict["avg_rp_30d_usd"] = avg_rp_30d_usd
         if avg_rp_7d is not UNSET:
             field_dict["avg_rp_7d"] = avg_rp_7d
+        if avg_rp_7d_usd is not UNSET:
+            field_dict["avg_rp_7d_usd"] = avg_rp_7d_usd
         if avg_rp_all is not UNSET:
             field_dict["avg_rp_all"] = avg_rp_all
+        if avg_rp_all_usd is not UNSET:
+            field_dict["avg_rp_all_usd"] = avg_rp_all_usd
         if avg_sells_per_token is not UNSET:
             field_dict["avg_sells_per_token"] = avg_sells_per_token
         if holding_pnl_lamports is not UNSET:
             field_dict["holding_pnl_lamports"] = holding_pnl_lamports
+        if holding_pnl_usd is not UNSET:
+            field_dict["holding_pnl_usd"] = holding_pnl_usd
         if med_buys_per_token is not UNSET:
             field_dict["med_buys_per_token"] = med_buys_per_token
         if med_hold_secs is not UNSET:
@@ -152,20 +210,32 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
             field_dict["med_reactivity_secs"] = med_reactivity_secs
         if med_rp_1d is not UNSET:
             field_dict["med_rp_1d"] = med_rp_1d
+        if med_rp_1d_usd is not UNSET:
+            field_dict["med_rp_1d_usd"] = med_rp_1d_usd
         if med_rp_30d is not UNSET:
             field_dict["med_rp_30d"] = med_rp_30d
+        if med_rp_30d_usd is not UNSET:
+            field_dict["med_rp_30d_usd"] = med_rp_30d_usd
         if med_rp_7d is not UNSET:
             field_dict["med_rp_7d"] = med_rp_7d
+        if med_rp_7d_usd is not UNSET:
+            field_dict["med_rp_7d_usd"] = med_rp_7d_usd
         if med_rp_all is not UNSET:
             field_dict["med_rp_all"] = med_rp_all
+        if med_rp_all_usd is not UNSET:
+            field_dict["med_rp_all_usd"] = med_rp_all_usd
         if med_sells_per_token is not UNSET:
             field_dict["med_sells_per_token"] = med_sells_per_token
         if oldest_trade_at is not UNSET:
             field_dict["oldest_trade_at"] = oldest_trade_at
         if pnl_distribution is not UNSET:
             field_dict["pnl_distribution"] = pnl_distribution
+        if pnl_distribution_usd is not UNSET:
+            field_dict["pnl_distribution_usd"] = pnl_distribution_usd
         if pnl_sparkline_7d is not UNSET:
             field_dict["pnl_sparkline_7d"] = pnl_sparkline_7d
+        if pnl_sparkline_7d_usd is not UNSET:
+            field_dict["pnl_sparkline_7d_usd"] = pnl_sparkline_7d_usd
         if tags is not UNSET:
             field_dict["tags"] = tags
         if tokens_created is not UNSET:
@@ -188,15 +258,25 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
 
         avg_rp_1d = d.pop("avg_rp_1d", UNSET)
 
+        avg_rp_1d_usd = d.pop("avg_rp_1d_usd", UNSET)
+
         avg_rp_30d = d.pop("avg_rp_30d", UNSET)
+
+        avg_rp_30d_usd = d.pop("avg_rp_30d_usd", UNSET)
 
         avg_rp_7d = d.pop("avg_rp_7d", UNSET)
 
+        avg_rp_7d_usd = d.pop("avg_rp_7d_usd", UNSET)
+
         avg_rp_all = d.pop("avg_rp_all", UNSET)
+
+        avg_rp_all_usd = d.pop("avg_rp_all_usd", UNSET)
 
         avg_sells_per_token = d.pop("avg_sells_per_token", UNSET)
 
         holding_pnl_lamports = d.pop("holding_pnl_lamports", UNSET)
+
+        holding_pnl_usd = d.pop("holding_pnl_usd", UNSET)
 
         med_buys_per_token = d.pop("med_buys_per_token", UNSET)
 
@@ -206,11 +286,19 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
 
         med_rp_1d = d.pop("med_rp_1d", UNSET)
 
+        med_rp_1d_usd = d.pop("med_rp_1d_usd", UNSET)
+
         med_rp_30d = d.pop("med_rp_30d", UNSET)
+
+        med_rp_30d_usd = d.pop("med_rp_30d_usd", UNSET)
 
         med_rp_7d = d.pop("med_rp_7d", UNSET)
 
+        med_rp_7d_usd = d.pop("med_rp_7d_usd", UNSET)
+
         med_rp_all = d.pop("med_rp_all", UNSET)
+
+        med_rp_all_usd = d.pop("med_rp_all_usd", UNSET)
 
         med_sells_per_token = d.pop("med_sells_per_token", UNSET)
 
@@ -218,7 +306,11 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
 
         pnl_distribution = cast(list[int], d.pop("pnl_distribution", UNSET))
 
+        pnl_distribution_usd = cast(list[int], d.pop("pnl_distribution_usd", UNSET))
+
         pnl_sparkline_7d = cast(list[float], d.pop("pnl_sparkline_7d", UNSET))
+
+        pnl_sparkline_7d_usd = cast(list[float], d.pop("pnl_sparkline_7d_usd", UNSET))
 
         tags = cast(list[str], d.pop("tags", UNSET))
 
@@ -233,22 +325,33 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
             avg_hold_secs=avg_hold_secs,
             avg_reactivity_secs=avg_reactivity_secs,
             avg_rp_1d=avg_rp_1d,
+            avg_rp_1d_usd=avg_rp_1d_usd,
             avg_rp_30d=avg_rp_30d,
+            avg_rp_30d_usd=avg_rp_30d_usd,
             avg_rp_7d=avg_rp_7d,
+            avg_rp_7d_usd=avg_rp_7d_usd,
             avg_rp_all=avg_rp_all,
+            avg_rp_all_usd=avg_rp_all_usd,
             avg_sells_per_token=avg_sells_per_token,
             holding_pnl_lamports=holding_pnl_lamports,
+            holding_pnl_usd=holding_pnl_usd,
             med_buys_per_token=med_buys_per_token,
             med_hold_secs=med_hold_secs,
             med_reactivity_secs=med_reactivity_secs,
             med_rp_1d=med_rp_1d,
+            med_rp_1d_usd=med_rp_1d_usd,
             med_rp_30d=med_rp_30d,
+            med_rp_30d_usd=med_rp_30d_usd,
             med_rp_7d=med_rp_7d,
+            med_rp_7d_usd=med_rp_7d_usd,
             med_rp_all=med_rp_all,
+            med_rp_all_usd=med_rp_all_usd,
             med_sells_per_token=med_sells_per_token,
             oldest_trade_at=oldest_trade_at,
             pnl_distribution=pnl_distribution,
+            pnl_distribution_usd=pnl_distribution_usd,
             pnl_sparkline_7d=pnl_sparkline_7d,
+            pnl_sparkline_7d_usd=pnl_sparkline_7d_usd,
             tags=tags,
             tokens_created=tokens_created,
             tokens_graduated=tokens_graduated,

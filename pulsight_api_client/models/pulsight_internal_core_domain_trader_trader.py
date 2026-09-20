@@ -1,25 +1,13 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import TYPE_CHECKING, Any, TypeVar
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
 from ..types import UNSET, Unset
-
-if TYPE_CHECKING:
-    from ..models.pulsight_internal_core_domain_trader_daily_profit import (
-        PulsightInternalCoreDomainTraderDailyProfit,
-    )
-    from ..models.pulsight_internal_core_domain_trader_pnl import (
-        PulsightInternalCoreDomainTraderPnl,
-    )
-    from ..models.pulsight_internal_core_domain_trader_tag import (
-        PulsightInternalCoreDomainTraderTag,
-    )
-
 
 T = TypeVar("T", bound="PulsightInternalCoreDomainTraderTrader")
 
@@ -28,19 +16,21 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainTraderTrader")
 class PulsightInternalCoreDomainTraderTrader:
     """
     Attributes:
-        active_hours_count (int | Unset):
         arb_tx_ratio_1d (float | Unset):
         arb_tx_ratio_30d (float | Unset):
         arb_tx_ratio_7d (float | Unset):
         arb_tx_ratio_all (float | Unset):
-        avatar (str | Unset):
         avg_buy_count_per_token (float | Unset): Per-token buy/sell counts
         avg_first_buy_reactivity (float | Unset): First-buy reactivity (seconds after token launch)
         avg_holding_time (float | Unset): Holding time (seconds)
         avg_realized_profit_1d (float | Unset):
+        avg_realized_profit_1d_usd (float | Unset):
         avg_realized_profit_30d (float | Unset):
+        avg_realized_profit_30d_usd (float | Unset):
         avg_realized_profit_7d (float | Unset):
+        avg_realized_profit_7d_usd (float | Unset):
         avg_realized_profit_all (float | Unset):
+        avg_realized_profit_all_usd (float | Unset):
         avg_sell_count_per_token (float | Unset):
         buy_1d (int | Unset):
         buy_30d (int | Unset):
@@ -50,35 +40,39 @@ class PulsightInternalCoreDomainTraderTrader:
         buy_sell_ratio_30d (float | Unset):
         buy_sell_ratio_7d (float | Unset): Computed ratios
         buy_sell_ratio_all (float | Unset):
-        buy_size_cv (float | Unset):
         cashback_1d (float | Unset):
+        cashback_1d_usd (float | Unset):
         cashback_30d (float | Unset):
+        cashback_30d_usd (float | Unset):
         cashback_7d (float | Unset): Pump cashback, lamports. `Cashback*` is what ACCRUED in the window
             (the screening signal); `CashbackClaimed*` is what was swept, and is
             the component already folded into NetProfit* — do not add it again.
+        cashback_7d_usd (float | Unset):
         cashback_all (float | Unset):
+        cashback_all_usd (float | Unset):
         cashback_claim_count_1d (int | Unset):
         cashback_claim_count_30d (int | Unset):
         cashback_claim_count_7d (int | Unset):
         cashback_claim_count_all (int | Unset):
         cashback_claimed_1d (float | Unset):
+        cashback_claimed_1d_usd (float | Unset):
         cashback_claimed_30d (float | Unset):
+        cashback_claimed_30d_usd (float | Unset):
         cashback_claimed_7d (float | Unset):
+        cashback_claimed_7d_usd (float | Unset):
         cashback_claimed_all (float | Unset):
+        cashback_claimed_all_usd (float | Unset):
         cashback_share_1d (float | Unset):
         cashback_share_30d (float | Unset):
         cashback_share_7d (float | Unset):
         cashback_share_all (float | Unset):
         chain (str | Unset): "sol" | "eth"
         created_at (str | Unset):
-        daily_profits (list[PulsightInternalCoreDomainTraderDailyProfit] | Unset):
         didnt_buy_sells_1d (int | Unset):
         didnt_buy_sells_30d (int | Unset):
-        didnt_buy_sells_7d (int | Unset): Uncovered-sell counters for the window (CA migration 000018):
-            sells with no observed buy of the mint / sells exceeding the
-            observed bought balance.
+        didnt_buy_sells_7d (int | Unset): Uncovered-sell counters for the window: sells with no observed buy of
+            the mint / sells exceeding the observed bought balance.
         didnt_buy_sells_all (int | Unset):
-        dust_tx_ratio (float | Unset):
         failed_txs_1d (int | Unset):
         failed_txs_30d (int | Unset):
         failed_txs_7d (int | Unset):
@@ -88,11 +82,14 @@ class PulsightInternalCoreDomainTraderTrader:
         holder_reward_payouts_7d (int | Unset):
         holder_reward_payouts_all (int | Unset):
         holder_rewards_1d (float | Unset):
+        holder_rewards_1d_usd (float | Unset):
         holder_rewards_30d (float | Unset):
+        holder_rewards_30d_usd (float | Unset):
         holder_rewards_7d (float | Unset):
+        holder_rewards_7d_usd (float | Unset):
         holder_rewards_all (float | Unset):
+        holder_rewards_all_usd (float | Unset):
         id (str | Unset):
-        is_favorite (bool | Unset):
         label (str | Unset): Label/LabelType identify a known wallet (CEX/fee/KOL/...) from the
             known_addresses registry; empty when the wallet isn't labelled.
         label_type (str | Unset):
@@ -105,67 +102,66 @@ class PulsightInternalCoreDomainTraderTrader:
         median_first_buy_reactivity (float | Unset):
         median_holding_time (float | Unset):
         median_realized_profit_1d (float | Unset):
+        median_realized_profit_1d_usd (float | Unset):
         median_realized_profit_30d (float | Unset):
+        median_realized_profit_30d_usd (float | Unset):
         median_realized_profit_7d (float | Unset):
+        median_realized_profit_7d_usd (float | Unset):
         median_realized_profit_all (float | Unset):
+        median_realized_profit_all_usd (float | Unset):
         median_sell_count_per_token (float | Unset):
-        mm_score (int | Unset):
-        name (str | Unset): Identifiers / social
         net_profit_1d (float | Unset):
+        net_profit_1d_usd (float | Unset):
         net_profit_30d (float | Unset):
-        net_profit_7d (float | Unset): Realized profit per-mint averages / medians. UNIT: lamports
-            (frontend FormattedSol divides by 1e9 on display).
-            Net-of-costs windowed figures (CA migration 000095). NetProfit is
-            realized PnL minus tips, per-transaction fees and the fees burned on
-            failed / no-CPI transactions — what the wallet actually kept. The
-            gross figure stays on RealizedProfit*d so both are readable.
-            SuccessRate / SpamRate are nil when the window observed no
-            transactions at all (0 would read as "never lands").
+        net_profit_30d_usd (float | Unset):
+        net_profit_7d (float | Unset): Net-of-costs windowed figures, lamports. NetProfit is realized PnL
+            minus tips, per-transaction fees and the fees burned on failed / no-CPI
+            transactions — what the wallet actually kept. The gross figure stays on
+            RealizedProfit*d so both are readable. SuccessRate / SpamRate are nil
+            when the window observed no transactions at all (0 would read as
+            "never lands").
+        net_profit_7d_usd (float | Unset):
         net_profit_all (float | Unset):
+        net_profit_all_usd (float | Unset):
         oldest_trade_at (int | Unset):
-        pnl_0x2x_num_30d (int | Unset):
-        pnl_0x2x_num_7d (int | Unset): 0x to 2x
-        pnl_2x5x_num_30d (int | Unset):
-        pnl_2x5x_num_7d (int | Unset): 2x to 5x
-        pnl_gt5x_num_30d (int | Unset):
-        pnl_gt5x_num_7d (int | Unset): > 5x
-        pnl_lt_nd5_num_30d (int | Unset): PnL distribution buckets — 30d
-        pnl_lt_nd5_num_7d (int | Unset): PnL distribution buckets — 7d
-        pnl_nd50x_num_30d (int | Unset):
-        pnl_nd50x_num_7d (int | Unset): -5x to 0x
-        pnls (list[PulsightInternalCoreDomainTraderPnl] | Unset):
-        profit_per_trade (float | Unset):
-        realized_profit (float | Unset):
+        realized_profit (float | Unset): RealizedProfit is the lifetime realized PnL in lamports.
         realized_profit_1d (float | Unset): 1-day window. Same measures and same derivations as the 7d/30d
             blocks, hydrated per page rather than read off the board — so these
             are DISPLAY-only: neither sorting nor an `f=` clause can address them.
+        realized_profit_1d_usd (float | Unset):
         realized_profit_30d (float | Unset): 30-day period
-        realized_profit_7d (float | Unset): 7-day period. UNIT for realized_profit_*: lamports.
+        realized_profit_30d_usd (float | Unset):
+        realized_profit_7d (float | Unset): 7-day period. Money figures are lamports; TotalProfit7d and
+            TotalProfitPnl7d repeat the realized PnL and ROI.
+        realized_profit_7d_usd (float | Unset):
+        realized_profit_all_usd (float | Unset):
         realized_profit_pnl_30d (float | Unset):
         realized_profit_pnl_7d (float | Unset):
-        rebalancing_ratio (float | Unset):
         rewards_total_1d (float | Unset):
+        rewards_total_1d_usd (float | Unset):
         rewards_total_30d (float | Unset):
+        rewards_total_30d_usd (float | Unset):
         rewards_total_7d (float | Unset): Pump holder rewards, lamports. Pushed rather than claimed, so the one
             figure is already a receipt and is what net PnL folds; the payout count
             counts every payout, including one on a coin whose quote could not be
             priced in SOL and therefore adds no lamports.
+        rewards_total_7d_usd (float | Unset):
         rewards_total_all (float | Unset):
-        risk_level (str | Unset):
-        risk_score (int | Unset): Risk assessment
+        rewards_total_all_usd (float | Unset):
         roi_1d (float | Unset):
+        roi_1d_usd (float | Unset):
+        roi_30d_usd (float | Unset):
+        roi_7d_usd (float | Unset):
         roi_all (float | Unset): Lifetime window, also DISPLAY-only. The gross figure is RealizedProfit
             above. There is deliberately no lifetime failure record: the failed-tx
             planes are TTL-bounded to three months while the landed side is not,
             so a lifetime success or spam rate would be structurally flattering.
+        roi_all_usd (float | Unset):
         sell_1d (int | Unset):
         sell_30d (int | Unset):
         sell_7d (int | Unset):
         sell_all (int | Unset):
-        sol_balance (float | Unset): Balances. UNIT: lamports (BIGINT, held as *float64 for wire
-            compatibility). The field name says "Sol" for historical reasons;
-            the wire convention is lamports because the frontend's
-            FormattedSol component divides by 1e9 itself.
+        sol_balance (float | Unset): SolBalance is the wallet's SOL balance in lamports.
         sold_gt_bought_sells_1d (int | Unset):
         sold_gt_bought_sells_30d (int | Unset):
         sold_gt_bought_sells_7d (int | Unset):
@@ -176,51 +172,50 @@ class PulsightInternalCoreDomainTraderTrader:
         success_rate_1d (float | Unset):
         success_rate_30d (float | Unset):
         success_rate_7d (float | Unset):
-        tags (list[PulsightInternalCoreDomainTraderTag] | Unset): Relations (loaded on demand)
+        tags (list[str] | Unset): Tags are derived from the ledger at read time (deriveTags).
         token_num_1d (int | Unset):
         token_num_30d (int | Unset):
         token_num_7d (int | Unset):
         token_num_all (int | Unset):
         total_costs_1d (float | Unset):
+        total_costs_1d_usd (float | Unset):
         total_costs_30d (float | Unset):
+        total_costs_30d_usd (float | Unset):
         total_costs_7d (float | Unset):
+        total_costs_7d_usd (float | Unset):
         total_costs_all (float | Unset):
-        total_profit (float | Unset): Profit stats (all-time). UNIT: lamports (see SolBalance note).
+        total_costs_all_usd (float | Unset):
         total_profit_30d (float | Unset):
         total_profit_7d (float | Unset):
         total_profit_pnl_30d (float | Unset):
         total_profit_pnl_7d (float | Unset):
-        total_value (float | Unset):
-        total_volume_usd (float | Unset):
-        trade_interval_cv (float | Unset):
-        trade_interval_mean (float | Unset): Market-maker detection
-        twitter_username (str | Unset):
-        unrealized_profit (float | Unset):
-        unrealized_profit_30d (float | Unset):
-        unrealized_profit_7d (float | Unset):
-        unrealized_profit_pnl_30d (float | Unset):
-        unrealized_profit_pnl_7d (float | Unset):
         updated_at (str | Unset):
         wallet_address (str | Unset):
         winrate_1d (float | Unset):
+        winrate_1d_usd (float | Unset):
         winrate_30d (float | Unset):
+        winrate_30d_usd (float | Unset):
         winrate_7d (float | Unset):
+        winrate_7d_usd (float | Unset):
         winrate_all (float | Unset):
+        winrate_all_usd (float | Unset):
     """
 
-    active_hours_count: int | Unset = UNSET
     arb_tx_ratio_1d: float | Unset = UNSET
     arb_tx_ratio_30d: float | Unset = UNSET
     arb_tx_ratio_7d: float | Unset = UNSET
     arb_tx_ratio_all: float | Unset = UNSET
-    avatar: str | Unset = UNSET
     avg_buy_count_per_token: float | Unset = UNSET
     avg_first_buy_reactivity: float | Unset = UNSET
     avg_holding_time: float | Unset = UNSET
     avg_realized_profit_1d: float | Unset = UNSET
+    avg_realized_profit_1d_usd: float | Unset = UNSET
     avg_realized_profit_30d: float | Unset = UNSET
+    avg_realized_profit_30d_usd: float | Unset = UNSET
     avg_realized_profit_7d: float | Unset = UNSET
+    avg_realized_profit_7d_usd: float | Unset = UNSET
     avg_realized_profit_all: float | Unset = UNSET
+    avg_realized_profit_all_usd: float | Unset = UNSET
     avg_sell_count_per_token: float | Unset = UNSET
     buy_1d: int | Unset = UNSET
     buy_30d: int | Unset = UNSET
@@ -230,31 +225,36 @@ class PulsightInternalCoreDomainTraderTrader:
     buy_sell_ratio_30d: float | Unset = UNSET
     buy_sell_ratio_7d: float | Unset = UNSET
     buy_sell_ratio_all: float | Unset = UNSET
-    buy_size_cv: float | Unset = UNSET
     cashback_1d: float | Unset = UNSET
+    cashback_1d_usd: float | Unset = UNSET
     cashback_30d: float | Unset = UNSET
+    cashback_30d_usd: float | Unset = UNSET
     cashback_7d: float | Unset = UNSET
+    cashback_7d_usd: float | Unset = UNSET
     cashback_all: float | Unset = UNSET
+    cashback_all_usd: float | Unset = UNSET
     cashback_claim_count_1d: int | Unset = UNSET
     cashback_claim_count_30d: int | Unset = UNSET
     cashback_claim_count_7d: int | Unset = UNSET
     cashback_claim_count_all: int | Unset = UNSET
     cashback_claimed_1d: float | Unset = UNSET
+    cashback_claimed_1d_usd: float | Unset = UNSET
     cashback_claimed_30d: float | Unset = UNSET
+    cashback_claimed_30d_usd: float | Unset = UNSET
     cashback_claimed_7d: float | Unset = UNSET
+    cashback_claimed_7d_usd: float | Unset = UNSET
     cashback_claimed_all: float | Unset = UNSET
+    cashback_claimed_all_usd: float | Unset = UNSET
     cashback_share_1d: float | Unset = UNSET
     cashback_share_30d: float | Unset = UNSET
     cashback_share_7d: float | Unset = UNSET
     cashback_share_all: float | Unset = UNSET
     chain: str | Unset = UNSET
     created_at: str | Unset = UNSET
-    daily_profits: list[PulsightInternalCoreDomainTraderDailyProfit] | Unset = UNSET
     didnt_buy_sells_1d: int | Unset = UNSET
     didnt_buy_sells_30d: int | Unset = UNSET
     didnt_buy_sells_7d: int | Unset = UNSET
     didnt_buy_sells_all: int | Unset = UNSET
-    dust_tx_ratio: float | Unset = UNSET
     failed_txs_1d: int | Unset = UNSET
     failed_txs_30d: int | Unset = UNSET
     failed_txs_7d: int | Unset = UNSET
@@ -264,11 +264,14 @@ class PulsightInternalCoreDomainTraderTrader:
     holder_reward_payouts_7d: int | Unset = UNSET
     holder_reward_payouts_all: int | Unset = UNSET
     holder_rewards_1d: float | Unset = UNSET
+    holder_rewards_1d_usd: float | Unset = UNSET
     holder_rewards_30d: float | Unset = UNSET
+    holder_rewards_30d_usd: float | Unset = UNSET
     holder_rewards_7d: float | Unset = UNSET
+    holder_rewards_7d_usd: float | Unset = UNSET
     holder_rewards_all: float | Unset = UNSET
+    holder_rewards_all_usd: float | Unset = UNSET
     id: str | Unset = UNSET
-    is_favorite: bool | Unset = UNSET
     label: str | Unset = UNSET
     label_type: str | Unset = UNSET
     landed_txs_1d: int | Unset = UNSET
@@ -280,44 +283,47 @@ class PulsightInternalCoreDomainTraderTrader:
     median_first_buy_reactivity: float | Unset = UNSET
     median_holding_time: float | Unset = UNSET
     median_realized_profit_1d: float | Unset = UNSET
+    median_realized_profit_1d_usd: float | Unset = UNSET
     median_realized_profit_30d: float | Unset = UNSET
+    median_realized_profit_30d_usd: float | Unset = UNSET
     median_realized_profit_7d: float | Unset = UNSET
+    median_realized_profit_7d_usd: float | Unset = UNSET
     median_realized_profit_all: float | Unset = UNSET
+    median_realized_profit_all_usd: float | Unset = UNSET
     median_sell_count_per_token: float | Unset = UNSET
-    mm_score: int | Unset = UNSET
-    name: str | Unset = UNSET
     net_profit_1d: float | Unset = UNSET
+    net_profit_1d_usd: float | Unset = UNSET
     net_profit_30d: float | Unset = UNSET
+    net_profit_30d_usd: float | Unset = UNSET
     net_profit_7d: float | Unset = UNSET
+    net_profit_7d_usd: float | Unset = UNSET
     net_profit_all: float | Unset = UNSET
+    net_profit_all_usd: float | Unset = UNSET
     oldest_trade_at: int | Unset = UNSET
-    pnl_0x2x_num_30d: int | Unset = UNSET
-    pnl_0x2x_num_7d: int | Unset = UNSET
-    pnl_2x5x_num_30d: int | Unset = UNSET
-    pnl_2x5x_num_7d: int | Unset = UNSET
-    pnl_gt5x_num_30d: int | Unset = UNSET
-    pnl_gt5x_num_7d: int | Unset = UNSET
-    pnl_lt_nd5_num_30d: int | Unset = UNSET
-    pnl_lt_nd5_num_7d: int | Unset = UNSET
-    pnl_nd50x_num_30d: int | Unset = UNSET
-    pnl_nd50x_num_7d: int | Unset = UNSET
-    pnls: list[PulsightInternalCoreDomainTraderPnl] | Unset = UNSET
-    profit_per_trade: float | Unset = UNSET
     realized_profit: float | Unset = UNSET
     realized_profit_1d: float | Unset = UNSET
+    realized_profit_1d_usd: float | Unset = UNSET
     realized_profit_30d: float | Unset = UNSET
+    realized_profit_30d_usd: float | Unset = UNSET
     realized_profit_7d: float | Unset = UNSET
+    realized_profit_7d_usd: float | Unset = UNSET
+    realized_profit_all_usd: float | Unset = UNSET
     realized_profit_pnl_30d: float | Unset = UNSET
     realized_profit_pnl_7d: float | Unset = UNSET
-    rebalancing_ratio: float | Unset = UNSET
     rewards_total_1d: float | Unset = UNSET
+    rewards_total_1d_usd: float | Unset = UNSET
     rewards_total_30d: float | Unset = UNSET
+    rewards_total_30d_usd: float | Unset = UNSET
     rewards_total_7d: float | Unset = UNSET
+    rewards_total_7d_usd: float | Unset = UNSET
     rewards_total_all: float | Unset = UNSET
-    risk_level: str | Unset = UNSET
-    risk_score: int | Unset = UNSET
+    rewards_total_all_usd: float | Unset = UNSET
     roi_1d: float | Unset = UNSET
+    roi_1d_usd: float | Unset = UNSET
+    roi_30d_usd: float | Unset = UNSET
+    roi_7d_usd: float | Unset = UNSET
     roi_all: float | Unset = UNSET
+    roi_all_usd: float | Unset = UNSET
     sell_1d: int | Unset = UNSET
     sell_30d: int | Unset = UNSET
     sell_7d: int | Unset = UNSET
@@ -333,41 +339,36 @@ class PulsightInternalCoreDomainTraderTrader:
     success_rate_1d: float | Unset = UNSET
     success_rate_30d: float | Unset = UNSET
     success_rate_7d: float | Unset = UNSET
-    tags: list[PulsightInternalCoreDomainTraderTag] | Unset = UNSET
+    tags: list[str] | Unset = UNSET
     token_num_1d: int | Unset = UNSET
     token_num_30d: int | Unset = UNSET
     token_num_7d: int | Unset = UNSET
     token_num_all: int | Unset = UNSET
     total_costs_1d: float | Unset = UNSET
+    total_costs_1d_usd: float | Unset = UNSET
     total_costs_30d: float | Unset = UNSET
+    total_costs_30d_usd: float | Unset = UNSET
     total_costs_7d: float | Unset = UNSET
+    total_costs_7d_usd: float | Unset = UNSET
     total_costs_all: float | Unset = UNSET
-    total_profit: float | Unset = UNSET
+    total_costs_all_usd: float | Unset = UNSET
     total_profit_30d: float | Unset = UNSET
     total_profit_7d: float | Unset = UNSET
     total_profit_pnl_30d: float | Unset = UNSET
     total_profit_pnl_7d: float | Unset = UNSET
-    total_value: float | Unset = UNSET
-    total_volume_usd: float | Unset = UNSET
-    trade_interval_cv: float | Unset = UNSET
-    trade_interval_mean: float | Unset = UNSET
-    twitter_username: str | Unset = UNSET
-    unrealized_profit: float | Unset = UNSET
-    unrealized_profit_30d: float | Unset = UNSET
-    unrealized_profit_7d: float | Unset = UNSET
-    unrealized_profit_pnl_30d: float | Unset = UNSET
-    unrealized_profit_pnl_7d: float | Unset = UNSET
     updated_at: str | Unset = UNSET
     wallet_address: str | Unset = UNSET
     winrate_1d: float | Unset = UNSET
+    winrate_1d_usd: float | Unset = UNSET
     winrate_30d: float | Unset = UNSET
+    winrate_30d_usd: float | Unset = UNSET
     winrate_7d: float | Unset = UNSET
+    winrate_7d_usd: float | Unset = UNSET
     winrate_all: float | Unset = UNSET
+    winrate_all_usd: float | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        active_hours_count = self.active_hours_count
-
         arb_tx_ratio_1d = self.arb_tx_ratio_1d
 
         arb_tx_ratio_30d = self.arb_tx_ratio_30d
@@ -375,8 +376,6 @@ class PulsightInternalCoreDomainTraderTrader:
         arb_tx_ratio_7d = self.arb_tx_ratio_7d
 
         arb_tx_ratio_all = self.arb_tx_ratio_all
-
-        avatar = self.avatar
 
         avg_buy_count_per_token = self.avg_buy_count_per_token
 
@@ -386,11 +385,19 @@ class PulsightInternalCoreDomainTraderTrader:
 
         avg_realized_profit_1d = self.avg_realized_profit_1d
 
+        avg_realized_profit_1d_usd = self.avg_realized_profit_1d_usd
+
         avg_realized_profit_30d = self.avg_realized_profit_30d
+
+        avg_realized_profit_30d_usd = self.avg_realized_profit_30d_usd
 
         avg_realized_profit_7d = self.avg_realized_profit_7d
 
+        avg_realized_profit_7d_usd = self.avg_realized_profit_7d_usd
+
         avg_realized_profit_all = self.avg_realized_profit_all
+
+        avg_realized_profit_all_usd = self.avg_realized_profit_all_usd
 
         avg_sell_count_per_token = self.avg_sell_count_per_token
 
@@ -410,15 +417,21 @@ class PulsightInternalCoreDomainTraderTrader:
 
         buy_sell_ratio_all = self.buy_sell_ratio_all
 
-        buy_size_cv = self.buy_size_cv
-
         cashback_1d = self.cashback_1d
+
+        cashback_1d_usd = self.cashback_1d_usd
 
         cashback_30d = self.cashback_30d
 
+        cashback_30d_usd = self.cashback_30d_usd
+
         cashback_7d = self.cashback_7d
 
+        cashback_7d_usd = self.cashback_7d_usd
+
         cashback_all = self.cashback_all
+
+        cashback_all_usd = self.cashback_all_usd
 
         cashback_claim_count_1d = self.cashback_claim_count_1d
 
@@ -430,11 +443,19 @@ class PulsightInternalCoreDomainTraderTrader:
 
         cashback_claimed_1d = self.cashback_claimed_1d
 
+        cashback_claimed_1d_usd = self.cashback_claimed_1d_usd
+
         cashback_claimed_30d = self.cashback_claimed_30d
+
+        cashback_claimed_30d_usd = self.cashback_claimed_30d_usd
 
         cashback_claimed_7d = self.cashback_claimed_7d
 
+        cashback_claimed_7d_usd = self.cashback_claimed_7d_usd
+
         cashback_claimed_all = self.cashback_claimed_all
+
+        cashback_claimed_all_usd = self.cashback_claimed_all_usd
 
         cashback_share_1d = self.cashback_share_1d
 
@@ -448,13 +469,6 @@ class PulsightInternalCoreDomainTraderTrader:
 
         created_at = self.created_at
 
-        daily_profits: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.daily_profits, Unset):
-            daily_profits = []
-            for daily_profits_item_data in self.daily_profits:
-                daily_profits_item = daily_profits_item_data.to_dict()
-                daily_profits.append(daily_profits_item)
-
         didnt_buy_sells_1d = self.didnt_buy_sells_1d
 
         didnt_buy_sells_30d = self.didnt_buy_sells_30d
@@ -462,8 +476,6 @@ class PulsightInternalCoreDomainTraderTrader:
         didnt_buy_sells_7d = self.didnt_buy_sells_7d
 
         didnt_buy_sells_all = self.didnt_buy_sells_all
-
-        dust_tx_ratio = self.dust_tx_ratio
 
         failed_txs_1d = self.failed_txs_1d
 
@@ -483,15 +495,21 @@ class PulsightInternalCoreDomainTraderTrader:
 
         holder_rewards_1d = self.holder_rewards_1d
 
+        holder_rewards_1d_usd = self.holder_rewards_1d_usd
+
         holder_rewards_30d = self.holder_rewards_30d
+
+        holder_rewards_30d_usd = self.holder_rewards_30d_usd
 
         holder_rewards_7d = self.holder_rewards_7d
 
+        holder_rewards_7d_usd = self.holder_rewards_7d_usd
+
         holder_rewards_all = self.holder_rewards_all
 
-        id = self.id
+        holder_rewards_all_usd = self.holder_rewards_all_usd
 
-        is_favorite = self.is_favorite
+        id = self.id
 
         label = self.label
 
@@ -515,86 +533,87 @@ class PulsightInternalCoreDomainTraderTrader:
 
         median_realized_profit_1d = self.median_realized_profit_1d
 
+        median_realized_profit_1d_usd = self.median_realized_profit_1d_usd
+
         median_realized_profit_30d = self.median_realized_profit_30d
+
+        median_realized_profit_30d_usd = self.median_realized_profit_30d_usd
 
         median_realized_profit_7d = self.median_realized_profit_7d
 
+        median_realized_profit_7d_usd = self.median_realized_profit_7d_usd
+
         median_realized_profit_all = self.median_realized_profit_all
+
+        median_realized_profit_all_usd = self.median_realized_profit_all_usd
 
         median_sell_count_per_token = self.median_sell_count_per_token
 
-        mm_score = self.mm_score
-
-        name = self.name
-
         net_profit_1d = self.net_profit_1d
+
+        net_profit_1d_usd = self.net_profit_1d_usd
 
         net_profit_30d = self.net_profit_30d
 
+        net_profit_30d_usd = self.net_profit_30d_usd
+
         net_profit_7d = self.net_profit_7d
+
+        net_profit_7d_usd = self.net_profit_7d_usd
 
         net_profit_all = self.net_profit_all
 
+        net_profit_all_usd = self.net_profit_all_usd
+
         oldest_trade_at = self.oldest_trade_at
-
-        pnl_0x2x_num_30d = self.pnl_0x2x_num_30d
-
-        pnl_0x2x_num_7d = self.pnl_0x2x_num_7d
-
-        pnl_2x5x_num_30d = self.pnl_2x5x_num_30d
-
-        pnl_2x5x_num_7d = self.pnl_2x5x_num_7d
-
-        pnl_gt5x_num_30d = self.pnl_gt5x_num_30d
-
-        pnl_gt5x_num_7d = self.pnl_gt5x_num_7d
-
-        pnl_lt_nd5_num_30d = self.pnl_lt_nd5_num_30d
-
-        pnl_lt_nd5_num_7d = self.pnl_lt_nd5_num_7d
-
-        pnl_nd50x_num_30d = self.pnl_nd50x_num_30d
-
-        pnl_nd50x_num_7d = self.pnl_nd50x_num_7d
-
-        pnls: list[dict[str, Any]] | Unset = UNSET
-        if not isinstance(self.pnls, Unset):
-            pnls = []
-            for pnls_item_data in self.pnls:
-                pnls_item = pnls_item_data.to_dict()
-                pnls.append(pnls_item)
-
-        profit_per_trade = self.profit_per_trade
 
         realized_profit = self.realized_profit
 
         realized_profit_1d = self.realized_profit_1d
 
+        realized_profit_1d_usd = self.realized_profit_1d_usd
+
         realized_profit_30d = self.realized_profit_30d
 
+        realized_profit_30d_usd = self.realized_profit_30d_usd
+
         realized_profit_7d = self.realized_profit_7d
+
+        realized_profit_7d_usd = self.realized_profit_7d_usd
+
+        realized_profit_all_usd = self.realized_profit_all_usd
 
         realized_profit_pnl_30d = self.realized_profit_pnl_30d
 
         realized_profit_pnl_7d = self.realized_profit_pnl_7d
 
-        rebalancing_ratio = self.rebalancing_ratio
-
         rewards_total_1d = self.rewards_total_1d
+
+        rewards_total_1d_usd = self.rewards_total_1d_usd
 
         rewards_total_30d = self.rewards_total_30d
 
+        rewards_total_30d_usd = self.rewards_total_30d_usd
+
         rewards_total_7d = self.rewards_total_7d
+
+        rewards_total_7d_usd = self.rewards_total_7d_usd
 
         rewards_total_all = self.rewards_total_all
 
-        risk_level = self.risk_level
-
-        risk_score = self.risk_score
+        rewards_total_all_usd = self.rewards_total_all_usd
 
         roi_1d = self.roi_1d
 
+        roi_1d_usd = self.roi_1d_usd
+
+        roi_30d_usd = self.roi_30d_usd
+
+        roi_7d_usd = self.roi_7d_usd
+
         roi_all = self.roi_all
+
+        roi_all_usd = self.roi_all_usd
 
         sell_1d = self.sell_1d
 
@@ -626,12 +645,9 @@ class PulsightInternalCoreDomainTraderTrader:
 
         success_rate_7d = self.success_rate_7d
 
-        tags: list[dict[str, Any]] | Unset = UNSET
+        tags: list[str] | Unset = UNSET
         if not isinstance(self.tags, Unset):
-            tags = []
-            for tags_item_data in self.tags:
-                tags_item = tags_item_data.to_dict()
-                tags.append(tags_item)
+            tags = self.tags
 
         token_num_1d = self.token_num_1d
 
@@ -643,13 +659,19 @@ class PulsightInternalCoreDomainTraderTrader:
 
         total_costs_1d = self.total_costs_1d
 
+        total_costs_1d_usd = self.total_costs_1d_usd
+
         total_costs_30d = self.total_costs_30d
+
+        total_costs_30d_usd = self.total_costs_30d_usd
 
         total_costs_7d = self.total_costs_7d
 
+        total_costs_7d_usd = self.total_costs_7d_usd
+
         total_costs_all = self.total_costs_all
 
-        total_profit = self.total_profit
+        total_costs_all_usd = self.total_costs_all_usd
 
         total_profit_30d = self.total_profit_30d
 
@@ -659,43 +681,29 @@ class PulsightInternalCoreDomainTraderTrader:
 
         total_profit_pnl_7d = self.total_profit_pnl_7d
 
-        total_value = self.total_value
-
-        total_volume_usd = self.total_volume_usd
-
-        trade_interval_cv = self.trade_interval_cv
-
-        trade_interval_mean = self.trade_interval_mean
-
-        twitter_username = self.twitter_username
-
-        unrealized_profit = self.unrealized_profit
-
-        unrealized_profit_30d = self.unrealized_profit_30d
-
-        unrealized_profit_7d = self.unrealized_profit_7d
-
-        unrealized_profit_pnl_30d = self.unrealized_profit_pnl_30d
-
-        unrealized_profit_pnl_7d = self.unrealized_profit_pnl_7d
-
         updated_at = self.updated_at
 
         wallet_address = self.wallet_address
 
         winrate_1d = self.winrate_1d
 
+        winrate_1d_usd = self.winrate_1d_usd
+
         winrate_30d = self.winrate_30d
+
+        winrate_30d_usd = self.winrate_30d_usd
 
         winrate_7d = self.winrate_7d
 
+        winrate_7d_usd = self.winrate_7d_usd
+
         winrate_all = self.winrate_all
+
+        winrate_all_usd = self.winrate_all_usd
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if active_hours_count is not UNSET:
-            field_dict["active_hours_count"] = active_hours_count
         if arb_tx_ratio_1d is not UNSET:
             field_dict["arb_tx_ratio_1d"] = arb_tx_ratio_1d
         if arb_tx_ratio_30d is not UNSET:
@@ -704,8 +712,6 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["arb_tx_ratio_7d"] = arb_tx_ratio_7d
         if arb_tx_ratio_all is not UNSET:
             field_dict["arb_tx_ratio_all"] = arb_tx_ratio_all
-        if avatar is not UNSET:
-            field_dict["avatar"] = avatar
         if avg_buy_count_per_token is not UNSET:
             field_dict["avg_buy_count_per_token"] = avg_buy_count_per_token
         if avg_first_buy_reactivity is not UNSET:
@@ -714,12 +720,20 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["avg_holding_time"] = avg_holding_time
         if avg_realized_profit_1d is not UNSET:
             field_dict["avg_realized_profit_1d"] = avg_realized_profit_1d
+        if avg_realized_profit_1d_usd is not UNSET:
+            field_dict["avg_realized_profit_1d_usd"] = avg_realized_profit_1d_usd
         if avg_realized_profit_30d is not UNSET:
             field_dict["avg_realized_profit_30d"] = avg_realized_profit_30d
+        if avg_realized_profit_30d_usd is not UNSET:
+            field_dict["avg_realized_profit_30d_usd"] = avg_realized_profit_30d_usd
         if avg_realized_profit_7d is not UNSET:
             field_dict["avg_realized_profit_7d"] = avg_realized_profit_7d
+        if avg_realized_profit_7d_usd is not UNSET:
+            field_dict["avg_realized_profit_7d_usd"] = avg_realized_profit_7d_usd
         if avg_realized_profit_all is not UNSET:
             field_dict["avg_realized_profit_all"] = avg_realized_profit_all
+        if avg_realized_profit_all_usd is not UNSET:
+            field_dict["avg_realized_profit_all_usd"] = avg_realized_profit_all_usd
         if avg_sell_count_per_token is not UNSET:
             field_dict["avg_sell_count_per_token"] = avg_sell_count_per_token
         if buy_1d is not UNSET:
@@ -738,16 +752,22 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["buy_sell_ratio_7d"] = buy_sell_ratio_7d
         if buy_sell_ratio_all is not UNSET:
             field_dict["buy_sell_ratio_all"] = buy_sell_ratio_all
-        if buy_size_cv is not UNSET:
-            field_dict["buy_size_cv"] = buy_size_cv
         if cashback_1d is not UNSET:
             field_dict["cashback_1d"] = cashback_1d
+        if cashback_1d_usd is not UNSET:
+            field_dict["cashback_1d_usd"] = cashback_1d_usd
         if cashback_30d is not UNSET:
             field_dict["cashback_30d"] = cashback_30d
+        if cashback_30d_usd is not UNSET:
+            field_dict["cashback_30d_usd"] = cashback_30d_usd
         if cashback_7d is not UNSET:
             field_dict["cashback_7d"] = cashback_7d
+        if cashback_7d_usd is not UNSET:
+            field_dict["cashback_7d_usd"] = cashback_7d_usd
         if cashback_all is not UNSET:
             field_dict["cashback_all"] = cashback_all
+        if cashback_all_usd is not UNSET:
+            field_dict["cashback_all_usd"] = cashback_all_usd
         if cashback_claim_count_1d is not UNSET:
             field_dict["cashback_claim_count_1d"] = cashback_claim_count_1d
         if cashback_claim_count_30d is not UNSET:
@@ -758,12 +778,20 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["cashback_claim_count_all"] = cashback_claim_count_all
         if cashback_claimed_1d is not UNSET:
             field_dict["cashback_claimed_1d"] = cashback_claimed_1d
+        if cashback_claimed_1d_usd is not UNSET:
+            field_dict["cashback_claimed_1d_usd"] = cashback_claimed_1d_usd
         if cashback_claimed_30d is not UNSET:
             field_dict["cashback_claimed_30d"] = cashback_claimed_30d
+        if cashback_claimed_30d_usd is not UNSET:
+            field_dict["cashback_claimed_30d_usd"] = cashback_claimed_30d_usd
         if cashback_claimed_7d is not UNSET:
             field_dict["cashback_claimed_7d"] = cashback_claimed_7d
+        if cashback_claimed_7d_usd is not UNSET:
+            field_dict["cashback_claimed_7d_usd"] = cashback_claimed_7d_usd
         if cashback_claimed_all is not UNSET:
             field_dict["cashback_claimed_all"] = cashback_claimed_all
+        if cashback_claimed_all_usd is not UNSET:
+            field_dict["cashback_claimed_all_usd"] = cashback_claimed_all_usd
         if cashback_share_1d is not UNSET:
             field_dict["cashback_share_1d"] = cashback_share_1d
         if cashback_share_30d is not UNSET:
@@ -776,8 +804,6 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["chain"] = chain
         if created_at is not UNSET:
             field_dict["created_at"] = created_at
-        if daily_profits is not UNSET:
-            field_dict["daily_profits"] = daily_profits
         if didnt_buy_sells_1d is not UNSET:
             field_dict["didnt_buy_sells_1d"] = didnt_buy_sells_1d
         if didnt_buy_sells_30d is not UNSET:
@@ -786,8 +812,6 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["didnt_buy_sells_7d"] = didnt_buy_sells_7d
         if didnt_buy_sells_all is not UNSET:
             field_dict["didnt_buy_sells_all"] = didnt_buy_sells_all
-        if dust_tx_ratio is not UNSET:
-            field_dict["dust_tx_ratio"] = dust_tx_ratio
         if failed_txs_1d is not UNSET:
             field_dict["failed_txs_1d"] = failed_txs_1d
         if failed_txs_30d is not UNSET:
@@ -806,16 +830,22 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["holder_reward_payouts_all"] = holder_reward_payouts_all
         if holder_rewards_1d is not UNSET:
             field_dict["holder_rewards_1d"] = holder_rewards_1d
+        if holder_rewards_1d_usd is not UNSET:
+            field_dict["holder_rewards_1d_usd"] = holder_rewards_1d_usd
         if holder_rewards_30d is not UNSET:
             field_dict["holder_rewards_30d"] = holder_rewards_30d
+        if holder_rewards_30d_usd is not UNSET:
+            field_dict["holder_rewards_30d_usd"] = holder_rewards_30d_usd
         if holder_rewards_7d is not UNSET:
             field_dict["holder_rewards_7d"] = holder_rewards_7d
+        if holder_rewards_7d_usd is not UNSET:
+            field_dict["holder_rewards_7d_usd"] = holder_rewards_7d_usd
         if holder_rewards_all is not UNSET:
             field_dict["holder_rewards_all"] = holder_rewards_all
+        if holder_rewards_all_usd is not UNSET:
+            field_dict["holder_rewards_all_usd"] = holder_rewards_all_usd
         if id is not UNSET:
             field_dict["id"] = id
-        if is_favorite is not UNSET:
-            field_dict["is_favorite"] = is_favorite
         if label is not UNSET:
             field_dict["label"] = label
         if label_type is not UNSET:
@@ -838,82 +868,92 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["median_holding_time"] = median_holding_time
         if median_realized_profit_1d is not UNSET:
             field_dict["median_realized_profit_1d"] = median_realized_profit_1d
+        if median_realized_profit_1d_usd is not UNSET:
+            field_dict["median_realized_profit_1d_usd"] = median_realized_profit_1d_usd
         if median_realized_profit_30d is not UNSET:
             field_dict["median_realized_profit_30d"] = median_realized_profit_30d
+        if median_realized_profit_30d_usd is not UNSET:
+            field_dict["median_realized_profit_30d_usd"] = (
+                median_realized_profit_30d_usd
+            )
         if median_realized_profit_7d is not UNSET:
             field_dict["median_realized_profit_7d"] = median_realized_profit_7d
+        if median_realized_profit_7d_usd is not UNSET:
+            field_dict["median_realized_profit_7d_usd"] = median_realized_profit_7d_usd
         if median_realized_profit_all is not UNSET:
             field_dict["median_realized_profit_all"] = median_realized_profit_all
+        if median_realized_profit_all_usd is not UNSET:
+            field_dict["median_realized_profit_all_usd"] = (
+                median_realized_profit_all_usd
+            )
         if median_sell_count_per_token is not UNSET:
             field_dict["median_sell_count_per_token"] = median_sell_count_per_token
-        if mm_score is not UNSET:
-            field_dict["mm_score"] = mm_score
-        if name is not UNSET:
-            field_dict["name"] = name
         if net_profit_1d is not UNSET:
             field_dict["net_profit_1d"] = net_profit_1d
+        if net_profit_1d_usd is not UNSET:
+            field_dict["net_profit_1d_usd"] = net_profit_1d_usd
         if net_profit_30d is not UNSET:
             field_dict["net_profit_30d"] = net_profit_30d
+        if net_profit_30d_usd is not UNSET:
+            field_dict["net_profit_30d_usd"] = net_profit_30d_usd
         if net_profit_7d is not UNSET:
             field_dict["net_profit_7d"] = net_profit_7d
+        if net_profit_7d_usd is not UNSET:
+            field_dict["net_profit_7d_usd"] = net_profit_7d_usd
         if net_profit_all is not UNSET:
             field_dict["net_profit_all"] = net_profit_all
+        if net_profit_all_usd is not UNSET:
+            field_dict["net_profit_all_usd"] = net_profit_all_usd
         if oldest_trade_at is not UNSET:
             field_dict["oldest_trade_at"] = oldest_trade_at
-        if pnl_0x2x_num_30d is not UNSET:
-            field_dict["pnl_0x2x_num_30d"] = pnl_0x2x_num_30d
-        if pnl_0x2x_num_7d is not UNSET:
-            field_dict["pnl_0x2x_num_7d"] = pnl_0x2x_num_7d
-        if pnl_2x5x_num_30d is not UNSET:
-            field_dict["pnl_2x5x_num_30d"] = pnl_2x5x_num_30d
-        if pnl_2x5x_num_7d is not UNSET:
-            field_dict["pnl_2x5x_num_7d"] = pnl_2x5x_num_7d
-        if pnl_gt5x_num_30d is not UNSET:
-            field_dict["pnl_gt5x_num_30d"] = pnl_gt5x_num_30d
-        if pnl_gt5x_num_7d is not UNSET:
-            field_dict["pnl_gt5x_num_7d"] = pnl_gt5x_num_7d
-        if pnl_lt_nd5_num_30d is not UNSET:
-            field_dict["pnl_lt_nd5_num_30d"] = pnl_lt_nd5_num_30d
-        if pnl_lt_nd5_num_7d is not UNSET:
-            field_dict["pnl_lt_nd5_num_7d"] = pnl_lt_nd5_num_7d
-        if pnl_nd50x_num_30d is not UNSET:
-            field_dict["pnl_nd50x_num_30d"] = pnl_nd50x_num_30d
-        if pnl_nd50x_num_7d is not UNSET:
-            field_dict["pnl_nd50x_num_7d"] = pnl_nd50x_num_7d
-        if pnls is not UNSET:
-            field_dict["pnls"] = pnls
-        if profit_per_trade is not UNSET:
-            field_dict["profit_per_trade"] = profit_per_trade
         if realized_profit is not UNSET:
             field_dict["realized_profit"] = realized_profit
         if realized_profit_1d is not UNSET:
             field_dict["realized_profit_1d"] = realized_profit_1d
+        if realized_profit_1d_usd is not UNSET:
+            field_dict["realized_profit_1d_usd"] = realized_profit_1d_usd
         if realized_profit_30d is not UNSET:
             field_dict["realized_profit_30d"] = realized_profit_30d
+        if realized_profit_30d_usd is not UNSET:
+            field_dict["realized_profit_30d_usd"] = realized_profit_30d_usd
         if realized_profit_7d is not UNSET:
             field_dict["realized_profit_7d"] = realized_profit_7d
+        if realized_profit_7d_usd is not UNSET:
+            field_dict["realized_profit_7d_usd"] = realized_profit_7d_usd
+        if realized_profit_all_usd is not UNSET:
+            field_dict["realized_profit_all_usd"] = realized_profit_all_usd
         if realized_profit_pnl_30d is not UNSET:
             field_dict["realized_profit_pnl_30d"] = realized_profit_pnl_30d
         if realized_profit_pnl_7d is not UNSET:
             field_dict["realized_profit_pnl_7d"] = realized_profit_pnl_7d
-        if rebalancing_ratio is not UNSET:
-            field_dict["rebalancing_ratio"] = rebalancing_ratio
         if rewards_total_1d is not UNSET:
             field_dict["rewards_total_1d"] = rewards_total_1d
+        if rewards_total_1d_usd is not UNSET:
+            field_dict["rewards_total_1d_usd"] = rewards_total_1d_usd
         if rewards_total_30d is not UNSET:
             field_dict["rewards_total_30d"] = rewards_total_30d
+        if rewards_total_30d_usd is not UNSET:
+            field_dict["rewards_total_30d_usd"] = rewards_total_30d_usd
         if rewards_total_7d is not UNSET:
             field_dict["rewards_total_7d"] = rewards_total_7d
+        if rewards_total_7d_usd is not UNSET:
+            field_dict["rewards_total_7d_usd"] = rewards_total_7d_usd
         if rewards_total_all is not UNSET:
             field_dict["rewards_total_all"] = rewards_total_all
-        if risk_level is not UNSET:
-            field_dict["risk_level"] = risk_level
-        if risk_score is not UNSET:
-            field_dict["risk_score"] = risk_score
+        if rewards_total_all_usd is not UNSET:
+            field_dict["rewards_total_all_usd"] = rewards_total_all_usd
         if roi_1d is not UNSET:
             field_dict["roi_1d"] = roi_1d
+        if roi_1d_usd is not UNSET:
+            field_dict["roi_1d_usd"] = roi_1d_usd
+        if roi_30d_usd is not UNSET:
+            field_dict["roi_30d_usd"] = roi_30d_usd
+        if roi_7d_usd is not UNSET:
+            field_dict["roi_7d_usd"] = roi_7d_usd
         if roi_all is not UNSET:
             field_dict["roi_all"] = roi_all
+        if roi_all_usd is not UNSET:
+            field_dict["roi_all_usd"] = roi_all_usd
         if sell_1d is not UNSET:
             field_dict["sell_1d"] = sell_1d
         if sell_30d is not UNSET:
@@ -956,14 +996,20 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["token_num_all"] = token_num_all
         if total_costs_1d is not UNSET:
             field_dict["total_costs_1d"] = total_costs_1d
+        if total_costs_1d_usd is not UNSET:
+            field_dict["total_costs_1d_usd"] = total_costs_1d_usd
         if total_costs_30d is not UNSET:
             field_dict["total_costs_30d"] = total_costs_30d
+        if total_costs_30d_usd is not UNSET:
+            field_dict["total_costs_30d_usd"] = total_costs_30d_usd
         if total_costs_7d is not UNSET:
             field_dict["total_costs_7d"] = total_costs_7d
+        if total_costs_7d_usd is not UNSET:
+            field_dict["total_costs_7d_usd"] = total_costs_7d_usd
         if total_costs_all is not UNSET:
             field_dict["total_costs_all"] = total_costs_all
-        if total_profit is not UNSET:
-            field_dict["total_profit"] = total_profit
+        if total_costs_all_usd is not UNSET:
+            field_dict["total_costs_all_usd"] = total_costs_all_usd
         if total_profit_30d is not UNSET:
             field_dict["total_profit_30d"] = total_profit_30d
         if total_profit_7d is not UNSET:
@@ -972,56 +1018,32 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["total_profit_pnl_30d"] = total_profit_pnl_30d
         if total_profit_pnl_7d is not UNSET:
             field_dict["total_profit_pnl_7d"] = total_profit_pnl_7d
-        if total_value is not UNSET:
-            field_dict["total_value"] = total_value
-        if total_volume_usd is not UNSET:
-            field_dict["total_volume_usd"] = total_volume_usd
-        if trade_interval_cv is not UNSET:
-            field_dict["trade_interval_cv"] = trade_interval_cv
-        if trade_interval_mean is not UNSET:
-            field_dict["trade_interval_mean"] = trade_interval_mean
-        if twitter_username is not UNSET:
-            field_dict["twitter_username"] = twitter_username
-        if unrealized_profit is not UNSET:
-            field_dict["unrealized_profit"] = unrealized_profit
-        if unrealized_profit_30d is not UNSET:
-            field_dict["unrealized_profit_30d"] = unrealized_profit_30d
-        if unrealized_profit_7d is not UNSET:
-            field_dict["unrealized_profit_7d"] = unrealized_profit_7d
-        if unrealized_profit_pnl_30d is not UNSET:
-            field_dict["unrealized_profit_pnl_30d"] = unrealized_profit_pnl_30d
-        if unrealized_profit_pnl_7d is not UNSET:
-            field_dict["unrealized_profit_pnl_7d"] = unrealized_profit_pnl_7d
         if updated_at is not UNSET:
             field_dict["updated_at"] = updated_at
         if wallet_address is not UNSET:
             field_dict["wallet_address"] = wallet_address
         if winrate_1d is not UNSET:
             field_dict["winrate_1d"] = winrate_1d
+        if winrate_1d_usd is not UNSET:
+            field_dict["winrate_1d_usd"] = winrate_1d_usd
         if winrate_30d is not UNSET:
             field_dict["winrate_30d"] = winrate_30d
+        if winrate_30d_usd is not UNSET:
+            field_dict["winrate_30d_usd"] = winrate_30d_usd
         if winrate_7d is not UNSET:
             field_dict["winrate_7d"] = winrate_7d
+        if winrate_7d_usd is not UNSET:
+            field_dict["winrate_7d_usd"] = winrate_7d_usd
         if winrate_all is not UNSET:
             field_dict["winrate_all"] = winrate_all
+        if winrate_all_usd is not UNSET:
+            field_dict["winrate_all_usd"] = winrate_all_usd
 
         return field_dict
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
-        from ..models.pulsight_internal_core_domain_trader_daily_profit import (
-            PulsightInternalCoreDomainTraderDailyProfit,
-        )
-        from ..models.pulsight_internal_core_domain_trader_pnl import (
-            PulsightInternalCoreDomainTraderPnl,
-        )
-        from ..models.pulsight_internal_core_domain_trader_tag import (
-            PulsightInternalCoreDomainTraderTag,
-        )
-
         d = dict(src_dict)
-        active_hours_count = d.pop("active_hours_count", UNSET)
-
         arb_tx_ratio_1d = d.pop("arb_tx_ratio_1d", UNSET)
 
         arb_tx_ratio_30d = d.pop("arb_tx_ratio_30d", UNSET)
@@ -1029,8 +1051,6 @@ class PulsightInternalCoreDomainTraderTrader:
         arb_tx_ratio_7d = d.pop("arb_tx_ratio_7d", UNSET)
 
         arb_tx_ratio_all = d.pop("arb_tx_ratio_all", UNSET)
-
-        avatar = d.pop("avatar", UNSET)
 
         avg_buy_count_per_token = d.pop("avg_buy_count_per_token", UNSET)
 
@@ -1040,11 +1060,19 @@ class PulsightInternalCoreDomainTraderTrader:
 
         avg_realized_profit_1d = d.pop("avg_realized_profit_1d", UNSET)
 
+        avg_realized_profit_1d_usd = d.pop("avg_realized_profit_1d_usd", UNSET)
+
         avg_realized_profit_30d = d.pop("avg_realized_profit_30d", UNSET)
+
+        avg_realized_profit_30d_usd = d.pop("avg_realized_profit_30d_usd", UNSET)
 
         avg_realized_profit_7d = d.pop("avg_realized_profit_7d", UNSET)
 
+        avg_realized_profit_7d_usd = d.pop("avg_realized_profit_7d_usd", UNSET)
+
         avg_realized_profit_all = d.pop("avg_realized_profit_all", UNSET)
+
+        avg_realized_profit_all_usd = d.pop("avg_realized_profit_all_usd", UNSET)
 
         avg_sell_count_per_token = d.pop("avg_sell_count_per_token", UNSET)
 
@@ -1064,15 +1092,21 @@ class PulsightInternalCoreDomainTraderTrader:
 
         buy_sell_ratio_all = d.pop("buy_sell_ratio_all", UNSET)
 
-        buy_size_cv = d.pop("buy_size_cv", UNSET)
-
         cashback_1d = d.pop("cashback_1d", UNSET)
+
+        cashback_1d_usd = d.pop("cashback_1d_usd", UNSET)
 
         cashback_30d = d.pop("cashback_30d", UNSET)
 
+        cashback_30d_usd = d.pop("cashback_30d_usd", UNSET)
+
         cashback_7d = d.pop("cashback_7d", UNSET)
 
+        cashback_7d_usd = d.pop("cashback_7d_usd", UNSET)
+
         cashback_all = d.pop("cashback_all", UNSET)
+
+        cashback_all_usd = d.pop("cashback_all_usd", UNSET)
 
         cashback_claim_count_1d = d.pop("cashback_claim_count_1d", UNSET)
 
@@ -1084,11 +1118,19 @@ class PulsightInternalCoreDomainTraderTrader:
 
         cashback_claimed_1d = d.pop("cashback_claimed_1d", UNSET)
 
+        cashback_claimed_1d_usd = d.pop("cashback_claimed_1d_usd", UNSET)
+
         cashback_claimed_30d = d.pop("cashback_claimed_30d", UNSET)
+
+        cashback_claimed_30d_usd = d.pop("cashback_claimed_30d_usd", UNSET)
 
         cashback_claimed_7d = d.pop("cashback_claimed_7d", UNSET)
 
+        cashback_claimed_7d_usd = d.pop("cashback_claimed_7d_usd", UNSET)
+
         cashback_claimed_all = d.pop("cashback_claimed_all", UNSET)
+
+        cashback_claimed_all_usd = d.pop("cashback_claimed_all_usd", UNSET)
 
         cashback_share_1d = d.pop("cashback_share_1d", UNSET)
 
@@ -1102,19 +1144,6 @@ class PulsightInternalCoreDomainTraderTrader:
 
         created_at = d.pop("created_at", UNSET)
 
-        _daily_profits = d.pop("daily_profits", UNSET)
-        daily_profits: list[PulsightInternalCoreDomainTraderDailyProfit] | Unset = UNSET
-        if _daily_profits is not UNSET:
-            daily_profits = []
-            for daily_profits_item_data in _daily_profits:
-                daily_profits_item = (
-                    PulsightInternalCoreDomainTraderDailyProfit.from_dict(
-                        daily_profits_item_data
-                    )
-                )
-
-                daily_profits.append(daily_profits_item)
-
         didnt_buy_sells_1d = d.pop("didnt_buy_sells_1d", UNSET)
 
         didnt_buy_sells_30d = d.pop("didnt_buy_sells_30d", UNSET)
@@ -1122,8 +1151,6 @@ class PulsightInternalCoreDomainTraderTrader:
         didnt_buy_sells_7d = d.pop("didnt_buy_sells_7d", UNSET)
 
         didnt_buy_sells_all = d.pop("didnt_buy_sells_all", UNSET)
-
-        dust_tx_ratio = d.pop("dust_tx_ratio", UNSET)
 
         failed_txs_1d = d.pop("failed_txs_1d", UNSET)
 
@@ -1143,15 +1170,21 @@ class PulsightInternalCoreDomainTraderTrader:
 
         holder_rewards_1d = d.pop("holder_rewards_1d", UNSET)
 
+        holder_rewards_1d_usd = d.pop("holder_rewards_1d_usd", UNSET)
+
         holder_rewards_30d = d.pop("holder_rewards_30d", UNSET)
+
+        holder_rewards_30d_usd = d.pop("holder_rewards_30d_usd", UNSET)
 
         holder_rewards_7d = d.pop("holder_rewards_7d", UNSET)
 
+        holder_rewards_7d_usd = d.pop("holder_rewards_7d_usd", UNSET)
+
         holder_rewards_all = d.pop("holder_rewards_all", UNSET)
 
-        id = d.pop("id", UNSET)
+        holder_rewards_all_usd = d.pop("holder_rewards_all_usd", UNSET)
 
-        is_favorite = d.pop("is_favorite", UNSET)
+        id = d.pop("id", UNSET)
 
         label = d.pop("label", UNSET)
 
@@ -1175,90 +1208,87 @@ class PulsightInternalCoreDomainTraderTrader:
 
         median_realized_profit_1d = d.pop("median_realized_profit_1d", UNSET)
 
+        median_realized_profit_1d_usd = d.pop("median_realized_profit_1d_usd", UNSET)
+
         median_realized_profit_30d = d.pop("median_realized_profit_30d", UNSET)
+
+        median_realized_profit_30d_usd = d.pop("median_realized_profit_30d_usd", UNSET)
 
         median_realized_profit_7d = d.pop("median_realized_profit_7d", UNSET)
 
+        median_realized_profit_7d_usd = d.pop("median_realized_profit_7d_usd", UNSET)
+
         median_realized_profit_all = d.pop("median_realized_profit_all", UNSET)
+
+        median_realized_profit_all_usd = d.pop("median_realized_profit_all_usd", UNSET)
 
         median_sell_count_per_token = d.pop("median_sell_count_per_token", UNSET)
 
-        mm_score = d.pop("mm_score", UNSET)
-
-        name = d.pop("name", UNSET)
-
         net_profit_1d = d.pop("net_profit_1d", UNSET)
+
+        net_profit_1d_usd = d.pop("net_profit_1d_usd", UNSET)
 
         net_profit_30d = d.pop("net_profit_30d", UNSET)
 
+        net_profit_30d_usd = d.pop("net_profit_30d_usd", UNSET)
+
         net_profit_7d = d.pop("net_profit_7d", UNSET)
+
+        net_profit_7d_usd = d.pop("net_profit_7d_usd", UNSET)
 
         net_profit_all = d.pop("net_profit_all", UNSET)
 
+        net_profit_all_usd = d.pop("net_profit_all_usd", UNSET)
+
         oldest_trade_at = d.pop("oldest_trade_at", UNSET)
-
-        pnl_0x2x_num_30d = d.pop("pnl_0x2x_num_30d", UNSET)
-
-        pnl_0x2x_num_7d = d.pop("pnl_0x2x_num_7d", UNSET)
-
-        pnl_2x5x_num_30d = d.pop("pnl_2x5x_num_30d", UNSET)
-
-        pnl_2x5x_num_7d = d.pop("pnl_2x5x_num_7d", UNSET)
-
-        pnl_gt5x_num_30d = d.pop("pnl_gt5x_num_30d", UNSET)
-
-        pnl_gt5x_num_7d = d.pop("pnl_gt5x_num_7d", UNSET)
-
-        pnl_lt_nd5_num_30d = d.pop("pnl_lt_nd5_num_30d", UNSET)
-
-        pnl_lt_nd5_num_7d = d.pop("pnl_lt_nd5_num_7d", UNSET)
-
-        pnl_nd50x_num_30d = d.pop("pnl_nd50x_num_30d", UNSET)
-
-        pnl_nd50x_num_7d = d.pop("pnl_nd50x_num_7d", UNSET)
-
-        _pnls = d.pop("pnls", UNSET)
-        pnls: list[PulsightInternalCoreDomainTraderPnl] | Unset = UNSET
-        if _pnls is not UNSET:
-            pnls = []
-            for pnls_item_data in _pnls:
-                pnls_item = PulsightInternalCoreDomainTraderPnl.from_dict(
-                    pnls_item_data
-                )
-
-                pnls.append(pnls_item)
-
-        profit_per_trade = d.pop("profit_per_trade", UNSET)
 
         realized_profit = d.pop("realized_profit", UNSET)
 
         realized_profit_1d = d.pop("realized_profit_1d", UNSET)
 
+        realized_profit_1d_usd = d.pop("realized_profit_1d_usd", UNSET)
+
         realized_profit_30d = d.pop("realized_profit_30d", UNSET)
 
+        realized_profit_30d_usd = d.pop("realized_profit_30d_usd", UNSET)
+
         realized_profit_7d = d.pop("realized_profit_7d", UNSET)
+
+        realized_profit_7d_usd = d.pop("realized_profit_7d_usd", UNSET)
+
+        realized_profit_all_usd = d.pop("realized_profit_all_usd", UNSET)
 
         realized_profit_pnl_30d = d.pop("realized_profit_pnl_30d", UNSET)
 
         realized_profit_pnl_7d = d.pop("realized_profit_pnl_7d", UNSET)
 
-        rebalancing_ratio = d.pop("rebalancing_ratio", UNSET)
-
         rewards_total_1d = d.pop("rewards_total_1d", UNSET)
+
+        rewards_total_1d_usd = d.pop("rewards_total_1d_usd", UNSET)
 
         rewards_total_30d = d.pop("rewards_total_30d", UNSET)
 
+        rewards_total_30d_usd = d.pop("rewards_total_30d_usd", UNSET)
+
         rewards_total_7d = d.pop("rewards_total_7d", UNSET)
+
+        rewards_total_7d_usd = d.pop("rewards_total_7d_usd", UNSET)
 
         rewards_total_all = d.pop("rewards_total_all", UNSET)
 
-        risk_level = d.pop("risk_level", UNSET)
-
-        risk_score = d.pop("risk_score", UNSET)
+        rewards_total_all_usd = d.pop("rewards_total_all_usd", UNSET)
 
         roi_1d = d.pop("roi_1d", UNSET)
 
+        roi_1d_usd = d.pop("roi_1d_usd", UNSET)
+
+        roi_30d_usd = d.pop("roi_30d_usd", UNSET)
+
+        roi_7d_usd = d.pop("roi_7d_usd", UNSET)
+
         roi_all = d.pop("roi_all", UNSET)
+
+        roi_all_usd = d.pop("roi_all_usd", UNSET)
 
         sell_1d = d.pop("sell_1d", UNSET)
 
@@ -1290,16 +1320,7 @@ class PulsightInternalCoreDomainTraderTrader:
 
         success_rate_7d = d.pop("success_rate_7d", UNSET)
 
-        _tags = d.pop("tags", UNSET)
-        tags: list[PulsightInternalCoreDomainTraderTag] | Unset = UNSET
-        if _tags is not UNSET:
-            tags = []
-            for tags_item_data in _tags:
-                tags_item = PulsightInternalCoreDomainTraderTag.from_dict(
-                    tags_item_data
-                )
-
-                tags.append(tags_item)
+        tags = cast(list[str], d.pop("tags", UNSET))
 
         token_num_1d = d.pop("token_num_1d", UNSET)
 
@@ -1311,13 +1332,19 @@ class PulsightInternalCoreDomainTraderTrader:
 
         total_costs_1d = d.pop("total_costs_1d", UNSET)
 
+        total_costs_1d_usd = d.pop("total_costs_1d_usd", UNSET)
+
         total_costs_30d = d.pop("total_costs_30d", UNSET)
+
+        total_costs_30d_usd = d.pop("total_costs_30d_usd", UNSET)
 
         total_costs_7d = d.pop("total_costs_7d", UNSET)
 
+        total_costs_7d_usd = d.pop("total_costs_7d_usd", UNSET)
+
         total_costs_all = d.pop("total_costs_all", UNSET)
 
-        total_profit = d.pop("total_profit", UNSET)
+        total_costs_all_usd = d.pop("total_costs_all_usd", UNSET)
 
         total_profit_30d = d.pop("total_profit_30d", UNSET)
 
@@ -1327,52 +1354,42 @@ class PulsightInternalCoreDomainTraderTrader:
 
         total_profit_pnl_7d = d.pop("total_profit_pnl_7d", UNSET)
 
-        total_value = d.pop("total_value", UNSET)
-
-        total_volume_usd = d.pop("total_volume_usd", UNSET)
-
-        trade_interval_cv = d.pop("trade_interval_cv", UNSET)
-
-        trade_interval_mean = d.pop("trade_interval_mean", UNSET)
-
-        twitter_username = d.pop("twitter_username", UNSET)
-
-        unrealized_profit = d.pop("unrealized_profit", UNSET)
-
-        unrealized_profit_30d = d.pop("unrealized_profit_30d", UNSET)
-
-        unrealized_profit_7d = d.pop("unrealized_profit_7d", UNSET)
-
-        unrealized_profit_pnl_30d = d.pop("unrealized_profit_pnl_30d", UNSET)
-
-        unrealized_profit_pnl_7d = d.pop("unrealized_profit_pnl_7d", UNSET)
-
         updated_at = d.pop("updated_at", UNSET)
 
         wallet_address = d.pop("wallet_address", UNSET)
 
         winrate_1d = d.pop("winrate_1d", UNSET)
 
+        winrate_1d_usd = d.pop("winrate_1d_usd", UNSET)
+
         winrate_30d = d.pop("winrate_30d", UNSET)
+
+        winrate_30d_usd = d.pop("winrate_30d_usd", UNSET)
 
         winrate_7d = d.pop("winrate_7d", UNSET)
 
+        winrate_7d_usd = d.pop("winrate_7d_usd", UNSET)
+
         winrate_all = d.pop("winrate_all", UNSET)
 
+        winrate_all_usd = d.pop("winrate_all_usd", UNSET)
+
         pulsight_internal_core_domain_trader_trader = cls(
-            active_hours_count=active_hours_count,
             arb_tx_ratio_1d=arb_tx_ratio_1d,
             arb_tx_ratio_30d=arb_tx_ratio_30d,
             arb_tx_ratio_7d=arb_tx_ratio_7d,
             arb_tx_ratio_all=arb_tx_ratio_all,
-            avatar=avatar,
             avg_buy_count_per_token=avg_buy_count_per_token,
             avg_first_buy_reactivity=avg_first_buy_reactivity,
             avg_holding_time=avg_holding_time,
             avg_realized_profit_1d=avg_realized_profit_1d,
+            avg_realized_profit_1d_usd=avg_realized_profit_1d_usd,
             avg_realized_profit_30d=avg_realized_profit_30d,
+            avg_realized_profit_30d_usd=avg_realized_profit_30d_usd,
             avg_realized_profit_7d=avg_realized_profit_7d,
+            avg_realized_profit_7d_usd=avg_realized_profit_7d_usd,
             avg_realized_profit_all=avg_realized_profit_all,
+            avg_realized_profit_all_usd=avg_realized_profit_all_usd,
             avg_sell_count_per_token=avg_sell_count_per_token,
             buy_1d=buy_1d,
             buy_30d=buy_30d,
@@ -1382,31 +1399,36 @@ class PulsightInternalCoreDomainTraderTrader:
             buy_sell_ratio_30d=buy_sell_ratio_30d,
             buy_sell_ratio_7d=buy_sell_ratio_7d,
             buy_sell_ratio_all=buy_sell_ratio_all,
-            buy_size_cv=buy_size_cv,
             cashback_1d=cashback_1d,
+            cashback_1d_usd=cashback_1d_usd,
             cashback_30d=cashback_30d,
+            cashback_30d_usd=cashback_30d_usd,
             cashback_7d=cashback_7d,
+            cashback_7d_usd=cashback_7d_usd,
             cashback_all=cashback_all,
+            cashback_all_usd=cashback_all_usd,
             cashback_claim_count_1d=cashback_claim_count_1d,
             cashback_claim_count_30d=cashback_claim_count_30d,
             cashback_claim_count_7d=cashback_claim_count_7d,
             cashback_claim_count_all=cashback_claim_count_all,
             cashback_claimed_1d=cashback_claimed_1d,
+            cashback_claimed_1d_usd=cashback_claimed_1d_usd,
             cashback_claimed_30d=cashback_claimed_30d,
+            cashback_claimed_30d_usd=cashback_claimed_30d_usd,
             cashback_claimed_7d=cashback_claimed_7d,
+            cashback_claimed_7d_usd=cashback_claimed_7d_usd,
             cashback_claimed_all=cashback_claimed_all,
+            cashback_claimed_all_usd=cashback_claimed_all_usd,
             cashback_share_1d=cashback_share_1d,
             cashback_share_30d=cashback_share_30d,
             cashback_share_7d=cashback_share_7d,
             cashback_share_all=cashback_share_all,
             chain=chain,
             created_at=created_at,
-            daily_profits=daily_profits,
             didnt_buy_sells_1d=didnt_buy_sells_1d,
             didnt_buy_sells_30d=didnt_buy_sells_30d,
             didnt_buy_sells_7d=didnt_buy_sells_7d,
             didnt_buy_sells_all=didnt_buy_sells_all,
-            dust_tx_ratio=dust_tx_ratio,
             failed_txs_1d=failed_txs_1d,
             failed_txs_30d=failed_txs_30d,
             failed_txs_7d=failed_txs_7d,
@@ -1416,11 +1438,14 @@ class PulsightInternalCoreDomainTraderTrader:
             holder_reward_payouts_7d=holder_reward_payouts_7d,
             holder_reward_payouts_all=holder_reward_payouts_all,
             holder_rewards_1d=holder_rewards_1d,
+            holder_rewards_1d_usd=holder_rewards_1d_usd,
             holder_rewards_30d=holder_rewards_30d,
+            holder_rewards_30d_usd=holder_rewards_30d_usd,
             holder_rewards_7d=holder_rewards_7d,
+            holder_rewards_7d_usd=holder_rewards_7d_usd,
             holder_rewards_all=holder_rewards_all,
+            holder_rewards_all_usd=holder_rewards_all_usd,
             id=id,
-            is_favorite=is_favorite,
             label=label,
             label_type=label_type,
             landed_txs_1d=landed_txs_1d,
@@ -1432,44 +1457,47 @@ class PulsightInternalCoreDomainTraderTrader:
             median_first_buy_reactivity=median_first_buy_reactivity,
             median_holding_time=median_holding_time,
             median_realized_profit_1d=median_realized_profit_1d,
+            median_realized_profit_1d_usd=median_realized_profit_1d_usd,
             median_realized_profit_30d=median_realized_profit_30d,
+            median_realized_profit_30d_usd=median_realized_profit_30d_usd,
             median_realized_profit_7d=median_realized_profit_7d,
+            median_realized_profit_7d_usd=median_realized_profit_7d_usd,
             median_realized_profit_all=median_realized_profit_all,
+            median_realized_profit_all_usd=median_realized_profit_all_usd,
             median_sell_count_per_token=median_sell_count_per_token,
-            mm_score=mm_score,
-            name=name,
             net_profit_1d=net_profit_1d,
+            net_profit_1d_usd=net_profit_1d_usd,
             net_profit_30d=net_profit_30d,
+            net_profit_30d_usd=net_profit_30d_usd,
             net_profit_7d=net_profit_7d,
+            net_profit_7d_usd=net_profit_7d_usd,
             net_profit_all=net_profit_all,
+            net_profit_all_usd=net_profit_all_usd,
             oldest_trade_at=oldest_trade_at,
-            pnl_0x2x_num_30d=pnl_0x2x_num_30d,
-            pnl_0x2x_num_7d=pnl_0x2x_num_7d,
-            pnl_2x5x_num_30d=pnl_2x5x_num_30d,
-            pnl_2x5x_num_7d=pnl_2x5x_num_7d,
-            pnl_gt5x_num_30d=pnl_gt5x_num_30d,
-            pnl_gt5x_num_7d=pnl_gt5x_num_7d,
-            pnl_lt_nd5_num_30d=pnl_lt_nd5_num_30d,
-            pnl_lt_nd5_num_7d=pnl_lt_nd5_num_7d,
-            pnl_nd50x_num_30d=pnl_nd50x_num_30d,
-            pnl_nd50x_num_7d=pnl_nd50x_num_7d,
-            pnls=pnls,
-            profit_per_trade=profit_per_trade,
             realized_profit=realized_profit,
             realized_profit_1d=realized_profit_1d,
+            realized_profit_1d_usd=realized_profit_1d_usd,
             realized_profit_30d=realized_profit_30d,
+            realized_profit_30d_usd=realized_profit_30d_usd,
             realized_profit_7d=realized_profit_7d,
+            realized_profit_7d_usd=realized_profit_7d_usd,
+            realized_profit_all_usd=realized_profit_all_usd,
             realized_profit_pnl_30d=realized_profit_pnl_30d,
             realized_profit_pnl_7d=realized_profit_pnl_7d,
-            rebalancing_ratio=rebalancing_ratio,
             rewards_total_1d=rewards_total_1d,
+            rewards_total_1d_usd=rewards_total_1d_usd,
             rewards_total_30d=rewards_total_30d,
+            rewards_total_30d_usd=rewards_total_30d_usd,
             rewards_total_7d=rewards_total_7d,
+            rewards_total_7d_usd=rewards_total_7d_usd,
             rewards_total_all=rewards_total_all,
-            risk_level=risk_level,
-            risk_score=risk_score,
+            rewards_total_all_usd=rewards_total_all_usd,
             roi_1d=roi_1d,
+            roi_1d_usd=roi_1d_usd,
+            roi_30d_usd=roi_30d_usd,
+            roi_7d_usd=roi_7d_usd,
             roi_all=roi_all,
+            roi_all_usd=roi_all_usd,
             sell_1d=sell_1d,
             sell_30d=sell_30d,
             sell_7d=sell_7d,
@@ -1491,30 +1519,27 @@ class PulsightInternalCoreDomainTraderTrader:
             token_num_7d=token_num_7d,
             token_num_all=token_num_all,
             total_costs_1d=total_costs_1d,
+            total_costs_1d_usd=total_costs_1d_usd,
             total_costs_30d=total_costs_30d,
+            total_costs_30d_usd=total_costs_30d_usd,
             total_costs_7d=total_costs_7d,
+            total_costs_7d_usd=total_costs_7d_usd,
             total_costs_all=total_costs_all,
-            total_profit=total_profit,
+            total_costs_all_usd=total_costs_all_usd,
             total_profit_30d=total_profit_30d,
             total_profit_7d=total_profit_7d,
             total_profit_pnl_30d=total_profit_pnl_30d,
             total_profit_pnl_7d=total_profit_pnl_7d,
-            total_value=total_value,
-            total_volume_usd=total_volume_usd,
-            trade_interval_cv=trade_interval_cv,
-            trade_interval_mean=trade_interval_mean,
-            twitter_username=twitter_username,
-            unrealized_profit=unrealized_profit,
-            unrealized_profit_30d=unrealized_profit_30d,
-            unrealized_profit_7d=unrealized_profit_7d,
-            unrealized_profit_pnl_30d=unrealized_profit_pnl_30d,
-            unrealized_profit_pnl_7d=unrealized_profit_pnl_7d,
             updated_at=updated_at,
             wallet_address=wallet_address,
             winrate_1d=winrate_1d,
+            winrate_1d_usd=winrate_1d_usd,
             winrate_30d=winrate_30d,
+            winrate_30d_usd=winrate_30d_usd,
             winrate_7d=winrate_7d,
+            winrate_7d_usd=winrate_7d_usd,
             winrate_all=winrate_all,
+            winrate_all_usd=winrate_all_usd,
         )
 
         pulsight_internal_core_domain_trader_trader.additional_properties = d

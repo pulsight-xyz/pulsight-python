@@ -43,36 +43,28 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         authorities_observed_at (str | Unset):
         bonding_curve (PulsightInternalCoreDomainAggregatorBondingCurveState | Unset):
         bundled (PulsightInternalCoreDomainAggregatorMintBundled | Unset):
-        buy_count (int | Unset): BuyCount/SellCount: buy- vs sell-side swap counts over the `?hours`
-            activity window (countIf(is_buy)). Populated on the list path; 0 on
-            the detail path.
+        buy_count (int | Unset):
         creator (str | Unset):
         decimals (int | Unset):
         dev_holdings (PulsightInternalCoreDomainAggregatorDevHoldings | Unset):
         fetch_status (str | Unset):
         first_seen_ts (str | Unset):
         freeze_authority (str | Unset):
-        holder_count (int | Unset): ── GMGN-style discovery enrichment (list path only, best-effort). ──
-            HolderCount is the number of distinct wallets currently holding a
-            positive balance of this mint (uniqExact over trader_token_stats).
-            nil when the holders batch is unavailable. Best-effort: a holders
-            hiccup decorates fewer rows, it never fails the listing.
+        holder_count (int | Unset): HolderCount is the number of wallets holding a positive balance of
+            this mint, off the sealed holder-stats family of the mint's row (pool
+            inventory excluded by token account); nil until the family is sealed.
         honeypot (PulsightInternalCoreDomainAggregatorMintHoneypot | Unset):
         insiders (PulsightInternalCoreDomainAggregatorMintInsiders | Unset):
         is_mayhem_mode (bool | Unset): IsMayhemMode flags a Pump.fun "Mayhem"-mode token (its trades route
-            through the Mayhem custody program). Populated on BOTH list and detail
-            from the mint_mayhem table; omitted when false.
+            through the Mayhem custody program). Populated on BOTH list and detail;
+            omitted when false.
         last_trade_ts (str | Unset):
         logo_uri (str | Unset):
         lp_burned (bool | Unset): LpBurned reports whether ANY LP burn is on file for the mint — the same
-            `lp_events(op='burn')` set the `lp_burned=1` listing filter uses, so the
-            audit glyph and the filter can never disagree. Page-scoped, so it is a
-            definite true/false for every returned row (never nil on the list path);
-            nil on the detail path, where the batch does not run.
-        market_cap_usd (float | Unset): MarketCapUsd is PriceUsd × circulating supply. Equivalently
-            close_sol × supply_raw × sol_usd / 1e6 (token decimals cancel), so
-            it's populated even when decimals are unknown (unlike PriceUsd). nil
-            when the WSOL close, supply, or SOL/USD ref is missing.
+            flag the `lp_burned=1` listing filter uses, so the audit glyph and the
+            filter can never disagree.
+        market_cap_usd (float | Unset): MarketCapUsd is the stored latest price × supply, in USD; nil when
+            either is unknown.
         markets_count (int | Unset):
         metadata_uri (str | Unset): MetadataURI/FetchStatus are detail-only identity fields the
             frontend's TokenIdentityCard renders (off-chain JSON link + enrich
@@ -82,26 +74,14 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             nil with AuthoritiesObservedAt set = renounced; nil with
             AuthoritiesObservedAt nil = unknown (not yet observed).
         name (str | Unset):
-        price_sparkline (list[float] | Unset): PriceSparkline is the mint's last-24h price shape: WSOL-quoted per-minute
-            closes of the mint's DOMINANT pool (highest 24h quote volume — one pool,
-            never a merge, so a dust side-market's prints can't flatten the line),
-            oldest→newest, at most priceSparklineMaxPoints values. A mint that
-            traded through the whole window is sampled evenly down to that cap
-            (so the series still spans 24h, just coarser); one that traded for an
-            hour carries all of it. It rides the SAME scan as PriceUsd, so it
-            carries the same denomination caveat: WSOL-quoted only, which is why a
-            USDC-only mint has none rather than a series in another unit (mixing
-            quotes would draw a step that never happened). Values are raw SOL per
-            whole token, rounded to 6 significant digits — the client normalises to
-            its own min/max, so the unit only has to be CONSISTENT within the
-            series, and this is a SHAPE, not a price read (use PriceUsd for that).
-            Only minutes that actually traded appear, so the x axis is trade
-            sequence, not wall clock. Omitted below 2 points — but a mint younger
-            than ~10 minutes gets its points from 1-SECOND candles instead, so a
-            fresh row draws a line as soon as it has two seconds of trading.
-        price_usd (float | Unset): PriceUsd is the latest price per WHOLE token in USD, derived from the
-            dominant WSOL-quoted OHLCV close × the SOL/USD reference rate. nil
-            when there's no WSOL pool, decimals are unknown, or no SOL/USD ref.
+        price_sparkline (list[float] | Unset): PriceSparkline is the mint's last-24h price shape: the USD closes of
+            its dominant pool at 15-minute buckets, oldest→newest, at most
+            priceSparklineMaxPoints values rounded to 6 significant digits. Only
+            buckets that traded appear. It is a SHAPE (the client normalises to
+            its own min/max), not a price read. Omitted below 2 points.
+        price_usd (float | Unset): PriceUsd is the stored latest price per WHOLE token in USD (the
+            reference pool's per-raw-unit stamp scaled by the mint's decimals);
+            nil when the mint has no priced reference pool or unknown decimals.
         risk_score (int | Unset): RiskScore/RiskVerdict are a fast at-a-glance risk score (0..100 +
             low|caution|high|critical) computed from the signals already on this row
             (authorities, honeypot/copycat/sell-trap, dev %, bundle, top-10
@@ -113,55 +93,37 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         risk_verdict (str | Unset):
         sell_count (int | Unset):
         stats (PulsightInternalCoreDomainAggregatorMintStatsByWindow | Unset):
-        supply (str | Unset): Supply is the on-chain total supply (NUMERIC → decimal string, raw
+        supply (str | Unset): Supply is the on-chain total supply (decimal string, raw
             smallest units); nil until the enricher has decoded the mint account.
             Populated on the list path to back the market-cap column.
-        swap_count (int | Unset): Window-bound activity aggregates over the `?hours` lookback,
-            derived from hourly_mint_trader_activity + hourly_mint_pool_activity.
-            All non-pointer because GROUP BY in the LATERAL produces a row even
-            for zero swaps (we go through the activity gate first, so anything
-            returned has at least one). SwapCount, TraderCount and MarketsCount
-            default to 0 if the LATERAL came up empty; the frontend's `formatNum`
-            renders 0 cleanly.
+        swap_count (int | Unset): Activity counts. On the listing they count the `?hours` gate the page
+            was filtered on, off the board row's gate counters; on the detail page
+            SwapCount, BuyCount and SellCount are lifetime and TraderCount is 0.
+            MarketsCount is the number of pools the mint trades in.
         symbol (str | Unset):
         top10_pct (float | Unset): Top10Pct is the top-10 holder concentration as a PERCENT of circulating
-            supply (0..100). Already read per page by top10ConcentrationBatch to
-            score the row — emitting it costs nothing extra and is what the listing's
-            Distribution column leads with. nil when the accumulator has no row for
-            the mint (fresh token, or holder balances not yet folded).
-        top_dex (str | Unset): TopDex is the venue slug of the mint's DOMINANT pool over the activity
-            window — the pool with the most quote volume, i.e. the venue the token
-            actually trades on. Same vocabulary as `?dex=` and `swaps.dex`; look up
-            the display label via DEX_LABEL. Rides fillMarketsCount's existing scan
-            (same GROUP BY, one more aggregate), so it is free. nil when the mint had
-            no dex_swaps row in the window.
+            supply (0..100), off the mint's holder-stats plane — the figure the
+            listing's Distribution column leads with. nil until the plane has
+            folded the mint's holders.
+        top_dex (str | Unset): TopDex is the venue slug the token actually trades on: on the listing
+            the mint's dominant pool's venue, on the detail page its graduation
+            target or else its launchpad. Same vocabulary as `?dex=`; look up the
+            display label via DEX_LABEL. nil when unknown.
         total_fees_sol (int | Unset): TotalFeesSol — LIFETIME network fees paid trading the mint, in
-            lamports: tx fees (base + priority) plus MEV tips summed over its
-            swaps (CA 000137 on mint_activity_totals; the 000064 sawtooth basis —
-            lifetime between stats rebuilds, re-synced to the swaps 3-month
-            retention at each healer finalize). Unlike the counts above it is NOT
-            hours-window-bound. nil until the migration is applied or when the
-            page decoration read fails.
-        total_tx_count (int | Unset): TotalTxCount — LIFETIME swap count for the mint, from the same
-            mint_activity_totals seek as TotalFeesSol (and on its same sawtooth
-            basis). It is the fee figure's denominator: the bot-fee-pattern risk
-            rule scores fees PER transaction, so the two must share a basis —
+            lamports: tx fees (base + priority) plus MEV tips over its trades.
+            Unlike the listing's counts above it is NOT hours-window-bound. nil
+            when the mint has no trades on file.
+        total_fees_usd (int | Unset): TotalFeesUsd is the same figure on the USD stamps (micro-USD).
+        total_tx_count (int | Unset): TotalTxCount — LIFETIME trade count for the mint, on the same basis as
+            TotalFeesSol. It is the fee figure's denominator: the bot-fee-pattern
+            risk rule scores fees PER transaction, so the two must share a basis —
             the hours-window SwapCount would not. nil whenever TotalFeesSol is.
         trader_count (int | Unset):
         trader_quality (PulsightInternalCoreDomainAggregatorMintTraderQuality | Unset):
-        unique_traders (int | Unset): UniqueTraders is the number of distinct wallets that have EVER traded
-            this mint, folded from the insert-time uniq plane (`mint_trader_uniq`)
-            that accumulates one `uniq` state per mint off `swaps`. Distinct from
-            TraderCount (a WINDOWED count over the `?hours` gate, list path only):
-            UniqueTraders is LIFETIME, so the list column and the
-            /api/mints/:pubkey detail render the same value. Exact below ~10k
-            distinct wallets and HLL-approximate above — a trader set only ever
-            grows, which is what lets it be an accumulator at all (a holder set does
-            not, and HolderCount keeps its fold). Populated on BOTH paths,
-            best-effort: nil when the read is unavailable. A quote-registry mint
-            (WSOL, the USD stables) never appears as `swaps.mint`, so its detail
-            counts the distinct wallets of its last 30 days of per-leg dex_swaps
-            instead.
+        unique_traders (int | Unset): UniqueTraders is the LIFETIME number of distinct wallets that traded
+            this mint (the insert-time `mint_traders` plane on the detail path, the
+            holder-stats traders on the list path), as opposed to TraderCount, the
+            count over the `?hours` gate; nil when unavailable.
         verified (bool | Unset): Verified marks a mint on the curated verified token list (Jupiter's,
             refreshed hourly by the jupverified registry). Also the copycat
             CANONICAL exemption: a verified member of a name-dupe farm keeps its
@@ -204,6 +166,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
     top10_pct: float | Unset = UNSET
     top_dex: str | Unset = UNSET
     total_fees_sol: int | Unset = UNSET
+    total_fees_usd: int | Unset = UNSET
     total_tx_count: int | Unset = UNSET
     trader_count: int | Unset = UNSET
     trader_quality: PulsightInternalCoreDomainAggregatorMintTraderQuality | Unset = (
@@ -298,6 +261,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         total_fees_sol = self.total_fees_sol
 
+        total_fees_usd = self.total_fees_usd
+
         total_tx_count = self.total_tx_count
 
         trader_count = self.trader_count
@@ -383,6 +348,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             field_dict["top_dex"] = top_dex
         if total_fees_sol is not UNSET:
             field_dict["total_fees_sol"] = total_fees_sol
+        if total_fees_usd is not UNSET:
+            field_dict["total_fees_usd"] = total_fees_usd
         if total_tx_count is not UNSET:
             field_dict["total_tx_count"] = total_tx_count
         if trader_count is not UNSET:
@@ -535,6 +502,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         total_fees_sol = d.pop("total_fees_sol", UNSET)
 
+        total_fees_usd = d.pop("total_fees_usd", UNSET)
+
         total_tx_count = d.pop("total_tx_count", UNSET)
 
         trader_count = d.pop("trader_count", UNSET)
@@ -590,6 +559,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             top10_pct=top10_pct,
             top_dex=top_dex,
             total_fees_sol=total_fees_sol,
+            total_fees_usd=total_fees_usd,
             total_tx_count=total_tx_count,
             trader_count=trader_count,
             trader_quality=trader_quality,

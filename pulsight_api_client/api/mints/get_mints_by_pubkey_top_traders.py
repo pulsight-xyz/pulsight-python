@@ -112,8 +112,8 @@ def sync_detailed(
 ]:
     """List Mint Top Traders
 
-     Per-(trader) leaderboard for one mint from `trader_token_stats` (all positions). sort ∈
-    {pnl,volume,swaps,recent} (default pnl). Paged via offset.
+     Per-(trader) leaderboard for one mint off its `trader_positions` rows (all positions, closed ones
+    included). sort ∈ {pnl,volume,swaps,recent} (default pnl). Paged via offset.
 
     Args:
         pubkey (str):
@@ -157,8 +157,8 @@ def sync(
 ):
     """List Mint Top Traders
 
-     Per-(trader) leaderboard for one mint from `trader_token_stats` (all positions). sort ∈
-    {pnl,volume,swaps,recent} (default pnl). Paged via offset.
+     Per-(trader) leaderboard for one mint off its `trader_positions` rows (all positions, closed ones
+    included). sort ∈ {pnl,volume,swaps,recent} (default pnl). Paged via offset.
 
     Args:
         pubkey (str):
@@ -196,8 +196,8 @@ async def asyncio_detailed(
 ]:
     """List Mint Top Traders
 
-     Per-(trader) leaderboard for one mint from `trader_token_stats` (all positions). sort ∈
-    {pnl,volume,swaps,recent} (default pnl). Paged via offset.
+     Per-(trader) leaderboard for one mint off its `trader_positions` rows (all positions, closed ones
+    included). sort ∈ {pnl,volume,swaps,recent} (default pnl). Paged via offset.
 
     Args:
         pubkey (str):
@@ -239,8 +239,8 @@ async def asyncio(
 ):
     """List Mint Top Traders
 
-     Per-(trader) leaderboard for one mint from `trader_token_stats` (all positions). sort ∈
-    {pnl,volume,swaps,recent} (default pnl). Paged via offset.
+     Per-(trader) leaderboard for one mint off its `trader_positions` rows (all positions, closed ones
+    included). sort ∈ {pnl,volume,swaps,recent} (default pnl). Paged via offset.
 
     Args:
         pubkey (str):

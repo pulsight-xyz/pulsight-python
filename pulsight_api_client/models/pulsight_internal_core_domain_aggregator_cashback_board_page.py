@@ -29,6 +29,8 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardPage:
         limit (int | Unset):
         offset (int | Unset):
         total (int | Unset):
+        unit (str | Unset): Unit is the currency the page was ranked and filtered in (sol|usd);
+            every row carries both.
         window (PulsightInternalCoreDomainAggregatorWindow | Unset):
     """
 
@@ -36,6 +38,7 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardPage:
     limit: int | Unset = UNSET
     offset: int | Unset = UNSET
     total: int | Unset = UNSET
+    unit: str | Unset = UNSET
     window: PulsightInternalCoreDomainAggregatorWindow | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -53,6 +56,8 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardPage:
 
         total = self.total
 
+        unit = self.unit
+
         window: str | Unset = UNSET
         if not isinstance(self.window, Unset):
             window = self.window.value
@@ -68,6 +73,8 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardPage:
             field_dict["offset"] = offset
         if total is not UNSET:
             field_dict["total"] = total
+        if unit is not UNSET:
+            field_dict["unit"] = unit
         if window is not UNSET:
             field_dict["window"] = window
 
@@ -101,6 +108,8 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardPage:
 
         total = d.pop("total", UNSET)
 
+        unit = d.pop("unit", UNSET)
+
         _window = d.pop("window", UNSET)
         window: PulsightInternalCoreDomainAggregatorWindow | Unset
         if isinstance(_window, Unset):
@@ -113,6 +122,7 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardPage:
             limit=limit,
             offset=offset,
             total=total,
+            unit=unit,
             window=window,
         )
 

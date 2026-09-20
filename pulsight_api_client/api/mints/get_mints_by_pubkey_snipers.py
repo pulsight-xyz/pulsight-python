@@ -121,9 +121,8 @@ def sync_detailed(
 
      Launch snipers of one mint (wallets whose first buy is within 30s of the mint's first observed swap)
     — the SAME set `/risk` counts — in the top-traders row shape: on-chain balance and % of circulating
-    supply, `trader_token_stats` PnL columns, swaps-derived first buy. sort ∈
-    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
-    (reveals wallet addresses).
+    supply, and the position's PnL and first buy. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent}
+    (default balance). Paged via offset. Login required (reveals wallet addresses).
 
     Args:
         pubkey (str):
@@ -169,9 +168,8 @@ def sync(
 
      Launch snipers of one mint (wallets whose first buy is within 30s of the mint's first observed swap)
     — the SAME set `/risk` counts — in the top-traders row shape: on-chain balance and % of circulating
-    supply, `trader_token_stats` PnL columns, swaps-derived first buy. sort ∈
-    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
-    (reveals wallet addresses).
+    supply, and the position's PnL and first buy. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent}
+    (default balance). Paged via offset. Login required (reveals wallet addresses).
 
     Args:
         pubkey (str):
@@ -211,9 +209,8 @@ async def asyncio_detailed(
 
      Launch snipers of one mint (wallets whose first buy is within 30s of the mint's first observed swap)
     — the SAME set `/risk` counts — in the top-traders row shape: on-chain balance and % of circulating
-    supply, `trader_token_stats` PnL columns, swaps-derived first buy. sort ∈
-    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
-    (reveals wallet addresses).
+    supply, and the position's PnL and first buy. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent}
+    (default balance). Paged via offset. Login required (reveals wallet addresses).
 
     Args:
         pubkey (str):
@@ -257,9 +254,8 @@ async def asyncio(
 
      Launch snipers of one mint (wallets whose first buy is within 30s of the mint's first observed swap)
     — the SAME set `/risk` counts — in the top-traders row shape: on-chain balance and % of circulating
-    supply, `trader_token_stats` PnL columns, swaps-derived first buy. sort ∈
-    {balance,holding_pnl,pnl,volume,swaps,recent} (default balance). Paged via offset. Login required
-    (reveals wallet addresses).
+    supply, and the position's PnL and first buy. sort ∈ {balance,holding_pnl,pnl,volume,swaps,recent}
+    (default balance). Paged via offset. Login required (reveals wallet addresses).
 
     Args:
         pubkey (str):

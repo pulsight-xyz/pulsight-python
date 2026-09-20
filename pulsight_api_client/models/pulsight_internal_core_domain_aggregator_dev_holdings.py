@@ -16,7 +16,7 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorDevHoldings")
 class PulsightInternalCoreDomainAggregatorDevHoldings:
     """
     Attributes:
-        balance_raw (str | Unset): Creator's raw token balance (NUMERIC → decimal string).
+        balance_raw (str | Unset): Creator's raw token balance (decimal string).
         creator (str | Unset): Creator wallet (mirrors MintRow.Creator).
         percent_of_supply (float | Unset): Percentage of supply held by the creator, 0..=100.
         supply_raw (str | Unset): Mint's on-chain total supply (same encoding).

@@ -16,16 +16,15 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorBondingCurveState")
 class PulsightInternalCoreDomainAggregatorBondingCurveState:
     """
     Attributes:
-        graduated (bool | Unset): True iff mint_migrations carries any graduation row for this mint.
+        graduated (bool | Unset): True iff a graduation is on file for this mint.
         graduation_target_dex (str | Unset): Destination dex of the graduation; nil when not graduated.
         launchpad (str | Unset): Launchpad slug — pumpfun_amm | raydium_launchpad | meteora_dbc.
         progress_pct (float | Unset): Curve progress 0..=100. nil for Raydium Launchpad / Meteora DBC
             (per-pool config not persisted); always set for PumpFun.
-        virtual_sol_lamports (int | Unset): Most recent observed virtual_sol (= dex_swaps.quote_reserves)
-            snapshot on the launchpad dex, in lamports. 0 for pre-feature
-            graduations with no curve swap on file.
-        virtual_token (str | Unset): Most recent observed virtual_token (NUMERIC → decimal string for
-            JSON safety). "0" when no curve swap is on file.
+        virtual_sol_lamports (int | Unset): Latest observed quote reserve of the launchpad curve, in lamports. 0
+            for a graduation with no curve trade on file.
+        virtual_token (str | Unset): Latest observed base reserve of the curve (decimal string for JSON
+            safety). "0" when no curve trade is on file.
     """
 
     graduated: bool | Unset = UNSET

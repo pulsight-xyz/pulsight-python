@@ -26,12 +26,12 @@ class PulsightInternalCoreDomainAggregatorMintWindowStatsBundle:
         mint (str | Unset):
         stats (PulsightInternalCoreDomainAggregatorMintStatsByWindow | Unset):
         total_fees_lifetime_sol (int | Unset): TotalFeesLifetimeSol — LIFETIME network fees paid trading the mint,
-            in lamports (same basis and plane as MintRow.TotalFeesSol on the
-            listing: CA 000137's `fees` on mint_activity_totals, NOT bound to any
-            window). Feeds the token detail page's header bar. nil until the
-            migration is applied or when the best-effort read fails.
-        total_tx_count_lifetime (int | Unset): TotalTxCountLifetime — LIFETIME swap count for the mint, from the same
-            mint_activity_totals seek as TotalFeesLifetimeSol and on its same basis.
+            in lamports (`mint_activity_totals`, NOT bound to any window). Feeds
+            the token detail page's header bar. nil when the best-effort read
+            fails.
+        total_fees_lifetime_usd (int | Unset): TotalFeesLifetimeUsd is the same figure on the USD stamps (micro-USD).
+        total_tx_count_lifetime (int | Unset): TotalTxCountLifetime — LIFETIME trade count for the mint, from the same
+            `mint_activity_totals` read as TotalFeesLifetimeSol.
             It is the denominator a windowless token-metric gate reads, and pairing
             the two keeps a per-transaction fee figure on one basis. nil whenever
             TotalFeesLifetimeSol is.
@@ -41,6 +41,7 @@ class PulsightInternalCoreDomainAggregatorMintWindowStatsBundle:
     mint: str | Unset = UNSET
     stats: PulsightInternalCoreDomainAggregatorMintStatsByWindow | Unset = UNSET
     total_fees_lifetime_sol: int | Unset = UNSET
+    total_fees_lifetime_usd: int | Unset = UNSET
     total_tx_count_lifetime: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -55,6 +56,8 @@ class PulsightInternalCoreDomainAggregatorMintWindowStatsBundle:
 
         total_fees_lifetime_sol = self.total_fees_lifetime_sol
 
+        total_fees_lifetime_usd = self.total_fees_lifetime_usd
+
         total_tx_count_lifetime = self.total_tx_count_lifetime
 
         field_dict: dict[str, Any] = {}
@@ -68,6 +71,8 @@ class PulsightInternalCoreDomainAggregatorMintWindowStatsBundle:
             field_dict["stats"] = stats
         if total_fees_lifetime_sol is not UNSET:
             field_dict["total_fees_lifetime_sol"] = total_fees_lifetime_sol
+        if total_fees_lifetime_usd is not UNSET:
+            field_dict["total_fees_lifetime_usd"] = total_fees_lifetime_usd
         if total_tx_count_lifetime is not UNSET:
             field_dict["total_tx_count_lifetime"] = total_tx_count_lifetime
 
@@ -95,6 +100,8 @@ class PulsightInternalCoreDomainAggregatorMintWindowStatsBundle:
 
         total_fees_lifetime_sol = d.pop("total_fees_lifetime_sol", UNSET)
 
+        total_fees_lifetime_usd = d.pop("total_fees_lifetime_usd", UNSET)
+
         total_tx_count_lifetime = d.pop("total_tx_count_lifetime", UNSET)
 
         pulsight_internal_core_domain_aggregator_mint_window_stats_bundle = cls(
@@ -102,6 +109,7 @@ class PulsightInternalCoreDomainAggregatorMintWindowStatsBundle:
             mint=mint,
             stats=stats,
             total_fees_lifetime_sol=total_fees_lifetime_sol,
+            total_fees_lifetime_usd=total_fees_lifetime_usd,
             total_tx_count_lifetime=total_tx_count_lifetime,
         )
 

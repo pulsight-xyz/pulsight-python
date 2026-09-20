@@ -20,31 +20,43 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardSummary:
     """
     Attributes:
         claim_count (int | Unset):
-        claimed_lamports (int | Unset): ClaimedLamports / ClaimCount: on the lifetime window these are
-            RETENTION-BOUNDED sums over the 75-day claim ledger (undercount, never
-            invented).
+        claimed_lamports (int | Unset): ClaimedLamports / ClaimCount: the population's kept claims and their
+            count.
+        claimed_usd (int | Unset):
         earned_lamports (int | Unset):
+        earned_usd (int | Unset): The Usd twins are the same population figures on the USD stamps
+            (micro-USD).
         earners (int | Unset): Earners / EarnedLamports — wallets with any earned cashback in the
             window, and their summed earnings (the "% of pool" denominator).
         holder_reward_payouts (int | Unset):
         holder_rewards_lamports (int | Unset): HolderRewardsLamports / HolderRewardPayouts / RewardsTotalLamports —
             the same population's holder-reward side and the merged cash-basis
             total the board ranks on by default.
+        holder_rewards_usd (int | Unset):
         median_earned_lamports (int | Unset): Population marks.
+        median_earned_usd (int | Unset):
         rank1_earned_lamports (int | Unset):
+        rank1_earned_usd (int | Unset):
         rewards_total_lamports (int | Unset):
+        rewards_total_usd (int | Unset):
         window (PulsightInternalCoreDomainAggregatorWindow | Unset):
     """
 
     claim_count: int | Unset = UNSET
     claimed_lamports: int | Unset = UNSET
+    claimed_usd: int | Unset = UNSET
     earned_lamports: int | Unset = UNSET
+    earned_usd: int | Unset = UNSET
     earners: int | Unset = UNSET
     holder_reward_payouts: int | Unset = UNSET
     holder_rewards_lamports: int | Unset = UNSET
+    holder_rewards_usd: int | Unset = UNSET
     median_earned_lamports: int | Unset = UNSET
+    median_earned_usd: int | Unset = UNSET
     rank1_earned_lamports: int | Unset = UNSET
+    rank1_earned_usd: int | Unset = UNSET
     rewards_total_lamports: int | Unset = UNSET
+    rewards_total_usd: int | Unset = UNSET
     window: PulsightInternalCoreDomainAggregatorWindow | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -53,7 +65,11 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardSummary:
 
         claimed_lamports = self.claimed_lamports
 
+        claimed_usd = self.claimed_usd
+
         earned_lamports = self.earned_lamports
+
+        earned_usd = self.earned_usd
 
         earners = self.earners
 
@@ -61,11 +77,19 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardSummary:
 
         holder_rewards_lamports = self.holder_rewards_lamports
 
+        holder_rewards_usd = self.holder_rewards_usd
+
         median_earned_lamports = self.median_earned_lamports
+
+        median_earned_usd = self.median_earned_usd
 
         rank1_earned_lamports = self.rank1_earned_lamports
 
+        rank1_earned_usd = self.rank1_earned_usd
+
         rewards_total_lamports = self.rewards_total_lamports
+
+        rewards_total_usd = self.rewards_total_usd
 
         window: str | Unset = UNSET
         if not isinstance(self.window, Unset):
@@ -78,20 +102,32 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardSummary:
             field_dict["claim_count"] = claim_count
         if claimed_lamports is not UNSET:
             field_dict["claimed_lamports"] = claimed_lamports
+        if claimed_usd is not UNSET:
+            field_dict["claimed_usd"] = claimed_usd
         if earned_lamports is not UNSET:
             field_dict["earned_lamports"] = earned_lamports
+        if earned_usd is not UNSET:
+            field_dict["earned_usd"] = earned_usd
         if earners is not UNSET:
             field_dict["earners"] = earners
         if holder_reward_payouts is not UNSET:
             field_dict["holder_reward_payouts"] = holder_reward_payouts
         if holder_rewards_lamports is not UNSET:
             field_dict["holder_rewards_lamports"] = holder_rewards_lamports
+        if holder_rewards_usd is not UNSET:
+            field_dict["holder_rewards_usd"] = holder_rewards_usd
         if median_earned_lamports is not UNSET:
             field_dict["median_earned_lamports"] = median_earned_lamports
+        if median_earned_usd is not UNSET:
+            field_dict["median_earned_usd"] = median_earned_usd
         if rank1_earned_lamports is not UNSET:
             field_dict["rank1_earned_lamports"] = rank1_earned_lamports
+        if rank1_earned_usd is not UNSET:
+            field_dict["rank1_earned_usd"] = rank1_earned_usd
         if rewards_total_lamports is not UNSET:
             field_dict["rewards_total_lamports"] = rewards_total_lamports
+        if rewards_total_usd is not UNSET:
+            field_dict["rewards_total_usd"] = rewards_total_usd
         if window is not UNSET:
             field_dict["window"] = window
 
@@ -104,7 +140,11 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardSummary:
 
         claimed_lamports = d.pop("claimed_lamports", UNSET)
 
+        claimed_usd = d.pop("claimed_usd", UNSET)
+
         earned_lamports = d.pop("earned_lamports", UNSET)
+
+        earned_usd = d.pop("earned_usd", UNSET)
 
         earners = d.pop("earners", UNSET)
 
@@ -112,11 +152,19 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardSummary:
 
         holder_rewards_lamports = d.pop("holder_rewards_lamports", UNSET)
 
+        holder_rewards_usd = d.pop("holder_rewards_usd", UNSET)
+
         median_earned_lamports = d.pop("median_earned_lamports", UNSET)
+
+        median_earned_usd = d.pop("median_earned_usd", UNSET)
 
         rank1_earned_lamports = d.pop("rank1_earned_lamports", UNSET)
 
+        rank1_earned_usd = d.pop("rank1_earned_usd", UNSET)
+
         rewards_total_lamports = d.pop("rewards_total_lamports", UNSET)
+
+        rewards_total_usd = d.pop("rewards_total_usd", UNSET)
 
         _window = d.pop("window", UNSET)
         window: PulsightInternalCoreDomainAggregatorWindow | Unset
@@ -128,13 +176,19 @@ class PulsightInternalCoreDomainAggregatorCashbackBoardSummary:
         pulsight_internal_core_domain_aggregator_cashback_board_summary = cls(
             claim_count=claim_count,
             claimed_lamports=claimed_lamports,
+            claimed_usd=claimed_usd,
             earned_lamports=earned_lamports,
+            earned_usd=earned_usd,
             earners=earners,
             holder_reward_payouts=holder_reward_payouts,
             holder_rewards_lamports=holder_rewards_lamports,
+            holder_rewards_usd=holder_rewards_usd,
             median_earned_lamports=median_earned_lamports,
+            median_earned_usd=median_earned_usd,
             rank1_earned_lamports=rank1_earned_lamports,
+            rank1_earned_usd=rank1_earned_usd,
             rewards_total_lamports=rewards_total_lamports,
+            rewards_total_usd=rewards_total_usd,
             window=window,
         )
 

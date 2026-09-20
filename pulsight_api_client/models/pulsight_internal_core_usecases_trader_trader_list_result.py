@@ -28,6 +28,8 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
         next_cursor_value (float | Unset):
         offset (int | Unset):
         total (int | Unset):
+        unit (str | Unset): Unit is the currency the page was ranked, filtered and cursored in
+            (sol|usd); every row carries both currencies regardless.
     """
 
     items: list[PulsightInternalCoreUsecasesTraderTraderListItem] | Unset = UNSET
@@ -36,6 +38,7 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
     next_cursor_value: float | Unset = UNSET
     offset: int | Unset = UNSET
     total: int | Unset = UNSET
+    unit: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -56,6 +59,8 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
 
         total = self.total
 
+        unit = self.unit
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -71,6 +76,8 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
             field_dict["offset"] = offset
         if total is not UNSET:
             field_dict["total"] = total
+        if unit is not UNSET:
+            field_dict["unit"] = unit
 
         return field_dict
 
@@ -102,6 +109,8 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
 
         total = d.pop("total", UNSET)
 
+        unit = d.pop("unit", UNSET)
+
         pulsight_internal_core_usecases_trader_trader_list_result = cls(
             items=items,
             limit=limit,
@@ -109,6 +118,7 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
             next_cursor_value=next_cursor_value,
             offset=offset,
             total=total,
+            unit=unit,
         )
 
         pulsight_internal_core_usecases_trader_trader_list_result.additional_properties = d

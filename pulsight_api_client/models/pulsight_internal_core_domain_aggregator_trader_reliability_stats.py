@@ -20,23 +20,27 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
     """
     Attributes:
         failed_arbs (int | Unset):
-        failed_fee_lamports (int | Unset): Lamports burned on failed txs (base + priority fee) vs on landed
-            no-CPI probes, plus tips the probes paid.
+        failed_fee_lamports (int | Unset): FailedFeeLamports is the network fee (base plus priority) the wallet
+            burned on its reverted transactions and landed no-CPI arb probes in the
+            window; NoCpiTipLamports is the tips those transactions paid;
+            NoCpiFeeLamports is unused (the fee of a no-CPI probe is in
+            FailedFeeLamports).
+        failed_fee_usd (int | Unset): FailedFeeUsd / NoCpiTipUsd are the two cost lines on their USD
+            stamps (micro-USD).
         failed_other (int | Unset):
         failed_swaps (int | Unset):
         failed_txs (int | Unset): = FailedSwaps + FailedArbs + FailedOther
-        landed_txs (int | Unset): LandedTxs is uniqExact(signature) over the wallet's `swaps` rows in
-            the window — successful swap TRANSACTIONS, not legs or trades.
+        landed_txs (int | Unset): LandedTxs counts the wallet's distinct landed transactions in the
+            window — transactions, not legs or trades.
         no_cpi_fee_lamports (int | Unset):
         no_cpi_tip_lamports (int | Unset):
+        no_cpi_tip_usd (int | Unset):
         no_cpi_txs (int | Unset):
-        observed_landed_txs (int | Unset): ObservedLandedTxs is LandedTxs narrowed to the hours the failed-tx
-            stream was actually running. Failed transactions are only recorded for
-            those hours — a historical backfill drops them at the fetch layer, and
-            nothing observed them before the feature shipped — so this is the only
-            landed count the rates below may divide by. It equals LandedTxs once a
-            window is fully observed; the gap is how much of the window is
-            un-scored.
+        observed_landed_txs (int | Unset): ObservedLandedTxs is LandedTxs narrowed to the hours in which failed
+            transactions were recorded (`observed_hours`). Failed transactions exist
+            only for those hours, so this is the only landed count the rates below
+            may divide by. It equals LandedTxs once a window is fully observed; the
+            gap is how much of the window is un-scored.
         pubkey (str | Unset):
         spam_rate (float | Unset):
         success_rate (float | Unset): SuccessRate = ObservedLandedTxs / (ObservedLandedTxs + FailedTxs);
@@ -49,12 +53,14 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
 
     failed_arbs: int | Unset = UNSET
     failed_fee_lamports: int | Unset = UNSET
+    failed_fee_usd: int | Unset = UNSET
     failed_other: int | Unset = UNSET
     failed_swaps: int | Unset = UNSET
     failed_txs: int | Unset = UNSET
     landed_txs: int | Unset = UNSET
     no_cpi_fee_lamports: int | Unset = UNSET
     no_cpi_tip_lamports: int | Unset = UNSET
+    no_cpi_tip_usd: int | Unset = UNSET
     no_cpi_txs: int | Unset = UNSET
     observed_landed_txs: int | Unset = UNSET
     pubkey: str | Unset = UNSET
@@ -68,6 +74,8 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
 
         failed_fee_lamports = self.failed_fee_lamports
 
+        failed_fee_usd = self.failed_fee_usd
+
         failed_other = self.failed_other
 
         failed_swaps = self.failed_swaps
@@ -79,6 +87,8 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
         no_cpi_fee_lamports = self.no_cpi_fee_lamports
 
         no_cpi_tip_lamports = self.no_cpi_tip_lamports
+
+        no_cpi_tip_usd = self.no_cpi_tip_usd
 
         no_cpi_txs = self.no_cpi_txs
 
@@ -101,6 +111,8 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
             field_dict["failed_arbs"] = failed_arbs
         if failed_fee_lamports is not UNSET:
             field_dict["failed_fee_lamports"] = failed_fee_lamports
+        if failed_fee_usd is not UNSET:
+            field_dict["failed_fee_usd"] = failed_fee_usd
         if failed_other is not UNSET:
             field_dict["failed_other"] = failed_other
         if failed_swaps is not UNSET:
@@ -113,6 +125,8 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
             field_dict["no_cpi_fee_lamports"] = no_cpi_fee_lamports
         if no_cpi_tip_lamports is not UNSET:
             field_dict["no_cpi_tip_lamports"] = no_cpi_tip_lamports
+        if no_cpi_tip_usd is not UNSET:
+            field_dict["no_cpi_tip_usd"] = no_cpi_tip_usd
         if no_cpi_txs is not UNSET:
             field_dict["no_cpi_txs"] = no_cpi_txs
         if observed_landed_txs is not UNSET:
@@ -135,6 +149,8 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
 
         failed_fee_lamports = d.pop("failed_fee_lamports", UNSET)
 
+        failed_fee_usd = d.pop("failed_fee_usd", UNSET)
+
         failed_other = d.pop("failed_other", UNSET)
 
         failed_swaps = d.pop("failed_swaps", UNSET)
@@ -146,6 +162,8 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
         no_cpi_fee_lamports = d.pop("no_cpi_fee_lamports", UNSET)
 
         no_cpi_tip_lamports = d.pop("no_cpi_tip_lamports", UNSET)
+
+        no_cpi_tip_usd = d.pop("no_cpi_tip_usd", UNSET)
 
         no_cpi_txs = d.pop("no_cpi_txs", UNSET)
 
@@ -167,12 +185,14 @@ class PulsightInternalCoreDomainAggregatorTraderReliabilityStats:
         pulsight_internal_core_domain_aggregator_trader_reliability_stats = cls(
             failed_arbs=failed_arbs,
             failed_fee_lamports=failed_fee_lamports,
+            failed_fee_usd=failed_fee_usd,
             failed_other=failed_other,
             failed_swaps=failed_swaps,
             failed_txs=failed_txs,
             landed_txs=landed_txs,
             no_cpi_fee_lamports=no_cpi_fee_lamports,
             no_cpi_tip_lamports=no_cpi_tip_lamports,
+            no_cpi_tip_usd=no_cpi_tip_usd,
             no_cpi_txs=no_cpi_txs,
             observed_landed_txs=observed_landed_txs,
             pubkey=pubkey,

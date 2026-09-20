@@ -100,11 +100,10 @@ def sync_detailed(
 
      One wallet's reward events, newest first, paged: both its claim_cashback executions and the holder-
     reward payouts pushed to it, interleaved in one timestamp order and told apart by `kind`. A claim
-    carries the pump program it swept; a payout carries the coin that paid it. Read from the raw ledgers
-    (75-day retention): older events have aged out; the program-reported anchors on the rewards panel
-    carry the true all-time totals. Amounts are in the event's quote-mint base units (lamports for WSOL
-    rows, which is nearly all of them), and `amount_lamports` is zero on a payout whose quote could not
-    be priced in SOL — `priced` says which.
+    carries the pump program it swept; a payout carries the coin that paid it. Read from the
+    `cashback_claims` and `holder_reward_payouts` ledgers. `amount` is in the event's quote-mint base
+    units, `amount_lamports` and `amount_usd` are its value stamped at execution, and `amount_lamports`
+    is zero on an event whose quote could not be priced in SOL — `priced` says which.
 
     Args:
         wallet_address (str):
@@ -150,11 +149,10 @@ def sync(
 
      One wallet's reward events, newest first, paged: both its claim_cashback executions and the holder-
     reward payouts pushed to it, interleaved in one timestamp order and told apart by `kind`. A claim
-    carries the pump program it swept; a payout carries the coin that paid it. Read from the raw ledgers
-    (75-day retention): older events have aged out; the program-reported anchors on the rewards panel
-    carry the true all-time totals. Amounts are in the event's quote-mint base units (lamports for WSOL
-    rows, which is nearly all of them), and `amount_lamports` is zero on a payout whose quote could not
-    be priced in SOL — `priced` says which.
+    carries the pump program it swept; a payout carries the coin that paid it. Read from the
+    `cashback_claims` and `holder_reward_payouts` ledgers. `amount` is in the event's quote-mint base
+    units, `amount_lamports` and `amount_usd` are its value stamped at execution, and `amount_lamports`
+    is zero on an event whose quote could not be priced in SOL — `priced` says which.
 
     Args:
         wallet_address (str):
@@ -194,11 +192,10 @@ async def asyncio_detailed(
 
      One wallet's reward events, newest first, paged: both its claim_cashback executions and the holder-
     reward payouts pushed to it, interleaved in one timestamp order and told apart by `kind`. A claim
-    carries the pump program it swept; a payout carries the coin that paid it. Read from the raw ledgers
-    (75-day retention): older events have aged out; the program-reported anchors on the rewards panel
-    carry the true all-time totals. Amounts are in the event's quote-mint base units (lamports for WSOL
-    rows, which is nearly all of them), and `amount_lamports` is zero on a payout whose quote could not
-    be priced in SOL — `priced` says which.
+    carries the pump program it swept; a payout carries the coin that paid it. Read from the
+    `cashback_claims` and `holder_reward_payouts` ledgers. `amount` is in the event's quote-mint base
+    units, `amount_lamports` and `amount_usd` are its value stamped at execution, and `amount_lamports`
+    is zero on an event whose quote could not be priced in SOL — `priced` says which.
 
     Args:
         wallet_address (str):
@@ -242,11 +239,10 @@ async def asyncio(
 
      One wallet's reward events, newest first, paged: both its claim_cashback executions and the holder-
     reward payouts pushed to it, interleaved in one timestamp order and told apart by `kind`. A claim
-    carries the pump program it swept; a payout carries the coin that paid it. Read from the raw ledgers
-    (75-day retention): older events have aged out; the program-reported anchors on the rewards panel
-    carry the true all-time totals. Amounts are in the event's quote-mint base units (lamports for WSOL
-    rows, which is nearly all of them), and `amount_lamports` is zero on a payout whose quote could not
-    be priced in SOL — `priced` says which.
+    carries the pump program it swept; a payout carries the coin that paid it. Read from the
+    `cashback_claims` and `holder_reward_payouts` ledgers. `amount` is in the event's quote-mint base
+    units, `amount_lamports` and `amount_usd` are its value stamped at execution, and `amount_lamports`
+    is zero on an event whose quote could not be priced in SOL — `priced` says which.
 
     Args:
         wallet_address (str):

@@ -97,8 +97,8 @@ def sync_detailed(
 ]:
     """Get Mint Trader Stats
 
-     Single per-(trader, mint) stats row (same shape as a top-traders row) from `trader_token_stats`. 404
-    when the trader never traded the mint.
+     Single per-(trader, mint) stats row (same shape as a top-traders row). 404 when the trader neither
+    traded nor holds the mint.
 
     Args:
         pubkey (str):
@@ -136,8 +136,8 @@ def sync(
 ):
     """Get Mint Trader Stats
 
-     Single per-(trader, mint) stats row (same shape as a top-traders row) from `trader_token_stats`. 404
-    when the trader never traded the mint.
+     Single per-(trader, mint) stats row (same shape as a top-traders row). 404 when the trader neither
+    traded nor holds the mint.
 
     Args:
         pubkey (str):
@@ -169,8 +169,8 @@ async def asyncio_detailed(
 ]:
     """Get Mint Trader Stats
 
-     Single per-(trader, mint) stats row (same shape as a top-traders row) from `trader_token_stats`. 404
-    when the trader never traded the mint.
+     Single per-(trader, mint) stats row (same shape as a top-traders row). 404 when the trader neither
+    traded nor holds the mint.
 
     Args:
         pubkey (str):
@@ -206,8 +206,8 @@ async def asyncio(
 ):
     """Get Mint Trader Stats
 
-     Single per-(trader, mint) stats row (same shape as a top-traders row) from `trader_token_stats`. 404
-    when the trader never traded the mint.
+     Single per-(trader, mint) stats row (same shape as a top-traders row). 404 when the trader neither
+    traded nor holds the mint.
 
     Args:
         pubkey (str):
