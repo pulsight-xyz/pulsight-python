@@ -32,6 +32,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
             nobody traded the pool inside the gap. Nil on zero-latency runs and
             candle-driven fills.
         mint (str | Unset):
+        platform_fee_sol (float | Unset): PlatformFeeSol is the platform fee this fill pays, in SOL.
         pool (str | Unset): Pool is the AMM market this trade executed in. For a COPY trade it's the
             pool the mirrored target actually swapped in (per-leg dex_swaps); for an
             EMIT trade it's the run's pinned pool (SingleMint pin) or nil when the
@@ -47,6 +48,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         side (PulsightInternalCoreUsecasesBacktestSide | Unset):
         sol_amount (float | Unset):
         source (PulsightInternalCoreUsecasesBacktestTradeSource | Unset):
+        swap_fee_bps (int | Unset): SwapFeeBps is the venue swap fee this fill paid, in basis points.
         target_price_impact_pct (float | Unset): TargetPriceImpactPct is the MIRRORED trader's own price impact on the
             swap we copied — set on copy trades triggered by a target swap, measured
             against the reconstructed pre-swap reserve. It describes THEIR fill, so
@@ -54,6 +56,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
             into our own price. Nil for candle-driven emit trades.
         tip_sol (float | Unset):
         token_amount (float | Unset):
+        transfer_fee_sol (float | Unset): TransferFeeSol is the SOL value the token's Token-2022 transfer fee took
+            from this fill.
         triggering_swap_sig (str | Unset):
         ts (str | Unset):
     """
@@ -63,6 +67,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
     idx: int | Unset = UNSET
     landing_drift_bps: float | Unset = UNSET
     mint: str | Unset = UNSET
+    platform_fee_sol: float | Unset = UNSET
     pool: str | Unset = UNSET
     pool_sol_at_trigger: float | Unset = UNSET
     price_impact_pct: float | Unset = UNSET
@@ -71,9 +76,11 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
     side: PulsightInternalCoreUsecasesBacktestSide | Unset = UNSET
     sol_amount: float | Unset = UNSET
     source: PulsightInternalCoreUsecasesBacktestTradeSource | Unset = UNSET
+    swap_fee_bps: int | Unset = UNSET
     target_price_impact_pct: float | Unset = UNSET
     tip_sol: float | Unset = UNSET
     token_amount: float | Unset = UNSET
+    transfer_fee_sol: float | Unset = UNSET
     triggering_swap_sig: str | Unset = UNSET
     ts: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -88,6 +95,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         landing_drift_bps = self.landing_drift_bps
 
         mint = self.mint
+
+        platform_fee_sol = self.platform_fee_sol
 
         pool = self.pool
 
@@ -109,11 +118,15 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         if not isinstance(self.source, Unset):
             source = self.source.value
 
+        swap_fee_bps = self.swap_fee_bps
+
         target_price_impact_pct = self.target_price_impact_pct
 
         tip_sol = self.tip_sol
 
         token_amount = self.token_amount
+
+        transfer_fee_sol = self.transfer_fee_sol
 
         triggering_swap_sig = self.triggering_swap_sig
 
@@ -132,6 +145,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
             field_dict["landing_drift_bps"] = landing_drift_bps
         if mint is not UNSET:
             field_dict["mint"] = mint
+        if platform_fee_sol is not UNSET:
+            field_dict["platform_fee_sol"] = platform_fee_sol
         if pool is not UNSET:
             field_dict["pool"] = pool
         if pool_sol_at_trigger is not UNSET:
@@ -148,12 +163,16 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
             field_dict["sol_amount"] = sol_amount
         if source is not UNSET:
             field_dict["source"] = source
+        if swap_fee_bps is not UNSET:
+            field_dict["swap_fee_bps"] = swap_fee_bps
         if target_price_impact_pct is not UNSET:
             field_dict["target_price_impact_pct"] = target_price_impact_pct
         if tip_sol is not UNSET:
             field_dict["tip_sol"] = tip_sol
         if token_amount is not UNSET:
             field_dict["token_amount"] = token_amount
+        if transfer_fee_sol is not UNSET:
+            field_dict["transfer_fee_sol"] = transfer_fee_sol
         if triggering_swap_sig is not UNSET:
             field_dict["triggering_swap_sig"] = triggering_swap_sig
         if ts is not UNSET:
@@ -173,6 +192,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         landing_drift_bps = d.pop("landing_drift_bps", UNSET)
 
         mint = d.pop("mint", UNSET)
+
+        platform_fee_sol = d.pop("platform_fee_sol", UNSET)
 
         pool = d.pop("pool", UNSET)
 
@@ -200,11 +221,15 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         else:
             source = PulsightInternalCoreUsecasesBacktestTradeSource(_source)
 
+        swap_fee_bps = d.pop("swap_fee_bps", UNSET)
+
         target_price_impact_pct = d.pop("target_price_impact_pct", UNSET)
 
         tip_sol = d.pop("tip_sol", UNSET)
 
         token_amount = d.pop("token_amount", UNSET)
+
+        transfer_fee_sol = d.pop("transfer_fee_sol", UNSET)
 
         triggering_swap_sig = d.pop("triggering_swap_sig", UNSET)
 
@@ -216,6 +241,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
             idx=idx,
             landing_drift_bps=landing_drift_bps,
             mint=mint,
+            platform_fee_sol=platform_fee_sol,
             pool=pool,
             pool_sol_at_trigger=pool_sol_at_trigger,
             price_impact_pct=price_impact_pct,
@@ -224,9 +250,11 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
             side=side,
             sol_amount=sol_amount,
             source=source,
+            swap_fee_bps=swap_fee_bps,
             target_price_impact_pct=target_price_impact_pct,
             tip_sol=tip_sol,
             token_amount=token_amount,
+            transfer_fee_sol=transfer_fee_sol,
             triggering_swap_sig=triggering_swap_sig,
             ts=ts,
         )

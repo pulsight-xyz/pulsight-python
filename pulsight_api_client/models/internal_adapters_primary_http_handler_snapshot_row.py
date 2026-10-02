@@ -45,6 +45,8 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
         oldest_trade_at (str | Unset):
         pnl_distribution (list[int] | Unset):
         pnl_distribution_usd (list[int] | Unset): the buckets measured on the USD stamps
+        pnl_sparkline_30d (list[float] | Unset): lamports per day, window=30d only
+        pnl_sparkline_30d_usd (list[float] | Unset): micro-USD per day, window=30d only
         pnl_sparkline_7d (list[float] | Unset): lamports per day
         pnl_sparkline_7d_usd (list[float] | Unset): micro-USD per day
         tags (list[str] | Unset):
@@ -82,6 +84,8 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
     oldest_trade_at: str | Unset = UNSET
     pnl_distribution: list[int] | Unset = UNSET
     pnl_distribution_usd: list[int] | Unset = UNSET
+    pnl_sparkline_30d: list[float] | Unset = UNSET
+    pnl_sparkline_30d_usd: list[float] | Unset = UNSET
     pnl_sparkline_7d: list[float] | Unset = UNSET
     pnl_sparkline_7d_usd: list[float] | Unset = UNSET
     tags: list[str] | Unset = UNSET
@@ -152,6 +156,14 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
         pnl_distribution_usd: list[int] | Unset = UNSET
         if not isinstance(self.pnl_distribution_usd, Unset):
             pnl_distribution_usd = self.pnl_distribution_usd
+
+        pnl_sparkline_30d: list[float] | Unset = UNSET
+        if not isinstance(self.pnl_sparkline_30d, Unset):
+            pnl_sparkline_30d = self.pnl_sparkline_30d
+
+        pnl_sparkline_30d_usd: list[float] | Unset = UNSET
+        if not isinstance(self.pnl_sparkline_30d_usd, Unset):
+            pnl_sparkline_30d_usd = self.pnl_sparkline_30d_usd
 
         pnl_sparkline_7d: list[float] | Unset = UNSET
         if not isinstance(self.pnl_sparkline_7d, Unset):
@@ -232,6 +244,10 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
             field_dict["pnl_distribution"] = pnl_distribution
         if pnl_distribution_usd is not UNSET:
             field_dict["pnl_distribution_usd"] = pnl_distribution_usd
+        if pnl_sparkline_30d is not UNSET:
+            field_dict["pnl_sparkline_30d"] = pnl_sparkline_30d
+        if pnl_sparkline_30d_usd is not UNSET:
+            field_dict["pnl_sparkline_30d_usd"] = pnl_sparkline_30d_usd
         if pnl_sparkline_7d is not UNSET:
             field_dict["pnl_sparkline_7d"] = pnl_sparkline_7d
         if pnl_sparkline_7d_usd is not UNSET:
@@ -308,6 +324,10 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
 
         pnl_distribution_usd = cast(list[int], d.pop("pnl_distribution_usd", UNSET))
 
+        pnl_sparkline_30d = cast(list[float], d.pop("pnl_sparkline_30d", UNSET))
+
+        pnl_sparkline_30d_usd = cast(list[float], d.pop("pnl_sparkline_30d_usd", UNSET))
+
         pnl_sparkline_7d = cast(list[float], d.pop("pnl_sparkline_7d", UNSET))
 
         pnl_sparkline_7d_usd = cast(list[float], d.pop("pnl_sparkline_7d_usd", UNSET))
@@ -350,6 +370,8 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
             oldest_trade_at=oldest_trade_at,
             pnl_distribution=pnl_distribution,
             pnl_distribution_usd=pnl_distribution_usd,
+            pnl_sparkline_30d=pnl_sparkline_30d,
+            pnl_sparkline_30d_usd=pnl_sparkline_30d_usd,
             pnl_sparkline_7d=pnl_sparkline_7d,
             pnl_sparkline_7d_usd=pnl_sparkline_7d_usd,
             tags=tags,

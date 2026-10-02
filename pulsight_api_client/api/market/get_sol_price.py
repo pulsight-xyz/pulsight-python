@@ -74,10 +74,9 @@ def sync_detailed(
 ]:
     """Get the SOL/USD reference rate
 
-     Returns USD per 1 SOL — the same volume-weighted WSOL/USDC reference the token catalog prices market
-    caps and USD candles with, so displayed figures agree with computed ones. `sol_usd` is `null` when
-    the reference is unavailable (cold analytics store, or no WSOL/USDC trade in the lookback window);
-    it is never `0`.
+     Returns USD per 1 SOL — the rate the ledger stamped on the newest landed transaction. Every stored
+    USD figure is the stamp of its own row; this rate converts only a figure that has none. `sol_usd` is
+    `null` when no stamped transaction exists yet; it is never `0`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -106,10 +105,9 @@ def sync(
 ):
     """Get the SOL/USD reference rate
 
-     Returns USD per 1 SOL — the same volume-weighted WSOL/USDC reference the token catalog prices market
-    caps and USD candles with, so displayed figures agree with computed ones. `sol_usd` is `null` when
-    the reference is unavailable (cold analytics store, or no WSOL/USDC trade in the lookback window);
-    it is never `0`.
+     Returns USD per 1 SOL — the rate the ledger stamped on the newest landed transaction. Every stored
+    USD figure is the stamp of its own row; this rate converts only a figure that has none. `sol_usd` is
+    `null` when no stamped transaction exists yet; it is never `0`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -133,10 +131,9 @@ async def asyncio_detailed(
 ]:
     """Get the SOL/USD reference rate
 
-     Returns USD per 1 SOL — the same volume-weighted WSOL/USDC reference the token catalog prices market
-    caps and USD candles with, so displayed figures agree with computed ones. `sol_usd` is `null` when
-    the reference is unavailable (cold analytics store, or no WSOL/USDC trade in the lookback window);
-    it is never `0`.
+     Returns USD per 1 SOL — the rate the ledger stamped on the newest landed transaction. Every stored
+    USD figure is the stamp of its own row; this rate converts only a figure that has none. `sol_usd` is
+    `null` when no stamped transaction exists yet; it is never `0`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -163,10 +160,9 @@ async def asyncio(
 ):
     """Get the SOL/USD reference rate
 
-     Returns USD per 1 SOL — the same volume-weighted WSOL/USDC reference the token catalog prices market
-    caps and USD candles with, so displayed figures agree with computed ones. `sol_usd` is `null` when
-    the reference is unavailable (cold analytics store, or no WSOL/USDC trade in the lookback window);
-    it is never `0`.
+     Returns USD per 1 SOL — the rate the ledger stamped on the newest landed transaction. Every stored
+    USD figure is the stamp of its own row; this rate converts only a figure that has none. `sol_usd` is
+    `null` when no stamped transaction exists yet; it is never `0`.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

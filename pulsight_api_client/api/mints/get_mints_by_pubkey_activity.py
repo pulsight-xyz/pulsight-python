@@ -108,8 +108,9 @@ def sync_detailed(
 ]:
     """Mint Activity Seed
 
-     Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, lamports) over [from,
-    to), plus the lifetime totals strictly before `from`. Range capped at 25 hours.
+     Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, in lamports and in micro-
+    USD as stamped at execution) over [from, to), plus the lifetime totals strictly before `from`. Range
+    capped at 25 hours.
 
     Args:
         pubkey (str):
@@ -150,8 +151,9 @@ def sync(
 ):
     """Mint Activity Seed
 
-     Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, lamports) over [from,
-    to), plus the lifetime totals strictly before `from`. Range capped at 25 hours.
+     Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, in lamports and in micro-
+    USD as stamped at execution) over [from, to), plus the lifetime totals strictly before `from`. Range
+    capped at 25 hours.
 
     Args:
         pubkey (str):
@@ -186,8 +188,9 @@ async def asyncio_detailed(
 ]:
     """Mint Activity Seed
 
-     Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, lamports) over [from,
-    to), plus the lifetime totals strictly before `from`. Range capped at 25 hours.
+     Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, in lamports and in micro-
+    USD as stamped at execution) over [from, to), plus the lifetime totals strictly before `from`. Range
+    capped at 25 hours.
 
     Args:
         pubkey (str):
@@ -226,8 +229,9 @@ async def asyncio(
 ):
     """Mint Activity Seed
 
-     Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, lamports) over [from,
-    to), plus the lifetime totals strictly before `from`. Range capped at 25 hours.
+     Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, in lamports and in micro-
+    USD as stamped at execution) over [from, to), plus the lifetime totals strictly before `from`. Range
+    capped at 25 hours.
 
     Args:
         pubkey (str):

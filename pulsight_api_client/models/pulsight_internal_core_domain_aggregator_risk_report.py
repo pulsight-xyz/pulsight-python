@@ -49,6 +49,9 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
         authorities (PulsightInternalCoreDomainAggregatorAuthorityStat | Unset):
         bundlers (PulsightInternalCoreDomainAggregatorBundlerStat | Unset):
         dev (PulsightInternalCoreDomainAggregatorDevStat | Unset):
+        dust_float (bool | Unset): DustFloat reports that the holders' circulating float is under 0.1 % of
+            total supply: Top10 and the cohorts' held shares measure dust, and the
+            concentration rules did not fire on them.
         holder_count (int | Unset):
         holders (list[PulsightInternalCoreDomainAggregatorHolderEntry] | Unset): top few (summary)
         insiders (PulsightInternalCoreDomainAggregatorCohortStat | Unset):
@@ -69,6 +72,7 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
     authorities: PulsightInternalCoreDomainAggregatorAuthorityStat | Unset = UNSET
     bundlers: PulsightInternalCoreDomainAggregatorBundlerStat | Unset = UNSET
     dev: PulsightInternalCoreDomainAggregatorDevStat | Unset = UNSET
+    dust_float: bool | Unset = UNSET
     holder_count: int | Unset = UNSET
     holders: list[PulsightInternalCoreDomainAggregatorHolderEntry] | Unset = UNSET
     insiders: PulsightInternalCoreDomainAggregatorCohortStat | Unset = UNSET
@@ -100,6 +104,8 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
         dev: dict[str, Any] | Unset = UNSET
         if not isinstance(self.dev, Unset):
             dev = self.dev.to_dict()
+
+        dust_float = self.dust_float
 
         holder_count = self.holder_count
 
@@ -160,6 +166,8 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
             field_dict["bundlers"] = bundlers
         if dev is not UNSET:
             field_dict["dev"] = dev
+        if dust_float is not UNSET:
+            field_dict["dust_float"] = dust_float
         if holder_count is not UNSET:
             field_dict["holder_count"] = holder_count
         if holders is not UNSET:
@@ -249,6 +257,8 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
         else:
             dev = PulsightInternalCoreDomainAggregatorDevStat.from_dict(_dev)
 
+        dust_float = d.pop("dust_float", UNSET)
+
         holder_count = d.pop("holder_count", UNSET)
 
         _holders = d.pop("holders", UNSET)
@@ -334,6 +344,7 @@ class PulsightInternalCoreDomainAggregatorRiskReport:
             authorities=authorities,
             bundlers=bundlers,
             dev=dev,
+            dust_float=dust_float,
             holder_count=holder_count,
             holders=holders,
             insiders=insiders,

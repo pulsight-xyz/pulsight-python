@@ -42,6 +42,18 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             Each revert still pays its tip + priority fee (folded into
             FeesPaidSol/TipsPaidSol and broken out in RevertFeesSol). Only possible
             on latency_slots > 0 runs. Additive JSONB field — old rows decode as 0.
+        copies_skipped_non_sol_quote (int | Unset): CopiesSkippedNonSolQuote is the part of CopiesSkippedUnpriced whose
+            cause is the pool's quote: the target swapped in a USDC-, USDT- or
+            token-quoted pool whose leg carries no SOL price, so the live bot has
+            no route to copy it and both sides skip it (`non_sol_quote`). The
+            runtime keeps ONE counter for both causes; this breakdown exists only
+            here. Additive JSONB field — old rows decode as 0.
+        copies_skipped_pool_not_simulated (int | Unset): CopiesSkippedPoolNotSimulated counts target swaps a per-pool
+            run saw on a
+            market it carried no instrument for (outside the mint's top pools, or a
+            pool the catalog does not know). They fold into the target book and are
+            recorded once as `pool_not_simulated`; nothing fills. A per-pool
+            artefact, not in CopiesSkippedUnpriced. Additive JSONB field.
         copies_skipped_unpriced (int | Unset): CopiesSkippedUnpriced counts mirror trades that passed every rule and
             would have fired, but whose triggering swap could not be priced honestly
             — so they were NOT traded. Two causes, both data-side:
@@ -93,6 +105,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             0.000, the realizing sells and all of the profit on another. Additive
             JSONB field; pre-existing rows decode as false, which is what all but an
             opt-in run was.
+        platform_fee_bps (int | Unset): PlatformFeeBps is the platform fee rate the run charged: the account's
+            rate when the run was submitted.
+        platform_fees_paid_sol (float | Unset): PlatformFeesPaidSol is the platform fee paid across every fill, folded
+            out of realized PnL like priority fees and tips.
         positions_opened_unmarked (int | Unset): PositionsOpenedUnmarked counts positions the run opened while it had NO
             price to mark them with — so for as long as that lasted, every
             price-based exit rule (take-profit, stop, trailing stop, max-drawdown)
@@ -133,6 +149,9 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         tips_paid_sol (float | Unset):
         total_pnl_sol (float | Unset):
         trades (int | Unset):
+        transfer_fees_paid_sol (float | Unset): TransferFeesPaidSol is the SOL value Token-2022 transfer fees took
+            across
+            every fill; it is already inside the fill prices, so it is not folded again.
         unrealized_pnl_sol (float | Unset):
         wins (int | Unset):
     """
@@ -140,6 +159,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     avg_landing_drift_bps: float | Unset = UNSET
     copies_declined: int | Unset = UNSET
     copies_reverted: int | Unset = UNSET
+    copies_skipped_non_sol_quote: int | Unset = UNSET
+    copies_skipped_pool_not_simulated: int | Unset = UNSET
     copies_skipped_unpriced: int | Unset = UNSET
     ending_balance_sol: float | Unset = UNSET
     fees_paid_sol: float | Unset = UNSET
@@ -153,6 +174,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     our_avg_price_impact_pct: float | Unset = UNSET
     our_median_price_impact_pct: float | Unset = UNSET
     per_pool: bool | Unset = UNSET
+    platform_fee_bps: int | Unset = UNSET
+    platform_fees_paid_sol: float | Unset = UNSET
     positions_opened_unmarked: int | Unset = UNSET
     realized_pnl_sol: float | Unset = UNSET
     revert_fees_sol: float | Unset = UNSET
@@ -164,6 +187,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     tips_paid_sol: float | Unset = UNSET
     total_pnl_sol: float | Unset = UNSET
     trades: int | Unset = UNSET
+    transfer_fees_paid_sol: float | Unset = UNSET
     unrealized_pnl_sol: float | Unset = UNSET
     wins: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -174,6 +198,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         copies_declined = self.copies_declined
 
         copies_reverted = self.copies_reverted
+
+        copies_skipped_non_sol_quote = self.copies_skipped_non_sol_quote
+
+        copies_skipped_pool_not_simulated = self.copies_skipped_pool_not_simulated
 
         copies_skipped_unpriced = self.copies_skipped_unpriced
 
@@ -202,6 +230,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         per_pool = self.per_pool
 
+        platform_fee_bps = self.platform_fee_bps
+
+        platform_fees_paid_sol = self.platform_fees_paid_sol
+
         positions_opened_unmarked = self.positions_opened_unmarked
 
         realized_pnl_sol = self.realized_pnl_sol
@@ -226,6 +258,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         trades = self.trades
 
+        transfer_fees_paid_sol = self.transfer_fees_paid_sol
+
         unrealized_pnl_sol = self.unrealized_pnl_sol
 
         wins = self.wins
@@ -239,6 +273,12 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["copies_declined"] = copies_declined
         if copies_reverted is not UNSET:
             field_dict["copies_reverted"] = copies_reverted
+        if copies_skipped_non_sol_quote is not UNSET:
+            field_dict["copies_skipped_non_sol_quote"] = copies_skipped_non_sol_quote
+        if copies_skipped_pool_not_simulated is not UNSET:
+            field_dict["copies_skipped_pool_not_simulated"] = (
+                copies_skipped_pool_not_simulated
+            )
         if copies_skipped_unpriced is not UNSET:
             field_dict["copies_skipped_unpriced"] = copies_skipped_unpriced
         if ending_balance_sol is not UNSET:
@@ -261,6 +301,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["our_median_price_impact_pct"] = our_median_price_impact_pct
         if per_pool is not UNSET:
             field_dict["per_pool"] = per_pool
+        if platform_fee_bps is not UNSET:
+            field_dict["platform_fee_bps"] = platform_fee_bps
+        if platform_fees_paid_sol is not UNSET:
+            field_dict["platform_fees_paid_sol"] = platform_fees_paid_sol
         if positions_opened_unmarked is not UNSET:
             field_dict["positions_opened_unmarked"] = positions_opened_unmarked
         if realized_pnl_sol is not UNSET:
@@ -285,6 +329,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["total_pnl_sol"] = total_pnl_sol
         if trades is not UNSET:
             field_dict["trades"] = trades
+        if transfer_fees_paid_sol is not UNSET:
+            field_dict["transfer_fees_paid_sol"] = transfer_fees_paid_sol
         if unrealized_pnl_sol is not UNSET:
             field_dict["unrealized_pnl_sol"] = unrealized_pnl_sol
         if wins is not UNSET:
@@ -304,6 +350,12 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         copies_declined = d.pop("copies_declined", UNSET)
 
         copies_reverted = d.pop("copies_reverted", UNSET)
+
+        copies_skipped_non_sol_quote = d.pop("copies_skipped_non_sol_quote", UNSET)
+
+        copies_skipped_pool_not_simulated = d.pop(
+            "copies_skipped_pool_not_simulated", UNSET
+        )
 
         copies_skipped_unpriced = d.pop("copies_skipped_unpriced", UNSET)
 
@@ -340,6 +392,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         per_pool = d.pop("per_pool", UNSET)
 
+        platform_fee_bps = d.pop("platform_fee_bps", UNSET)
+
+        platform_fees_paid_sol = d.pop("platform_fees_paid_sol", UNSET)
+
         positions_opened_unmarked = d.pop("positions_opened_unmarked", UNSET)
 
         realized_pnl_sol = d.pop("realized_pnl_sol", UNSET)
@@ -362,6 +418,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         trades = d.pop("trades", UNSET)
 
+        transfer_fees_paid_sol = d.pop("transfer_fees_paid_sol", UNSET)
+
         unrealized_pnl_sol = d.pop("unrealized_pnl_sol", UNSET)
 
         wins = d.pop("wins", UNSET)
@@ -370,6 +428,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             avg_landing_drift_bps=avg_landing_drift_bps,
             copies_declined=copies_declined,
             copies_reverted=copies_reverted,
+            copies_skipped_non_sol_quote=copies_skipped_non_sol_quote,
+            copies_skipped_pool_not_simulated=copies_skipped_pool_not_simulated,
             copies_skipped_unpriced=copies_skipped_unpriced,
             ending_balance_sol=ending_balance_sol,
             fees_paid_sol=fees_paid_sol,
@@ -381,6 +441,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             our_avg_price_impact_pct=our_avg_price_impact_pct,
             our_median_price_impact_pct=our_median_price_impact_pct,
             per_pool=per_pool,
+            platform_fee_bps=platform_fee_bps,
+            platform_fees_paid_sol=platform_fees_paid_sol,
             positions_opened_unmarked=positions_opened_unmarked,
             realized_pnl_sol=realized_pnl_sol,
             revert_fees_sol=revert_fees_sol,
@@ -392,6 +454,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             tips_paid_sol=tips_paid_sol,
             total_pnl_sol=total_pnl_sol,
             trades=trades,
+            transfer_fees_paid_sol=transfer_fees_paid_sol,
             unrealized_pnl_sol=unrealized_pnl_sol,
             wins=wins,
         )

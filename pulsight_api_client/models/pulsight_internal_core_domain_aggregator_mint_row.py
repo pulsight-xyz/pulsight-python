@@ -25,6 +25,9 @@ if TYPE_CHECKING:
     from ..models.pulsight_internal_core_domain_aggregator_mint_insiders import (
         PulsightInternalCoreDomainAggregatorMintInsiders,
     )
+    from ..models.pulsight_internal_core_domain_aggregator_mint_matched_pool import (
+        PulsightInternalCoreDomainAggregatorMintMatchedPool,
+    )
     from ..models.pulsight_internal_core_domain_aggregator_mint_stats_by_window import (
         PulsightInternalCoreDomainAggregatorMintStatsByWindow,
     )
@@ -47,6 +50,9 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         creator (str | Unset):
         decimals (int | Unset):
         dev_holdings (PulsightInternalCoreDomainAggregatorDevHoldings | Unset):
+        dust_float (bool | Unset): DustFloat reports that the holders' circulating float is under 0.1 % of
+            total supply: Top10Pct and the insiders' share measure dust, and the
+            risk score's concentration rules did not fire on them.
         fetch_status (str | Unset):
         first_seen_ts (str | Unset):
         freeze_authority (str | Unset):
@@ -66,6 +72,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         market_cap_usd (float | Unset): MarketCapUsd is the stored latest price × supply, in USD; nil when
             either is unknown.
         markets_count (int | Unset):
+        matched_pool (PulsightInternalCoreDomainAggregatorMintMatchedPool | Unset):
         metadata_uri (str | Unset): MetadataURI/FetchStatus are detail-only identity fields the
             frontend's TokenIdentityCard renders (off-chain JSON link + enrich
             status). nil on list rows.
@@ -138,6 +145,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
     creator: str | Unset = UNSET
     decimals: int | Unset = UNSET
     dev_holdings: PulsightInternalCoreDomainAggregatorDevHoldings | Unset = UNSET
+    dust_float: bool | Unset = UNSET
     fetch_status: str | Unset = UNSET
     first_seen_ts: str | Unset = UNSET
     freeze_authority: str | Unset = UNSET
@@ -150,6 +158,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
     lp_burned: bool | Unset = UNSET
     market_cap_usd: float | Unset = UNSET
     markets_count: int | Unset = UNSET
+    matched_pool: PulsightInternalCoreDomainAggregatorMintMatchedPool | Unset = UNSET
     metadata_uri: str | Unset = UNSET
     mint: str | Unset = UNSET
     mint_authority: str | Unset = UNSET
@@ -197,6 +206,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         if not isinstance(self.dev_holdings, Unset):
             dev_holdings = self.dev_holdings.to_dict()
 
+        dust_float = self.dust_float
+
         fetch_status = self.fetch_status
 
         first_seen_ts = self.first_seen_ts
@@ -224,6 +235,10 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         market_cap_usd = self.market_cap_usd
 
         markets_count = self.markets_count
+
+        matched_pool: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.matched_pool, Unset):
+            matched_pool = self.matched_pool.to_dict()
 
         metadata_uri = self.metadata_uri
 
@@ -292,6 +307,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             field_dict["decimals"] = decimals
         if dev_holdings is not UNSET:
             field_dict["dev_holdings"] = dev_holdings
+        if dust_float is not UNSET:
+            field_dict["dust_float"] = dust_float
         if fetch_status is not UNSET:
             field_dict["fetch_status"] = fetch_status
         if first_seen_ts is not UNSET:
@@ -316,6 +333,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             field_dict["market_cap_usd"] = market_cap_usd
         if markets_count is not UNSET:
             field_dict["markets_count"] = markets_count
+        if matched_pool is not UNSET:
+            field_dict["matched_pool"] = matched_pool
         if metadata_uri is not UNSET:
             field_dict["metadata_uri"] = metadata_uri
         if mint is not UNSET:
@@ -380,6 +399,9 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         from ..models.pulsight_internal_core_domain_aggregator_mint_insiders import (
             PulsightInternalCoreDomainAggregatorMintInsiders,
         )
+        from ..models.pulsight_internal_core_domain_aggregator_mint_matched_pool import (
+            PulsightInternalCoreDomainAggregatorMintMatchedPool,
+        )
         from ..models.pulsight_internal_core_domain_aggregator_mint_stats_by_window import (
             PulsightInternalCoreDomainAggregatorMintStatsByWindow,
         )
@@ -425,6 +447,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
                 _dev_holdings
             )
 
+        dust_float = d.pop("dust_float", UNSET)
+
         fetch_status = d.pop("fetch_status", UNSET)
 
         first_seen_ts = d.pop("first_seen_ts", UNSET)
@@ -462,6 +486,17 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         market_cap_usd = d.pop("market_cap_usd", UNSET)
 
         markets_count = d.pop("markets_count", UNSET)
+
+        _matched_pool = d.pop("matched_pool", UNSET)
+        matched_pool: PulsightInternalCoreDomainAggregatorMintMatchedPool | Unset
+        if isinstance(_matched_pool, Unset):
+            matched_pool = UNSET
+        else:
+            matched_pool = (
+                PulsightInternalCoreDomainAggregatorMintMatchedPool.from_dict(
+                    _matched_pool
+                )
+            )
 
         metadata_uri = d.pop("metadata_uri", UNSET)
 
@@ -531,6 +566,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             creator=creator,
             decimals=decimals,
             dev_holdings=dev_holdings,
+            dust_float=dust_float,
             fetch_status=fetch_status,
             first_seen_ts=first_seen_ts,
             freeze_authority=freeze_authority,
@@ -543,6 +579,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             lp_burned=lp_burned,
             market_cap_usd=market_cap_usd,
             markets_count=markets_count,
+            matched_pool=matched_pool,
             metadata_uri=metadata_uri,
             mint=mint,
             mint_authority=mint_authority,

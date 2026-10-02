@@ -110,10 +110,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         holding_pnl_lamports (float | Unset): HoldingPnlLamports is the wallet's current unrealised PnL across
             all open positions, in lamports, off its board row. Nil when no held
             position carries a mark.
-        holding_pnl_usd (float | Unset): HoldingPnlUsd, PnlDistributionUsd and PnlSparkline7dUsd are the USD
-            twins of the three snapshot figures below (micro-USD, stamped at
-            execution), and TraderUsd carries the twin of every windowed money
-            figure on the row.
+        holding_pnl_usd (float | Unset): HoldingPnlUsd, PnlDistributionUsd, PnlSparkline7dUsd and
+            PnlSparkline30dUsd are the USD twins of the four snapshot figures below
+            (micro-USD, stamped at execution), and TraderUsd carries the twin of
+            every windowed money figure on the row.
         id (str | Unset):
         label (str | Unset): Label/LabelType identify a known wallet (CEX/fee/KOL/...) from the
             known_addresses registry; empty when the wallet isn't labelled.
@@ -158,9 +158,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             list path's snapshot-folded PnlDistribution above, which is the
             leaderboard's all-time buckets. Drives the trader-detail "PnL
             distribution" chips and their window toggle.
-        pnl_sparkline_7d (list[float] | Unset): PnlSparkline7d is the 7-day realised-PnL series, oldest first,
-            expressed in lamports per day on the wire (the FormattedSol
-            contract). Nil when the snapshot wasn't inlined.
+        pnl_sparkline_30d (list[float] | Unset): PnlSparkline30d is the net-PnL series over the last 30 UTC days,
+            one point per day, oldest first, in lamports per day. Only a 30d page
+            carries it.
+        pnl_sparkline_30d_usd (list[float] | Unset):
+        pnl_sparkline_7d (list[float] | Unset): PnlSparkline7d is the 7-day net-PnL series (NetProfit7d's measure,
+            one point per UTC day), oldest first, expressed in lamports per day
+            on the wire (the FormattedSol contract). Nil when the snapshot wasn't
+            inlined.
         pnl_sparkline_7d_usd (list[float] | Unset):
         realized_profit (float | Unset):
         realized_profit_1d (float | Unset): 1-day window. Same measures and derivations as the 7d/30d blocks,
@@ -361,6 +366,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     pnl_distributions: (
         list[PulsightInternalCoreUsecasesTraderTraderPnlDistributionRow] | Unset
     ) = UNSET
+    pnl_sparkline_30d: list[float] | Unset = UNSET
+    pnl_sparkline_30d_usd: list[float] | Unset = UNSET
     pnl_sparkline_7d: list[float] | Unset = UNSET
     pnl_sparkline_7d_usd: list[float] | Unset = UNSET
     realized_profit: float | Unset = UNSET
@@ -673,6 +680,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             for pnl_distributions_item_data in self.pnl_distributions:
                 pnl_distributions_item = pnl_distributions_item_data.to_dict()
                 pnl_distributions.append(pnl_distributions_item)
+
+        pnl_sparkline_30d: list[float] | Unset = UNSET
+        if not isinstance(self.pnl_sparkline_30d, Unset):
+            pnl_sparkline_30d = self.pnl_sparkline_30d
+
+        pnl_sparkline_30d_usd: list[float] | Unset = UNSET
+        if not isinstance(self.pnl_sparkline_30d_usd, Unset):
+            pnl_sparkline_30d_usd = self.pnl_sparkline_30d_usd
 
         pnl_sparkline_7d: list[float] | Unset = UNSET
         if not isinstance(self.pnl_sparkline_7d, Unset):
@@ -1045,6 +1060,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["pnl_distribution_usd"] = pnl_distribution_usd
         if pnl_distributions is not UNSET:
             field_dict["pnl_distributions"] = pnl_distributions
+        if pnl_sparkline_30d is not UNSET:
+            field_dict["pnl_sparkline_30d"] = pnl_sparkline_30d
+        if pnl_sparkline_30d_usd is not UNSET:
+            field_dict["pnl_sparkline_30d_usd"] = pnl_sparkline_30d_usd
         if pnl_sparkline_7d is not UNSET:
             field_dict["pnl_sparkline_7d"] = pnl_sparkline_7d
         if pnl_sparkline_7d_usd is not UNSET:
@@ -1483,6 +1502,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
                 pnl_distributions.append(pnl_distributions_item)
 
+        pnl_sparkline_30d = cast(list[float], d.pop("pnl_sparkline_30d", UNSET))
+
+        pnl_sparkline_30d_usd = cast(list[float], d.pop("pnl_sparkline_30d_usd", UNSET))
+
         pnl_sparkline_7d = cast(list[float], d.pop("pnl_sparkline_7d", UNSET))
 
         pnl_sparkline_7d_usd = cast(list[float], d.pop("pnl_sparkline_7d_usd", UNSET))
@@ -1733,6 +1756,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             pnl_distribution=pnl_distribution,
             pnl_distribution_usd=pnl_distribution_usd,
             pnl_distributions=pnl_distributions,
+            pnl_sparkline_30d=pnl_sparkline_30d,
+            pnl_sparkline_30d_usd=pnl_sparkline_30d_usd,
             pnl_sparkline_7d=pnl_sparkline_7d,
             pnl_sparkline_7d_usd=pnl_sparkline_7d_usd,
             realized_profit=realized_profit,

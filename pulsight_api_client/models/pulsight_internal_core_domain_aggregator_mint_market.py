@@ -16,9 +16,8 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorMintMarket")
 class PulsightInternalCoreDomainAggregatorMintMarket:
     """
     Attributes:
-        base_mint (str | Unset): BaseMint is the pool's base side as the aggregator oriented it — the
-            page's own mint except on a money mint's page, where the mint may be
-            the quote of the pools listed. BaseSymbol is its symbol, empty when
+        base_mint (str | Unset): BaseMint is the page's own mint, whichever side of the pool the
+            aggregator filed its legs under. BaseSymbol is its symbol, empty when
             unknown.
         base_symbol (str | Unset):
         dex (str | Unset):
@@ -31,11 +30,11 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
         last_swap_ts (str | Unset):
         pool (str | Unset):
         quote_decimals (int | Unset):
-        quote_mint (str | Unset): QuoteMint is the pool's quote side as the aggregator oriented it: a
-            registry quote when one side is one (USDC > USDT > USD1 > WSOL), else
-            the pool's own quote token. This market's native candle prices and
-            quote amounts are denominated in it, and the live chart folds only
-            ticks that carry the same quote.
+        quote_mint (str | Unset): QuoteMint is the pool's other side: a registry quote when one side is
+            one (the registered dollars, USDC first, then WSOL), else the counter
+            token. This market's native candle prices and quote amounts are
+            denominated in it, and the live chart folds only ticks that carry the
+            same quote.
         quote_symbol (str | Unset): QuoteSymbol and QuoteDecimals describe the quote mint; the decimals are
             omitted when the mint is unknown.
         sol_volume_lamports (int | Unset):

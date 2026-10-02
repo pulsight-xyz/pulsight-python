@@ -54,13 +54,17 @@ class PulsightInternalCoreDomainAggregatorTrade:
         kind (str | Unset):
         label (str | Unset):
         label_type (str | Unset):
-        late (bool | Unset):
         mint (str | Unset):
         mint_id (int | Unset):
         price_age_ms (int | Unset):
         price_source (str | Unset):
         primary_pool (str | Unset):
         primary_pool_id (int | Unset):
+        primary_pool_quote_mint (str | Unset): PrimaryPoolQuoteMint is the primary pool's counter asset from this
+            mint's side (its quote, or its base when the mint is the quote of a
+            token-quoted pair) — the rule that decides whether a copy bot can
+            execute there. REST decoration; absent when the catalog does not know
+            the pool.
         qty (str | Unset):
         realized (PulsightInternalCoreDomainAggregatorMoney | Unset):
         route (list[PulsightInternalCoreDomainAggregatorHop] | Unset):
@@ -99,13 +103,13 @@ class PulsightInternalCoreDomainAggregatorTrade:
     kind: str | Unset = UNSET
     label: str | Unset = UNSET
     label_type: str | Unset = UNSET
-    late: bool | Unset = UNSET
     mint: str | Unset = UNSET
     mint_id: int | Unset = UNSET
     price_age_ms: int | Unset = UNSET
     price_source: str | Unset = UNSET
     primary_pool: str | Unset = UNSET
     primary_pool_id: int | Unset = UNSET
+    primary_pool_quote_mint: str | Unset = UNSET
     qty: str | Unset = UNSET
     realized: PulsightInternalCoreDomainAggregatorMoney | Unset = UNSET
     route: list[PulsightInternalCoreDomainAggregatorHop] | Unset = UNSET
@@ -178,8 +182,6 @@ class PulsightInternalCoreDomainAggregatorTrade:
 
         label_type = self.label_type
 
-        late = self.late
-
         mint = self.mint
 
         mint_id = self.mint_id
@@ -191,6 +193,8 @@ class PulsightInternalCoreDomainAggregatorTrade:
         primary_pool = self.primary_pool
 
         primary_pool_id = self.primary_pool_id
+
+        primary_pool_quote_mint = self.primary_pool_quote_mint
 
         qty = self.qty
 
@@ -276,8 +280,6 @@ class PulsightInternalCoreDomainAggregatorTrade:
             field_dict["label"] = label
         if label_type is not UNSET:
             field_dict["label_type"] = label_type
-        if late is not UNSET:
-            field_dict["late"] = late
         if mint is not UNSET:
             field_dict["mint"] = mint
         if mint_id is not UNSET:
@@ -290,6 +292,8 @@ class PulsightInternalCoreDomainAggregatorTrade:
             field_dict["primary_pool"] = primary_pool
         if primary_pool_id is not UNSET:
             field_dict["primary_pool_id"] = primary_pool_id
+        if primary_pool_quote_mint is not UNSET:
+            field_dict["primary_pool_quote_mint"] = primary_pool_quote_mint
         if qty is not UNSET:
             field_dict["qty"] = qty
         if realized is not UNSET:
@@ -410,8 +414,6 @@ class PulsightInternalCoreDomainAggregatorTrade:
 
         label_type = d.pop("label_type", UNSET)
 
-        late = d.pop("late", UNSET)
-
         mint = d.pop("mint", UNSET)
 
         mint_id = d.pop("mint_id", UNSET)
@@ -423,6 +425,8 @@ class PulsightInternalCoreDomainAggregatorTrade:
         primary_pool = d.pop("primary_pool", UNSET)
 
         primary_pool_id = d.pop("primary_pool_id", UNSET)
+
+        primary_pool_quote_mint = d.pop("primary_pool_quote_mint", UNSET)
 
         qty = d.pop("qty", UNSET)
 
@@ -493,13 +497,13 @@ class PulsightInternalCoreDomainAggregatorTrade:
             kind=kind,
             label=label,
             label_type=label_type,
-            late=late,
             mint=mint,
             mint_id=mint_id,
             price_age_ms=price_age_ms,
             price_source=price_source,
             primary_pool=primary_pool,
             primary_pool_id=primary_pool_id,
+            primary_pool_quote_mint=primary_pool_quote_mint,
             qty=qty,
             realized=realized,
             route=route,

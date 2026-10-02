@@ -63,6 +63,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         total_tips (int | Unset): TotalTips — builder/MEV tips paid on the window's successful txs.
         total_tips_usd (int | Unset):
         trader (str | Unset):
+        uncovered_proceeds_lamports (int | Unset): UncoveredProceeds — proceeds of the window's sells of tokens with no
+            known cost (received by transfer, or beyond the recorded buys). Neither
+            RealizedProfit nor NetRealizedProfit includes them.
+        uncovered_proceeds_usd (int | Unset):
         win_profit (int | Unset):
         win_profit_usd (int | Unset):
         win_sells (int | Unset):
@@ -103,6 +107,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
     total_tips: int | Unset = UNSET
     total_tips_usd: int | Unset = UNSET
     trader: str | Unset = UNSET
+    uncovered_proceeds_lamports: int | Unset = UNSET
+    uncovered_proceeds_usd: int | Unset = UNSET
     win_profit: int | Unset = UNSET
     win_profit_usd: int | Unset = UNSET
     win_sells: int | Unset = UNSET
@@ -174,6 +180,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         total_tips_usd = self.total_tips_usd
 
         trader = self.trader
+
+        uncovered_proceeds_lamports = self.uncovered_proceeds_lamports
+
+        uncovered_proceeds_usd = self.uncovered_proceeds_usd
 
         win_profit = self.win_profit
 
@@ -254,6 +264,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             field_dict["total_tips_usd"] = total_tips_usd
         if trader is not UNSET:
             field_dict["trader"] = trader
+        if uncovered_proceeds_lamports is not UNSET:
+            field_dict["uncovered_proceeds_lamports"] = uncovered_proceeds_lamports
+        if uncovered_proceeds_usd is not UNSET:
+            field_dict["uncovered_proceeds_usd"] = uncovered_proceeds_usd
         if win_profit is not UNSET:
             field_dict["win_profit"] = win_profit
         if win_profit_usd is not UNSET:
@@ -336,6 +350,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
 
         trader = d.pop("trader", UNSET)
 
+        uncovered_proceeds_lamports = d.pop("uncovered_proceeds_lamports", UNSET)
+
+        uncovered_proceeds_usd = d.pop("uncovered_proceeds_usd", UNSET)
+
         win_profit = d.pop("win_profit", UNSET)
 
         win_profit_usd = d.pop("win_profit_usd", UNSET)
@@ -382,6 +400,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             total_tips=total_tips,
             total_tips_usd=total_tips_usd,
             trader=trader,
+            uncovered_proceeds_lamports=uncovered_proceeds_lamports,
+            uncovered_proceeds_usd=uncovered_proceeds_usd,
             win_profit=win_profit,
             win_profit_usd=win_profit_usd,
             win_sells=win_sells,

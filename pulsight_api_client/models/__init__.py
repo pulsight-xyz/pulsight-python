@@ -187,6 +187,9 @@ from .pulsight_internal_core_domain_aggregator_mint_live_metrics import (
 from .pulsight_internal_core_domain_aggregator_mint_market import (
     PulsightInternalCoreDomainAggregatorMintMarket,
 )
+from .pulsight_internal_core_domain_aggregator_mint_matched_pool import (
+    PulsightInternalCoreDomainAggregatorMintMatchedPool,
+)
 from .pulsight_internal_core_domain_aggregator_mint_migration import (
     PulsightInternalCoreDomainAggregatorMintMigration,
 )
@@ -406,6 +409,9 @@ from .pulsight_internal_core_usecases_backtest_preview_request import (
 from .pulsight_internal_core_usecases_backtest_preview_response import (
     PulsightInternalCoreUsecasesBacktestPreviewResponse,
 )
+from .pulsight_internal_core_usecases_backtest_preview_skip import (
+    PulsightInternalCoreUsecasesBacktestPreviewSkip,
+)
 from .pulsight_internal_core_usecases_backtest_side import (
     PulsightInternalCoreUsecasesBacktestSide,
 )
@@ -503,6 +509,7 @@ __all__ = (
     "PulsightInternalCoreDomainAggregatorMintInsiders",
     "PulsightInternalCoreDomainAggregatorMintLiveMetrics",
     "PulsightInternalCoreDomainAggregatorMintMarket",
+    "PulsightInternalCoreDomainAggregatorMintMatchedPool",
     "PulsightInternalCoreDomainAggregatorMintMigration",
     "PulsightInternalCoreDomainAggregatorMintRow",
     "PulsightInternalCoreDomainAggregatorMintStatsByWindow",
@@ -576,6 +583,7 @@ __all__ = (
     "PulsightInternalCoreUsecasesBacktestPreviewMarker",
     "PulsightInternalCoreUsecasesBacktestPreviewRequest",
     "PulsightInternalCoreUsecasesBacktestPreviewResponse",
+    "PulsightInternalCoreUsecasesBacktestPreviewSkip",
     "PulsightInternalCoreUsecasesBacktestSide",
     "PulsightInternalCoreUsecasesBacktestTimeRange",
     "PulsightInternalCoreUsecasesBacktestTokenScope",

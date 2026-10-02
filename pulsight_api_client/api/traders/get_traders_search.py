@@ -112,7 +112,8 @@ def sync_detailed(
 ]:
     """Search Traders
 
-     Fuzzy searches traders by wallet address or known name.
+     Finds leaderboard traders by wallet address: a full base58 address matches exactly, anything shorter
+    matches as an address prefix.
 
     Args:
         q (str | Unset):
@@ -153,7 +154,8 @@ def sync(
 ):
     """Search Traders
 
-     Fuzzy searches traders by wallet address or known name.
+     Finds leaderboard traders by wallet address: a full base58 address matches exactly, anything shorter
+    matches as an address prefix.
 
     Args:
         q (str | Unset):
@@ -188,7 +190,8 @@ async def asyncio_detailed(
 ]:
     """Search Traders
 
-     Fuzzy searches traders by wallet address or known name.
+     Finds leaderboard traders by wallet address: a full base58 address matches exactly, anything shorter
+    matches as an address prefix.
 
     Args:
         q (str | Unset):
@@ -227,7 +230,8 @@ async def asyncio(
 ):
     """Search Traders
 
-     Fuzzy searches traders by wallet address or known name.
+     Finds leaderboard traders by wallet address: a full base58 address matches exactly, anything shorter
+    matches as an address prefix.
 
     Args:
         q (str | Unset):

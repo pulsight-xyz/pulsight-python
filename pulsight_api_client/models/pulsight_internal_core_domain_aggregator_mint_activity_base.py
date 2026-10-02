@@ -17,15 +17,19 @@ class PulsightInternalCoreDomainAggregatorMintActivityBase:
     """
     Attributes:
         fees_lamports (int | Unset):
+        fees_micro_usd (int | Unset):
         swaps (int | Unset):
     """
 
     fees_lamports: int | Unset = UNSET
+    fees_micro_usd: int | Unset = UNSET
     swaps: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         fees_lamports = self.fees_lamports
+
+        fees_micro_usd = self.fees_micro_usd
 
         swaps = self.swaps
 
@@ -34,6 +38,8 @@ class PulsightInternalCoreDomainAggregatorMintActivityBase:
         field_dict.update({})
         if fees_lamports is not UNSET:
             field_dict["fees_lamports"] = fees_lamports
+        if fees_micro_usd is not UNSET:
+            field_dict["fees_micro_usd"] = fees_micro_usd
         if swaps is not UNSET:
             field_dict["swaps"] = swaps
 
@@ -44,10 +50,13 @@ class PulsightInternalCoreDomainAggregatorMintActivityBase:
         d = dict(src_dict)
         fees_lamports = d.pop("fees_lamports", UNSET)
 
+        fees_micro_usd = d.pop("fees_micro_usd", UNSET)
+
         swaps = d.pop("swaps", UNSET)
 
         pulsight_internal_core_domain_aggregator_mint_activity_base = cls(
             fees_lamports=fees_lamports,
+            fees_micro_usd=fees_micro_usd,
             swaps=swaps,
         )
 

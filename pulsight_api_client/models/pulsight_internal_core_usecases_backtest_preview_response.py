@@ -13,6 +13,9 @@ if TYPE_CHECKING:
     from ..models.pulsight_internal_core_usecases_backtest_preview_marker import (
         PulsightInternalCoreUsecasesBacktestPreviewMarker,
     )
+    from ..models.pulsight_internal_core_usecases_backtest_preview_skip import (
+        PulsightInternalCoreUsecasesBacktestPreviewSkip,
+    )
 
 
 T = TypeVar("T", bound="PulsightInternalCoreUsecasesBacktestPreviewResponse")
@@ -24,10 +27,12 @@ class PulsightInternalCoreUsecasesBacktestPreviewResponse:
     Attributes:
         markers (list[PulsightInternalCoreUsecasesBacktestPreviewMarker] | Unset):
         simulation_assumptions (list[str] | Unset):
+        skipped (list[PulsightInternalCoreUsecasesBacktestPreviewSkip] | Unset):
     """
 
     markers: list[PulsightInternalCoreUsecasesBacktestPreviewMarker] | Unset = UNSET
     simulation_assumptions: list[str] | Unset = UNSET
+    skipped: list[PulsightInternalCoreUsecasesBacktestPreviewSkip] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -42,6 +47,13 @@ class PulsightInternalCoreUsecasesBacktestPreviewResponse:
         if not isinstance(self.simulation_assumptions, Unset):
             simulation_assumptions = self.simulation_assumptions
 
+        skipped: list[dict[str, Any]] | Unset = UNSET
+        if not isinstance(self.skipped, Unset):
+            skipped = []
+            for skipped_item_data in self.skipped:
+                skipped_item = skipped_item_data.to_dict()
+                skipped.append(skipped_item)
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -49,6 +61,8 @@ class PulsightInternalCoreUsecasesBacktestPreviewResponse:
             field_dict["markers"] = markers
         if simulation_assumptions is not UNSET:
             field_dict["simulation_assumptions"] = simulation_assumptions
+        if skipped is not UNSET:
+            field_dict["skipped"] = skipped
 
         return field_dict
 
@@ -56,6 +70,9 @@ class PulsightInternalCoreUsecasesBacktestPreviewResponse:
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
         from ..models.pulsight_internal_core_usecases_backtest_preview_marker import (
             PulsightInternalCoreUsecasesBacktestPreviewMarker,
+        )
+        from ..models.pulsight_internal_core_usecases_backtest_preview_skip import (
+            PulsightInternalCoreUsecasesBacktestPreviewSkip,
         )
 
         d = dict(src_dict)
@@ -74,9 +91,23 @@ class PulsightInternalCoreUsecasesBacktestPreviewResponse:
 
         simulation_assumptions = cast(list[str], d.pop("simulation_assumptions", UNSET))
 
+        _skipped = d.pop("skipped", UNSET)
+        skipped: list[PulsightInternalCoreUsecasesBacktestPreviewSkip] | Unset = UNSET
+        if _skipped is not UNSET:
+            skipped = []
+            for skipped_item_data in _skipped:
+                skipped_item = (
+                    PulsightInternalCoreUsecasesBacktestPreviewSkip.from_dict(
+                        skipped_item_data
+                    )
+                )
+
+                skipped.append(skipped_item)
+
         pulsight_internal_core_usecases_backtest_preview_response = cls(
             markers=markers,
             simulation_assumptions=simulation_assumptions,
+            skipped=skipped,
         )
 
         pulsight_internal_core_usecases_backtest_preview_response.additional_properties = d

@@ -141,11 +141,16 @@ def sync_detailed(
     narrows to one or more markets by the trade's primary pool and accepts the same repeated/comma-
     separated forms, OR-combined — pass the whole set when a token's market spans several pools (a
     graduated token's bonding curve plus the pool it migrated to). Every money field is a `{sol, usd}`
-    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL, USDC,
-    USDT, USD1) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time params
-    are optional; with none supplied the latest rows are returned regardless of age. Supports RFC3339
-    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows strictly
-    older than the cursor — no lower bound, so pagination crosses activity gaps).
+    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL or a
+    registered dollar) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time
+    params are optional; with none supplied the latest rows are returned regardless of age. Supports
+    RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows
+    strictly older than the cursor — no lower bound, so pagination crosses activity gaps). A page never
+    ends inside a second: when `limit` falls inside a second, the page stops before it and the next page
+    returns it whole, so a page can hold fewer than `limit` rows while older rows remain, and a page
+    that is a single second returns that whole second, up to 5000 rows. Page by passing the oldest
+    returned row's second (`floor(ts_ms / 1000)`) as before_ts until a page comes back empty; no row is
+    skipped or repeated.
 
     Args:
         mint (str | Unset):
@@ -209,11 +214,16 @@ def sync(
     narrows to one or more markets by the trade's primary pool and accepts the same repeated/comma-
     separated forms, OR-combined — pass the whole set when a token's market spans several pools (a
     graduated token's bonding curve plus the pool it migrated to). Every money field is a `{sol, usd}`
-    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL, USDC,
-    USDT, USD1) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time params
-    are optional; with none supplied the latest rows are returned regardless of age. Supports RFC3339
-    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows strictly
-    older than the cursor — no lower bound, so pagination crosses activity gaps).
+    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL or a
+    registered dollar) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time
+    params are optional; with none supplied the latest rows are returned regardless of age. Supports
+    RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows
+    strictly older than the cursor — no lower bound, so pagination crosses activity gaps). A page never
+    ends inside a second: when `limit` falls inside a second, the page stops before it and the next page
+    returns it whole, so a page can hold fewer than `limit` rows while older rows remain, and a page
+    that is a single second returns that whole second, up to 5000 rows. Page by passing the oldest
+    returned row's second (`floor(ts_ms / 1000)`) as before_ts until a page comes back empty; no row is
+    skipped or repeated.
 
     Args:
         mint (str | Unset):
@@ -271,11 +281,16 @@ async def asyncio_detailed(
     narrows to one or more markets by the trade's primary pool and accepts the same repeated/comma-
     separated forms, OR-combined — pass the whole set when a token's market spans several pools (a
     graduated token's bonding curve plus the pool it migrated to). Every money field is a `{sol, usd}`
-    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL, USDC,
-    USDT, USD1) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time params
-    are optional; with none supplied the latest rows are returned regardless of age. Supports RFC3339
-    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows strictly
-    older than the cursor — no lower bound, so pagination crosses activity gaps).
+    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL or a
+    registered dollar) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time
+    params are optional; with none supplied the latest rows are returned regardless of age. Supports
+    RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows
+    strictly older than the cursor — no lower bound, so pagination crosses activity gaps). A page never
+    ends inside a second: when `limit` falls inside a second, the page stops before it and the next page
+    returns it whole, so a page can hold fewer than `limit` rows while older rows remain, and a page
+    that is a single second returns that whole second, up to 5000 rows. Page by passing the oldest
+    returned row's second (`floor(ts_ms / 1000)`) as before_ts until a page comes back empty; no row is
+    skipped or repeated.
 
     Args:
         mint (str | Unset):
@@ -337,11 +352,16 @@ async def asyncio(
     narrows to one or more markets by the trade's primary pool and accepts the same repeated/comma-
     separated forms, OR-combined — pass the whole set when a token's market spans several pools (a
     graduated token's bonding curve plus the pool it migrated to). Every money field is a `{sol, usd}`
-    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL, USDC,
-    USDT, USD1) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time params
-    are optional; with none supplied the latest rows are returned regardless of age. Supports RFC3339
-    from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows strictly
-    older than the cursor — no lower bound, so pagination crosses activity gaps).
+    pair fixed at execution (lamports and micro-USD; null = unpriced). A quote-registry mint (SOL or a
+    registered dollar) lists the legs whose base it is, keyed by the leg, with no realized PnL. All time
+    params are optional; with none supplied the latest rows are returned regardless of age. Supports
+    RFC3339 from/to, Unix epoch from_ts/to_ts, and cursor-based before_ts (returns the latest rows
+    strictly older than the cursor — no lower bound, so pagination crosses activity gaps). A page never
+    ends inside a second: when `limit` falls inside a second, the page stops before it and the next page
+    returns it whole, so a page can hold fewer than `limit` rows while older rows remain, and a page
+    that is a single second returns that whole second, up to 5000 rows. Page by passing the oldest
+    returned row's second (`floor(ts_ms / 1000)`) as before_ts until a page comes back empty; no row is
+    skipped or repeated.
 
     Args:
         mint (str | Unset):
