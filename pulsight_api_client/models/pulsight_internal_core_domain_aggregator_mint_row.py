@@ -108,6 +108,9 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             SwapCount, BuyCount and SellCount are lifetime and TraderCount is 0.
             MarketsCount is the number of pools the mint trades in.
         symbol (str | Unset):
+        tipped_share_pct (float | Unset): TippedSharePct — share of the mint's trades whose transaction paid a
+            landing tip, in percent, over every trade since tips were recorded and
+            arbitrage excluded. nil until 20 such trades.
         top10_pct (float | Unset): Top10Pct is the top-10 holder concentration as a PERCENT of circulating
             supply (0..100), off the mint's holder-stats plane — the figure the
             listing's Distribution column leads with. nil until the plane has
@@ -172,6 +175,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
     supply: str | Unset = UNSET
     swap_count: int | Unset = UNSET
     symbol: str | Unset = UNSET
+    tipped_share_pct: float | Unset = UNSET
     top10_pct: float | Unset = UNSET
     top_dex: str | Unset = UNSET
     total_fees_sol: int | Unset = UNSET
@@ -270,6 +274,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         symbol = self.symbol
 
+        tipped_share_pct = self.tipped_share_pct
+
         top10_pct = self.top10_pct
 
         top_dex = self.top_dex
@@ -361,6 +367,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             field_dict["swap_count"] = swap_count
         if symbol is not UNSET:
             field_dict["symbol"] = symbol
+        if tipped_share_pct is not UNSET:
+            field_dict["tipped_share_pct"] = tipped_share_pct
         if top10_pct is not UNSET:
             field_dict["top10_pct"] = top10_pct
         if top_dex is not UNSET:
@@ -531,6 +539,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         symbol = d.pop("symbol", UNSET)
 
+        tipped_share_pct = d.pop("tipped_share_pct", UNSET)
+
         top10_pct = d.pop("top10_pct", UNSET)
 
         top_dex = d.pop("top_dex", UNSET)
@@ -593,6 +603,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             supply=supply,
             swap_count=swap_count,
             symbol=symbol,
+            tipped_share_pct=tipped_share_pct,
             top10_pct=top10_pct,
             top_dex=top_dex,
             total_fees_sol=total_fees_sol,

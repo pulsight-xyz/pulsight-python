@@ -32,6 +32,8 @@ def _get_kwargs(
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
+    min_fee_per_swap: float | Unset = UNSET,
+    min_tipped_share: float | Unset = UNSET,
     max_age_secs: int | Unset = UNSET,
     min_age_secs: int | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -77,6 +79,10 @@ def _get_kwargs(
     params["min_market_cap_usd"] = min_market_cap_usd
 
     params["min_fees_sol"] = min_fees_sol
+
+    params["min_fee_per_swap"] = min_fee_per_swap
+
+    params["min_tipped_share"] = min_tipped_share
 
     params["max_age_secs"] = max_age_secs
 
@@ -189,6 +195,8 @@ def sync_detailed(
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
+    min_fee_per_swap: float | Unset = UNSET,
+    min_tipped_share: float | Unset = UNSET,
     max_age_secs: int | Unset = UNSET,
     min_age_secs: int | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -221,6 +229,8 @@ def sync_detailed(
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
+        min_fee_per_swap (float | Unset):
+        min_tipped_share (float | Unset):
         max_age_secs (int | Unset):
         min_age_secs (int | Unset):
         limit (int | Unset):
@@ -250,6 +260,8 @@ def sync_detailed(
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
         min_fees_sol=min_fees_sol,
+        min_fee_per_swap=min_fee_per_swap,
+        min_tipped_share=min_tipped_share,
         max_age_secs=max_age_secs,
         min_age_secs=min_age_secs,
         limit=limit,
@@ -281,6 +293,8 @@ def sync(
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
+    min_fee_per_swap: float | Unset = UNSET,
+    min_tipped_share: float | Unset = UNSET,
     max_age_secs: int | Unset = UNSET,
     min_age_secs: int | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -314,6 +328,8 @@ def sync(
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
+        min_fee_per_swap (float | Unset):
+        min_tipped_share (float | Unset):
         max_age_secs (int | Unset):
         min_age_secs (int | Unset):
         limit (int | Unset):
@@ -344,6 +360,8 @@ def sync(
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
         min_fees_sol=min_fees_sol,
+        min_fee_per_swap=min_fee_per_swap,
+        min_tipped_share=min_tipped_share,
         max_age_secs=max_age_secs,
         min_age_secs=min_age_secs,
         limit=limit,
@@ -369,6 +387,8 @@ async def asyncio_detailed(
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
+    min_fee_per_swap: float | Unset = UNSET,
+    min_tipped_share: float | Unset = UNSET,
     max_age_secs: int | Unset = UNSET,
     min_age_secs: int | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -401,6 +421,8 @@ async def asyncio_detailed(
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
+        min_fee_per_swap (float | Unset):
+        min_tipped_share (float | Unset):
         max_age_secs (int | Unset):
         min_age_secs (int | Unset):
         limit (int | Unset):
@@ -430,6 +452,8 @@ async def asyncio_detailed(
         min_pool_sol=min_pool_sol,
         min_market_cap_usd=min_market_cap_usd,
         min_fees_sol=min_fees_sol,
+        min_fee_per_swap=min_fee_per_swap,
+        min_tipped_share=min_tipped_share,
         max_age_secs=max_age_secs,
         min_age_secs=min_age_secs,
         limit=limit,
@@ -459,6 +483,8 @@ async def asyncio(
     min_pool_sol: float | Unset = UNSET,
     min_market_cap_usd: float | Unset = UNSET,
     min_fees_sol: float | Unset = UNSET,
+    min_fee_per_swap: float | Unset = UNSET,
+    min_tipped_share: float | Unset = UNSET,
     max_age_secs: int | Unset = UNSET,
     min_age_secs: int | Unset = UNSET,
     limit: int | Unset = UNSET,
@@ -492,6 +518,8 @@ async def asyncio(
         min_pool_sol (float | Unset):
         min_market_cap_usd (float | Unset):
         min_fees_sol (float | Unset):
+        min_fee_per_swap (float | Unset):
+        min_tipped_share (float | Unset):
         max_age_secs (int | Unset):
         min_age_secs (int | Unset):
         limit (int | Unset):
@@ -523,6 +551,8 @@ async def asyncio(
             min_pool_sol=min_pool_sol,
             min_market_cap_usd=min_market_cap_usd,
             min_fees_sol=min_fees_sol,
+            min_fee_per_swap=min_fee_per_swap,
+            min_tipped_share=min_tipped_share,
             max_age_secs=max_age_secs,
             min_age_secs=min_age_secs,
             limit=limit,
