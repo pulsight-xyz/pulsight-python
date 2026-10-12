@@ -21,7 +21,7 @@ class PulsightInternalCoreDomainAggregatorHolderEntry:
         is_insider (bool | Unset):
         is_sniper (bool | Unset):
         label (str | Unset): Label/LabelType identify a known wallet (e.g. "Bybit"/"cex",
-            "Pump.fun Fees"/"fee") from the admin-managed registry; empty when
+            "Pump.fun Fees"/"fee") from the known-addresses registry; empty when
             unknown.
         label_type (str | Unset):
         owner (str | Unset):

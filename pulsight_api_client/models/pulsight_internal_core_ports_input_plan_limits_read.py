@@ -20,7 +20,7 @@ class PulsightInternalCorePortsInputPlanLimitsRead:
         can_view_full_data (bool | Unset):
         max_filters (int | Unset):
         max_strategies (int | Unset): MaxStrategies is the strategy cap, 0 meaning UNLIMITED (see
-            subscription.PlanLimits.MaxStrategies). It carries the admin's
+            subscription.PlanLimits.MaxStrategies). It carries the per-tier
             `tier_plan_limits` override, not the compiled-in default.
         max_webhooks (int | Unset):
         mcp_access (bool | Unset):

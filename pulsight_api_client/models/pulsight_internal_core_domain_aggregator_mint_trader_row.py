@@ -35,7 +35,7 @@ class PulsightInternalCoreDomainAggregatorMintTraderRow:
         is_insider (bool | Unset):
         is_sniper (bool | Unset):
         label (str | Unset): Label/LabelType identify a known wallet (CEX/fee/...) from the
-            admin-managed registry; empty when unknown.
+            known-addresses registry; empty when unknown.
         label_type (str | Unset):
         last_active_ts (str | Unset):
         pct_of_supply (float | Unset): PctOfSupply is the holder's % of circulating supply, set on the

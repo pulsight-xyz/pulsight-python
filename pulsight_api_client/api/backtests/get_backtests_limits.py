@@ -77,8 +77,7 @@ def sync_detailed(
     """Get Backtest Limits
 
      Returns the per-run backtest cost ceiling (max credits per run) and the per-timeframe maximum run
-    window in seconds, so clients can show and pre-check them. An absent timeframe is unlimited; admins
-    are exempt.
+    window in seconds, so clients can show and pre-check them. An absent timeframe is unlimited.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -108,8 +107,7 @@ def sync(
     """Get Backtest Limits
 
      Returns the per-run backtest cost ceiling (max credits per run) and the per-timeframe maximum run
-    window in seconds, so clients can show and pre-check them. An absent timeframe is unlimited; admins
-    are exempt.
+    window in seconds, so clients can show and pre-check them. An absent timeframe is unlimited.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -134,8 +132,7 @@ async def asyncio_detailed(
     """Get Backtest Limits
 
      Returns the per-run backtest cost ceiling (max credits per run) and the per-timeframe maximum run
-    window in seconds, so clients can show and pre-check them. An absent timeframe is unlimited; admins
-    are exempt.
+    window in seconds, so clients can show and pre-check them. An absent timeframe is unlimited.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -163,8 +160,7 @@ async def asyncio(
     """Get Backtest Limits
 
      Returns the per-run backtest cost ceiling (max credits per run) and the per-timeframe maximum run
-    window in seconds, so clients can show and pre-check them. An absent timeframe is unlimited; admins
-    are exempt.
+    window in seconds, so clients can show and pre-check them. An absent timeframe is unlimited.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

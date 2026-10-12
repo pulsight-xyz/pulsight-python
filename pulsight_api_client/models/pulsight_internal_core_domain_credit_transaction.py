@@ -23,7 +23,7 @@ class PulsightInternalCoreDomainCreditTransaction:
     """
     Attributes:
         api_key_id (str | Unset): APIKeyID attributes a metered consume to the api token that caused
-            it. nil for interactive sessions, OAuth callers, admin adjustments
+            it. nil for interactive sessions, OAuth callers, manual adjustments
             and period grants — and for every row written before changeset 079.
         created_at (str | Unset):
         delta (int | Unset):

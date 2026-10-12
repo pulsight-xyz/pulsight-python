@@ -17,19 +17,16 @@ class PulsightInternalCoreDomainAggregatorProgramBoardRow:
     """
     Attributes:
         arb_txs (int | Unset):
-        category (str | Unset): Category is the RESOLVED category: admin identity > embedded
+        category (str | Unset): Category is the RESOLVED category: assigned identity > embedded
             program seed > 7d auto-arb rule > "unknown".
         censored (bool | Unset):
         failed_txs (int | Unset):
         first_seen_ms (int | Unset):
-        hidden (bool | Unset): Hidden mirrors the admin identity's hide flag. Hidden rows never
-            reach the public board (dropped before ranking) — only the admin
-            listing serves them.
         last_seen_ms (int | Unset):
-        logo_uri (str | Unset): LogoURI is the admin-assigned identity logo, falling back to the
+        logo_uri (str | Unset): LogoURI is the program's assigned identity logo, falling back to the
             embedded seed's self-hosted mirror path (/program-logos/…); empty
             when the program has none.
-        name (str | Unset): Name is the admin-assigned identity name, falling back to the
+        name (str | Unset): Name is the program's assigned identity name, falling back to the
             embedded seed name; empty when unnamed.
         non_swap_rate (float | Unset):
         program_id (str | Unset):
@@ -56,7 +53,6 @@ class PulsightInternalCoreDomainAggregatorProgramBoardRow:
     censored: bool | Unset = UNSET
     failed_txs: int | Unset = UNSET
     first_seen_ms: int | Unset = UNSET
-    hidden: bool | Unset = UNSET
     last_seen_ms: int | Unset = UNSET
     logo_uri: str | Unset = UNSET
     name: str | Unset = UNSET
@@ -82,8 +78,6 @@ class PulsightInternalCoreDomainAggregatorProgramBoardRow:
         failed_txs = self.failed_txs
 
         first_seen_ms = self.first_seen_ms
-
-        hidden = self.hidden
 
         last_seen_ms = self.last_seen_ms
 
@@ -126,8 +120,6 @@ class PulsightInternalCoreDomainAggregatorProgramBoardRow:
             field_dict["failed_txs"] = failed_txs
         if first_seen_ms is not UNSET:
             field_dict["first_seen_ms"] = first_seen_ms
-        if hidden is not UNSET:
-            field_dict["hidden"] = hidden
         if last_seen_ms is not UNSET:
             field_dict["last_seen_ms"] = last_seen_ms
         if logo_uri is not UNSET:
@@ -170,8 +162,6 @@ class PulsightInternalCoreDomainAggregatorProgramBoardRow:
 
         first_seen_ms = d.pop("first_seen_ms", UNSET)
 
-        hidden = d.pop("hidden", UNSET)
-
         last_seen_ms = d.pop("last_seen_ms", UNSET)
 
         logo_uri = d.pop("logo_uri", UNSET)
@@ -204,7 +194,6 @@ class PulsightInternalCoreDomainAggregatorProgramBoardRow:
             censored=censored,
             failed_txs=failed_txs,
             first_seen_ms=first_seen_ms,
-            hidden=hidden,
             last_seen_ms=last_seen_ms,
             logo_uri=logo_uri,
             name=name,

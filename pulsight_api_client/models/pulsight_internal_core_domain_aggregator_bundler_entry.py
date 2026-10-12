@@ -20,7 +20,7 @@ class PulsightInternalCoreDomainAggregatorBundlerEntry:
         initial_balance (str | Unset):
         initial_pct_of_supply (float | Unset):
         label (str | Unset): Label/LabelType identify a known wallet (e.g. "Bybit"/"cex") from the
-            admin-managed registry; empty when unknown. Same provenance as
+            known-addresses registry; empty when unknown. Same provenance as
             HolderEntry.Label.
         label_type (str | Unset):
         pct_of_supply (float | Unset):

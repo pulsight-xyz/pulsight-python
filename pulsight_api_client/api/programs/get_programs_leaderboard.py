@@ -168,9 +168,9 @@ def sync_detailed(
      On-chain programs ranked over a window: volume (SOL-projected; venue-executed for AMM-category
     programs, tx-level otherwise), unique users, revenue (category-gated: net arb extraction for
     arbitrage programs, decoded venue fees for AMMs, 0 = not measured for routers/unknowns), landed tx
-    count, success / spam / non-swap rates, and a resolved category (admin identity > curated AMM seed >
-    7d arb-share auto-rule > unknown). Numeric filters are flat query params; SOL values in whole SOL,
-    rates in percent.
+    count, success / spam / non-swap rates, and a resolved category (assigned identity > curated AMM
+    seed > 7d arb-share auto-rule > unknown). Numeric filters are flat query params; SOL values in whole
+    SOL, rates in percent.
 
     Args:
         board (str | Unset):
@@ -268,9 +268,9 @@ def sync(
      On-chain programs ranked over a window: volume (SOL-projected; venue-executed for AMM-category
     programs, tx-level otherwise), unique users, revenue (category-gated: net arb extraction for
     arbitrage programs, decoded venue fees for AMMs, 0 = not measured for routers/unknowns), landed tx
-    count, success / spam / non-swap rates, and a resolved category (admin identity > curated AMM seed >
-    7d arb-share auto-rule > unknown). Numeric filters are flat query params; SOL values in whole SOL,
-    rates in percent.
+    count, success / spam / non-swap rates, and a resolved category (assigned identity > curated AMM
+    seed > 7d arb-share auto-rule > unknown). Numeric filters are flat query params; SOL values in whole
+    SOL, rates in percent.
 
     Args:
         board (str | Unset):
@@ -362,9 +362,9 @@ async def asyncio_detailed(
      On-chain programs ranked over a window: volume (SOL-projected; venue-executed for AMM-category
     programs, tx-level otherwise), unique users, revenue (category-gated: net arb extraction for
     arbitrage programs, decoded venue fees for AMMs, 0 = not measured for routers/unknowns), landed tx
-    count, success / spam / non-swap rates, and a resolved category (admin identity > curated AMM seed >
-    7d arb-share auto-rule > unknown). Numeric filters are flat query params; SOL values in whole SOL,
-    rates in percent.
+    count, success / spam / non-swap rates, and a resolved category (assigned identity > curated AMM
+    seed > 7d arb-share auto-rule > unknown). Numeric filters are flat query params; SOL values in whole
+    SOL, rates in percent.
 
     Args:
         board (str | Unset):
@@ -460,9 +460,9 @@ async def asyncio(
      On-chain programs ranked over a window: volume (SOL-projected; venue-executed for AMM-category
     programs, tx-level otherwise), unique users, revenue (category-gated: net arb extraction for
     arbitrage programs, decoded venue fees for AMMs, 0 = not measured for routers/unknowns), landed tx
-    count, success / spam / non-swap rates, and a resolved category (admin identity > curated AMM seed >
-    7d arb-share auto-rule > unknown). Numeric filters are flat query params; SOL values in whole SOL,
-    rates in percent.
+    count, success / spam / non-swap rates, and a resolved category (assigned identity > curated AMM
+    seed > 7d arb-share auto-rule > unknown). Numeric filters are flat query params; SOL values in whole
+    SOL, rates in percent.
 
     Args:
         board (str | Unset):

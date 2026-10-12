@@ -21,7 +21,7 @@ class PulsightInternalCorePortsInputUserPoolCredits:
     Attributes:
         allowance (int | Unset): tier grant per cycle (the limit)
         balance (int | Unset): total remaining = cycle balance + gift
-        gifted (int | Unset): Gifted is the persistent admin-gift reserve still available. It is
+        gifted (int | Unset): Gifted is the persistent gifted reserve still available. It is
             spent down before the cycle allowance and survives tier changes.
             Cycle tier balance remaining = Balance − Gifted.
         period_end (str | Unset):
