@@ -38,7 +38,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
             slots after the target's swap, and the exec's slippage_bps becomes a
             REVERT GATE instead of a charge — the fill is rejected (tip + priority
             fee still paid) when the landing price drifted past the tolerance,
-            matching how the live executor's min_out floor behaves. Only copy-style
+            matching how a transaction's min_out floor behaves. Only copy-style
             fills (Copy* and Target-signal-driven Emits) are affected; candle-driven
             fills already price on the bucket close.
         per_pool (bool | Unset): PerPool, when true, simulates each of a mint's significant markets as an

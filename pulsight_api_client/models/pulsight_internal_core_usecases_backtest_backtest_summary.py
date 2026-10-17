@@ -38,16 +38,15 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             landing price had drifted past the exec's slippage_bps between the
             target's swap and our simulated landing. Unlike CopiesSkippedUnpriced
             this is an EXECUTION OUTCOME, not a coverage gap — the data was fine,
-            the market moved, and a live bot's tx would have landed and reverted.
+            the market moved, and a real transaction would have landed and reverted.
             Each revert still pays its tip + priority fee (folded into
             FeesPaidSol/TipsPaidSol and broken out in RevertFeesSol). Only possible
             on latency_slots > 0 runs. Additive JSONB field — old rows decode as 0.
         copies_skipped_non_sol_quote (int | Unset): CopiesSkippedNonSolQuote is the part of CopiesSkippedUnpriced whose
             cause is the pool's quote: the target swapped in a USDC-, USDT- or
-            token-quoted pool whose leg carries no SOL price, so the live bot has
-            no route to copy it and both sides skip it (`non_sol_quote`). The
-            runtime keeps ONE counter for both causes; this breakdown exists only
-            here. Additive JSONB field — old rows decode as 0.
+            token-quoted pool whose leg carries no SOL price, so there is no route
+            to copy it and the run skips it (`non_sol_quote`). Additive JSONB
+            field — old rows decode as 0.
         copies_skipped_pool_not_simulated (int | Unset): CopiesSkippedPoolNotSimulated counts target swaps a per-pool
             run saw on a
             market it carried no instrument for (outside the mint's top pools, or a
@@ -80,8 +79,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             above. Empty when the strategy closed everything (all "Sold all").
             Additive JSONB field — pre-existing rows decode as nil.
         landing_contested_pct (float | Unset): LandingContestedPct is the share (0-100) of filled copies whose pool saw
-            at least one other tx inside the latency gap — how often somebody beat
-            the bot to the pool. Nil when the run had no landing fills.
+            at least one other tx inside the latency gap — how often somebody
+            reached the pool first. Nil when the run had no landing fills.
         latency_slots (int | Unset): LatencySlots echoes the run's landing latency (req.LatencySlots) so a
             result is readable as which fill model produced it. 0 ⇒ the zero-latency
             model. Additive JSONB field — old rows decode as 0, which is what they

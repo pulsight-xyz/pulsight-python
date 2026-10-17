@@ -62,7 +62,7 @@ class PulsightInternalCoreDomainAggregatorTrade:
         primary_pool_id (int | Unset):
         primary_pool_quote_mint (str | Unset): PrimaryPoolQuoteMint is the primary pool's counter asset from this
             mint's side (its quote, or its base when the mint is the quote of a
-            token-quoted pair) — the rule that decides whether a copy bot can
+            token-quoted pair) — the rule that decides whether a copy can
             execute there. REST decoration; absent when the catalog does not know
             the pool.
         qty (str | Unset):
