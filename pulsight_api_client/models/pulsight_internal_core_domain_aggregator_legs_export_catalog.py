@@ -19,14 +19,12 @@ class PulsightInternalCoreDomainAggregatorLegsExportCatalog:
         days (list[str] | Unset): Days are the exportable UTC days, newest first (YYYY-MM-DD).
         parts (int | Unset): Parts is how many parts each day is split into; a pool's legs are always in part pool_id %
             parts. Example: 16.
-        schema (str | Unset): Schema is the column set every part of every day carries. Example: legs-1.
-        venues (list[str] | Unset): Venues are the venues whose legs are exported.
+        schema (str | Unset): Schema is the column set every part of every day carries. Example: legs-2.
     """
 
     days: list[str] | Unset = UNSET
     parts: int | Unset = UNSET
     schema: str | Unset = UNSET
-    venues: list[str] | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -38,10 +36,6 @@ class PulsightInternalCoreDomainAggregatorLegsExportCatalog:
 
         schema = self.schema
 
-        venues: list[str] | Unset = UNSET
-        if not isinstance(self.venues, Unset):
-            venues = self.venues
-
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -51,8 +45,6 @@ class PulsightInternalCoreDomainAggregatorLegsExportCatalog:
             field_dict["parts"] = parts
         if schema is not UNSET:
             field_dict["schema"] = schema
-        if venues is not UNSET:
-            field_dict["venues"] = venues
 
         return field_dict
 
@@ -65,13 +57,10 @@ class PulsightInternalCoreDomainAggregatorLegsExportCatalog:
 
         schema = d.pop("schema", UNSET)
 
-        venues = cast(list[str], d.pop("venues", UNSET))
-
         pulsight_internal_core_domain_aggregator_legs_export_catalog = cls(
             days=days,
             parts=parts,
             schema=schema,
-            venues=venues,
         )
 
         pulsight_internal_core_domain_aggregator_legs_export_catalog.additional_properties = d

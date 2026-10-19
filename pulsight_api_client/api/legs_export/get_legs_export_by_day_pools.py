@@ -50,8 +50,8 @@ def sync_detailed(
 ) -> Response[Any]:
     """Download the pools of a day's DEX legs
 
-     Streams, as Parquet (zstd), every pool with a PumpSwap or Raydium CPMM leg on the UTC day: pool_id,
-    pool (base58), dex, mint_id and mint (the base, base58), quote_mint_id and quote_mint (base58),
+     Streams, as Parquet (zstd), every pool with a leg on the UTC day, on any venue: pool_id, pool
+    (base58), dex, mint_id and mint (the base, base58), quote_mint_id and quote_mint (base58),
     first_slot (the pool's first swap the ledger saw, which may predate the 90-day history). A request
     refused before streaming (400, 403, 429) is not charged, and one the server fails to deliver is
     refunded.
@@ -85,8 +85,8 @@ async def asyncio_detailed(
 ) -> Response[Any]:
     """Download the pools of a day's DEX legs
 
-     Streams, as Parquet (zstd), every pool with a PumpSwap or Raydium CPMM leg on the UTC day: pool_id,
-    pool (base58), dex, mint_id and mint (the base, base58), quote_mint_id and quote_mint (base58),
+     Streams, as Parquet (zstd), every pool with a leg on the UTC day, on any venue: pool_id, pool
+    (base58), dex, mint_id and mint (the base, base58), quote_mint_id and quote_mint (base58),
     first_slot (the pool's first swap the ledger saw, which may predate the 90-day history). A request
     refused before streaming (400, 403, 429) is not charged, and one the server fails to deliver is
     refunded.

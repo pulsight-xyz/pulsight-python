@@ -81,9 +81,9 @@ def sync_detailed(
 ]:
     """List the exportable days of DEX legs
 
-     Lists the complete UTC days of PumpSwap and Raydium CPMM legs the export serves (inside the ledger's
-    90-day history), how many parts each day is split into and the column schema. Free. Needs an api
-    token with the `data:export` scope on an account the export is granted to.
+     Lists the complete UTC days of DEX legs the export serves, every venue the ledger records (inside
+    the ledger's 90-day history), how many parts each day is split into and the column schema. Free.
+    Needs an api token with the `data:export` scope on an account the export is granted to.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -112,9 +112,9 @@ def sync(
 ):
     """List the exportable days of DEX legs
 
-     Lists the complete UTC days of PumpSwap and Raydium CPMM legs the export serves (inside the ledger's
-    90-day history), how many parts each day is split into and the column schema. Free. Needs an api
-    token with the `data:export` scope on an account the export is granted to.
+     Lists the complete UTC days of DEX legs the export serves, every venue the ledger records (inside
+    the ledger's 90-day history), how many parts each day is split into and the column schema. Free.
+    Needs an api token with the `data:export` scope on an account the export is granted to.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -138,9 +138,9 @@ async def asyncio_detailed(
 ]:
     """List the exportable days of DEX legs
 
-     Lists the complete UTC days of PumpSwap and Raydium CPMM legs the export serves (inside the ledger's
-    90-day history), how many parts each day is split into and the column schema. Free. Needs an api
-    token with the `data:export` scope on an account the export is granted to.
+     Lists the complete UTC days of DEX legs the export serves, every venue the ledger records (inside
+    the ledger's 90-day history), how many parts each day is split into and the column schema. Free.
+    Needs an api token with the `data:export` scope on an account the export is granted to.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -167,9 +167,9 @@ async def asyncio(
 ):
     """List the exportable days of DEX legs
 
-     Lists the complete UTC days of PumpSwap and Raydium CPMM legs the export serves (inside the ledger's
-    90-day history), how many parts each day is split into and the column schema. Free. Needs an api
-    token with the `data:export` scope on an account the export is granted to.
+     Lists the complete UTC days of DEX legs the export serves, every venue the ledger records (inside
+    the ledger's 90-day history), how many parts each day is split into and the column schema. Free.
+    Needs an api token with the `data:export` scope on an account the export is granted to.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

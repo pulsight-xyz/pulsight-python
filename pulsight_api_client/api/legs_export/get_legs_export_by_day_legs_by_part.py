@@ -53,13 +53,14 @@ def sync_detailed(
 ) -> Response[Any]:
     """Download one part of a day's DEX legs
 
-     Streams, as Parquet (zstd), every PumpSwap and Raydium CPMM leg of the UTC day whose pool_id modulo
-    the catalog's parts equals `part`, sorted by pool_id, slot, tx_index, ix_index. A pool's legs are in
-    the same part every day. Columns: pool_id, mint_id, quote_mint_id (u64 ledger ids), dex, ts_ms,
-    slot, tx_index, ix_index, trader (32 raw bytes), is_buy (the base side), base_amount, quote_amount,
-    base_reserve_pre, quote_reserve_pre, base_reserve_post, quote_reserve_post (raw units), value_sol
-    (lamports), swap_fee_bps (0 = unknown), flags. A request refused before streaming (400, 403, 429) is
-    not charged, and one the server fails to deliver is refunded.
+     Streams, as Parquet (zstd), every DEX leg of the UTC day, on every venue the ledger records, whose
+    pool_id modulo the catalog's parts equals `part`, sorted by pool_id, slot, tx_index, ix_index. A
+    pool's legs are in the same part every day. Columns: pool_id, mint_id, quote_mint_id (u64 ledger
+    ids), dex, ts_ms, slot, tx_index, ix_index, trader (32 raw bytes), is_buy (the base side),
+    base_amount, quote_amount, base_reserve_pre, quote_reserve_pre, base_reserve_post,
+    quote_reserve_post (raw units), value_sol (lamports), swap_fee_bps (0 = unknown), flags. A request
+    refused before streaming (400, 403, 429) is not charged, and one the server fails to deliver is
+    refunded.
 
     Args:
         day (str):
@@ -93,13 +94,14 @@ async def asyncio_detailed(
 ) -> Response[Any]:
     """Download one part of a day's DEX legs
 
-     Streams, as Parquet (zstd), every PumpSwap and Raydium CPMM leg of the UTC day whose pool_id modulo
-    the catalog's parts equals `part`, sorted by pool_id, slot, tx_index, ix_index. A pool's legs are in
-    the same part every day. Columns: pool_id, mint_id, quote_mint_id (u64 ledger ids), dex, ts_ms,
-    slot, tx_index, ix_index, trader (32 raw bytes), is_buy (the base side), base_amount, quote_amount,
-    base_reserve_pre, quote_reserve_pre, base_reserve_post, quote_reserve_post (raw units), value_sol
-    (lamports), swap_fee_bps (0 = unknown), flags. A request refused before streaming (400, 403, 429) is
-    not charged, and one the server fails to deliver is refunded.
+     Streams, as Parquet (zstd), every DEX leg of the UTC day, on every venue the ledger records, whose
+    pool_id modulo the catalog's parts equals `part`, sorted by pool_id, slot, tx_index, ix_index. A
+    pool's legs are in the same part every day. Columns: pool_id, mint_id, quote_mint_id (u64 ledger
+    ids), dex, ts_ms, slot, tx_index, ix_index, trader (32 raw bytes), is_buy (the base side),
+    base_amount, quote_amount, base_reserve_pre, quote_reserve_pre, base_reserve_post,
+    quote_reserve_post (raw units), value_sol (lamports), swap_fee_bps (0 = unknown), flags. A request
+    refused before streaming (400, 403, 429) is not charged, and one the server fails to deliver is
+    refunded.
 
     Args:
         day (str):
