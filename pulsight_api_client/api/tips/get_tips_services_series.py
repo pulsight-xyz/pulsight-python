@@ -8,29 +8,26 @@ from ...client import AuthenticatedClient, Client
 from ...models.internal_adapters_primary_http_handler_error_response import (
     InternalAdaptersPrimaryHttpHandlerErrorResponse,
 )
-from ...models.pulsight_internal_core_domain_aggregator_heatmap_response import (
-    PulsightInternalCoreDomainAggregatorHeatmapResponse,
+from ...models.pulsight_internal_core_domain_aggregator_tip_service_series import (
+    PulsightInternalCoreDomainAggregatorTipServiceSeries,
 )
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    bucket: str | Unset = UNSET,
-    horizon_hours: int | Unset = UNSET,
+    window: str | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
-    params["bucket"] = bucket
-
-    params["horizon_hours"] = horizon_hours
+    params["window"] = window
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/tips/heatmap",
+        "url": "/api/tips/services/series",
         "params": params,
     }
 
@@ -41,11 +38,11 @@ def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreDomainAggregatorHeatmapResponse
+    | PulsightInternalCoreDomainAggregatorTipServiceSeries
     | None
 ):
     if response.status_code == 200:
-        response_200 = PulsightInternalCoreDomainAggregatorHeatmapResponse.from_dict(
+        response_200 = PulsightInternalCoreDomainAggregatorTipServiceSeries.from_dict(
             response.json()
         )
 
@@ -68,7 +65,7 @@ def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreDomainAggregatorHeatmapResponse
+    | PulsightInternalCoreDomainAggregatorTipServiceSeries
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -81,29 +78,30 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient | Client,
-    bucket: str | Unset = UNSET,
-    horizon_hours: int | Unset = UNSET,
+    window: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreDomainAggregatorHeatmapResponse
+    | PulsightInternalCoreDomainAggregatorTipServiceSeries
 ]:
-    """Tip heatmap
+    """Tip service series
+
+     Each tip service's tipped transactions per bucket over the window, on the bucket grid of
+    /api/tips/series: `buckets` lists every bucket start and each service's counts align with it, zero-
+    filled. Services are ordered by the window's tipped transactions, descending.
 
     Args:
-        bucket (str | Unset):
-        horizon_hours (int | Unset):
+        window (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorHeatmapResponse]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipServiceSeries]
     """
 
     kwargs = _get_kwargs(
-        bucket=bucket,
-        horizon_hours=horizon_hours,
+        window=window,
     )
 
     response = client.get_httpx_client().request(
@@ -116,60 +114,62 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient | Client,
-    bucket: str | Unset = UNSET,
-    horizon_hours: int | Unset = UNSET,
+    window: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreDomainAggregatorHeatmapResponse
+    | PulsightInternalCoreDomainAggregatorTipServiceSeries
     | None
 ):
-    """Tip heatmap
+    """Tip service series
+
+     Each tip service's tipped transactions per bucket over the window, on the bucket grid of
+    /api/tips/series: `buckets` lists every bucket start and each service's counts align with it, zero-
+    filled. Services are ordered by the window's tipped transactions, descending.
 
     Args:
-        bucket (str | Unset):
-        horizon_hours (int | Unset):
+        window (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorHeatmapResponse
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipServiceSeries
     """
 
     return sync_detailed(
         client=client,
-        bucket=bucket,
-        horizon_hours=horizon_hours,
+        window=window,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient | Client,
-    bucket: str | Unset = UNSET,
-    horizon_hours: int | Unset = UNSET,
+    window: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreDomainAggregatorHeatmapResponse
+    | PulsightInternalCoreDomainAggregatorTipServiceSeries
 ]:
-    """Tip heatmap
+    """Tip service series
+
+     Each tip service's tipped transactions per bucket over the window, on the bucket grid of
+    /api/tips/series: `buckets` lists every bucket start and each service's counts align with it, zero-
+    filled. Services are ordered by the window's tipped transactions, descending.
 
     Args:
-        bucket (str | Unset):
-        horizon_hours (int | Unset):
+        window (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorHeatmapResponse]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipServiceSeries]
     """
 
     kwargs = _get_kwargs(
-        bucket=bucket,
-        horizon_hours=horizon_hours,
+        window=window,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -180,31 +180,32 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient | Client,
-    bucket: str | Unset = UNSET,
-    horizon_hours: int | Unset = UNSET,
+    window: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | PulsightInternalCoreDomainAggregatorHeatmapResponse
+    | PulsightInternalCoreDomainAggregatorTipServiceSeries
     | None
 ):
-    """Tip heatmap
+    """Tip service series
+
+     Each tip service's tipped transactions per bucket over the window, on the bucket grid of
+    /api/tips/series: `buckets` lists every bucket start and each service's counts align with it, zero-
+    filled. Services are ordered by the window's tipped transactions, descending.
 
     Args:
-        bucket (str | Unset):
-        horizon_hours (int | Unset):
+        window (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorHeatmapResponse
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipServiceSeries
     """
 
     return (
         await asyncio_detailed(
             client=client,
-            bucket=bucket,
-            horizon_hours=horizon_hours,
+            window=window,
         )
     ).parsed

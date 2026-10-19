@@ -85,6 +85,11 @@ def sync_detailed(
 ]:
     """Global tip stats
 
+     The window's tipped transactions, tips and priority fees in both currencies, the median, 90th and
+    99th percentile tip, and the share of landed transactions and traded value that tipped; `previous`
+    carries the same figures over the window of equal length before it (absent for `all` and when the
+    ledger does not cover it). `all` is the last 90 days.
+
     Args:
         window (str | Unset):
 
@@ -118,6 +123,11 @@ def sync(
 ):
     """Global tip stats
 
+     The window's tipped transactions, tips and priority fees in both currencies, the median, 90th and
+    99th percentile tip, and the share of landed transactions and traded value that tipped; `previous`
+    carries the same figures over the window of equal length before it (absent for `all` and when the
+    ledger does not cover it). `all` is the last 90 days.
+
     Args:
         window (str | Unset):
 
@@ -144,6 +154,11 @@ async def asyncio_detailed(
     | PulsightInternalCoreDomainAggregatorGlobalTipStats
 ]:
     """Global tip stats
+
+     The window's tipped transactions, tips and priority fees in both currencies, the median, 90th and
+    99th percentile tip, and the share of landed transactions and traded value that tipped; `previous`
+    carries the same figures over the window of equal length before it (absent for `all` and when the
+    ledger does not cover it). `all` is the last 90 days.
 
     Args:
         window (str | Unset):
@@ -175,6 +190,11 @@ async def asyncio(
     | None
 ):
     """Global tip stats
+
+     The window's tipped transactions, tips and priority fees in both currencies, the median, 90th and
+    99th percentile tip, and the share of landed transactions and traded value that tipped; `previous`
+    carries the same figures over the window of equal length before it (absent for `all` and when the
+    ledger does not cover it). `all` is the last 90 days.
 
     Args:
         window (str | Unset):

@@ -12,7 +12,7 @@ from ...models.internal_adapters_primary_http_handler_error_response import (
 from ...models.pulsight_internal_core_domain_aggregator_mint_activity_seed import (
     PulsightInternalCoreDomainAggregatorMintActivitySeed,
 )
-from ...types import UNSET, Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
@@ -20,6 +20,7 @@ def _get_kwargs(
     *,
     from_: int,
     to: int,
+    fields: str | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -27,6 +28,8 @@ def _get_kwargs(
     params["from"] = from_
 
     params["to"] = to
+
+    params["fields"] = fields
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -102,6 +105,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     from_: int,
     to: int,
+    fields: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorMintActivitySeed
@@ -110,12 +114,16 @@ def sync_detailed(
 
      Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, in lamports and in micro-
     USD as stamped at execution) over [from, to), plus the lifetime totals strictly before `from`. Range
-    capped at 25 hours.
+    capped at 25 hours. `fields` opts into more: `tips` (the tipped-share counts per minute and before
+    the range), `traders` (each minute's trading wallets as packed keys), `trader_base` (the keys of
+    every wallet that traded before the range) and `launch` (the sealed launch bundle and the first
+    trade); the response's `fields` names what it carries.
 
     Args:
         pubkey (str):
         from_ (int):
         to (int):
+        fields (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -129,6 +137,7 @@ def sync_detailed(
         pubkey=pubkey,
         from_=from_,
         to=to,
+        fields=fields,
     )
 
     response = client.get_httpx_client().request(
@@ -144,6 +153,7 @@ def sync(
     client: AuthenticatedClient,
     from_: int,
     to: int,
+    fields: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorMintActivitySeed
@@ -153,12 +163,16 @@ def sync(
 
      Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, in lamports and in micro-
     USD as stamped at execution) over [from, to), plus the lifetime totals strictly before `from`. Range
-    capped at 25 hours.
+    capped at 25 hours. `fields` opts into more: `tips` (the tipped-share counts per minute and before
+    the range), `traders` (each minute's trading wallets as packed keys), `trader_base` (the keys of
+    every wallet that traded before the range) and `launch` (the sealed launch bundle and the first
+    trade); the response's `fields` names what it carries.
 
     Args:
         pubkey (str):
         from_ (int):
         to (int):
+        fields (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -173,6 +187,7 @@ def sync(
         client=client,
         from_=from_,
         to=to,
+        fields=fields,
     ).parsed
 
 
@@ -182,6 +197,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     from_: int,
     to: int,
+    fields: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorMintActivitySeed
@@ -190,12 +206,16 @@ async def asyncio_detailed(
 
      Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, in lamports and in micro-
     USD as stamped at execution) over [from, to), plus the lifetime totals strictly before `from`. Range
-    capped at 25 hours.
+    capped at 25 hours. `fields` opts into more: `tips` (the tipped-share counts per minute and before
+    the range), `traders` (each minute's trading wallets as packed keys), `trader_base` (the keys of
+    every wallet that traded before the range) and `launch` (the sealed launch bundle and the first
+    trade); the response's `fields` names what it carries.
 
     Args:
         pubkey (str):
         from_ (int):
         to (int):
+        fields (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -209,6 +229,7 @@ async def asyncio_detailed(
         pubkey=pubkey,
         from_=from_,
         to=to,
+        fields=fields,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -222,6 +243,7 @@ async def asyncio(
     client: AuthenticatedClient,
     from_: int,
     to: int,
+    fields: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreDomainAggregatorMintActivitySeed
@@ -231,12 +253,16 @@ async def asyncio(
 
      Returns the mint's per-minute swap count + network fees (tx fee + MEV tip, in lamports and in micro-
     USD as stamped at execution) over [from, to), plus the lifetime totals strictly before `from`. Range
-    capped at 25 hours.
+    capped at 25 hours. `fields` opts into more: `tips` (the tipped-share counts per minute and before
+    the range), `traders` (each minute's trading wallets as packed keys), `trader_base` (the keys of
+    every wallet that traded before the range) and `launch` (the sealed launch bundle and the first
+    trade); the response's `fields` names what it carries.
 
     Args:
         pubkey (str):
         from_ (int):
         to (int):
+        fields (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -252,5 +278,6 @@ async def asyncio(
             client=client,
             from_=from_,
             to=to,
+            fields=fields,
         )
     ).parsed

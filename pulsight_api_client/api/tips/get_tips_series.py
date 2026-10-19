@@ -8,8 +8,8 @@ from ...client import AuthenticatedClient, Client
 from ...models.internal_adapters_primary_http_handler_error_response import (
     InternalAdaptersPrimaryHttpHandlerErrorResponse,
 )
-from ...models.pulsight_internal_core_domain_aggregator_tip_priority_ratio_point import (
-    PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint,
+from ...models.pulsight_internal_core_domain_aggregator_tip_series import (
+    PulsightInternalCoreDomainAggregatorTipSeries,
 )
 from ...types import UNSET, Response, Unset
 
@@ -27,7 +27,7 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/tips/priority-ratio",
+        "url": "/api/tips/series",
         "params": params,
     }
 
@@ -38,20 +38,13 @@ def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint]
+    | PulsightInternalCoreDomainAggregatorTipSeries
     | None
 ):
     if response.status_code == 200:
-        response_200 = []
-        _response_200 = response.json()
-        for response_200_item_data in _response_200:
-            response_200_item = (
-                PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint.from_dict(
-                    response_200_item_data
-                )
-            )
-
-            response_200.append(response_200_item)
+        response_200 = PulsightInternalCoreDomainAggregatorTipSeries.from_dict(
+            response.json()
+        )
 
         return response_200
 
@@ -72,7 +65,7 @@ def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint]
+    | PulsightInternalCoreDomainAggregatorTipSeries
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -88,9 +81,14 @@ def sync_detailed(
     window: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint]
+    | PulsightInternalCoreDomainAggregatorTipSeries
 ]:
-    """Tip vs priority-fee ratio series
+    """Tip series
+
+     The window's tip figures per bucket (60 s up to 4 h, or a day for the 90-day window; at most 180
+    buckets): tipped transactions, tips and priority fees in both currencies, and the median, 90th and
+    99th percentile tip. Buckets without a tipped transaction are absent; the last bucket is still
+    filling.
 
     Args:
         window (str | Unset):
@@ -100,7 +98,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint]]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipSeries]
     """
 
     kwargs = _get_kwargs(
@@ -120,10 +118,15 @@ def sync(
     window: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint]
+    | PulsightInternalCoreDomainAggregatorTipSeries
     | None
 ):
-    """Tip vs priority-fee ratio series
+    """Tip series
+
+     The window's tip figures per bucket (60 s up to 4 h, or a day for the 90-day window; at most 180
+    buckets): tipped transactions, tips and priority fees in both currencies, and the median, 90th and
+    99th percentile tip. Buckets without a tipped transaction are absent; the last bucket is still
+    filling.
 
     Args:
         window (str | Unset):
@@ -133,7 +136,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint]
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipSeries
     """
 
     return sync_detailed(
@@ -148,9 +151,14 @@ async def asyncio_detailed(
     window: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint]
+    | PulsightInternalCoreDomainAggregatorTipSeries
 ]:
-    """Tip vs priority-fee ratio series
+    """Tip series
+
+     The window's tip figures per bucket (60 s up to 4 h, or a day for the 90-day window; at most 180
+    buckets): tipped transactions, tips and priority fees in both currencies, and the median, 90th and
+    99th percentile tip. Buckets without a tipped transaction are absent; the last bucket is still
+    filling.
 
     Args:
         window (str | Unset):
@@ -160,7 +168,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint]]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipSeries]
     """
 
     kwargs = _get_kwargs(
@@ -178,10 +186,15 @@ async def asyncio(
     window: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint]
+    | PulsightInternalCoreDomainAggregatorTipSeries
     | None
 ):
-    """Tip vs priority-fee ratio series
+    """Tip series
+
+     The window's tip figures per bucket (60 s up to 4 h, or a day for the 90-day window; at most 180
+    buckets): tipped transactions, tips and priority fees in both currencies, and the median, 90th and
+    99th percentile tip. Buckets without a tipped transaction are absent; the last bucket is still
+    filling.
 
     Args:
         window (str | Unset):
@@ -191,7 +204,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorTipPriorityRatioPoint]
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipSeries
     """
 
     return (

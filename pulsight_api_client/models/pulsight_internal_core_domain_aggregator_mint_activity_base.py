@@ -19,11 +19,20 @@ class PulsightInternalCoreDomainAggregatorMintActivityBase:
         fees_lamports (int | Unset):
         fees_micro_usd (int | Unset):
         swaps (int | Unset):
+        tip_trades (int | Unset): TipTrades is a point's tip_trades over everything before the range.
+            Served with the `tips` field.
+        tipped_trades (int | Unset): TippedTrades is a point's tipped_trades over everything before the
+            range. Served with the `tips` field.
+        traders (str | Unset): Traders packs the key of every wallet with a buy or sell row before the
+            range, as a point's traders. Served with the `trader_base` field.
     """
 
     fees_lamports: int | Unset = UNSET
     fees_micro_usd: int | Unset = UNSET
     swaps: int | Unset = UNSET
+    tip_trades: int | Unset = UNSET
+    tipped_trades: int | Unset = UNSET
+    traders: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -32,6 +41,12 @@ class PulsightInternalCoreDomainAggregatorMintActivityBase:
         fees_micro_usd = self.fees_micro_usd
 
         swaps = self.swaps
+
+        tip_trades = self.tip_trades
+
+        tipped_trades = self.tipped_trades
+
+        traders = self.traders
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -42,6 +57,12 @@ class PulsightInternalCoreDomainAggregatorMintActivityBase:
             field_dict["fees_micro_usd"] = fees_micro_usd
         if swaps is not UNSET:
             field_dict["swaps"] = swaps
+        if tip_trades is not UNSET:
+            field_dict["tip_trades"] = tip_trades
+        if tipped_trades is not UNSET:
+            field_dict["tipped_trades"] = tipped_trades
+        if traders is not UNSET:
+            field_dict["traders"] = traders
 
         return field_dict
 
@@ -54,10 +75,19 @@ class PulsightInternalCoreDomainAggregatorMintActivityBase:
 
         swaps = d.pop("swaps", UNSET)
 
+        tip_trades = d.pop("tip_trades", UNSET)
+
+        tipped_trades = d.pop("tipped_trades", UNSET)
+
+        traders = d.pop("traders", UNSET)
+
         pulsight_internal_core_domain_aggregator_mint_activity_base = cls(
             fees_lamports=fees_lamports,
             fees_micro_usd=fees_micro_usd,
             swaps=swaps,
+            tip_trades=tip_trades,
+            tipped_trades=tipped_trades,
+            traders=traders,
         )
 
         pulsight_internal_core_domain_aggregator_mint_activity_base.additional_properties = d

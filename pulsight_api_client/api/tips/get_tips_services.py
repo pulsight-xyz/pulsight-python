@@ -92,6 +92,11 @@ def sync_detailed(
 ]:
     """Tip service dominance
 
+     Every tip service with a tipped transaction in the window, by tipped transactions descending: its
+    share of the tipped transactions and of the tips paid, the tips in both currencies, the mean, median
+    and 90th percentile tip, and `prev_share_pct`, its share over the window of equal length before
+    (null for `all` and when the ledger does not cover it).
+
     Args:
         window (str | Unset):
 
@@ -125,6 +130,11 @@ def sync(
 ):
     """Tip service dominance
 
+     Every tip service with a tipped transaction in the window, by tipped transactions descending: its
+    share of the tipped transactions and of the tips paid, the tips in both currencies, the mean, median
+    and 90th percentile tip, and `prev_share_pct`, its share over the window of equal length before
+    (null for `all` and when the ledger does not cover it).
+
     Args:
         window (str | Unset):
 
@@ -151,6 +161,11 @@ async def asyncio_detailed(
     | list[PulsightInternalCoreDomainAggregatorServiceDominanceRow]
 ]:
     """Tip service dominance
+
+     Every tip service with a tipped transaction in the window, by tipped transactions descending: its
+    share of the tipped transactions and of the tips paid, the tips in both currencies, the mean, median
+    and 90th percentile tip, and `prev_share_pct`, its share over the window of equal length before
+    (null for `all` and when the ledger does not cover it).
 
     Args:
         window (str | Unset):
@@ -182,6 +197,11 @@ async def asyncio(
     | None
 ):
     """Tip service dominance
+
+     Every tip service with a tipped transaction in the window, by tipped transactions descending: its
+    share of the tipped transactions and of the tips paid, the tips in both currencies, the mean, median
+    and 90th percentile tip, and `prev_share_pct`, its share over the window of equal length before
+    (null for `all` and when the ledger does not cover it).
 
     Args:
         window (str | Unset):

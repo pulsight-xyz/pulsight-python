@@ -8,8 +8,8 @@ from ...client import AuthenticatedClient, Client
 from ...models.internal_adapters_primary_http_handler_error_response import (
     InternalAdaptersPrimaryHttpHandlerErrorResponse,
 )
-from ...models.pulsight_internal_core_domain_aggregator_mev_tip_share_point import (
-    PulsightInternalCoreDomainAggregatorMevTipSharePoint,
+from ...models.pulsight_internal_core_domain_aggregator_tip_adoption import (
+    PulsightInternalCoreDomainAggregatorTipAdoption,
 )
 from ...types import UNSET, Response, Unset
 
@@ -27,7 +27,7 @@ def _get_kwargs(
 
     _kwargs: dict[str, Any] = {
         "method": "get",
-        "url": "/api/tips/mev-share",
+        "url": "/api/tips/adoption",
         "params": params,
     }
 
@@ -38,20 +38,13 @@ def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorMevTipSharePoint]
+    | PulsightInternalCoreDomainAggregatorTipAdoption
     | None
 ):
     if response.status_code == 200:
-        response_200 = []
-        _response_200 = response.json()
-        for response_200_item_data in _response_200:
-            response_200_item = (
-                PulsightInternalCoreDomainAggregatorMevTipSharePoint.from_dict(
-                    response_200_item_data
-                )
-            )
-
-            response_200.append(response_200_item)
+        response_200 = PulsightInternalCoreDomainAggregatorTipAdoption.from_dict(
+            response.json()
+        )
 
         return response_200
 
@@ -72,7 +65,7 @@ def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorMevTipSharePoint]
+    | PulsightInternalCoreDomainAggregatorTipAdoption
 ]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -88,9 +81,13 @@ def sync_detailed(
     window: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorMevTipSharePoint]
+    | PulsightInternalCoreDomainAggregatorTipAdoption
 ]:
-    """Tipped-volume share series
+    """Tip adoption series
+
+     The share of landed transactions and of traded value that paid a tip, per bucket of at least an hour
+    (at most about 180 buckets), with the counts and volumes in both currencies behind each share. A
+    share is null where its denominator is zero; the last bucket is still filling.
 
     Args:
         window (str | Unset):
@@ -100,7 +97,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorMevTipSharePoint]]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipAdoption]
     """
 
     kwargs = _get_kwargs(
@@ -120,10 +117,14 @@ def sync(
     window: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorMevTipSharePoint]
+    | PulsightInternalCoreDomainAggregatorTipAdoption
     | None
 ):
-    """Tipped-volume share series
+    """Tip adoption series
+
+     The share of landed transactions and of traded value that paid a tip, per bucket of at least an hour
+    (at most about 180 buckets), with the counts and volumes in both currencies behind each share. A
+    share is null where its denominator is zero; the last bucket is still filling.
 
     Args:
         window (str | Unset):
@@ -133,7 +134,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorMevTipSharePoint]
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipAdoption
     """
 
     return sync_detailed(
@@ -148,9 +149,13 @@ async def asyncio_detailed(
     window: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorMevTipSharePoint]
+    | PulsightInternalCoreDomainAggregatorTipAdoption
 ]:
-    """Tipped-volume share series
+    """Tip adoption series
+
+     The share of landed transactions and of traded value that paid a tip, per bucket of at least an hour
+    (at most about 180 buckets), with the counts and volumes in both currencies behind each share. A
+    share is null where its denominator is zero; the last bucket is still filling.
 
     Args:
         window (str | Unset):
@@ -160,7 +165,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorMevTipSharePoint]]
+        Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipAdoption]
     """
 
     kwargs = _get_kwargs(
@@ -178,10 +183,14 @@ async def asyncio(
     window: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
-    | list[PulsightInternalCoreDomainAggregatorMevTipSharePoint]
+    | PulsightInternalCoreDomainAggregatorTipAdoption
     | None
 ):
-    """Tipped-volume share series
+    """Tip adoption series
+
+     The share of landed transactions and of traded value that paid a tip, per bucket of at least an hour
+    (at most about 180 buckets), with the counts and volumes in both currencies behind each share. A
+    share is null where its denominator is zero; the last bucket is still filling.
 
     Args:
         window (str | Unset):
@@ -191,7 +200,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreDomainAggregatorMevTipSharePoint]
+        InternalAdaptersPrimaryHttpHandlerErrorResponse | PulsightInternalCoreDomainAggregatorTipAdoption
     """
 
     return (

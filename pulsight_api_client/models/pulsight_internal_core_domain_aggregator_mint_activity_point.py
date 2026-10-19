@@ -19,12 +19,23 @@ class PulsightInternalCoreDomainAggregatorMintActivityPoint:
         fees_lamports (int | Unset):
         fees_micro_usd (int | Unset):
         swaps (int | Unset):
+        tip_trades (int | Unset): TipTrades counts the bucket's buy and sell rows, arbitrage excluded,
+            whose transaction's landing tip was recorded — the denominator of the
+            token page's tipped share. Served with the `tips` field.
+        tipped_trades (int | Unset): TippedTrades counts those of them whose transaction paid a landing
+            tip. Served with the `tips` field.
+        traders (str | Unset): Traders packs one key per wallet with a buy or sell row in the bucket:
+            ClickHouse cityHash64 of the wallet's 32 bytes, 8 bytes little-endian
+            each, base64-encoded. Served with the `traders` field.
         ts (int | Unset):
     """
 
     fees_lamports: int | Unset = UNSET
     fees_micro_usd: int | Unset = UNSET
     swaps: int | Unset = UNSET
+    tip_trades: int | Unset = UNSET
+    tipped_trades: int | Unset = UNSET
+    traders: str | Unset = UNSET
     ts: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -34,6 +45,12 @@ class PulsightInternalCoreDomainAggregatorMintActivityPoint:
         fees_micro_usd = self.fees_micro_usd
 
         swaps = self.swaps
+
+        tip_trades = self.tip_trades
+
+        tipped_trades = self.tipped_trades
+
+        traders = self.traders
 
         ts = self.ts
 
@@ -46,6 +63,12 @@ class PulsightInternalCoreDomainAggregatorMintActivityPoint:
             field_dict["fees_micro_usd"] = fees_micro_usd
         if swaps is not UNSET:
             field_dict["swaps"] = swaps
+        if tip_trades is not UNSET:
+            field_dict["tip_trades"] = tip_trades
+        if tipped_trades is not UNSET:
+            field_dict["tipped_trades"] = tipped_trades
+        if traders is not UNSET:
+            field_dict["traders"] = traders
         if ts is not UNSET:
             field_dict["ts"] = ts
 
@@ -60,12 +83,21 @@ class PulsightInternalCoreDomainAggregatorMintActivityPoint:
 
         swaps = d.pop("swaps", UNSET)
 
+        tip_trades = d.pop("tip_trades", UNSET)
+
+        tipped_trades = d.pop("tipped_trades", UNSET)
+
+        traders = d.pop("traders", UNSET)
+
         ts = d.pop("ts", UNSET)
 
         pulsight_internal_core_domain_aggregator_mint_activity_point = cls(
             fees_lamports=fees_lamports,
             fees_micro_usd=fees_micro_usd,
             swaps=swaps,
+            tip_trades=tip_trades,
+            tipped_trades=tipped_trades,
+            traders=traders,
             ts=ts,
         )
 
