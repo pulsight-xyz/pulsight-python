@@ -145,6 +145,9 @@ from .pulsight_internal_core_domain_aggregator_holder_entry import (
 from .pulsight_internal_core_domain_aggregator_hop import (
     PulsightInternalCoreDomainAggregatorHop,
 )
+from .pulsight_internal_core_domain_aggregator_legs_export_catalog import (
+    PulsightInternalCoreDomainAggregatorLegsExportCatalog,
+)
 from .pulsight_internal_core_domain_aggregator_lp_event import (
     PulsightInternalCoreDomainAggregatorLpEvent,
 )
@@ -504,6 +507,7 @@ __all__ = (
     "PulsightInternalCoreDomainAggregatorGlobalTipStats",
     "PulsightInternalCoreDomainAggregatorHolderEntry",
     "PulsightInternalCoreDomainAggregatorHop",
+    "PulsightInternalCoreDomainAggregatorLegsExportCatalog",
     "PulsightInternalCoreDomainAggregatorLpEvent",
     "PulsightInternalCoreDomainAggregatorLpStat",
     "PulsightInternalCoreDomainAggregatorMarketStat",
