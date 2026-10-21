@@ -17,12 +17,19 @@ class PulsightInternalCoreDomainAggregatorLegsExportCatalog:
     """
     Attributes:
         days (list[str] | Unset): Days are the exportable UTC days, newest first (YYYY-MM-DD).
+        facts (list[str] | Unset): Facts are the token facts files every exportable day carries.
+        facts_schema (str | Unset): FactsSchema is the column set of the token facts files. Example: facts-1.
+        insiders_since_ms (int | Unset): InsidersSinceMs is when the insider plane found its first insider (unix ms), 0
+            before it found any; insider holdings before it are unknown.
         parts (int | Unset): Parts is how many parts each day is split into; a pool's legs are always in part pool_id %
             parts. Example: 16.
         schema (str | Unset): Schema is the column set every part of every day carries. Example: legs-2.
     """
 
     days: list[str] | Unset = UNSET
+    facts: list[str] | Unset = UNSET
+    facts_schema: str | Unset = UNSET
+    insiders_since_ms: int | Unset = UNSET
     parts: int | Unset = UNSET
     schema: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -31,6 +38,14 @@ class PulsightInternalCoreDomainAggregatorLegsExportCatalog:
         days: list[str] | Unset = UNSET
         if not isinstance(self.days, Unset):
             days = self.days
+
+        facts: list[str] | Unset = UNSET
+        if not isinstance(self.facts, Unset):
+            facts = self.facts
+
+        facts_schema = self.facts_schema
+
+        insiders_since_ms = self.insiders_since_ms
 
         parts = self.parts
 
@@ -41,6 +56,12 @@ class PulsightInternalCoreDomainAggregatorLegsExportCatalog:
         field_dict.update({})
         if days is not UNSET:
             field_dict["days"] = days
+        if facts is not UNSET:
+            field_dict["facts"] = facts
+        if facts_schema is not UNSET:
+            field_dict["facts_schema"] = facts_schema
+        if insiders_since_ms is not UNSET:
+            field_dict["insiders_since_ms"] = insiders_since_ms
         if parts is not UNSET:
             field_dict["parts"] = parts
         if schema is not UNSET:
@@ -53,12 +74,21 @@ class PulsightInternalCoreDomainAggregatorLegsExportCatalog:
         d = dict(src_dict)
         days = cast(list[str], d.pop("days", UNSET))
 
+        facts = cast(list[str], d.pop("facts", UNSET))
+
+        facts_schema = d.pop("facts_schema", UNSET)
+
+        insiders_since_ms = d.pop("insiders_since_ms", UNSET)
+
         parts = d.pop("parts", UNSET)
 
         schema = d.pop("schema", UNSET)
 
         pulsight_internal_core_domain_aggregator_legs_export_catalog = cls(
             days=days,
+            facts=facts,
+            facts_schema=facts_schema,
+            insiders_since_ms=insiders_since_ms,
             parts=parts,
             schema=schema,
         )

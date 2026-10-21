@@ -3,6 +3,9 @@
 from .get_health_live_response_200 import GetHealthLiveResponse200
 from .get_health_response_200 import GetHealthResponse200
 from .get_health_response_503 import GetHealthResponse503
+from .get_legs_export_by_day_facts_by_dataset_dataset import (
+    GetLegsExportByDayFactsByDatasetDataset,
+)
 from .get_mints_hours import GetMintsHours
 from .get_traders_by_wallet_address_pnl_series_window import (
     GetTradersByWalletAddressPnlSeriesWindow,
@@ -459,6 +462,7 @@ __all__ = (
     "GetHealthLiveResponse200",
     "GetHealthResponse200",
     "GetHealthResponse503",
+    "GetLegsExportByDayFactsByDatasetDataset",
     "GetMintsHours",
     "GetTradersByWalletAddressPnlSeriesWindow",
     "InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponse",
