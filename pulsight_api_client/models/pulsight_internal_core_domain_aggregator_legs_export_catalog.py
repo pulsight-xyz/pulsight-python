@@ -25,7 +25,7 @@ class PulsightInternalCoreDomainAggregatorLegsExportCatalog:
             holds none; a pool's swaps before it are unknown.
         parts (int | Unset): Parts is how many parts each day is split into; a pool's legs are always in part pool_id %
             parts. Example: 16.
-        schema (str | Unset): Schema is the column set every part of every day carries. Example: legs-3.
+        schema (str | Unset): Schema is the column set every part of every day carries. Example: legs-4.
     """
 
     days: list[str] | Unset = UNSET

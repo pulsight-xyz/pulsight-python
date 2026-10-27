@@ -58,9 +58,10 @@ def sync_detailed(
     pool's legs are in the same part every day. Columns: pool_id, mint_id, quote_mint_id (u64 ledger
     ids), dex, ts_ms, slot, tx_index, ix_index, trader (32 raw bytes), is_buy (the base side),
     base_amount, quote_amount, base_reserve_pre, quote_reserve_pre, base_reserve_post,
-    quote_reserve_post (raw units), value_sol (lamports), swap_fee_bps (0 = unknown), flags. A request
-    refused before streaming (400, 403, 429) is not charged, and one the server fails to deliver is
-    refunded.
+    quote_reserve_post (raw units), value_sol (lamports), swap_fee_bps (0 = unknown), flags,
+    marginal_price_q (f64, raw quote units per raw base unit after the leg: the pool's marginal price,
+    else the leg's own quote_amount / base_amount; 0 = unknown). A request refused before streaming
+    (400, 403, 429) is not charged, and one the server fails to deliver is refunded.
 
     Args:
         day (str):
@@ -99,9 +100,10 @@ async def asyncio_detailed(
     pool's legs are in the same part every day. Columns: pool_id, mint_id, quote_mint_id (u64 ledger
     ids), dex, ts_ms, slot, tx_index, ix_index, trader (32 raw bytes), is_buy (the base side),
     base_amount, quote_amount, base_reserve_pre, quote_reserve_pre, base_reserve_post,
-    quote_reserve_post (raw units), value_sol (lamports), swap_fee_bps (0 = unknown), flags. A request
-    refused before streaming (400, 403, 429) is not charged, and one the server fails to deliver is
-    refunded.
+    quote_reserve_post (raw units), value_sol (lamports), swap_fee_bps (0 = unknown), flags,
+    marginal_price_q (f64, raw quote units per raw base unit after the leg: the pool's marginal price,
+    else the leg's own quote_amount / base_amount; 0 = unknown). A request refused before streaming
+    (400, 403, 429) is not charged, and one the server fails to deliver is refunded.
 
     Args:
         day (str):
