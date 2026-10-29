@@ -18,7 +18,7 @@ class PulsightInternalCoreDomainAggregatorLegsExportCatalog:
     Attributes:
         days (list[str] | Unset): Days are the exportable UTC days, newest first (YYYY-MM-DD).
         facts (list[str] | Unset): Facts are the token facts files every exportable day carries.
-        facts_schema (str | Unset): FactsSchema is the column set of the token facts files. Example: facts-1.
+        facts_schema (str | Unset): FactsSchema is the column set of the token facts files. Example: facts-2.
         insiders_since_ms (int | Unset): InsidersSinceMs is when the insider plane found its first insider (unix ms), 0
             before it found any; insider holdings before it are unknown.
         ledger_start_ms (int | Unset): LedgerStartMs is the time of the oldest leg the ledger holds (unix ms), 0 when it
