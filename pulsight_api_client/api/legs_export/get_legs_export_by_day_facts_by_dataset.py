@@ -65,8 +65,16 @@ def sync_detailed(
     dev_known and dev_first_sell_ms (0 = none). `bundles`: each sealed bundle cohort generation's
     sealed_ms and initial holding (raw units). `insiders`: per insider wallet (32 raw bytes) and minute
     of the day, found_ms (when the wallet became an insider of the mint) and its net token flow (trades
-    and transfers). Timestamps are unix milliseconds. A request refused before streaming (400, 403, 429)
-    is not charged, and one the server fails to deliver is refunded.
+    and transfers). `insider_flows`: the same rows, each with its wallet's hop (its distance from the
+    mint's creator in the insider walk) and first_slot (the slot of the transfer that made it an
+    insider), plus one row with flow 0 at the minute of its reach for an insider reached that day with
+    no move in the file. `activity`: per mint and minute with trades, swaps, buys, fees_sol and
+    volume_sol (lamports) as the live activity figures count them, tip_trades and tipped_trades (non-arb
+    buys and sells whose landing tip is recorded, and those that paid one). `activity_base`: per mint,
+    the same six figures over everything before the day. Timestamps are unix milliseconds. The catalog's
+    `facts` lists the files a day carries, and a new file can join it under the same `facts_schema`. A
+    request refused before streaming (400, 403, 429) is not charged, and one the server fails to deliver
+    is refunded.
 
     Args:
         day (str):
@@ -109,8 +117,16 @@ async def asyncio_detailed(
     dev_known and dev_first_sell_ms (0 = none). `bundles`: each sealed bundle cohort generation's
     sealed_ms and initial holding (raw units). `insiders`: per insider wallet (32 raw bytes) and minute
     of the day, found_ms (when the wallet became an insider of the mint) and its net token flow (trades
-    and transfers). Timestamps are unix milliseconds. A request refused before streaming (400, 403, 429)
-    is not charged, and one the server fails to deliver is refunded.
+    and transfers). `insider_flows`: the same rows, each with its wallet's hop (its distance from the
+    mint's creator in the insider walk) and first_slot (the slot of the transfer that made it an
+    insider), plus one row with flow 0 at the minute of its reach for an insider reached that day with
+    no move in the file. `activity`: per mint and minute with trades, swaps, buys, fees_sol and
+    volume_sol (lamports) as the live activity figures count them, tip_trades and tipped_trades (non-arb
+    buys and sells whose landing tip is recorded, and those that paid one). `activity_base`: per mint,
+    the same six figures over everything before the day. Timestamps are unix milliseconds. The catalog's
+    `facts` lists the files a day carries, and a new file can join it under the same `facts_schema`. A
+    request refused before streaming (400, 403, 429) is not charged, and one the server fails to deliver
+    is refunded.
 
     Args:
         day (str):
