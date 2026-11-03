@@ -72,9 +72,12 @@ def sync_detailed(
     mint and minute with trades, swaps, buys, fees_sol and volume_sol (lamports) as the live activity
     figures count them, tip_trades and tipped_trades (non-arb buys and sells whose landing tip is
     recorded, and those that paid one). `activity_base`: per mint, the same six figures over everything
-    before the day. Timestamps are unix milliseconds. The catalog's `facts` lists the files a day
-    carries, and a new file can join it under the same `facts_schema`. A request refused before
-    streaming (400, 403, 429) is not charged, and one the server fails to deliver is refunded.
+    before the day. `activity_slots`: the `activity` figures per mint and slot instead of per minute,
+    with ts_ms (the slot's time) and dev_sells (the mint's dev's sells in the slot, a later-corrected
+    one included), a slot holding only such sells carrying zero figures. Timestamps are unix
+    milliseconds. The catalog's `facts` lists the files a day carries, and a new file can join it under
+    the same `facts_schema`. A request refused before streaming (400, 403, 429) is not charged, and one
+    the server fails to deliver is refunded.
 
     Args:
         day (str):
@@ -124,9 +127,12 @@ async def asyncio_detailed(
     mint and minute with trades, swaps, buys, fees_sol and volume_sol (lamports) as the live activity
     figures count them, tip_trades and tipped_trades (non-arb buys and sells whose landing tip is
     recorded, and those that paid one). `activity_base`: per mint, the same six figures over everything
-    before the day. Timestamps are unix milliseconds. The catalog's `facts` lists the files a day
-    carries, and a new file can join it under the same `facts_schema`. A request refused before
-    streaming (400, 403, 429) is not charged, and one the server fails to deliver is refunded.
+    before the day. `activity_slots`: the `activity` figures per mint and slot instead of per minute,
+    with ts_ms (the slot's time) and dev_sells (the mint's dev's sells in the slot, a later-corrected
+    one included), a slot holding only such sells carrying zero figures. Timestamps are unix
+    milliseconds. The catalog's `facts` lists the files a day carries, and a new file can join it under
+    the same `facts_schema`. A request refused before streaming (400, 403, 429) is not charged, and one
+    the server fails to deliver is refunded.
 
     Args:
         day (str):
