@@ -21,6 +21,7 @@ def _get_kwargs(
     sort_by: str | Unset = "realized_profit",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
+    tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
     unit: str | Unset = "sol",
 ) -> dict[str, Any]:
@@ -36,6 +37,8 @@ def _get_kwargs(
     params["direction"] = direction
 
     params["favorites_only"] = favorites_only
+
+    params["tracked_only"] = tracked_only
 
     params["extra_windows"] = extra_windows
 
@@ -136,6 +139,7 @@ def sync_detailed(
     sort_by: str | Unset = "realized_profit",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
+    tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
     unit: str | Unset = "sol",
 ) -> Response[
@@ -152,6 +156,7 @@ def sync_detailed(
         sort_by (str | Unset):  Default: 'realized_profit'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
+        tracked_only (bool | Unset):
         extra_windows (str | Unset):
         unit (str | Unset):  Default: 'sol'.
 
@@ -169,6 +174,7 @@ def sync_detailed(
         sort_by=sort_by,
         direction=direction,
         favorites_only=favorites_only,
+        tracked_only=tracked_only,
         extra_windows=extra_windows,
         unit=unit,
     )
@@ -188,6 +194,7 @@ def sync(
     sort_by: str | Unset = "realized_profit",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
+    tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
     unit: str | Unset = "sol",
 ) -> (
@@ -205,6 +212,7 @@ def sync(
         sort_by (str | Unset):  Default: 'realized_profit'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
+        tracked_only (bool | Unset):
         extra_windows (str | Unset):
         unit (str | Unset):  Default: 'sol'.
 
@@ -223,6 +231,7 @@ def sync(
         sort_by=sort_by,
         direction=direction,
         favorites_only=favorites_only,
+        tracked_only=tracked_only,
         extra_windows=extra_windows,
         unit=unit,
     ).parsed
@@ -236,6 +245,7 @@ async def asyncio_detailed(
     sort_by: str | Unset = "realized_profit",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
+    tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
     unit: str | Unset = "sol",
 ) -> Response[
@@ -252,6 +262,7 @@ async def asyncio_detailed(
         sort_by (str | Unset):  Default: 'realized_profit'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
+        tracked_only (bool | Unset):
         extra_windows (str | Unset):
         unit (str | Unset):  Default: 'sol'.
 
@@ -269,6 +280,7 @@ async def asyncio_detailed(
         sort_by=sort_by,
         direction=direction,
         favorites_only=favorites_only,
+        tracked_only=tracked_only,
         extra_windows=extra_windows,
         unit=unit,
     )
@@ -286,6 +298,7 @@ async def asyncio(
     sort_by: str | Unset = "realized_profit",
     direction: str | Unset = "desc",
     favorites_only: bool | Unset = UNSET,
+    tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
     unit: str | Unset = "sol",
 ) -> (
@@ -303,6 +316,7 @@ async def asyncio(
         sort_by (str | Unset):  Default: 'realized_profit'.
         direction (str | Unset):  Default: 'desc'.
         favorites_only (bool | Unset):
+        tracked_only (bool | Unset):
         extra_windows (str | Unset):
         unit (str | Unset):  Default: 'sol'.
 
@@ -322,6 +336,7 @@ async def asyncio(
             sort_by=sort_by,
             direction=direction,
             favorites_only=favorites_only,
+            tracked_only=tracked_only,
             extra_windows=extra_windows,
             unit=unit,
         )
