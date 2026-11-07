@@ -24,15 +24,17 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         cashback (int | Unset):
         cashback_usd (int | Unset):
         day (str | Unset):
+        dex_fees (int | Unset):
+        dex_fees_usd (int | Unset):
         failed_cost (int | Unset):
         failed_cost_usd (int | Unset):
         failed_txs (int | Unset):
-        fees (int | Unset): Costs of the day (lamports): per-tx fees, tips, and failed-tx burn,
-            against what pump paid the wallet that day — cashback CLAIMED and
+        fees (int | Unset): Costs of the day (lamports): fees, pot top-ups, tips, and failed-tx
+            burn, against what pump paid the wallet that day — cashback CLAIMED and
             holder rewards RECEIVED, both cash basis — with `net = profit - fees
-            - tips - failed_cost + cashback + holder_rewards` (profit already
-            includes the arbitrage take-home). The charts plot NET as the headline
-            series; `profit` stays as the flat/gross component.
+            - topups - tips - failed_cost + cashback + holder_rewards` (profit
+            already includes the arbitrage take-home). The charts plot NET as the
+            headline series; `profit` stays as the flat/gross component.
         fees_usd (int | Unset):
         holder_reward_payouts (int | Unset):
         holder_rewards (int | Unset): HolderRewards is the day's holder-reward payouts valued in SOL, and
@@ -42,12 +44,21 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         holder_rewards_usd (int | Unset):
         net (int | Unset):
         net_usd (int | Unset):
+        platform_fees (int | Unset):
+        platform_fees_usd (int | Unset):
         profit (int | Unset):
         profit_usd (int | Unset): The Usd twins are the same day's figures on the trades' USD stamps
             (micro-USD).
         success_rate (float | Unset):
         tips (int | Unset):
         tips_usd (int | Unset):
+        topups (int | Unset): Topups is what the wallet deposited into pump holder-rewards pots: a
+            cost in no fee line.
+        topups_usd (int | Unset):
+        tx_fees (int | Unset): TxFees, DexFees and PlatformFees itemize Fees: the network fees once
+            per transaction, the venue fees and venue cashback charged on top of the
+            swap amounts, and what trading tools and routers charged.
+        tx_fees_usd (int | Unset):
         txs (int | Unset): Txs is the day's landed transaction count; FailedTxs the failed-tx
             ledger's failed swaps+arbs+other. SuccessRate divides the OBSERVED
             landed count (the `observed_hours` only) by observed+failed — nil
@@ -60,6 +71,8 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
     cashback: int | Unset = UNSET
     cashback_usd: int | Unset = UNSET
     day: str | Unset = UNSET
+    dex_fees: int | Unset = UNSET
+    dex_fees_usd: int | Unset = UNSET
     failed_cost: int | Unset = UNSET
     failed_cost_usd: int | Unset = UNSET
     failed_txs: int | Unset = UNSET
@@ -70,11 +83,17 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
     holder_rewards_usd: int | Unset = UNSET
     net: int | Unset = UNSET
     net_usd: int | Unset = UNSET
+    platform_fees: int | Unset = UNSET
+    platform_fees_usd: int | Unset = UNSET
     profit: int | Unset = UNSET
     profit_usd: int | Unset = UNSET
     success_rate: float | Unset = UNSET
     tips: int | Unset = UNSET
     tips_usd: int | Unset = UNSET
+    topups: int | Unset = UNSET
+    topups_usd: int | Unset = UNSET
+    tx_fees: int | Unset = UNSET
+    tx_fees_usd: int | Unset = UNSET
     txs: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -88,6 +107,10 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         cashback_usd = self.cashback_usd
 
         day = self.day
+
+        dex_fees = self.dex_fees
+
+        dex_fees_usd = self.dex_fees_usd
 
         failed_cost = self.failed_cost
 
@@ -109,6 +132,10 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
 
         net_usd = self.net_usd
 
+        platform_fees = self.platform_fees
+
+        platform_fees_usd = self.platform_fees_usd
+
         profit = self.profit
 
         profit_usd = self.profit_usd
@@ -118,6 +145,14 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         tips = self.tips
 
         tips_usd = self.tips_usd
+
+        topups = self.topups
+
+        topups_usd = self.topups_usd
+
+        tx_fees = self.tx_fees
+
+        tx_fees_usd = self.tx_fees_usd
 
         txs = self.txs
 
@@ -134,6 +169,10 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
             field_dict["cashback_usd"] = cashback_usd
         if day is not UNSET:
             field_dict["day"] = day
+        if dex_fees is not UNSET:
+            field_dict["dex_fees"] = dex_fees
+        if dex_fees_usd is not UNSET:
+            field_dict["dex_fees_usd"] = dex_fees_usd
         if failed_cost is not UNSET:
             field_dict["failed_cost"] = failed_cost
         if failed_cost_usd is not UNSET:
@@ -154,6 +193,10 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
             field_dict["net"] = net
         if net_usd is not UNSET:
             field_dict["net_usd"] = net_usd
+        if platform_fees is not UNSET:
+            field_dict["platform_fees"] = platform_fees
+        if platform_fees_usd is not UNSET:
+            field_dict["platform_fees_usd"] = platform_fees_usd
         if profit is not UNSET:
             field_dict["profit"] = profit
         if profit_usd is not UNSET:
@@ -164,6 +207,14 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
             field_dict["tips"] = tips
         if tips_usd is not UNSET:
             field_dict["tips_usd"] = tips_usd
+        if topups is not UNSET:
+            field_dict["topups"] = topups
+        if topups_usd is not UNSET:
+            field_dict["topups_usd"] = topups_usd
+        if tx_fees is not UNSET:
+            field_dict["tx_fees"] = tx_fees
+        if tx_fees_usd is not UNSET:
+            field_dict["tx_fees_usd"] = tx_fees_usd
         if txs is not UNSET:
             field_dict["txs"] = txs
 
@@ -181,6 +232,10 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
         cashback_usd = d.pop("cashback_usd", UNSET)
 
         day = d.pop("day", UNSET)
+
+        dex_fees = d.pop("dex_fees", UNSET)
+
+        dex_fees_usd = d.pop("dex_fees_usd", UNSET)
 
         failed_cost = d.pop("failed_cost", UNSET)
 
@@ -202,6 +257,10 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
 
         net_usd = d.pop("net_usd", UNSET)
 
+        platform_fees = d.pop("platform_fees", UNSET)
+
+        platform_fees_usd = d.pop("platform_fees_usd", UNSET)
+
         profit = d.pop("profit", UNSET)
 
         profit_usd = d.pop("profit_usd", UNSET)
@@ -212,6 +271,14 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
 
         tips_usd = d.pop("tips_usd", UNSET)
 
+        topups = d.pop("topups", UNSET)
+
+        topups_usd = d.pop("topups_usd", UNSET)
+
+        tx_fees = d.pop("tx_fees", UNSET)
+
+        tx_fees_usd = d.pop("tx_fees_usd", UNSET)
+
         txs = d.pop("txs", UNSET)
 
         pulsight_internal_core_usecases_trader_pnl_series_point = cls(
@@ -220,6 +287,8 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
             cashback=cashback,
             cashback_usd=cashback_usd,
             day=day,
+            dex_fees=dex_fees,
+            dex_fees_usd=dex_fees_usd,
             failed_cost=failed_cost,
             failed_cost_usd=failed_cost_usd,
             failed_txs=failed_txs,
@@ -230,11 +299,17 @@ class PulsightInternalCoreUsecasesTraderPnlSeriesPoint:
             holder_rewards_usd=holder_rewards_usd,
             net=net,
             net_usd=net_usd,
+            platform_fees=platform_fees,
+            platform_fees_usd=platform_fees_usd,
             profit=profit,
             profit_usd=profit_usd,
             success_rate=success_rate,
             tips=tips,
             tips_usd=tips_usd,
+            topups=topups,
+            topups_usd=topups_usd,
+            tx_fees=tx_fees,
+            tx_fees_usd=tx_fees_usd,
             txs=txs,
         )
 

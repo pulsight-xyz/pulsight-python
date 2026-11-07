@@ -29,6 +29,9 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         cashback_claimed_lamports (int | Unset): CashbackClaimedLamports — pump cashback the wallet CLAIMED and kept in
             the window (cash basis). A POSITIVE cost-block component.
         cashback_claimed_usd (int | Unset):
+        dex_fees (int | Unset): DexFees is the venue fees paid on top of the swap amounts, with the
+            cashback a venue charges on top.
+        dex_fees_usd (int | Unset):
         didnt_buy_sells (int | Unset): DidntBuySells / SoldGtBoughtSells count the window's uncovered sells:
             sells of a mint with no observed buy, and sells that exceeded the
             observed bought balance.
@@ -40,11 +43,13 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         loss_sells (int | Unset):
         loss_sells_usd (int | Unset):
         net_realized_profit (int | Unset): NetRealizedProfit is the board row's net PnL: RealizedProfit minus
-            TotalFees, TotalTips and FailedCostLamports, plus the kept cashback and
-            the holder rewards received — what the wallet actually kept. This is the
-            HEADLINE PnL; RealizedProfit is the pre-cost component (accrual + arb
-            take-home).
+            TotalFees, Topups, TotalTips and FailedCostLamports, plus the kept
+            cashback and the holder rewards received — what the wallet actually
+            kept. This is the HEADLINE PnL; RealizedProfit is the pre-cost component
+            (accrual + arb take-home).
         net_realized_profit_usd (int | Unset):
+        platform_fees (int | Unset): PlatformFees is what trading tools and routers charged.
+        platform_fees_usd (int | Unset):
         realized_profit (int | Unset): RealizedProfit is the window's PnL: accrual realized profit PLUS the
             arbitrage take-home (ArbPnlLamports). The two are disjoint (an arb round
             trip books zero realized), so the sum is exact.
@@ -54,15 +59,22 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         sold_gt_bought_sells (int | Unset):
         swap_count (int | Unset):
         token_num (int | Unset):
+        topups (int | Unset): Topups is what the wallet deposited into pump holder-rewards pots. It is
+            a cost, not a fee: TotalFees leaves it out and NetRealizedProfit
+            subtracts it.
+        topups_usd (int | Unset):
         total_buys (int | Unset):
         total_fees (int | Unset): TotalFees is the window's execution costs other than tips: network fees
             (base + priority) counted once per transaction, plus venue, platform and
-            cashback-on-top fees.
+            cashback-on-top fees — TxFees + DexFees + PlatformFees.
         total_fees_usd (int | Unset):
         total_sells (int | Unset):
         total_tips (int | Unset): TotalTips — builder/MEV tips paid on the window's successful txs.
         total_tips_usd (int | Unset):
         trader (str | Unset):
+        tx_fees (int | Unset): TxFees is the network fees (base + priority), counted once per
+            transaction.
+        tx_fees_usd (int | Unset):
         uncovered_proceeds_lamports (int | Unset): UncoveredProceeds — proceeds of the window's sells of tokens with no
             known cost (received by transfer, or beyond the recorded buys). Neither
             RealizedProfit nor NetRealizedProfit includes them.
@@ -84,6 +96,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
     buy_sell_ratio: float | Unset = UNSET
     cashback_claimed_lamports: int | Unset = UNSET
     cashback_claimed_usd: int | Unset = UNSET
+    dex_fees: int | Unset = UNSET
+    dex_fees_usd: int | Unset = UNSET
     didnt_buy_sells: int | Unset = UNSET
     failed_cost_lamports: int | Unset = UNSET
     failed_cost_usd: int | Unset = UNSET
@@ -93,6 +107,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
     loss_sells_usd: int | Unset = UNSET
     net_realized_profit: int | Unset = UNSET
     net_realized_profit_usd: int | Unset = UNSET
+    platform_fees: int | Unset = UNSET
+    platform_fees_usd: int | Unset = UNSET
     realized_profit: int | Unset = UNSET
     realized_profit_usd: int | Unset = UNSET
     sell_amount_lamports: int | Unset = UNSET
@@ -100,6 +116,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
     sold_gt_bought_sells: int | Unset = UNSET
     swap_count: int | Unset = UNSET
     token_num: int | Unset = UNSET
+    topups: int | Unset = UNSET
+    topups_usd: int | Unset = UNSET
     total_buys: int | Unset = UNSET
     total_fees: int | Unset = UNSET
     total_fees_usd: int | Unset = UNSET
@@ -107,6 +125,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
     total_tips: int | Unset = UNSET
     total_tips_usd: int | Unset = UNSET
     trader: str | Unset = UNSET
+    tx_fees: int | Unset = UNSET
+    tx_fees_usd: int | Unset = UNSET
     uncovered_proceeds_lamports: int | Unset = UNSET
     uncovered_proceeds_usd: int | Unset = UNSET
     win_profit: int | Unset = UNSET
@@ -135,6 +155,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
 
         cashback_claimed_usd = self.cashback_claimed_usd
 
+        dex_fees = self.dex_fees
+
+        dex_fees_usd = self.dex_fees_usd
+
         didnt_buy_sells = self.didnt_buy_sells
 
         failed_cost_lamports = self.failed_cost_lamports
@@ -153,6 +177,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
 
         net_realized_profit_usd = self.net_realized_profit_usd
 
+        platform_fees = self.platform_fees
+
+        platform_fees_usd = self.platform_fees_usd
+
         realized_profit = self.realized_profit
 
         realized_profit_usd = self.realized_profit_usd
@@ -167,6 +195,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
 
         token_num = self.token_num
 
+        topups = self.topups
+
+        topups_usd = self.topups_usd
+
         total_buys = self.total_buys
 
         total_fees = self.total_fees
@@ -180,6 +212,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         total_tips_usd = self.total_tips_usd
 
         trader = self.trader
+
+        tx_fees = self.tx_fees
+
+        tx_fees_usd = self.tx_fees_usd
 
         uncovered_proceeds_lamports = self.uncovered_proceeds_lamports
 
@@ -218,6 +254,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             field_dict["cashback_claimed_lamports"] = cashback_claimed_lamports
         if cashback_claimed_usd is not UNSET:
             field_dict["cashback_claimed_usd"] = cashback_claimed_usd
+        if dex_fees is not UNSET:
+            field_dict["dex_fees"] = dex_fees
+        if dex_fees_usd is not UNSET:
+            field_dict["dex_fees_usd"] = dex_fees_usd
         if didnt_buy_sells is not UNSET:
             field_dict["didnt_buy_sells"] = didnt_buy_sells
         if failed_cost_lamports is not UNSET:
@@ -236,6 +276,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             field_dict["net_realized_profit"] = net_realized_profit
         if net_realized_profit_usd is not UNSET:
             field_dict["net_realized_profit_usd"] = net_realized_profit_usd
+        if platform_fees is not UNSET:
+            field_dict["platform_fees"] = platform_fees
+        if platform_fees_usd is not UNSET:
+            field_dict["platform_fees_usd"] = platform_fees_usd
         if realized_profit is not UNSET:
             field_dict["realized_profit"] = realized_profit
         if realized_profit_usd is not UNSET:
@@ -250,6 +294,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             field_dict["swap_count"] = swap_count
         if token_num is not UNSET:
             field_dict["token_num"] = token_num
+        if topups is not UNSET:
+            field_dict["topups"] = topups
+        if topups_usd is not UNSET:
+            field_dict["topups_usd"] = topups_usd
         if total_buys is not UNSET:
             field_dict["total_buys"] = total_buys
         if total_fees is not UNSET:
@@ -264,6 +312,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             field_dict["total_tips_usd"] = total_tips_usd
         if trader is not UNSET:
             field_dict["trader"] = trader
+        if tx_fees is not UNSET:
+            field_dict["tx_fees"] = tx_fees
+        if tx_fees_usd is not UNSET:
+            field_dict["tx_fees_usd"] = tx_fees_usd
         if uncovered_proceeds_lamports is not UNSET:
             field_dict["uncovered_proceeds_lamports"] = uncovered_proceeds_lamports
         if uncovered_proceeds_usd is not UNSET:
@@ -304,6 +356,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
 
         cashback_claimed_usd = d.pop("cashback_claimed_usd", UNSET)
 
+        dex_fees = d.pop("dex_fees", UNSET)
+
+        dex_fees_usd = d.pop("dex_fees_usd", UNSET)
+
         didnt_buy_sells = d.pop("didnt_buy_sells", UNSET)
 
         failed_cost_lamports = d.pop("failed_cost_lamports", UNSET)
@@ -322,6 +378,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
 
         net_realized_profit_usd = d.pop("net_realized_profit_usd", UNSET)
 
+        platform_fees = d.pop("platform_fees", UNSET)
+
+        platform_fees_usd = d.pop("platform_fees_usd", UNSET)
+
         realized_profit = d.pop("realized_profit", UNSET)
 
         realized_profit_usd = d.pop("realized_profit_usd", UNSET)
@@ -336,6 +396,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
 
         token_num = d.pop("token_num", UNSET)
 
+        topups = d.pop("topups", UNSET)
+
+        topups_usd = d.pop("topups_usd", UNSET)
+
         total_buys = d.pop("total_buys", UNSET)
 
         total_fees = d.pop("total_fees", UNSET)
@@ -349,6 +413,10 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
         total_tips_usd = d.pop("total_tips_usd", UNSET)
 
         trader = d.pop("trader", UNSET)
+
+        tx_fees = d.pop("tx_fees", UNSET)
+
+        tx_fees_usd = d.pop("tx_fees_usd", UNSET)
 
         uncovered_proceeds_lamports = d.pop("uncovered_proceeds_lamports", UNSET)
 
@@ -377,6 +445,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             buy_sell_ratio=buy_sell_ratio,
             cashback_claimed_lamports=cashback_claimed_lamports,
             cashback_claimed_usd=cashback_claimed_usd,
+            dex_fees=dex_fees,
+            dex_fees_usd=dex_fees_usd,
             didnt_buy_sells=didnt_buy_sells,
             failed_cost_lamports=failed_cost_lamports,
             failed_cost_usd=failed_cost_usd,
@@ -386,6 +456,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             loss_sells_usd=loss_sells_usd,
             net_realized_profit=net_realized_profit,
             net_realized_profit_usd=net_realized_profit_usd,
+            platform_fees=platform_fees,
+            platform_fees_usd=platform_fees_usd,
             realized_profit=realized_profit,
             realized_profit_usd=realized_profit_usd,
             sell_amount_lamports=sell_amount_lamports,
@@ -393,6 +465,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             sold_gt_bought_sells=sold_gt_bought_sells,
             swap_count=swap_count,
             token_num=token_num,
+            topups=topups,
+            topups_usd=topups_usd,
             total_buys=total_buys,
             total_fees=total_fees,
             total_fees_usd=total_fees_usd,
@@ -400,6 +474,8 @@ class PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow:
             total_tips=total_tips,
             total_tips_usd=total_tips_usd,
             trader=trader,
+            tx_fees=tx_fees,
+            tx_fees_usd=tx_fees_usd,
             uncovered_proceeds_lamports=uncovered_proceeds_lamports,
             uncovered_proceeds_usd=uncovered_proceeds_usd,
             win_profit=win_profit,

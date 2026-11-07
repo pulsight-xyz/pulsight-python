@@ -33,6 +33,7 @@ class PulsightInternalCoreDomainAggregatorCosts:
         rent_refunded (PulsightInternalCoreDomainAggregatorMoney | Unset):
         tip (PulsightInternalCoreDomainAggregatorMoney | Unset):
         tip_service (str | Unset):
+        topup (PulsightInternalCoreDomainAggregatorMoney | Unset):
     """
 
     base_fee: PulsightInternalCoreDomainAggregatorMoney | Unset = UNSET
@@ -46,6 +47,7 @@ class PulsightInternalCoreDomainAggregatorCosts:
     rent_refunded: PulsightInternalCoreDomainAggregatorMoney | Unset = UNSET
     tip: PulsightInternalCoreDomainAggregatorMoney | Unset = UNSET
     tip_service: str | Unset = UNSET
+    topup: PulsightInternalCoreDomainAggregatorMoney | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -87,6 +89,10 @@ class PulsightInternalCoreDomainAggregatorCosts:
 
         tip_service = self.tip_service
 
+        topup: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.topup, Unset):
+            topup = self.topup.to_dict()
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -112,6 +118,8 @@ class PulsightInternalCoreDomainAggregatorCosts:
             field_dict["tip"] = tip
         if tip_service is not UNSET:
             field_dict["tip_service"] = tip_service
+        if topup is not UNSET:
+            field_dict["topup"] = topup
 
         return field_dict
 
@@ -192,6 +200,13 @@ class PulsightInternalCoreDomainAggregatorCosts:
 
         tip_service = d.pop("tip_service", UNSET)
 
+        _topup = d.pop("topup", UNSET)
+        topup: PulsightInternalCoreDomainAggregatorMoney | Unset
+        if isinstance(_topup, Unset):
+            topup = UNSET
+        else:
+            topup = PulsightInternalCoreDomainAggregatorMoney.from_dict(_topup)
+
         pulsight_internal_core_domain_aggregator_costs = cls(
             base_fee=base_fee,
             cashback_on_top=cashback_on_top,
@@ -204,6 +219,7 @@ class PulsightInternalCoreDomainAggregatorCosts:
             rent_refunded=rent_refunded,
             tip=tip,
             tip_service=tip_service,
+            topup=topup,
         )
 
         pulsight_internal_core_domain_aggregator_costs.additional_properties = d

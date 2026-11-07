@@ -68,6 +68,12 @@ class PulsightInternalCoreDomainTraderTrader:
         cashback_share_all (float | Unset):
         chain (str | Unset): "sol" | "eth"
         created_at (str | Unset):
+        dex_fees_1d (float | Unset):
+        dex_fees_1d_usd (float | Unset):
+        dex_fees_30d (float | Unset):
+        dex_fees_30d_usd (float | Unset):
+        dex_fees_7d (float | Unset):
+        dex_fees_7d_usd (float | Unset):
         didnt_buy_sells_1d (int | Unset):
         didnt_buy_sells_30d (int | Unset):
         didnt_buy_sells_7d (int | Unset): Uncovered-sell counters for the window: sells with no observed buy of
@@ -115,8 +121,9 @@ class PulsightInternalCoreDomainTraderTrader:
         net_profit_30d (float | Unset):
         net_profit_30d_usd (float | Unset):
         net_profit_7d (float | Unset): Net-of-costs windowed figures, lamports. NetProfit is realized PnL
-            minus tips, per-transaction fees and the fees burned on failed / no-CPI
-            transactions — what the wallet actually kept. The gross figure stays on
+            minus TotalCosts (fees, pot top-ups, tips and the fees burned on failed
+            / no-CPI transactions), plus the cashback claimed and the holder rewards
+            received — what the wallet actually kept. The gross figure stays on
             RealizedProfit*d so both are readable. SuccessRate / SpamRate are nil
             when the window observed no transactions at all (0 would read as
             "never lands").
@@ -124,6 +131,12 @@ class PulsightInternalCoreDomainTraderTrader:
         net_profit_all (float | Unset):
         net_profit_all_usd (float | Unset):
         oldest_trade_at (int | Unset):
+        platform_fees_1d (float | Unset):
+        platform_fees_1d_usd (float | Unset):
+        platform_fees_30d (float | Unset):
+        platform_fees_30d_usd (float | Unset):
+        platform_fees_7d (float | Unset):
+        platform_fees_7d_usd (float | Unset):
         realized_profit (float | Unset): RealizedProfit is the lifetime realized PnL in lamports.
         realized_profit_1d (float | Unset): 1-day window. Same measures and same derivations as the 7d/30d
             blocks, hydrated per page rather than read off the board — so these
@@ -177,6 +190,12 @@ class PulsightInternalCoreDomainTraderTrader:
         token_num_30d (int | Unset):
         token_num_7d (int | Unset):
         token_num_all (int | Unset):
+        topups_1d (float | Unset):
+        topups_1d_usd (float | Unset):
+        topups_30d (float | Unset):
+        topups_30d_usd (float | Unset):
+        topups_7d (float | Unset):
+        topups_7d_usd (float | Unset):
         total_costs_1d (float | Unset):
         total_costs_1d_usd (float | Unset):
         total_costs_30d (float | Unset):
@@ -189,6 +208,15 @@ class PulsightInternalCoreDomainTraderTrader:
         total_profit_7d (float | Unset):
         total_profit_pnl_30d (float | Unset):
         total_profit_pnl_7d (float | Unset):
+        tx_fees_1d (float | Unset):
+        tx_fees_1d_usd (float | Unset):
+        tx_fees_30d (float | Unset):
+        tx_fees_30d_usd (float | Unset):
+        tx_fees_7d (float | Unset): TotalCosts lines: TxFees the network fees, DexFees the venue fees and
+            venue cashback charged on top, PlatformFees what trading tools and
+            routers charged, Topups what the wallet deposited into pump
+            holder-rewards pots. Tips and failed-tx burn are the rest.
+        tx_fees_7d_usd (float | Unset):
         updated_at (str | Unset):
         wallet_address (str | Unset):
         winrate_1d (float | Unset):
@@ -251,6 +279,12 @@ class PulsightInternalCoreDomainTraderTrader:
     cashback_share_all: float | Unset = UNSET
     chain: str | Unset = UNSET
     created_at: str | Unset = UNSET
+    dex_fees_1d: float | Unset = UNSET
+    dex_fees_1d_usd: float | Unset = UNSET
+    dex_fees_30d: float | Unset = UNSET
+    dex_fees_30d_usd: float | Unset = UNSET
+    dex_fees_7d: float | Unset = UNSET
+    dex_fees_7d_usd: float | Unset = UNSET
     didnt_buy_sells_1d: int | Unset = UNSET
     didnt_buy_sells_30d: int | Unset = UNSET
     didnt_buy_sells_7d: int | Unset = UNSET
@@ -300,6 +334,12 @@ class PulsightInternalCoreDomainTraderTrader:
     net_profit_all: float | Unset = UNSET
     net_profit_all_usd: float | Unset = UNSET
     oldest_trade_at: int | Unset = UNSET
+    platform_fees_1d: float | Unset = UNSET
+    platform_fees_1d_usd: float | Unset = UNSET
+    platform_fees_30d: float | Unset = UNSET
+    platform_fees_30d_usd: float | Unset = UNSET
+    platform_fees_7d: float | Unset = UNSET
+    platform_fees_7d_usd: float | Unset = UNSET
     realized_profit: float | Unset = UNSET
     realized_profit_1d: float | Unset = UNSET
     realized_profit_1d_usd: float | Unset = UNSET
@@ -344,6 +384,12 @@ class PulsightInternalCoreDomainTraderTrader:
     token_num_30d: int | Unset = UNSET
     token_num_7d: int | Unset = UNSET
     token_num_all: int | Unset = UNSET
+    topups_1d: float | Unset = UNSET
+    topups_1d_usd: float | Unset = UNSET
+    topups_30d: float | Unset = UNSET
+    topups_30d_usd: float | Unset = UNSET
+    topups_7d: float | Unset = UNSET
+    topups_7d_usd: float | Unset = UNSET
     total_costs_1d: float | Unset = UNSET
     total_costs_1d_usd: float | Unset = UNSET
     total_costs_30d: float | Unset = UNSET
@@ -356,6 +402,12 @@ class PulsightInternalCoreDomainTraderTrader:
     total_profit_7d: float | Unset = UNSET
     total_profit_pnl_30d: float | Unset = UNSET
     total_profit_pnl_7d: float | Unset = UNSET
+    tx_fees_1d: float | Unset = UNSET
+    tx_fees_1d_usd: float | Unset = UNSET
+    tx_fees_30d: float | Unset = UNSET
+    tx_fees_30d_usd: float | Unset = UNSET
+    tx_fees_7d: float | Unset = UNSET
+    tx_fees_7d_usd: float | Unset = UNSET
     updated_at: str | Unset = UNSET
     wallet_address: str | Unset = UNSET
     winrate_1d: float | Unset = UNSET
@@ -469,6 +521,18 @@ class PulsightInternalCoreDomainTraderTrader:
 
         created_at = self.created_at
 
+        dex_fees_1d = self.dex_fees_1d
+
+        dex_fees_1d_usd = self.dex_fees_1d_usd
+
+        dex_fees_30d = self.dex_fees_30d
+
+        dex_fees_30d_usd = self.dex_fees_30d_usd
+
+        dex_fees_7d = self.dex_fees_7d
+
+        dex_fees_7d_usd = self.dex_fees_7d_usd
+
         didnt_buy_sells_1d = self.didnt_buy_sells_1d
 
         didnt_buy_sells_30d = self.didnt_buy_sells_30d
@@ -567,6 +631,18 @@ class PulsightInternalCoreDomainTraderTrader:
 
         oldest_trade_at = self.oldest_trade_at
 
+        platform_fees_1d = self.platform_fees_1d
+
+        platform_fees_1d_usd = self.platform_fees_1d_usd
+
+        platform_fees_30d = self.platform_fees_30d
+
+        platform_fees_30d_usd = self.platform_fees_30d_usd
+
+        platform_fees_7d = self.platform_fees_7d
+
+        platform_fees_7d_usd = self.platform_fees_7d_usd
+
         realized_profit = self.realized_profit
 
         realized_profit_1d = self.realized_profit_1d
@@ -657,6 +733,18 @@ class PulsightInternalCoreDomainTraderTrader:
 
         token_num_all = self.token_num_all
 
+        topups_1d = self.topups_1d
+
+        topups_1d_usd = self.topups_1d_usd
+
+        topups_30d = self.topups_30d
+
+        topups_30d_usd = self.topups_30d_usd
+
+        topups_7d = self.topups_7d
+
+        topups_7d_usd = self.topups_7d_usd
+
         total_costs_1d = self.total_costs_1d
 
         total_costs_1d_usd = self.total_costs_1d_usd
@@ -680,6 +768,18 @@ class PulsightInternalCoreDomainTraderTrader:
         total_profit_pnl_30d = self.total_profit_pnl_30d
 
         total_profit_pnl_7d = self.total_profit_pnl_7d
+
+        tx_fees_1d = self.tx_fees_1d
+
+        tx_fees_1d_usd = self.tx_fees_1d_usd
+
+        tx_fees_30d = self.tx_fees_30d
+
+        tx_fees_30d_usd = self.tx_fees_30d_usd
+
+        tx_fees_7d = self.tx_fees_7d
+
+        tx_fees_7d_usd = self.tx_fees_7d_usd
 
         updated_at = self.updated_at
 
@@ -804,6 +904,18 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["chain"] = chain
         if created_at is not UNSET:
             field_dict["created_at"] = created_at
+        if dex_fees_1d is not UNSET:
+            field_dict["dex_fees_1d"] = dex_fees_1d
+        if dex_fees_1d_usd is not UNSET:
+            field_dict["dex_fees_1d_usd"] = dex_fees_1d_usd
+        if dex_fees_30d is not UNSET:
+            field_dict["dex_fees_30d"] = dex_fees_30d
+        if dex_fees_30d_usd is not UNSET:
+            field_dict["dex_fees_30d_usd"] = dex_fees_30d_usd
+        if dex_fees_7d is not UNSET:
+            field_dict["dex_fees_7d"] = dex_fees_7d
+        if dex_fees_7d_usd is not UNSET:
+            field_dict["dex_fees_7d_usd"] = dex_fees_7d_usd
         if didnt_buy_sells_1d is not UNSET:
             field_dict["didnt_buy_sells_1d"] = didnt_buy_sells_1d
         if didnt_buy_sells_30d is not UNSET:
@@ -906,6 +1018,18 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["net_profit_all_usd"] = net_profit_all_usd
         if oldest_trade_at is not UNSET:
             field_dict["oldest_trade_at"] = oldest_trade_at
+        if platform_fees_1d is not UNSET:
+            field_dict["platform_fees_1d"] = platform_fees_1d
+        if platform_fees_1d_usd is not UNSET:
+            field_dict["platform_fees_1d_usd"] = platform_fees_1d_usd
+        if platform_fees_30d is not UNSET:
+            field_dict["platform_fees_30d"] = platform_fees_30d
+        if platform_fees_30d_usd is not UNSET:
+            field_dict["platform_fees_30d_usd"] = platform_fees_30d_usd
+        if platform_fees_7d is not UNSET:
+            field_dict["platform_fees_7d"] = platform_fees_7d
+        if platform_fees_7d_usd is not UNSET:
+            field_dict["platform_fees_7d_usd"] = platform_fees_7d_usd
         if realized_profit is not UNSET:
             field_dict["realized_profit"] = realized_profit
         if realized_profit_1d is not UNSET:
@@ -994,6 +1118,18 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["token_num_7d"] = token_num_7d
         if token_num_all is not UNSET:
             field_dict["token_num_all"] = token_num_all
+        if topups_1d is not UNSET:
+            field_dict["topups_1d"] = topups_1d
+        if topups_1d_usd is not UNSET:
+            field_dict["topups_1d_usd"] = topups_1d_usd
+        if topups_30d is not UNSET:
+            field_dict["topups_30d"] = topups_30d
+        if topups_30d_usd is not UNSET:
+            field_dict["topups_30d_usd"] = topups_30d_usd
+        if topups_7d is not UNSET:
+            field_dict["topups_7d"] = topups_7d
+        if topups_7d_usd is not UNSET:
+            field_dict["topups_7d_usd"] = topups_7d_usd
         if total_costs_1d is not UNSET:
             field_dict["total_costs_1d"] = total_costs_1d
         if total_costs_1d_usd is not UNSET:
@@ -1018,6 +1154,18 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["total_profit_pnl_30d"] = total_profit_pnl_30d
         if total_profit_pnl_7d is not UNSET:
             field_dict["total_profit_pnl_7d"] = total_profit_pnl_7d
+        if tx_fees_1d is not UNSET:
+            field_dict["tx_fees_1d"] = tx_fees_1d
+        if tx_fees_1d_usd is not UNSET:
+            field_dict["tx_fees_1d_usd"] = tx_fees_1d_usd
+        if tx_fees_30d is not UNSET:
+            field_dict["tx_fees_30d"] = tx_fees_30d
+        if tx_fees_30d_usd is not UNSET:
+            field_dict["tx_fees_30d_usd"] = tx_fees_30d_usd
+        if tx_fees_7d is not UNSET:
+            field_dict["tx_fees_7d"] = tx_fees_7d
+        if tx_fees_7d_usd is not UNSET:
+            field_dict["tx_fees_7d_usd"] = tx_fees_7d_usd
         if updated_at is not UNSET:
             field_dict["updated_at"] = updated_at
         if wallet_address is not UNSET:
@@ -1144,6 +1292,18 @@ class PulsightInternalCoreDomainTraderTrader:
 
         created_at = d.pop("created_at", UNSET)
 
+        dex_fees_1d = d.pop("dex_fees_1d", UNSET)
+
+        dex_fees_1d_usd = d.pop("dex_fees_1d_usd", UNSET)
+
+        dex_fees_30d = d.pop("dex_fees_30d", UNSET)
+
+        dex_fees_30d_usd = d.pop("dex_fees_30d_usd", UNSET)
+
+        dex_fees_7d = d.pop("dex_fees_7d", UNSET)
+
+        dex_fees_7d_usd = d.pop("dex_fees_7d_usd", UNSET)
+
         didnt_buy_sells_1d = d.pop("didnt_buy_sells_1d", UNSET)
 
         didnt_buy_sells_30d = d.pop("didnt_buy_sells_30d", UNSET)
@@ -1242,6 +1402,18 @@ class PulsightInternalCoreDomainTraderTrader:
 
         oldest_trade_at = d.pop("oldest_trade_at", UNSET)
 
+        platform_fees_1d = d.pop("platform_fees_1d", UNSET)
+
+        platform_fees_1d_usd = d.pop("platform_fees_1d_usd", UNSET)
+
+        platform_fees_30d = d.pop("platform_fees_30d", UNSET)
+
+        platform_fees_30d_usd = d.pop("platform_fees_30d_usd", UNSET)
+
+        platform_fees_7d = d.pop("platform_fees_7d", UNSET)
+
+        platform_fees_7d_usd = d.pop("platform_fees_7d_usd", UNSET)
+
         realized_profit = d.pop("realized_profit", UNSET)
 
         realized_profit_1d = d.pop("realized_profit_1d", UNSET)
@@ -1330,6 +1502,18 @@ class PulsightInternalCoreDomainTraderTrader:
 
         token_num_all = d.pop("token_num_all", UNSET)
 
+        topups_1d = d.pop("topups_1d", UNSET)
+
+        topups_1d_usd = d.pop("topups_1d_usd", UNSET)
+
+        topups_30d = d.pop("topups_30d", UNSET)
+
+        topups_30d_usd = d.pop("topups_30d_usd", UNSET)
+
+        topups_7d = d.pop("topups_7d", UNSET)
+
+        topups_7d_usd = d.pop("topups_7d_usd", UNSET)
+
         total_costs_1d = d.pop("total_costs_1d", UNSET)
 
         total_costs_1d_usd = d.pop("total_costs_1d_usd", UNSET)
@@ -1353,6 +1537,18 @@ class PulsightInternalCoreDomainTraderTrader:
         total_profit_pnl_30d = d.pop("total_profit_pnl_30d", UNSET)
 
         total_profit_pnl_7d = d.pop("total_profit_pnl_7d", UNSET)
+
+        tx_fees_1d = d.pop("tx_fees_1d", UNSET)
+
+        tx_fees_1d_usd = d.pop("tx_fees_1d_usd", UNSET)
+
+        tx_fees_30d = d.pop("tx_fees_30d", UNSET)
+
+        tx_fees_30d_usd = d.pop("tx_fees_30d_usd", UNSET)
+
+        tx_fees_7d = d.pop("tx_fees_7d", UNSET)
+
+        tx_fees_7d_usd = d.pop("tx_fees_7d_usd", UNSET)
 
         updated_at = d.pop("updated_at", UNSET)
 
@@ -1425,6 +1621,12 @@ class PulsightInternalCoreDomainTraderTrader:
             cashback_share_all=cashback_share_all,
             chain=chain,
             created_at=created_at,
+            dex_fees_1d=dex_fees_1d,
+            dex_fees_1d_usd=dex_fees_1d_usd,
+            dex_fees_30d=dex_fees_30d,
+            dex_fees_30d_usd=dex_fees_30d_usd,
+            dex_fees_7d=dex_fees_7d,
+            dex_fees_7d_usd=dex_fees_7d_usd,
             didnt_buy_sells_1d=didnt_buy_sells_1d,
             didnt_buy_sells_30d=didnt_buy_sells_30d,
             didnt_buy_sells_7d=didnt_buy_sells_7d,
@@ -1474,6 +1676,12 @@ class PulsightInternalCoreDomainTraderTrader:
             net_profit_all=net_profit_all,
             net_profit_all_usd=net_profit_all_usd,
             oldest_trade_at=oldest_trade_at,
+            platform_fees_1d=platform_fees_1d,
+            platform_fees_1d_usd=platform_fees_1d_usd,
+            platform_fees_30d=platform_fees_30d,
+            platform_fees_30d_usd=platform_fees_30d_usd,
+            platform_fees_7d=platform_fees_7d,
+            platform_fees_7d_usd=platform_fees_7d_usd,
             realized_profit=realized_profit,
             realized_profit_1d=realized_profit_1d,
             realized_profit_1d_usd=realized_profit_1d_usd,
@@ -1518,6 +1726,12 @@ class PulsightInternalCoreDomainTraderTrader:
             token_num_30d=token_num_30d,
             token_num_7d=token_num_7d,
             token_num_all=token_num_all,
+            topups_1d=topups_1d,
+            topups_1d_usd=topups_1d_usd,
+            topups_30d=topups_30d,
+            topups_30d_usd=topups_30d_usd,
+            topups_7d=topups_7d,
+            topups_7d_usd=topups_7d_usd,
             total_costs_1d=total_costs_1d,
             total_costs_1d_usd=total_costs_1d_usd,
             total_costs_30d=total_costs_30d,
@@ -1530,6 +1744,12 @@ class PulsightInternalCoreDomainTraderTrader:
             total_profit_7d=total_profit_7d,
             total_profit_pnl_30d=total_profit_pnl_30d,
             total_profit_pnl_7d=total_profit_pnl_7d,
+            tx_fees_1d=tx_fees_1d,
+            tx_fees_1d_usd=tx_fees_1d_usd,
+            tx_fees_30d=tx_fees_30d,
+            tx_fees_30d_usd=tx_fees_30d_usd,
+            tx_fees_7d=tx_fees_7d,
+            tx_fees_7d_usd=tx_fees_7d_usd,
             updated_at=updated_at,
             wallet_address=wallet_address,
             winrate_1d=winrate_1d,

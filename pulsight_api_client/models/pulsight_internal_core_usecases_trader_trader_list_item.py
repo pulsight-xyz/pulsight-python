@@ -83,6 +83,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         cashback_share_all (float | Unset):
         chain (str | Unset):
         created_at (str | Unset):
+        dex_fees_1d (float | Unset):
+        dex_fees_1d_usd (float | Unset):
+        dex_fees_30d (float | Unset):
+        dex_fees_30d_usd (float | Unset):
+        dex_fees_7d (float | Unset):
+        dex_fees_7d_usd (float | Unset):
         didnt_buy_sells_1d (int | Unset):
         didnt_buy_sells_30d (int | Unset):
         didnt_buy_sells_7d (int | Unset): Uncovered-sell counters: sells with no observed buy of the mint /
@@ -148,6 +154,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             canonical window (1d, 7d, 30d, all) off the
             wallet's board row. Drives the period stats panel on the
             trader-detail page.
+        platform_fees_1d (float | Unset):
+        platform_fees_1d_usd (float | Unset):
+        platform_fees_30d (float | Unset):
+        platform_fees_30d_usd (float | Unset):
+        platform_fees_7d (float | Unset):
+        platform_fees_7d_usd (float | Unset):
         pnl_distribution (list[int] | Unset): PnlDistribution is the 5-bucket realised-PnL distribution for
             the request window: [<-50%, -50–0%, 0–2×, 2–5×, >5×]. Nil when
             the snapshot wasn't inlined.
@@ -221,6 +233,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             graduated). Inlined from the folded snapshot; nil when the snapshot
             wasn't inlined. Mirror the creator_tokens_* leaderboard filters.
         tokens_graduated (int | Unset):
+        topups_1d (float | Unset):
+        topups_1d_usd (float | Unset):
+        topups_30d (float | Unset):
+        topups_30d_usd (float | Unset):
+        topups_7d (float | Unset):
+        topups_7d_usd (float | Unset):
         total_costs_1d (float | Unset):
         total_costs_1d_usd (float | Unset):
         total_costs_30d (float | Unset):
@@ -233,6 +251,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         total_profit_7d (float | Unset):
         total_profit_pnl_30d (float | Unset):
         total_profit_pnl_7d (float | Unset):
+        tx_fees_1d (float | Unset):
+        tx_fees_1d_usd (float | Unset):
+        tx_fees_30d (float | Unset):
+        tx_fees_30d_usd (float | Unset):
+        tx_fees_7d (float | Unset): The lines of TotalCosts7d beside tips and failed-tx burn: network fees,
+            venue fees (with venue cashback charged on top), platform fees, and
+            what the wallet deposited into pump holder-rewards pots.
+        tx_fees_7d_usd (float | Unset):
         updated_at (str | Unset):
         wallet_address (str | Unset):
         winrate_1d (float | Unset):
@@ -307,6 +333,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     cashback_share_all: float | Unset = UNSET
     chain: str | Unset = UNSET
     created_at: str | Unset = UNSET
+    dex_fees_1d: float | Unset = UNSET
+    dex_fees_1d_usd: float | Unset = UNSET
+    dex_fees_30d: float | Unset = UNSET
+    dex_fees_30d_usd: float | Unset = UNSET
+    dex_fees_7d: float | Unset = UNSET
+    dex_fees_7d_usd: float | Unset = UNSET
     didnt_buy_sells_1d: int | Unset = UNSET
     didnt_buy_sells_30d: int | Unset = UNSET
     didnt_buy_sells_7d: int | Unset = UNSET
@@ -361,6 +393,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     periods: list[PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow] | Unset = (
         UNSET
     )
+    platform_fees_1d: float | Unset = UNSET
+    platform_fees_1d_usd: float | Unset = UNSET
+    platform_fees_30d: float | Unset = UNSET
+    platform_fees_30d_usd: float | Unset = UNSET
+    platform_fees_7d: float | Unset = UNSET
+    platform_fees_7d_usd: float | Unset = UNSET
     pnl_distribution: list[int] | Unset = UNSET
     pnl_distribution_usd: list[int] | Unset = UNSET
     pnl_distributions: (
@@ -416,6 +454,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     token_num_all: int | Unset = UNSET
     tokens_created: int | Unset = UNSET
     tokens_graduated: int | Unset = UNSET
+    topups_1d: float | Unset = UNSET
+    topups_1d_usd: float | Unset = UNSET
+    topups_30d: float | Unset = UNSET
+    topups_30d_usd: float | Unset = UNSET
+    topups_7d: float | Unset = UNSET
+    topups_7d_usd: float | Unset = UNSET
     total_costs_1d: float | Unset = UNSET
     total_costs_1d_usd: float | Unset = UNSET
     total_costs_30d: float | Unset = UNSET
@@ -428,6 +472,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     total_profit_7d: float | Unset = UNSET
     total_profit_pnl_30d: float | Unset = UNSET
     total_profit_pnl_7d: float | Unset = UNSET
+    tx_fees_1d: float | Unset = UNSET
+    tx_fees_1d_usd: float | Unset = UNSET
+    tx_fees_30d: float | Unset = UNSET
+    tx_fees_30d_usd: float | Unset = UNSET
+    tx_fees_7d: float | Unset = UNSET
+    tx_fees_7d_usd: float | Unset = UNSET
     updated_at: str | Unset = UNSET
     wallet_address: str | Unset = UNSET
     winrate_1d: float | Unset = UNSET
@@ -557,6 +607,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         created_at = self.created_at
 
+        dex_fees_1d = self.dex_fees_1d
+
+        dex_fees_1d_usd = self.dex_fees_1d_usd
+
+        dex_fees_30d = self.dex_fees_30d
+
+        dex_fees_30d_usd = self.dex_fees_30d_usd
+
+        dex_fees_7d = self.dex_fees_7d
+
+        dex_fees_7d_usd = self.dex_fees_7d_usd
+
         didnt_buy_sells_1d = self.didnt_buy_sells_1d
 
         didnt_buy_sells_30d = self.didnt_buy_sells_30d
@@ -665,6 +727,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             for periods_item_data in self.periods:
                 periods_item = periods_item_data.to_dict()
                 periods.append(periods_item)
+
+        platform_fees_1d = self.platform_fees_1d
+
+        platform_fees_1d_usd = self.platform_fees_1d_usd
+
+        platform_fees_30d = self.platform_fees_30d
+
+        platform_fees_30d_usd = self.platform_fees_30d_usd
+
+        platform_fees_7d = self.platform_fees_7d
+
+        platform_fees_7d_usd = self.platform_fees_7d_usd
 
         pnl_distribution: list[int] | Unset = UNSET
         if not isinstance(self.pnl_distribution, Unset):
@@ -791,6 +865,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         tokens_graduated = self.tokens_graduated
 
+        topups_1d = self.topups_1d
+
+        topups_1d_usd = self.topups_1d_usd
+
+        topups_30d = self.topups_30d
+
+        topups_30d_usd = self.topups_30d_usd
+
+        topups_7d = self.topups_7d
+
+        topups_7d_usd = self.topups_7d_usd
+
         total_costs_1d = self.total_costs_1d
 
         total_costs_1d_usd = self.total_costs_1d_usd
@@ -814,6 +900,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         total_profit_pnl_30d = self.total_profit_pnl_30d
 
         total_profit_pnl_7d = self.total_profit_pnl_7d
+
+        tx_fees_1d = self.tx_fees_1d
+
+        tx_fees_1d_usd = self.tx_fees_1d_usd
+
+        tx_fees_30d = self.tx_fees_30d
+
+        tx_fees_30d_usd = self.tx_fees_30d_usd
+
+        tx_fees_7d = self.tx_fees_7d
+
+        tx_fees_7d_usd = self.tx_fees_7d_usd
 
         updated_at = self.updated_at
 
@@ -946,6 +1044,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["chain"] = chain
         if created_at is not UNSET:
             field_dict["created_at"] = created_at
+        if dex_fees_1d is not UNSET:
+            field_dict["dex_fees_1d"] = dex_fees_1d
+        if dex_fees_1d_usd is not UNSET:
+            field_dict["dex_fees_1d_usd"] = dex_fees_1d_usd
+        if dex_fees_30d is not UNSET:
+            field_dict["dex_fees_30d"] = dex_fees_30d
+        if dex_fees_30d_usd is not UNSET:
+            field_dict["dex_fees_30d_usd"] = dex_fees_30d_usd
+        if dex_fees_7d is not UNSET:
+            field_dict["dex_fees_7d"] = dex_fees_7d
+        if dex_fees_7d_usd is not UNSET:
+            field_dict["dex_fees_7d_usd"] = dex_fees_7d_usd
         if didnt_buy_sells_1d is not UNSET:
             field_dict["didnt_buy_sells_1d"] = didnt_buy_sells_1d
         if didnt_buy_sells_30d is not UNSET:
@@ -1054,6 +1164,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["oldest_trade_at"] = oldest_trade_at
         if periods is not UNSET:
             field_dict["periods"] = periods
+        if platform_fees_1d is not UNSET:
+            field_dict["platform_fees_1d"] = platform_fees_1d
+        if platform_fees_1d_usd is not UNSET:
+            field_dict["platform_fees_1d_usd"] = platform_fees_1d_usd
+        if platform_fees_30d is not UNSET:
+            field_dict["platform_fees_30d"] = platform_fees_30d
+        if platform_fees_30d_usd is not UNSET:
+            field_dict["platform_fees_30d_usd"] = platform_fees_30d_usd
+        if platform_fees_7d is not UNSET:
+            field_dict["platform_fees_7d"] = platform_fees_7d
+        if platform_fees_7d_usd is not UNSET:
+            field_dict["platform_fees_7d_usd"] = platform_fees_7d_usd
         if pnl_distribution is not UNSET:
             field_dict["pnl_distribution"] = pnl_distribution
         if pnl_distribution_usd is not UNSET:
@@ -1160,6 +1282,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["tokens_created"] = tokens_created
         if tokens_graduated is not UNSET:
             field_dict["tokens_graduated"] = tokens_graduated
+        if topups_1d is not UNSET:
+            field_dict["topups_1d"] = topups_1d
+        if topups_1d_usd is not UNSET:
+            field_dict["topups_1d_usd"] = topups_1d_usd
+        if topups_30d is not UNSET:
+            field_dict["topups_30d"] = topups_30d
+        if topups_30d_usd is not UNSET:
+            field_dict["topups_30d_usd"] = topups_30d_usd
+        if topups_7d is not UNSET:
+            field_dict["topups_7d"] = topups_7d
+        if topups_7d_usd is not UNSET:
+            field_dict["topups_7d_usd"] = topups_7d_usd
         if total_costs_1d is not UNSET:
             field_dict["total_costs_1d"] = total_costs_1d
         if total_costs_1d_usd is not UNSET:
@@ -1184,6 +1318,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["total_profit_pnl_30d"] = total_profit_pnl_30d
         if total_profit_pnl_7d is not UNSET:
             field_dict["total_profit_pnl_7d"] = total_profit_pnl_7d
+        if tx_fees_1d is not UNSET:
+            field_dict["tx_fees_1d"] = tx_fees_1d
+        if tx_fees_1d_usd is not UNSET:
+            field_dict["tx_fees_1d_usd"] = tx_fees_1d_usd
+        if tx_fees_30d is not UNSET:
+            field_dict["tx_fees_30d"] = tx_fees_30d
+        if tx_fees_30d_usd is not UNSET:
+            field_dict["tx_fees_30d_usd"] = tx_fees_30d_usd
+        if tx_fees_7d is not UNSET:
+            field_dict["tx_fees_7d"] = tx_fees_7d
+        if tx_fees_7d_usd is not UNSET:
+            field_dict["tx_fees_7d_usd"] = tx_fees_7d_usd
         if updated_at is not UNSET:
             field_dict["updated_at"] = updated_at
         if wallet_address is not UNSET:
@@ -1368,6 +1514,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         created_at = d.pop("created_at", UNSET)
 
+        dex_fees_1d = d.pop("dex_fees_1d", UNSET)
+
+        dex_fees_1d_usd = d.pop("dex_fees_1d_usd", UNSET)
+
+        dex_fees_30d = d.pop("dex_fees_30d", UNSET)
+
+        dex_fees_30d_usd = d.pop("dex_fees_30d_usd", UNSET)
+
+        dex_fees_7d = d.pop("dex_fees_7d", UNSET)
+
+        dex_fees_7d_usd = d.pop("dex_fees_7d_usd", UNSET)
+
         didnt_buy_sells_1d = d.pop("didnt_buy_sells_1d", UNSET)
 
         didnt_buy_sells_30d = d.pop("didnt_buy_sells_30d", UNSET)
@@ -1484,6 +1642,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
                 )
 
                 periods.append(periods_item)
+
+        platform_fees_1d = d.pop("platform_fees_1d", UNSET)
+
+        platform_fees_1d_usd = d.pop("platform_fees_1d_usd", UNSET)
+
+        platform_fees_30d = d.pop("platform_fees_30d", UNSET)
+
+        platform_fees_30d_usd = d.pop("platform_fees_30d_usd", UNSET)
+
+        platform_fees_7d = d.pop("platform_fees_7d", UNSET)
+
+        platform_fees_7d_usd = d.pop("platform_fees_7d_usd", UNSET)
 
         pnl_distribution = cast(list[int], d.pop("pnl_distribution", UNSET))
 
@@ -1602,6 +1772,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         tokens_graduated = d.pop("tokens_graduated", UNSET)
 
+        topups_1d = d.pop("topups_1d", UNSET)
+
+        topups_1d_usd = d.pop("topups_1d_usd", UNSET)
+
+        topups_30d = d.pop("topups_30d", UNSET)
+
+        topups_30d_usd = d.pop("topups_30d_usd", UNSET)
+
+        topups_7d = d.pop("topups_7d", UNSET)
+
+        topups_7d_usd = d.pop("topups_7d_usd", UNSET)
+
         total_costs_1d = d.pop("total_costs_1d", UNSET)
 
         total_costs_1d_usd = d.pop("total_costs_1d_usd", UNSET)
@@ -1625,6 +1807,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         total_profit_pnl_30d = d.pop("total_profit_pnl_30d", UNSET)
 
         total_profit_pnl_7d = d.pop("total_profit_pnl_7d", UNSET)
+
+        tx_fees_1d = d.pop("tx_fees_1d", UNSET)
+
+        tx_fees_1d_usd = d.pop("tx_fees_1d_usd", UNSET)
+
+        tx_fees_30d = d.pop("tx_fees_30d", UNSET)
+
+        tx_fees_30d_usd = d.pop("tx_fees_30d_usd", UNSET)
+
+        tx_fees_7d = d.pop("tx_fees_7d", UNSET)
+
+        tx_fees_7d_usd = d.pop("tx_fees_7d_usd", UNSET)
 
         updated_at = d.pop("updated_at", UNSET)
 
@@ -1701,6 +1895,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             cashback_share_all=cashback_share_all,
             chain=chain,
             created_at=created_at,
+            dex_fees_1d=dex_fees_1d,
+            dex_fees_1d_usd=dex_fees_1d_usd,
+            dex_fees_30d=dex_fees_30d,
+            dex_fees_30d_usd=dex_fees_30d_usd,
+            dex_fees_7d=dex_fees_7d,
+            dex_fees_7d_usd=dex_fees_7d_usd,
             didnt_buy_sells_1d=didnt_buy_sells_1d,
             didnt_buy_sells_30d=didnt_buy_sells_30d,
             didnt_buy_sells_7d=didnt_buy_sells_7d,
@@ -1753,6 +1953,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             net_profit_all_usd=net_profit_all_usd,
             oldest_trade_at=oldest_trade_at,
             periods=periods,
+            platform_fees_1d=platform_fees_1d,
+            platform_fees_1d_usd=platform_fees_1d_usd,
+            platform_fees_30d=platform_fees_30d,
+            platform_fees_30d_usd=platform_fees_30d_usd,
+            platform_fees_7d=platform_fees_7d,
+            platform_fees_7d_usd=platform_fees_7d_usd,
             pnl_distribution=pnl_distribution,
             pnl_distribution_usd=pnl_distribution_usd,
             pnl_distributions=pnl_distributions,
@@ -1806,6 +2012,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             token_num_all=token_num_all,
             tokens_created=tokens_created,
             tokens_graduated=tokens_graduated,
+            topups_1d=topups_1d,
+            topups_1d_usd=topups_1d_usd,
+            topups_30d=topups_30d,
+            topups_30d_usd=topups_30d_usd,
+            topups_7d=topups_7d,
+            topups_7d_usd=topups_7d_usd,
             total_costs_1d=total_costs_1d,
             total_costs_1d_usd=total_costs_1d_usd,
             total_costs_30d=total_costs_30d,
@@ -1818,6 +2030,12 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             total_profit_7d=total_profit_7d,
             total_profit_pnl_30d=total_profit_pnl_30d,
             total_profit_pnl_7d=total_profit_pnl_7d,
+            tx_fees_1d=tx_fees_1d,
+            tx_fees_1d_usd=tx_fees_1d_usd,
+            tx_fees_30d=tx_fees_30d,
+            tx_fees_30d_usd=tx_fees_30d_usd,
+            tx_fees_7d=tx_fees_7d,
+            tx_fees_7d_usd=tx_fees_7d_usd,
             updated_at=updated_at,
             wallet_address=wallet_address,
             winrate_1d=winrate_1d,
