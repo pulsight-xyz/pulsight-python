@@ -46,6 +46,9 @@ from .internal_adapters_primary_http_handler_pick_tokens_response import (
 from .internal_adapters_primary_http_handler_service_loyalty_row import (
     InternalAdaptersPrimaryHttpHandlerServiceLoyaltyRow,
 )
+from .internal_adapters_primary_http_handler_simulation_assumptions_response import (
+    InternalAdaptersPrimaryHttpHandlerSimulationAssumptionsResponse,
+)
 from .internal_adapters_primary_http_handler_snapshot_response import (
     InternalAdaptersPrimaryHttpHandlerSnapshotResponse,
 )
@@ -60,6 +63,9 @@ from .internal_adapters_primary_http_handler_strategy_create_request import (
 )
 from .internal_adapters_primary_http_handler_strategy_list_item import (
     InternalAdaptersPrimaryHttpHandlerStrategyListItem,
+)
+from .internal_adapters_primary_http_handler_strategy_run_point import (
+    InternalAdaptersPrimaryHttpHandlerStrategyRunPoint,
 )
 from .internal_adapters_primary_http_handler_strategy_stats import (
     InternalAdaptersPrimaryHttpHandlerStrategyStats,
@@ -391,8 +397,17 @@ from .pulsight_internal_core_ports_input_usage_counts import (
 from .pulsight_internal_core_ports_input_user_pool_credits import (
     PulsightInternalCorePortsInputUserPoolCredits,
 )
+from .pulsight_internal_core_usecases_backtest_backtest_breakdown import (
+    PulsightInternalCoreUsecasesBacktestBacktestBreakdown,
+)
+from .pulsight_internal_core_usecases_backtest_backtest_breakdown_declines_by_reason import (
+    PulsightInternalCoreUsecasesBacktestBacktestBreakdownDeclinesByReason,
+)
 from .pulsight_internal_core_usecases_backtest_backtest_decline import (
     PulsightInternalCoreUsecasesBacktestBacktestDecline,
+)
+from .pulsight_internal_core_usecases_backtest_backtest_estimate import (
+    PulsightInternalCoreUsecasesBacktestBacktestEstimate,
 )
 from .pulsight_internal_core_usecases_backtest_backtest_position import (
     PulsightInternalCoreUsecasesBacktestBacktestPosition,
@@ -415,6 +430,15 @@ from .pulsight_internal_core_usecases_backtest_backtest_trade import (
 from .pulsight_internal_core_usecases_backtest_decline_reason import (
     PulsightInternalCoreUsecasesBacktestDeclineReason,
 )
+from .pulsight_internal_core_usecases_backtest_equity_curve import (
+    PulsightInternalCoreUsecasesBacktestEquityCurve,
+)
+from .pulsight_internal_core_usecases_backtest_equity_point import (
+    PulsightInternalCoreUsecasesBacktestEquityPoint,
+)
+from .pulsight_internal_core_usecases_backtest_mint_breakdown import (
+    PulsightInternalCoreUsecasesBacktestMintBreakdown,
+)
 from .pulsight_internal_core_usecases_backtest_preview_marker import (
     PulsightInternalCoreUsecasesBacktestPreviewMarker,
 )
@@ -429,6 +453,9 @@ from .pulsight_internal_core_usecases_backtest_preview_skip import (
 )
 from .pulsight_internal_core_usecases_backtest_side import (
     PulsightInternalCoreUsecasesBacktestSide,
+)
+from .pulsight_internal_core_usecases_backtest_target_mint_comparison import (
+    PulsightInternalCoreUsecasesBacktestTargetMintComparison,
 )
 from .pulsight_internal_core_usecases_backtest_time_range import (
     PulsightInternalCoreUsecasesBacktestTimeRange,
@@ -477,11 +504,13 @@ __all__ = (
     "InternalAdaptersPrimaryHttpHandlerPickTokensRequest",
     "InternalAdaptersPrimaryHttpHandlerPickTokensResponse",
     "InternalAdaptersPrimaryHttpHandlerServiceLoyaltyRow",
+    "InternalAdaptersPrimaryHttpHandlerSimulationAssumptionsResponse",
     "InternalAdaptersPrimaryHttpHandlerSnapshotResponse",
     "InternalAdaptersPrimaryHttpHandlerSnapshotRow",
     "InternalAdaptersPrimaryHttpHandlerSolPriceResponse",
     "InternalAdaptersPrimaryHttpHandlerStrategyCreateRequest",
     "InternalAdaptersPrimaryHttpHandlerStrategyListItem",
+    "InternalAdaptersPrimaryHttpHandlerStrategyRunPoint",
     "InternalAdaptersPrimaryHttpHandlerStrategyStats",
     "InternalAdaptersPrimaryHttpHandlerStrategyUpdateRequest",
     "InternalAdaptersPrimaryHttpHandlerTokensRow",
@@ -592,7 +621,10 @@ __all__ = (
     "PulsightInternalCorePortsInputSubscriptionInfo",
     "PulsightInternalCorePortsInputUsageCounts",
     "PulsightInternalCorePortsInputUserPoolCredits",
+    "PulsightInternalCoreUsecasesBacktestBacktestBreakdown",
+    "PulsightInternalCoreUsecasesBacktestBacktestBreakdownDeclinesByReason",
     "PulsightInternalCoreUsecasesBacktestBacktestDecline",
+    "PulsightInternalCoreUsecasesBacktestBacktestEstimate",
     "PulsightInternalCoreUsecasesBacktestBacktestPosition",
     "PulsightInternalCoreUsecasesBacktestBacktestRecord",
     "PulsightInternalCoreUsecasesBacktestBacktestRequest",
@@ -600,11 +632,15 @@ __all__ = (
     "PulsightInternalCoreUsecasesBacktestBacktestSummary",
     "PulsightInternalCoreUsecasesBacktestBacktestTrade",
     "PulsightInternalCoreUsecasesBacktestDeclineReason",
+    "PulsightInternalCoreUsecasesBacktestEquityCurve",
+    "PulsightInternalCoreUsecasesBacktestEquityPoint",
+    "PulsightInternalCoreUsecasesBacktestMintBreakdown",
     "PulsightInternalCoreUsecasesBacktestPreviewMarker",
     "PulsightInternalCoreUsecasesBacktestPreviewRequest",
     "PulsightInternalCoreUsecasesBacktestPreviewResponse",
     "PulsightInternalCoreUsecasesBacktestPreviewSkip",
     "PulsightInternalCoreUsecasesBacktestSide",
+    "PulsightInternalCoreUsecasesBacktestTargetMintComparison",
     "PulsightInternalCoreUsecasesBacktestTimeRange",
     "PulsightInternalCoreUsecasesBacktestTokenScope",
     "PulsightInternalCoreUsecasesBacktestTokenScopeKind",

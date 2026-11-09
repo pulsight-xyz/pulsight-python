@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from typing import Any
 
-import httpx
+import httpx2
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
@@ -16,12 +16,21 @@ from ...types import UNSET, Response, Unset
 
 def _get_kwargs(
     *,
-    strategy_id: str | Unset = UNSET,
+    strategy_id: str,
+    limit: int | Unset = UNSET,
+    offset: int | Unset = UNSET,
+    include: str | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
     params["strategy_id"] = strategy_id
+
+    params["limit"] = limit
+
+    params["offset"] = offset
+
+    params["include"] = include
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -35,7 +44,7 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
+    *, client: AuthenticatedClient | Client, response: httpx2.Response
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestRecord]
@@ -69,7 +78,7 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
+    *, client: AuthenticatedClient | Client, response: httpx2.Response
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestRecord]
@@ -85,7 +94,10 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    strategy_id: str | Unset = UNSET,
+    strategy_id: str,
+    limit: int | Unset = UNSET,
+    offset: int | Unset = UNSET,
+    include: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestRecord]
@@ -93,11 +105,14 @@ def sync_detailed(
     """List Backtests by Strategy
 
     Args:
-        strategy_id (str | Unset):
+        strategy_id (str):
+        limit (int | Unset):
+        offset (int | Unset):
+        include (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
+        httpx2.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
         Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreUsecasesBacktestBacktestRecord]]
@@ -105,6 +120,9 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         strategy_id=strategy_id,
+        limit=limit,
+        offset=offset,
+        include=include,
     )
 
     response = client.get_httpx_client().request(
@@ -117,7 +135,10 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    strategy_id: str | Unset = UNSET,
+    strategy_id: str,
+    limit: int | Unset = UNSET,
+    offset: int | Unset = UNSET,
+    include: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestRecord]
@@ -126,11 +147,14 @@ def sync(
     """List Backtests by Strategy
 
     Args:
-        strategy_id (str | Unset):
+        strategy_id (str):
+        limit (int | Unset):
+        offset (int | Unset):
+        include (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
+        httpx2.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
         InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreUsecasesBacktestBacktestRecord]
@@ -139,13 +163,19 @@ def sync(
     return sync_detailed(
         client=client,
         strategy_id=strategy_id,
+        limit=limit,
+        offset=offset,
+        include=include,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    strategy_id: str | Unset = UNSET,
+    strategy_id: str,
+    limit: int | Unset = UNSET,
+    offset: int | Unset = UNSET,
+    include: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestRecord]
@@ -153,11 +183,14 @@ async def asyncio_detailed(
     """List Backtests by Strategy
 
     Args:
-        strategy_id (str | Unset):
+        strategy_id (str):
+        limit (int | Unset):
+        offset (int | Unset):
+        include (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
+        httpx2.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
         Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreUsecasesBacktestBacktestRecord]]
@@ -165,6 +198,9 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         strategy_id=strategy_id,
+        limit=limit,
+        offset=offset,
+        include=include,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -175,7 +211,10 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    strategy_id: str | Unset = UNSET,
+    strategy_id: str,
+    limit: int | Unset = UNSET,
+    offset: int | Unset = UNSET,
+    include: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestRecord]
@@ -184,11 +223,14 @@ async def asyncio(
     """List Backtests by Strategy
 
     Args:
-        strategy_id (str | Unset):
+        strategy_id (str):
+        limit (int | Unset):
+        offset (int | Unset):
+        include (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
+        httpx2.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
         InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreUsecasesBacktestBacktestRecord]
@@ -198,5 +240,8 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             strategy_id=strategy_id,
+            limit=limit,
+            offset=offset,
+            include=include,
         )
     ).parsed

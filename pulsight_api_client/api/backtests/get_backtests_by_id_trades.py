@@ -2,7 +2,7 @@ from http import HTTPStatus
 from typing import Any
 from urllib.parse import quote
 
-import httpx
+import httpx2
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
@@ -20,6 +20,9 @@ def _get_kwargs(
     *,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+    mint: str | Unset = UNSET,
+    side: str | Unset = UNSET,
+    source: str | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -27,6 +30,12 @@ def _get_kwargs(
     params["limit"] = limit
 
     params["offset"] = offset
+
+    params["mint"] = mint
+
+    params["side"] = side
+
+    params["source"] = source
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -42,7 +51,7 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
+    *, client: AuthenticatedClient | Client, response: httpx2.Response
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestTrade]
@@ -76,7 +85,7 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: AuthenticatedClient | Client, response: httpx.Response
+    *, client: AuthenticatedClient | Client, response: httpx2.Response
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestTrade]
@@ -95,6 +104,9 @@ def sync_detailed(
     client: AuthenticatedClient,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+    mint: str | Unset = UNSET,
+    side: str | Unset = UNSET,
+    source: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestTrade]
@@ -105,10 +117,13 @@ def sync_detailed(
         id (str):
         limit (int | Unset):
         offset (int | Unset):
+        mint (str | Unset):
+        side (str | Unset):
+        source (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
+        httpx2.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
         Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreUsecasesBacktestBacktestTrade]]
@@ -118,6 +133,9 @@ def sync_detailed(
         id=id,
         limit=limit,
         offset=offset,
+        mint=mint,
+        side=side,
+        source=source,
     )
 
     response = client.get_httpx_client().request(
@@ -133,6 +151,9 @@ def sync(
     client: AuthenticatedClient,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+    mint: str | Unset = UNSET,
+    side: str | Unset = UNSET,
+    source: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestTrade]
@@ -144,10 +165,13 @@ def sync(
         id (str):
         limit (int | Unset):
         offset (int | Unset):
+        mint (str | Unset):
+        side (str | Unset):
+        source (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
+        httpx2.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
         InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreUsecasesBacktestBacktestTrade]
@@ -158,6 +182,9 @@ def sync(
         client=client,
         limit=limit,
         offset=offset,
+        mint=mint,
+        side=side,
+        source=source,
     ).parsed
 
 
@@ -167,6 +194,9 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+    mint: str | Unset = UNSET,
+    side: str | Unset = UNSET,
+    source: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestTrade]
@@ -177,10 +207,13 @@ async def asyncio_detailed(
         id (str):
         limit (int | Unset):
         offset (int | Unset):
+        mint (str | Unset):
+        side (str | Unset):
+        source (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
+        httpx2.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
         Response[InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreUsecasesBacktestBacktestTrade]]
@@ -190,6 +223,9 @@ async def asyncio_detailed(
         id=id,
         limit=limit,
         offset=offset,
+        mint=mint,
+        side=side,
+        source=source,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -203,6 +239,9 @@ async def asyncio(
     client: AuthenticatedClient,
     limit: int | Unset = UNSET,
     offset: int | Unset = UNSET,
+    mint: str | Unset = UNSET,
+    side: str | Unset = UNSET,
+    source: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreUsecasesBacktestBacktestTrade]
@@ -214,10 +253,13 @@ async def asyncio(
         id (str):
         limit (int | Unset):
         offset (int | Unset):
+        mint (str | Unset):
+        side (str | Unset):
+        source (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
-        httpx.TimeoutException: If the request takes longer than Client.timeout.
+        httpx2.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
         InternalAdaptersPrimaryHttpHandlerErrorResponse | list[PulsightInternalCoreUsecasesBacktestBacktestTrade]
@@ -229,5 +271,8 @@ async def asyncio(
             client=client,
             limit=limit,
             offset=offset,
+            mint=mint,
+            side=side,
+            source=source,
         )
     ).parsed

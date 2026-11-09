@@ -26,6 +26,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             crossed by the run's FILLED copies — what latency cost on the fills that
             went through (reverted ones are excluded; their cost shows as
             RevertFeesSol + missed entries). Nil when the run had no landing fills.
+        capital_required_sol (float | Unset): CapitalRequiredSol is the starting balance that would have kept the cash
+            walk at or above zero: max(StartingBalanceSol, StartingBalanceSol-MinCashSol).
         copies_declined (int | Unset): CopiesDeclined counts target swaps a signal-driven exec wanted to act
             on but that a RULE refused: cooldown, sizing, max_buys_per_open_position,
             exposure cap, bracket placement, rate limit — plus the sells this run sat
@@ -87,6 +89,11 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             ran. When > 0, the four fields below describe the landing plane.
         losses (int | Unset):
         max_drawdown_sol (float | Unset):
+        min_cash_sol (float | Unset): MinCashSol is the low point of the chronological cash walk: the starting
+            balance minus every buy's size and costs, plus every sell's proceeds net
+            of costs, minus reverted fills' costs. Negative means the run spent SOL
+            the starting balance never had — the engine replays each token's whole
+            window before the next one and cannot gate a buy on portfolio cash.
         our_avg_price_impact_pct (float | Unset): Price-impact rollups, in percent of mid. "Our*" averages over every
             simulated trade that had a pool snapshot; "Target*" averages over the
             copy trades that mirrored a target swap 1:1 (same timestamp). Zero when
@@ -137,11 +144,16 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             MaxDrawdownSol (the drawdown walk only sees trade rows) — a documented
             approximation.
         roi_pct (float | Unset):
+        scope_exits_unpriced (int | Unset): ScopeExitsUnpriced counts the forced closes an `on_retire: sell` policy
+            could not fill because no candle had priced the token yet when it left
+            the selection: the position stays open, its exits keep firing, and
+            whatever is left at the end is marked in HeldPositions. Additive JSONB
+            field — old rows decode as 0.
         simulation_assumptions (list[str] | Unset): SimulationAssumptions is free-text notes about which real-world
             cost components the simulator did NOT model (route hops, MEV,
             partial fills, pre-trade gas estimation, etc.). Rendered
             prominently on the result page so users don't read "won 4.2 SOL"
-            too literally.
+            too literally. A run list carries them only with include=assumptions.
         starting_balance_sol (float | Unset):
         target_avg_price_impact_pct (float | Unset):
         target_median_price_impact_pct (float | Unset):
@@ -156,6 +168,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     """
 
     avg_landing_drift_bps: float | Unset = UNSET
+    capital_required_sol: float | Unset = UNSET
     copies_declined: int | Unset = UNSET
     copies_reverted: int | Unset = UNSET
     copies_skipped_non_sol_quote: int | Unset = UNSET
@@ -170,6 +183,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     latency_slots: int | Unset = UNSET
     losses: int | Unset = UNSET
     max_drawdown_sol: float | Unset = UNSET
+    min_cash_sol: float | Unset = UNSET
     our_avg_price_impact_pct: float | Unset = UNSET
     our_median_price_impact_pct: float | Unset = UNSET
     per_pool: bool | Unset = UNSET
@@ -179,6 +193,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     realized_pnl_sol: float | Unset = UNSET
     revert_fees_sol: float | Unset = UNSET
     roi_pct: float | Unset = UNSET
+    scope_exits_unpriced: int | Unset = UNSET
     simulation_assumptions: list[str] | Unset = UNSET
     starting_balance_sol: float | Unset = UNSET
     target_avg_price_impact_pct: float | Unset = UNSET
@@ -193,6 +208,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
     def to_dict(self) -> dict[str, Any]:
         avg_landing_drift_bps = self.avg_landing_drift_bps
+
+        capital_required_sol = self.capital_required_sol
 
         copies_declined = self.copies_declined
 
@@ -223,6 +240,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         max_drawdown_sol = self.max_drawdown_sol
 
+        min_cash_sol = self.min_cash_sol
+
         our_avg_price_impact_pct = self.our_avg_price_impact_pct
 
         our_median_price_impact_pct = self.our_median_price_impact_pct
@@ -240,6 +259,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         revert_fees_sol = self.revert_fees_sol
 
         roi_pct = self.roi_pct
+
+        scope_exits_unpriced = self.scope_exits_unpriced
 
         simulation_assumptions: list[str] | Unset = UNSET
         if not isinstance(self.simulation_assumptions, Unset):
@@ -268,6 +289,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         field_dict.update({})
         if avg_landing_drift_bps is not UNSET:
             field_dict["avg_landing_drift_bps"] = avg_landing_drift_bps
+        if capital_required_sol is not UNSET:
+            field_dict["capital_required_sol"] = capital_required_sol
         if copies_declined is not UNSET:
             field_dict["copies_declined"] = copies_declined
         if copies_reverted is not UNSET:
@@ -294,6 +317,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["losses"] = losses
         if max_drawdown_sol is not UNSET:
             field_dict["max_drawdown_sol"] = max_drawdown_sol
+        if min_cash_sol is not UNSET:
+            field_dict["min_cash_sol"] = min_cash_sol
         if our_avg_price_impact_pct is not UNSET:
             field_dict["our_avg_price_impact_pct"] = our_avg_price_impact_pct
         if our_median_price_impact_pct is not UNSET:
@@ -312,6 +337,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["revert_fees_sol"] = revert_fees_sol
         if roi_pct is not UNSET:
             field_dict["roi_pct"] = roi_pct
+        if scope_exits_unpriced is not UNSET:
+            field_dict["scope_exits_unpriced"] = scope_exits_unpriced
         if simulation_assumptions is not UNSET:
             field_dict["simulation_assumptions"] = simulation_assumptions
         if starting_balance_sol is not UNSET:
@@ -345,6 +372,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         d = dict(src_dict)
         avg_landing_drift_bps = d.pop("avg_landing_drift_bps", UNSET)
+
+        capital_required_sol = d.pop("capital_required_sol", UNSET)
 
         copies_declined = d.pop("copies_declined", UNSET)
 
@@ -385,6 +414,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         max_drawdown_sol = d.pop("max_drawdown_sol", UNSET)
 
+        min_cash_sol = d.pop("min_cash_sol", UNSET)
+
         our_avg_price_impact_pct = d.pop("our_avg_price_impact_pct", UNSET)
 
         our_median_price_impact_pct = d.pop("our_median_price_impact_pct", UNSET)
@@ -402,6 +433,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         revert_fees_sol = d.pop("revert_fees_sol", UNSET)
 
         roi_pct = d.pop("roi_pct", UNSET)
+
+        scope_exits_unpriced = d.pop("scope_exits_unpriced", UNSET)
 
         simulation_assumptions = cast(list[str], d.pop("simulation_assumptions", UNSET))
 
@@ -425,6 +458,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         pulsight_internal_core_usecases_backtest_backtest_summary = cls(
             avg_landing_drift_bps=avg_landing_drift_bps,
+            capital_required_sol=capital_required_sol,
             copies_declined=copies_declined,
             copies_reverted=copies_reverted,
             copies_skipped_non_sol_quote=copies_skipped_non_sol_quote,
@@ -437,6 +471,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             latency_slots=latency_slots,
             losses=losses,
             max_drawdown_sol=max_drawdown_sol,
+            min_cash_sol=min_cash_sol,
             our_avg_price_impact_pct=our_avg_price_impact_pct,
             our_median_price_impact_pct=our_median_price_impact_pct,
             per_pool=per_pool,
@@ -446,6 +481,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             realized_pnl_sol=realized_pnl_sol,
             revert_fees_sol=revert_fees_sol,
             roi_pct=roi_pct,
+            scope_exits_unpriced=scope_exits_unpriced,
             simulation_assumptions=simulation_assumptions,
             starting_balance_sol=starting_balance_sol,
             target_avg_price_impact_pct=target_avg_price_impact_pct,
