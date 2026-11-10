@@ -23,6 +23,7 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
         dex (str | Unset): Dex is Pool's venue slug.
         pool (str | Unset): Pool is the hop's pool: the quote token's deepest pool paired with SOL,
             else its reference pool.
+        ppm (int | Unset): Ppm is Bps in millionths of the traded value, exactly.
         pump_routed (bool | Unset): PumpRouted reports that pump's own router (`multi_hop_swap`) serves this
             route: Pool is a PumpSwap pool and the token's pool is a pump pool.
             Through that router the hop adds nothing: pump charges the far pool's
@@ -34,6 +35,8 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
             Tax.SwapFeeBps; absent when unknown.
         swap_fee_min_bps (int | Unset): SwapFeeMinBps is a lower bound on that swap fee, set only while
             SwapFeeBps is unknown.
+        swap_fee_min_ppm (int | Unset): SwapFeeMinPpm is SwapFeeMinBps in millionths, exactly.
+        swap_fee_ppm (int | Unset): SwapFeePpm is SwapFeeBps in millionths, exactly.
         transfer_fee_bps (int | Unset): TransferFeeBps is the quote token's Token-2022 transfer fee; absent
             until its mint account has been read.
     """
@@ -41,11 +44,14 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
     bps: int | Unset = UNSET
     dex: str | Unset = UNSET
     pool: str | Unset = UNSET
+    ppm: int | Unset = UNSET
     pump_routed: bool | Unset = UNSET
     quote_mint: str | Unset = UNSET
     quote_symbol: str | Unset = UNSET
     swap_fee_bps: int | Unset = UNSET
     swap_fee_min_bps: int | Unset = UNSET
+    swap_fee_min_ppm: int | Unset = UNSET
+    swap_fee_ppm: int | Unset = UNSET
     transfer_fee_bps: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -56,6 +62,8 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
 
         pool = self.pool
 
+        ppm = self.ppm
+
         pump_routed = self.pump_routed
 
         quote_mint = self.quote_mint
@@ -65,6 +73,10 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
         swap_fee_bps = self.swap_fee_bps
 
         swap_fee_min_bps = self.swap_fee_min_bps
+
+        swap_fee_min_ppm = self.swap_fee_min_ppm
+
+        swap_fee_ppm = self.swap_fee_ppm
 
         transfer_fee_bps = self.transfer_fee_bps
 
@@ -77,6 +89,8 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
             field_dict["dex"] = dex
         if pool is not UNSET:
             field_dict["pool"] = pool
+        if ppm is not UNSET:
+            field_dict["ppm"] = ppm
         if pump_routed is not UNSET:
             field_dict["pump_routed"] = pump_routed
         if quote_mint is not UNSET:
@@ -87,6 +101,10 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
             field_dict["swap_fee_bps"] = swap_fee_bps
         if swap_fee_min_bps is not UNSET:
             field_dict["swap_fee_min_bps"] = swap_fee_min_bps
+        if swap_fee_min_ppm is not UNSET:
+            field_dict["swap_fee_min_ppm"] = swap_fee_min_ppm
+        if swap_fee_ppm is not UNSET:
+            field_dict["swap_fee_ppm"] = swap_fee_ppm
         if transfer_fee_bps is not UNSET:
             field_dict["transfer_fee_bps"] = transfer_fee_bps
 
@@ -101,6 +119,8 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
 
         pool = d.pop("pool", UNSET)
 
+        ppm = d.pop("ppm", UNSET)
+
         pump_routed = d.pop("pump_routed", UNSET)
 
         quote_mint = d.pop("quote_mint", UNSET)
@@ -111,17 +131,24 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
 
         swap_fee_min_bps = d.pop("swap_fee_min_bps", UNSET)
 
+        swap_fee_min_ppm = d.pop("swap_fee_min_ppm", UNSET)
+
+        swap_fee_ppm = d.pop("swap_fee_ppm", UNSET)
+
         transfer_fee_bps = d.pop("transfer_fee_bps", UNSET)
 
         pulsight_internal_core_domain_aggregator_tax_via = cls(
             bps=bps,
             dex=dex,
             pool=pool,
+            ppm=ppm,
             pump_routed=pump_routed,
             quote_mint=quote_mint,
             quote_symbol=quote_symbol,
             swap_fee_bps=swap_fee_bps,
             swap_fee_min_bps=swap_fee_min_bps,
+            swap_fee_min_ppm=swap_fee_min_ppm,
+            swap_fee_ppm=swap_fee_ppm,
             transfer_fee_bps=transfer_fee_bps,
         )
 

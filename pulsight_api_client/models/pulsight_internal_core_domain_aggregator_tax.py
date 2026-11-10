@@ -31,6 +31,9 @@ class PulsightInternalCoreDomainAggregatorTax:
         buy_bps (int | Unset): BuyBps is the tax a buy pays, SwapFeeBps plus TransferFeeBps. Absent
             while either is unknown: the tax is then at least TransferFeeBps, plus
             SwapFeeMinBps when that is known.
+        buy_ppm (int | Unset): BuyPpm is the tax a buy pays in millionths of the traded value,
+            SwapFeePpm plus TransferFeeBps × 100: BuyBps exactly. Absent while
+            either is unknown.
         dex (str | Unset): Dex is Pool's venue slug, same vocabulary as `?dex=`.
         holder_rewards (bool | Unset): HolderRewards reports that the creator share inside SwapFeeBps is paid
             to the coin's holders: the mint is a pump.fun holder-rewards coin and
@@ -41,20 +44,27 @@ class PulsightInternalCoreDomainAggregatorTax:
             mint's reference pool, the one its price is read from. Omitted on a
             listing row and on a market row, which is its own pool.
         sell_bps (int | Unset): SellBps is the tax a sell pays, on the same components as BuyBps.
+        sell_ppm (int | Unset): SellPpm is the tax a sell pays in millionths, on the same components as
+            BuyPpm.
         swap_fee_at (str | Unset): SwapFeeAt is the minute a recorded SwapFeeBps was recorded in. Omitted on
             a listing row and for a configured fee.
         swap_fee_bps (int | Unset): SwapFeeBps is the pool's swap fee, the venue's whole schedule (LP,
-            protocol, creator and partner shares). Absent when it is unknown —
-            never free.
+            protocol, creator and partner shares), rounded to the nearest basis
+            point: a known fee under half a basis point reads 0 here and exactly in
+            SwapFeePpm. Absent when it is unknown — never free.
         swap_fee_min_bps (int | Unset): SwapFeeMinBps is a lower bound on the pool's swap fee, set only while
             SwapFeeBps is unknown: the pool's configuration fixes a base fee and the
             venue adds a variable fee on top that no recorded trade has priced yet.
+        swap_fee_min_ppm (int | Unset): SwapFeeMinPpm is SwapFeeMinBps in millionths, exactly.
         swap_fee_parts (list[PulsightInternalCoreDomainAggregatorTaxPart] | Unset): SwapFeeParts splits SwapFeeBps into
             the shares the venue defines,
             summing to it: always for a configured fee, and for a recorded one where
             the venue defines its split as shares of whatever fee it charges.
             Absent when the swap fee is a lower bound or unknown, and on a listing
             row.
+        swap_fee_ppm (int | Unset): SwapFeePpm is the pool's swap fee in millionths of the traded value, set
+            whenever SwapFeeBps is: a configured fee to the millionth, a recorded one
+            to the basis point.
         swap_fee_source (PulsightInternalCoreDomainAggregatorTaxSwapFeeSource | Unset): SwapFeeSource says where the
             swap fee comes from: `recorded`, the highest
             fee the pool's trades recorded in the latest minute that recorded one;
@@ -69,14 +79,18 @@ class PulsightInternalCoreDomainAggregatorTax:
     """
 
     buy_bps: int | Unset = UNSET
+    buy_ppm: int | Unset = UNSET
     dex: str | Unset = UNSET
     holder_rewards: bool | Unset = UNSET
     pool: str | Unset = UNSET
     sell_bps: int | Unset = UNSET
+    sell_ppm: int | Unset = UNSET
     swap_fee_at: str | Unset = UNSET
     swap_fee_bps: int | Unset = UNSET
     swap_fee_min_bps: int | Unset = UNSET
+    swap_fee_min_ppm: int | Unset = UNSET
     swap_fee_parts: list[PulsightInternalCoreDomainAggregatorTaxPart] | Unset = UNSET
+    swap_fee_ppm: int | Unset = UNSET
     swap_fee_source: PulsightInternalCoreDomainAggregatorTaxSwapFeeSource | Unset = (
         UNSET
     )
@@ -87,6 +101,8 @@ class PulsightInternalCoreDomainAggregatorTax:
     def to_dict(self) -> dict[str, Any]:
         buy_bps = self.buy_bps
 
+        buy_ppm = self.buy_ppm
+
         dex = self.dex
 
         holder_rewards = self.holder_rewards
@@ -95,11 +111,15 @@ class PulsightInternalCoreDomainAggregatorTax:
 
         sell_bps = self.sell_bps
 
+        sell_ppm = self.sell_ppm
+
         swap_fee_at = self.swap_fee_at
 
         swap_fee_bps = self.swap_fee_bps
 
         swap_fee_min_bps = self.swap_fee_min_bps
+
+        swap_fee_min_ppm = self.swap_fee_min_ppm
 
         swap_fee_parts: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.swap_fee_parts, Unset):
@@ -107,6 +127,8 @@ class PulsightInternalCoreDomainAggregatorTax:
             for swap_fee_parts_item_data in self.swap_fee_parts:
                 swap_fee_parts_item = swap_fee_parts_item_data.to_dict()
                 swap_fee_parts.append(swap_fee_parts_item)
+
+        swap_fee_ppm = self.swap_fee_ppm
 
         swap_fee_source: str | Unset = UNSET
         if not isinstance(self.swap_fee_source, Unset):
@@ -123,6 +145,8 @@ class PulsightInternalCoreDomainAggregatorTax:
         field_dict.update({})
         if buy_bps is not UNSET:
             field_dict["buy_bps"] = buy_bps
+        if buy_ppm is not UNSET:
+            field_dict["buy_ppm"] = buy_ppm
         if dex is not UNSET:
             field_dict["dex"] = dex
         if holder_rewards is not UNSET:
@@ -131,14 +155,20 @@ class PulsightInternalCoreDomainAggregatorTax:
             field_dict["pool"] = pool
         if sell_bps is not UNSET:
             field_dict["sell_bps"] = sell_bps
+        if sell_ppm is not UNSET:
+            field_dict["sell_ppm"] = sell_ppm
         if swap_fee_at is not UNSET:
             field_dict["swap_fee_at"] = swap_fee_at
         if swap_fee_bps is not UNSET:
             field_dict["swap_fee_bps"] = swap_fee_bps
         if swap_fee_min_bps is not UNSET:
             field_dict["swap_fee_min_bps"] = swap_fee_min_bps
+        if swap_fee_min_ppm is not UNSET:
+            field_dict["swap_fee_min_ppm"] = swap_fee_min_ppm
         if swap_fee_parts is not UNSET:
             field_dict["swap_fee_parts"] = swap_fee_parts
+        if swap_fee_ppm is not UNSET:
+            field_dict["swap_fee_ppm"] = swap_fee_ppm
         if swap_fee_source is not UNSET:
             field_dict["swap_fee_source"] = swap_fee_source
         if transfer_fee_bps is not UNSET:
@@ -160,6 +190,8 @@ class PulsightInternalCoreDomainAggregatorTax:
         d = dict(src_dict)
         buy_bps = d.pop("buy_bps", UNSET)
 
+        buy_ppm = d.pop("buy_ppm", UNSET)
+
         dex = d.pop("dex", UNSET)
 
         holder_rewards = d.pop("holder_rewards", UNSET)
@@ -168,11 +200,15 @@ class PulsightInternalCoreDomainAggregatorTax:
 
         sell_bps = d.pop("sell_bps", UNSET)
 
+        sell_ppm = d.pop("sell_ppm", UNSET)
+
         swap_fee_at = d.pop("swap_fee_at", UNSET)
 
         swap_fee_bps = d.pop("swap_fee_bps", UNSET)
 
         swap_fee_min_bps = d.pop("swap_fee_min_bps", UNSET)
+
+        swap_fee_min_ppm = d.pop("swap_fee_min_ppm", UNSET)
 
         _swap_fee_parts = d.pop("swap_fee_parts", UNSET)
         swap_fee_parts: list[PulsightInternalCoreDomainAggregatorTaxPart] | Unset = (
@@ -188,6 +224,8 @@ class PulsightInternalCoreDomainAggregatorTax:
                 )
 
                 swap_fee_parts.append(swap_fee_parts_item)
+
+        swap_fee_ppm = d.pop("swap_fee_ppm", UNSET)
 
         _swap_fee_source = d.pop("swap_fee_source", UNSET)
         swap_fee_source: PulsightInternalCoreDomainAggregatorTaxSwapFeeSource | Unset
@@ -209,14 +247,18 @@ class PulsightInternalCoreDomainAggregatorTax:
 
         pulsight_internal_core_domain_aggregator_tax = cls(
             buy_bps=buy_bps,
+            buy_ppm=buy_ppm,
             dex=dex,
             holder_rewards=holder_rewards,
             pool=pool,
             sell_bps=sell_bps,
+            sell_ppm=sell_ppm,
             swap_fee_at=swap_fee_at,
             swap_fee_bps=swap_fee_bps,
             swap_fee_min_bps=swap_fee_min_bps,
+            swap_fee_min_ppm=swap_fee_min_ppm,
             swap_fee_parts=swap_fee_parts,
+            swap_fee_ppm=swap_fee_ppm,
             swap_fee_source=swap_fee_source,
             transfer_fee_bps=transfer_fee_bps,
             via=via,
