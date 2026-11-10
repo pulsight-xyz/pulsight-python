@@ -19,11 +19,17 @@ def _get_kwargs(
     pubkey: str,
     *,
     window: str | Unset = UNSET,
+    min_tax: float | Unset = UNSET,
+    max_tax: float | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
 
     params["window"] = window
+
+    params["min_tax"] = min_tax
+
+    params["max_tax"] = max_tax
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -98,6 +104,8 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     window: str | Unset = UNSET,
+    min_tax: float | Unset = UNSET,
+    max_tax: float | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreDomainAggregatorMintMarket]
@@ -108,11 +116,15 @@ def sync_detailed(
     window. `window=all` lists every market the mint ever traded on — use it to resolve markets for
     tokens with no recent activity. At most one pool carries `is_default: true` (window-independent):
     the mint's default market, the same pool an unpinned `/api/ohlcv` chart resolves to. An idle default
-    market may be absent from short-window listings, so resolve defaults from `window=all`.
+    market may be absent from short-window listings, so resolve defaults from `window=all`. Every row
+    carries the `tax` a trade of the mint pays on that pool (its swap fee plus the mint's transfer fee);
+    `min_tax`/`max_tax` filter on it, and `sol_volume_share` stays a share of every market's volume.
 
     Args:
         pubkey (str):
         window (str | Unset):
+        min_tax (float | Unset):
+        max_tax (float | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -125,6 +137,8 @@ def sync_detailed(
     kwargs = _get_kwargs(
         pubkey=pubkey,
         window=window,
+        min_tax=min_tax,
+        max_tax=max_tax,
     )
 
     response = client.get_httpx_client().request(
@@ -139,6 +153,8 @@ def sync(
     *,
     client: AuthenticatedClient,
     window: str | Unset = UNSET,
+    min_tax: float | Unset = UNSET,
+    max_tax: float | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreDomainAggregatorMintMarket]
@@ -150,11 +166,15 @@ def sync(
     window. `window=all` lists every market the mint ever traded on — use it to resolve markets for
     tokens with no recent activity. At most one pool carries `is_default: true` (window-independent):
     the mint's default market, the same pool an unpinned `/api/ohlcv` chart resolves to. An idle default
-    market may be absent from short-window listings, so resolve defaults from `window=all`.
+    market may be absent from short-window listings, so resolve defaults from `window=all`. Every row
+    carries the `tax` a trade of the mint pays on that pool (its swap fee plus the mint's transfer fee);
+    `min_tax`/`max_tax` filter on it, and `sol_volume_share` stays a share of every market's volume.
 
     Args:
         pubkey (str):
         window (str | Unset):
+        min_tax (float | Unset):
+        max_tax (float | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -168,6 +188,8 @@ def sync(
         pubkey=pubkey,
         client=client,
         window=window,
+        min_tax=min_tax,
+        max_tax=max_tax,
     ).parsed
 
 
@@ -176,6 +198,8 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     window: str | Unset = UNSET,
+    min_tax: float | Unset = UNSET,
+    max_tax: float | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreDomainAggregatorMintMarket]
@@ -186,11 +210,15 @@ async def asyncio_detailed(
     window. `window=all` lists every market the mint ever traded on — use it to resolve markets for
     tokens with no recent activity. At most one pool carries `is_default: true` (window-independent):
     the mint's default market, the same pool an unpinned `/api/ohlcv` chart resolves to. An idle default
-    market may be absent from short-window listings, so resolve defaults from `window=all`.
+    market may be absent from short-window listings, so resolve defaults from `window=all`. Every row
+    carries the `tax` a trade of the mint pays on that pool (its swap fee plus the mint's transfer fee);
+    `min_tax`/`max_tax` filter on it, and `sol_volume_share` stays a share of every market's volume.
 
     Args:
         pubkey (str):
         window (str | Unset):
+        min_tax (float | Unset):
+        max_tax (float | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -203,6 +231,8 @@ async def asyncio_detailed(
     kwargs = _get_kwargs(
         pubkey=pubkey,
         window=window,
+        min_tax=min_tax,
+        max_tax=max_tax,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -215,6 +245,8 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     window: str | Unset = UNSET,
+    min_tax: float | Unset = UNSET,
+    max_tax: float | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | list[PulsightInternalCoreDomainAggregatorMintMarket]
@@ -226,11 +258,15 @@ async def asyncio(
     window. `window=all` lists every market the mint ever traded on — use it to resolve markets for
     tokens with no recent activity. At most one pool carries `is_default: true` (window-independent):
     the mint's default market, the same pool an unpinned `/api/ohlcv` chart resolves to. An idle default
-    market may be absent from short-window listings, so resolve defaults from `window=all`.
+    market may be absent from short-window listings, so resolve defaults from `window=all`. Every row
+    carries the `tax` a trade of the mint pays on that pool (its swap fee plus the mint's transfer fee);
+    `min_tax`/`max_tax` filter on it, and `sol_volume_share` stays a share of every market's volume.
 
     Args:
         pubkey (str):
         window (str | Unset):
+        min_tax (float | Unset):
+        max_tax (float | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -245,5 +281,7 @@ async def asyncio(
             pubkey=pubkey,
             client=client,
             window=window,
+            min_tax=min_tax,
+            max_tax=max_tax,
         )
     ).parsed

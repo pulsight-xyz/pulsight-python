@@ -1,13 +1,19 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.pulsight_internal_core_domain_aggregator_tax import (
+        PulsightInternalCoreDomainAggregatorTax,
+    )
+
 
 T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorMintMarket")
 
@@ -40,6 +46,7 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
         sol_volume_lamports (int | Unset):
         sol_volume_share (float | Unset):
         swap_count (int | Unset):
+        tax (PulsightInternalCoreDomainAggregatorTax | Unset):
     """
 
     base_mint: str | Unset = UNSET
@@ -54,6 +61,7 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
     sol_volume_lamports: int | Unset = UNSET
     sol_volume_share: float | Unset = UNSET
     swap_count: int | Unset = UNSET
+    tax: PulsightInternalCoreDomainAggregatorTax | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -80,6 +88,10 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
         sol_volume_share = self.sol_volume_share
 
         swap_count = self.swap_count
+
+        tax: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.tax, Unset):
+            tax = self.tax.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -108,11 +120,17 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
             field_dict["sol_volume_share"] = sol_volume_share
         if swap_count is not UNSET:
             field_dict["swap_count"] = swap_count
+        if tax is not UNSET:
+            field_dict["tax"] = tax
 
         return field_dict
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
+        from ..models.pulsight_internal_core_domain_aggregator_tax import (
+            PulsightInternalCoreDomainAggregatorTax,
+        )
+
         d = dict(src_dict)
         base_mint = d.pop("base_mint", UNSET)
 
@@ -138,6 +156,13 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
 
         swap_count = d.pop("swap_count", UNSET)
 
+        _tax = d.pop("tax", UNSET)
+        tax: PulsightInternalCoreDomainAggregatorTax | Unset
+        if isinstance(_tax, Unset):
+            tax = UNSET
+        else:
+            tax = PulsightInternalCoreDomainAggregatorTax.from_dict(_tax)
+
         pulsight_internal_core_domain_aggregator_mint_market = cls(
             base_mint=base_mint,
             base_symbol=base_symbol,
@@ -151,6 +176,7 @@ class PulsightInternalCoreDomainAggregatorMintMarket:
             sol_volume_lamports=sol_volume_lamports,
             sol_volume_share=sol_volume_share,
             swap_count=swap_count,
+            tax=tax,
         )
 
         pulsight_internal_core_domain_aggregator_mint_market.additional_properties = d

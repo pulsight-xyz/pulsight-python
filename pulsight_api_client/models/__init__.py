@@ -268,6 +268,9 @@ from .pulsight_internal_core_domain_aggregator_safety_event import (
 from .pulsight_internal_core_domain_aggregator_service_dominance_row import (
     PulsightInternalCoreDomainAggregatorServiceDominanceRow,
 )
+from .pulsight_internal_core_domain_aggregator_tax import (
+    PulsightInternalCoreDomainAggregatorTax,
+)
 from .pulsight_internal_core_domain_aggregator_timeframe import (
     PulsightInternalCoreDomainAggregatorTimeframe,
 )
@@ -578,6 +581,7 @@ __all__ = (
     "PulsightInternalCoreDomainAggregatorRiskReport",
     "PulsightInternalCoreDomainAggregatorSafetyEvent",
     "PulsightInternalCoreDomainAggregatorServiceDominanceRow",
+    "PulsightInternalCoreDomainAggregatorTax",
     "PulsightInternalCoreDomainAggregatorTimeframe",
     "PulsightInternalCoreDomainAggregatorTipAdoption",
     "PulsightInternalCoreDomainAggregatorTipAdoptionPoint",

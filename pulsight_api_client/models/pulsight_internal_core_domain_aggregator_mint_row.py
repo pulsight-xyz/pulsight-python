@@ -34,6 +34,9 @@ if TYPE_CHECKING:
     from ..models.pulsight_internal_core_domain_aggregator_mint_trader_quality import (
         PulsightInternalCoreDomainAggregatorMintTraderQuality,
     )
+    from ..models.pulsight_internal_core_domain_aggregator_tax import (
+        PulsightInternalCoreDomainAggregatorTax,
+    )
 
 
 T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorMintRow")
@@ -108,6 +111,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             SwapCount, BuyCount and SellCount are lifetime and TraderCount is 0.
             MarketsCount is the number of pools the mint trades in.
         symbol (str | Unset):
+        tax (PulsightInternalCoreDomainAggregatorTax | Unset):
         tipped_share_pct (float | Unset): TippedSharePct — share of the mint's trades whose transaction paid a
             landing tip, in percent, over every trade since tips were recorded and
             arbitrage excluded. nil until 20 such trades.
@@ -175,6 +179,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
     supply: str | Unset = UNSET
     swap_count: int | Unset = UNSET
     symbol: str | Unset = UNSET
+    tax: PulsightInternalCoreDomainAggregatorTax | Unset = UNSET
     tipped_share_pct: float | Unset = UNSET
     top10_pct: float | Unset = UNSET
     top_dex: str | Unset = UNSET
@@ -274,6 +279,10 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         symbol = self.symbol
 
+        tax: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.tax, Unset):
+            tax = self.tax.to_dict()
+
         tipped_share_pct = self.tipped_share_pct
 
         top10_pct = self.top10_pct
@@ -367,6 +376,8 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             field_dict["swap_count"] = swap_count
         if symbol is not UNSET:
             field_dict["symbol"] = symbol
+        if tax is not UNSET:
+            field_dict["tax"] = tax
         if tipped_share_pct is not UNSET:
             field_dict["tipped_share_pct"] = tipped_share_pct
         if top10_pct is not UNSET:
@@ -415,6 +426,9 @@ class PulsightInternalCoreDomainAggregatorMintRow:
         )
         from ..models.pulsight_internal_core_domain_aggregator_mint_trader_quality import (
             PulsightInternalCoreDomainAggregatorMintTraderQuality,
+        )
+        from ..models.pulsight_internal_core_domain_aggregator_tax import (
+            PulsightInternalCoreDomainAggregatorTax,
         )
 
         d = dict(src_dict)
@@ -539,6 +553,13 @@ class PulsightInternalCoreDomainAggregatorMintRow:
 
         symbol = d.pop("symbol", UNSET)
 
+        _tax = d.pop("tax", UNSET)
+        tax: PulsightInternalCoreDomainAggregatorTax | Unset
+        if isinstance(_tax, Unset):
+            tax = UNSET
+        else:
+            tax = PulsightInternalCoreDomainAggregatorTax.from_dict(_tax)
+
         tipped_share_pct = d.pop("tipped_share_pct", UNSET)
 
         top10_pct = d.pop("top10_pct", UNSET)
@@ -603,6 +624,7 @@ class PulsightInternalCoreDomainAggregatorMintRow:
             supply=supply,
             swap_count=swap_count,
             symbol=symbol,
+            tax=tax,
             tipped_share_pct=tipped_share_pct,
             top10_pct=top10_pct,
             top_dex=top_dex,

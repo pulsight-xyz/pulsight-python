@@ -1,13 +1,19 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.pulsight_internal_core_domain_aggregator_tax import (
+        PulsightInternalCoreDomainAggregatorTax,
+    )
+
 
 T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorMintLiveMetrics")
 
@@ -34,6 +40,7 @@ class PulsightInternalCoreDomainAggregatorMintLiveMetrics:
         price_usd (float | Unset): PriceUsd / MarketCapUsd carry MintRow.PriceUsd and MintRow.MarketCapUsd
             verbatim, including their nil conditions (no priced reference pool,
             unknown decimals, absent supply).
+        tax (PulsightInternalCoreDomainAggregatorTax | Unset):
         unique_traders (int | Unset): UniqueTraders is read straight off the insert-time `mint_traders`
             plane, so it is as fresh as ingest. nil when the plane has no row: this
             route never falls back to a lifetime fold over positions, which is the
@@ -47,6 +54,7 @@ class PulsightInternalCoreDomainAggregatorMintLiveMetrics:
     mint: str | Unset = UNSET
     price_basis_pool: str | Unset = UNSET
     price_usd: float | Unset = UNSET
+    tax: PulsightInternalCoreDomainAggregatorTax | Unset = UNSET
     unique_traders: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -62,6 +70,10 @@ class PulsightInternalCoreDomainAggregatorMintLiveMetrics:
         price_basis_pool = self.price_basis_pool
 
         price_usd = self.price_usd
+
+        tax: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.tax, Unset):
+            tax = self.tax.to_dict()
 
         unique_traders = self.unique_traders
 
@@ -80,6 +92,8 @@ class PulsightInternalCoreDomainAggregatorMintLiveMetrics:
             field_dict["price_basis_pool"] = price_basis_pool
         if price_usd is not UNSET:
             field_dict["price_usd"] = price_usd
+        if tax is not UNSET:
+            field_dict["tax"] = tax
         if unique_traders is not UNSET:
             field_dict["unique_traders"] = unique_traders
 
@@ -87,6 +101,10 @@ class PulsightInternalCoreDomainAggregatorMintLiveMetrics:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
+        from ..models.pulsight_internal_core_domain_aggregator_tax import (
+            PulsightInternalCoreDomainAggregatorTax,
+        )
+
         d = dict(src_dict)
         as_of = d.pop("as_of", UNSET)
 
@@ -100,6 +118,13 @@ class PulsightInternalCoreDomainAggregatorMintLiveMetrics:
 
         price_usd = d.pop("price_usd", UNSET)
 
+        _tax = d.pop("tax", UNSET)
+        tax: PulsightInternalCoreDomainAggregatorTax | Unset
+        if isinstance(_tax, Unset):
+            tax = UNSET
+        else:
+            tax = PulsightInternalCoreDomainAggregatorTax.from_dict(_tax)
+
         unique_traders = d.pop("unique_traders", UNSET)
 
         pulsight_internal_core_domain_aggregator_mint_live_metrics = cls(
@@ -109,6 +134,7 @@ class PulsightInternalCoreDomainAggregatorMintLiveMetrics:
             mint=mint,
             price_basis_pool=price_basis_pool,
             price_usd=price_usd,
+            tax=tax,
             unique_traders=unique_traders,
         )
 
