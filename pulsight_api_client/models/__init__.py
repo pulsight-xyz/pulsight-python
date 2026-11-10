@@ -271,6 +271,18 @@ from .pulsight_internal_core_domain_aggregator_service_dominance_row import (
 from .pulsight_internal_core_domain_aggregator_tax import (
     PulsightInternalCoreDomainAggregatorTax,
 )
+from .pulsight_internal_core_domain_aggregator_tax_part import (
+    PulsightInternalCoreDomainAggregatorTaxPart,
+)
+from .pulsight_internal_core_domain_aggregator_tax_part_kind import (
+    PulsightInternalCoreDomainAggregatorTaxPartKind,
+)
+from .pulsight_internal_core_domain_aggregator_tax_swap_fee_source import (
+    PulsightInternalCoreDomainAggregatorTaxSwapFeeSource,
+)
+from .pulsight_internal_core_domain_aggregator_tax_via import (
+    PulsightInternalCoreDomainAggregatorTaxVia,
+)
 from .pulsight_internal_core_domain_aggregator_timeframe import (
     PulsightInternalCoreDomainAggregatorTimeframe,
 )
@@ -582,6 +594,10 @@ __all__ = (
     "PulsightInternalCoreDomainAggregatorSafetyEvent",
     "PulsightInternalCoreDomainAggregatorServiceDominanceRow",
     "PulsightInternalCoreDomainAggregatorTax",
+    "PulsightInternalCoreDomainAggregatorTaxPart",
+    "PulsightInternalCoreDomainAggregatorTaxPartKind",
+    "PulsightInternalCoreDomainAggregatorTaxSwapFeeSource",
+    "PulsightInternalCoreDomainAggregatorTaxVia",
     "PulsightInternalCoreDomainAggregatorTimeframe",
     "PulsightInternalCoreDomainAggregatorTipAdoption",
     "PulsightInternalCoreDomainAggregatorTipAdoptionPoint",
