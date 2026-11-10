@@ -22,7 +22,8 @@ class PulsightInternalCoreDomainAggregatorTaxPart:
         bps (float | Unset): Bps is the share in basis points of the traded value, to two decimals.
         kind (PulsightInternalCoreDomainAggregatorTaxPartKind | Unset): Kind names the share: `lp` (paid to liquidity
             providers), `protocol`
-            (the venue), `fund` (the venue's fund), `creator` (the coin's creator),
+            (the venue), `fund` (the venue's fund), `platform` (the launchpad
+            platform the pool belongs to), `creator` (the coin's creator),
             `holder_rewards` (the coin's holders), `cashback` (paid back to the
             trader).
     """

@@ -16,11 +16,18 @@ T = TypeVar("T", bound="PulsightInternalCoreDomainAggregatorTaxVia")
 class PulsightInternalCoreDomainAggregatorTaxVia:
     """
     Attributes:
-        bps (int | Unset): Bps is what the hop adds, SwapFeeBps plus TransferFeeBps; absent while
-            either is unknown.
+        bps (int | Unset): Bps is the most the hop adds: SwapFeeBps plus TransferFeeBps, what a SOL
+            trade pays when it swaps through Pool as a hop of its own. Absent while
+            either is unknown. A router that prices the two hops together can charge
+            less; see PumpRouted.
         dex (str | Unset): Dex is Pool's venue slug.
         pool (str | Unset): Pool is the hop's pool: the quote token's deepest pool paired with SOL,
             else its reference pool.
+        pump_routed (bool | Unset): PumpRouted reports that pump's own router (`multi_hop_swap`) serves this
+            route: Pool is a PumpSwap pool and the token's pool is a pump pool.
+            Through that router the hop adds nothing: pump charges the far pool's
+            protocol share on the hop instead of on the far pool, so a buyer it
+            routes pays the token's own tax alone.
         quote_mint (str | Unset): QuoteMint is the quote token the hop swaps through.
         quote_symbol (str | Unset): QuoteSymbol is QuoteMint's symbol, empty when unknown.
         swap_fee_bps (int | Unset): SwapFeeBps is the swap fee of the hop's pool, on the basis of
@@ -34,6 +41,7 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
     bps: int | Unset = UNSET
     dex: str | Unset = UNSET
     pool: str | Unset = UNSET
+    pump_routed: bool | Unset = UNSET
     quote_mint: str | Unset = UNSET
     quote_symbol: str | Unset = UNSET
     swap_fee_bps: int | Unset = UNSET
@@ -47,6 +55,8 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
         dex = self.dex
 
         pool = self.pool
+
+        pump_routed = self.pump_routed
 
         quote_mint = self.quote_mint
 
@@ -67,6 +77,8 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
             field_dict["dex"] = dex
         if pool is not UNSET:
             field_dict["pool"] = pool
+        if pump_routed is not UNSET:
+            field_dict["pump_routed"] = pump_routed
         if quote_mint is not UNSET:
             field_dict["quote_mint"] = quote_mint
         if quote_symbol is not UNSET:
@@ -89,6 +101,8 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
 
         pool = d.pop("pool", UNSET)
 
+        pump_routed = d.pop("pump_routed", UNSET)
+
         quote_mint = d.pop("quote_mint", UNSET)
 
         quote_symbol = d.pop("quote_symbol", UNSET)
@@ -103,6 +117,7 @@ class PulsightInternalCoreDomainAggregatorTaxVia:
             bps=bps,
             dex=dex,
             pool=pool,
+            pump_routed=pump_routed,
             quote_mint=quote_mint,
             quote_symbol=quote_symbol,
             swap_fee_bps=swap_fee_bps,

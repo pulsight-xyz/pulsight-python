@@ -49,10 +49,12 @@ class PulsightInternalCoreDomainAggregatorTax:
         swap_fee_min_bps (int | Unset): SwapFeeMinBps is a lower bound on the pool's swap fee, set only while
             SwapFeeBps is unknown: the pool's configuration fixes a base fee and the
             venue adds a variable fee on top that no recorded trade has priced yet.
-        swap_fee_parts (list[PulsightInternalCoreDomainAggregatorTaxPart] | Unset): SwapFeeParts splits a configured
-            SwapFeeBps into the shares the venue
-            defines, summing to it. Absent when the swap fee is recorded, a lower
-            bound or unknown, and on a listing row.
+        swap_fee_parts (list[PulsightInternalCoreDomainAggregatorTaxPart] | Unset): SwapFeeParts splits SwapFeeBps into
+            the shares the venue defines,
+            summing to it: always for a configured fee, and for a recorded one where
+            the venue defines its split as shares of whatever fee it charges.
+            Absent when the swap fee is a lower bound or unknown, and on a listing
+            row.
         swap_fee_source (PulsightInternalCoreDomainAggregatorTaxSwapFeeSource | Unset): SwapFeeSource says where the
             swap fee comes from: `recorded`, the highest
             fee the pool's trades recorded in the latest minute that recorded one;
