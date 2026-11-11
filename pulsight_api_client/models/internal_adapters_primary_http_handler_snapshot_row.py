@@ -28,6 +28,8 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
         avg_rp_all (float | Unset): lamports, per-mint over the wallet's life
         avg_rp_all_usd (float | Unset): micro-USD
         avg_sells_per_token (float | Unset):
+        buy_impact_samples_30d (int | Unset):
+        buy_impact_samples_7d (int | Unset):
         holding_pnl_lamports (float | Unset):
         holding_pnl_usd (float | Unset): micro-USD, stamped at execution
         med_buys_per_token (float | Unset):
@@ -42,7 +44,15 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
         med_rp_all (float | Unset): lamports, per-mint over the wallet's life
         med_rp_all_usd (float | Unset): micro-USD
         med_sells_per_token (float | Unset):
+        median_buy_impact_pct_30d (float | Unset):
+        median_buy_impact_pct_7d (float | Unset): Buy-impact figures of the snapshot's wallet, the same fields and null
+            rules as the trader listing: percent price move per constant-product
+            buy, quote reserve before it in SOL, buys measured.
+        median_entry_pool_sol_30d (float | Unset):
+        median_entry_pool_sol_7d (float | Unset):
         oldest_trade_at (str | Unset):
+        p90_buy_impact_pct_30d (float | Unset):
+        p90_buy_impact_pct_7d (float | Unset):
         pnl_distribution (list[int] | Unset):
         pnl_distribution_usd (list[int] | Unset): the buckets measured on the USD stamps
         pnl_sparkline_30d (list[float] | Unset): lamports per day, window=30d only
@@ -67,6 +77,8 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
     avg_rp_all: float | Unset = UNSET
     avg_rp_all_usd: float | Unset = UNSET
     avg_sells_per_token: float | Unset = UNSET
+    buy_impact_samples_30d: int | Unset = UNSET
+    buy_impact_samples_7d: int | Unset = UNSET
     holding_pnl_lamports: float | Unset = UNSET
     holding_pnl_usd: float | Unset = UNSET
     med_buys_per_token: float | Unset = UNSET
@@ -81,7 +93,13 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
     med_rp_all: float | Unset = UNSET
     med_rp_all_usd: float | Unset = UNSET
     med_sells_per_token: float | Unset = UNSET
+    median_buy_impact_pct_30d: float | Unset = UNSET
+    median_buy_impact_pct_7d: float | Unset = UNSET
+    median_entry_pool_sol_30d: float | Unset = UNSET
+    median_entry_pool_sol_7d: float | Unset = UNSET
     oldest_trade_at: str | Unset = UNSET
+    p90_buy_impact_pct_30d: float | Unset = UNSET
+    p90_buy_impact_pct_7d: float | Unset = UNSET
     pnl_distribution: list[int] | Unset = UNSET
     pnl_distribution_usd: list[int] | Unset = UNSET
     pnl_sparkline_30d: list[float] | Unset = UNSET
@@ -119,6 +137,10 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
 
         avg_sells_per_token = self.avg_sells_per_token
 
+        buy_impact_samples_30d = self.buy_impact_samples_30d
+
+        buy_impact_samples_7d = self.buy_impact_samples_7d
+
         holding_pnl_lamports = self.holding_pnl_lamports
 
         holding_pnl_usd = self.holding_pnl_usd
@@ -147,7 +169,19 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
 
         med_sells_per_token = self.med_sells_per_token
 
+        median_buy_impact_pct_30d = self.median_buy_impact_pct_30d
+
+        median_buy_impact_pct_7d = self.median_buy_impact_pct_7d
+
+        median_entry_pool_sol_30d = self.median_entry_pool_sol_30d
+
+        median_entry_pool_sol_7d = self.median_entry_pool_sol_7d
+
         oldest_trade_at = self.oldest_trade_at
+
+        p90_buy_impact_pct_30d = self.p90_buy_impact_pct_30d
+
+        p90_buy_impact_pct_7d = self.p90_buy_impact_pct_7d
 
         pnl_distribution: list[int] | Unset = UNSET
         if not isinstance(self.pnl_distribution, Unset):
@@ -210,6 +244,10 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
             field_dict["avg_rp_all_usd"] = avg_rp_all_usd
         if avg_sells_per_token is not UNSET:
             field_dict["avg_sells_per_token"] = avg_sells_per_token
+        if buy_impact_samples_30d is not UNSET:
+            field_dict["buy_impact_samples_30d"] = buy_impact_samples_30d
+        if buy_impact_samples_7d is not UNSET:
+            field_dict["buy_impact_samples_7d"] = buy_impact_samples_7d
         if holding_pnl_lamports is not UNSET:
             field_dict["holding_pnl_lamports"] = holding_pnl_lamports
         if holding_pnl_usd is not UNSET:
@@ -238,8 +276,20 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
             field_dict["med_rp_all_usd"] = med_rp_all_usd
         if med_sells_per_token is not UNSET:
             field_dict["med_sells_per_token"] = med_sells_per_token
+        if median_buy_impact_pct_30d is not UNSET:
+            field_dict["median_buy_impact_pct_30d"] = median_buy_impact_pct_30d
+        if median_buy_impact_pct_7d is not UNSET:
+            field_dict["median_buy_impact_pct_7d"] = median_buy_impact_pct_7d
+        if median_entry_pool_sol_30d is not UNSET:
+            field_dict["median_entry_pool_sol_30d"] = median_entry_pool_sol_30d
+        if median_entry_pool_sol_7d is not UNSET:
+            field_dict["median_entry_pool_sol_7d"] = median_entry_pool_sol_7d
         if oldest_trade_at is not UNSET:
             field_dict["oldest_trade_at"] = oldest_trade_at
+        if p90_buy_impact_pct_30d is not UNSET:
+            field_dict["p90_buy_impact_pct_30d"] = p90_buy_impact_pct_30d
+        if p90_buy_impact_pct_7d is not UNSET:
+            field_dict["p90_buy_impact_pct_7d"] = p90_buy_impact_pct_7d
         if pnl_distribution is not UNSET:
             field_dict["pnl_distribution"] = pnl_distribution
         if pnl_distribution_usd is not UNSET:
@@ -290,6 +340,10 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
 
         avg_sells_per_token = d.pop("avg_sells_per_token", UNSET)
 
+        buy_impact_samples_30d = d.pop("buy_impact_samples_30d", UNSET)
+
+        buy_impact_samples_7d = d.pop("buy_impact_samples_7d", UNSET)
+
         holding_pnl_lamports = d.pop("holding_pnl_lamports", UNSET)
 
         holding_pnl_usd = d.pop("holding_pnl_usd", UNSET)
@@ -318,7 +372,19 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
 
         med_sells_per_token = d.pop("med_sells_per_token", UNSET)
 
+        median_buy_impact_pct_30d = d.pop("median_buy_impact_pct_30d", UNSET)
+
+        median_buy_impact_pct_7d = d.pop("median_buy_impact_pct_7d", UNSET)
+
+        median_entry_pool_sol_30d = d.pop("median_entry_pool_sol_30d", UNSET)
+
+        median_entry_pool_sol_7d = d.pop("median_entry_pool_sol_7d", UNSET)
+
         oldest_trade_at = d.pop("oldest_trade_at", UNSET)
+
+        p90_buy_impact_pct_30d = d.pop("p90_buy_impact_pct_30d", UNSET)
+
+        p90_buy_impact_pct_7d = d.pop("p90_buy_impact_pct_7d", UNSET)
 
         pnl_distribution = cast(list[int], d.pop("pnl_distribution", UNSET))
 
@@ -353,6 +419,8 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
             avg_rp_all=avg_rp_all,
             avg_rp_all_usd=avg_rp_all_usd,
             avg_sells_per_token=avg_sells_per_token,
+            buy_impact_samples_30d=buy_impact_samples_30d,
+            buy_impact_samples_7d=buy_impact_samples_7d,
             holding_pnl_lamports=holding_pnl_lamports,
             holding_pnl_usd=holding_pnl_usd,
             med_buys_per_token=med_buys_per_token,
@@ -367,7 +435,13 @@ class InternalAdaptersPrimaryHttpHandlerSnapshotRow:
             med_rp_all=med_rp_all,
             med_rp_all_usd=med_rp_all_usd,
             med_sells_per_token=med_sells_per_token,
+            median_buy_impact_pct_30d=median_buy_impact_pct_30d,
+            median_buy_impact_pct_7d=median_buy_impact_pct_7d,
+            median_entry_pool_sol_30d=median_entry_pool_sol_30d,
+            median_entry_pool_sol_7d=median_entry_pool_sol_7d,
             oldest_trade_at=oldest_trade_at,
+            p90_buy_impact_pct_30d=p90_buy_impact_pct_30d,
+            p90_buy_impact_pct_7d=p90_buy_impact_pct_7d,
             pnl_distribution=pnl_distribution,
             pnl_distribution_usd=pnl_distribution_usd,
             pnl_sparkline_30d=pnl_sparkline_30d,

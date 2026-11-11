@@ -51,7 +51,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field — old rows decode as 0.
         copies_skipped_pool_not_simulated (int | Unset): CopiesSkippedPoolNotSimulated counts target swaps a per-pool
             run saw on a
-            market it carried no instrument for (outside the mint's top pools, or a
+            market it carried no instrument for (past the per-mint pool cap, or a
             pool the catalog does not know). They fold into the target book and are
             recorded once as `pool_not_simulated`; nothing fills. A per-pool
             artefact, not in CopiesSkippedUnpriced. Additive JSONB field.
@@ -116,26 +116,11 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         platform_fees_paid_sol (float | Unset): PlatformFeesPaidSol is the platform fee paid across every fill, folded
             out of realized PnL like priority fees and tips.
         positions_opened_unmarked (int | Unset): PositionsOpenedUnmarked counts positions the run opened while it had NO
-            price to mark them with — so for as long as that lasted, every
-            price-based exit rule (take-profit, stop, trailing stop, max-drawdown)
-            evaluated as undefined and could not fire.
-
-            It happens because a copy fills at the price the TARGET left behind, on
-            the pool THEY traded, while the position is marked against the run's own
-            candle stream. Normally those are the same market. They are not when the
-            fill lands somewhere the stream does not cover — a parallel venue, or a
-            market whose candles simply have not started yet.
-
-            Like CopiesSkippedUnpriced this is a COVERAGE number, not a result: an
-            exit rule that could not be evaluated did not decline to fire, it never
-            ran, and the position rode on until something else closed it. A non-zero
-            value means the run UNDER-represents its own exit rules — read the ROI
-            with that in mind.
-
-            Mid-window graduations used to dominate this and no longer do: the
-            candle stream now merges a token's whole migration lineage, so a
-            bonding-curve entry is marked from the moment it opens. Additive JSONB
-            field — old rows decode as 0.
+            price to mark them with, so that every price-based exit rule
+            (take-profit, stop, trailing stop, max-drawdown) evaluated as undefined
+            and could not fire. A copy seeds the mark from its own triggering swap
+            until the first candle closes, so a run records 0; a non-zero value is a
+            run from before that rule. Additive JSONB field — old rows decode as 0.
         realized_pnl_sol (float | Unset):
         revert_fees_sol (float | Unset): RevertFeesSol is the tip + priority-fee total burned by CopiesReverted
             fills — money spent on txs that opened or closed nothing. Already
@@ -145,7 +130,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             approximation.
         roi_pct (float | Unset):
         scope_exits_unpriced (int | Unset): ScopeExitsUnpriced counts the forced closes an `on_retire: sell` policy
-            could not fill because no candle had priced the token yet when it left
+            could not fill because nothing had priced the token yet when it left
             the selection: the position stays open, its exits keep firing, and
             whatever is left at the end is marked in HeldPositions. Additive JSONB
             field — old rows decode as 0.

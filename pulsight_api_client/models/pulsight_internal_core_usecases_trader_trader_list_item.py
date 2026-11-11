@@ -52,6 +52,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         buy_30d (int | Unset):
         buy_7d (int | Unset):
         buy_all (int | Unset):
+        buy_impact_samples_30d (int | Unset): Buys measured for the 30-day buy-impact figures.
+        buy_impact_samples_7d (int | Unset): Buys measured for the 7-day buy-impact figures.
         buy_sell_ratio_1d (float | Unset):
         buy_sell_ratio_30d (float | Unset):
         buy_sell_ratio_7d (float | Unset):
@@ -130,6 +132,18 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         landed_txs_all (int | Unset):
         last_active_timestamp (int | Unset):
         median_buy_count_per_token (float | Unset):
+        median_buy_impact_pct_30d (float | Unset): Median price move per buy over the last 30 days, in percent.
+        median_buy_impact_pct_7d (float | Unset): Median price move per buy over the last 7 days, in percent (2 = 2 %):
+            (B_pre/B_post)^2 - 1 on the pool's base reserve, capped at 1000 %.
+            Constant-product venues only (pump bonding curve, PumpSwap, Raydium
+            AMM v4/CPMM, Meteora pools, Fluxbeam, Heaven, Omnipair); about twice the
+            backtest's target_price_impact_pct for the same swap. Null until the
+            window is served or when no buy was measured.
+        median_entry_pool_sol_30d (float | Unset): Median quote reserve of the pool before each buy over the last 30
+            days, in SOL.
+        median_entry_pool_sol_7d (float | Unset): Median quote reserve of the pool before each buy over the last 7 days,
+            in SOL; on the pump bonding curve it includes the curve's virtual SOL.
+            Null when no measured buy was valued.
         median_first_buy_reactivity (float | Unset):
         median_holding_time (float | Unset):
         median_realized_profit_1d (float | Unset):
@@ -150,6 +164,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         net_profit_all (float | Unset):
         net_profit_all_usd (float | Unset):
         oldest_trade_at (int | Unset):
+        p90_buy_impact_pct_30d (float | Unset): 90th-percentile price move per buy over the last 30 days, in percent.
+        p90_buy_impact_pct_7d (float | Unset): 90th-percentile price move per buy over the last 7 days, in percent.
         periods (list[PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow] | Unset): Periods is one row per
             canonical window (1d, 7d, 30d, all) off the
             wallet's board row. Drives the period stats panel on the
@@ -303,6 +319,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     buy_30d: int | Unset = UNSET
     buy_7d: int | Unset = UNSET
     buy_all: int | Unset = UNSET
+    buy_impact_samples_30d: int | Unset = UNSET
+    buy_impact_samples_7d: int | Unset = UNSET
     buy_sell_ratio_1d: float | Unset = UNSET
     buy_sell_ratio_30d: float | Unset = UNSET
     buy_sell_ratio_7d: float | Unset = UNSET
@@ -370,6 +388,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     landed_txs_all: int | Unset = UNSET
     last_active_timestamp: int | Unset = UNSET
     median_buy_count_per_token: float | Unset = UNSET
+    median_buy_impact_pct_30d: float | Unset = UNSET
+    median_buy_impact_pct_7d: float | Unset = UNSET
+    median_entry_pool_sol_30d: float | Unset = UNSET
+    median_entry_pool_sol_7d: float | Unset = UNSET
     median_first_buy_reactivity: float | Unset = UNSET
     median_holding_time: float | Unset = UNSET
     median_realized_profit_1d: float | Unset = UNSET
@@ -390,6 +412,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     net_profit_all: float | Unset = UNSET
     net_profit_all_usd: float | Unset = UNSET
     oldest_trade_at: int | Unset = UNSET
+    p90_buy_impact_pct_30d: float | Unset = UNSET
+    p90_buy_impact_pct_7d: float | Unset = UNSET
     periods: list[PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow] | Unset = (
         UNSET
     )
@@ -547,6 +571,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         buy_all = self.buy_all
 
+        buy_impact_samples_30d = self.buy_impact_samples_30d
+
+        buy_impact_samples_7d = self.buy_impact_samples_7d
+
         buy_sell_ratio_1d = self.buy_sell_ratio_1d
 
         buy_sell_ratio_30d = self.buy_sell_ratio_30d
@@ -681,6 +709,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         median_buy_count_per_token = self.median_buy_count_per_token
 
+        median_buy_impact_pct_30d = self.median_buy_impact_pct_30d
+
+        median_buy_impact_pct_7d = self.median_buy_impact_pct_7d
+
+        median_entry_pool_sol_30d = self.median_entry_pool_sol_30d
+
+        median_entry_pool_sol_7d = self.median_entry_pool_sol_7d
+
         median_first_buy_reactivity = self.median_first_buy_reactivity
 
         median_holding_time = self.median_holding_time
@@ -720,6 +756,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         net_profit_all_usd = self.net_profit_all_usd
 
         oldest_trade_at = self.oldest_trade_at
+
+        p90_buy_impact_pct_30d = self.p90_buy_impact_pct_30d
+
+        p90_buy_impact_pct_7d = self.p90_buy_impact_pct_7d
 
         periods: list[dict[str, Any]] | Unset = UNSET
         if not isinstance(self.periods, Unset):
@@ -984,6 +1024,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["buy_7d"] = buy_7d
         if buy_all is not UNSET:
             field_dict["buy_all"] = buy_all
+        if buy_impact_samples_30d is not UNSET:
+            field_dict["buy_impact_samples_30d"] = buy_impact_samples_30d
+        if buy_impact_samples_7d is not UNSET:
+            field_dict["buy_impact_samples_7d"] = buy_impact_samples_7d
         if buy_sell_ratio_1d is not UNSET:
             field_dict["buy_sell_ratio_1d"] = buy_sell_ratio_1d
         if buy_sell_ratio_30d is not UNSET:
@@ -1118,6 +1162,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["last_active_timestamp"] = last_active_timestamp
         if median_buy_count_per_token is not UNSET:
             field_dict["median_buy_count_per_token"] = median_buy_count_per_token
+        if median_buy_impact_pct_30d is not UNSET:
+            field_dict["median_buy_impact_pct_30d"] = median_buy_impact_pct_30d
+        if median_buy_impact_pct_7d is not UNSET:
+            field_dict["median_buy_impact_pct_7d"] = median_buy_impact_pct_7d
+        if median_entry_pool_sol_30d is not UNSET:
+            field_dict["median_entry_pool_sol_30d"] = median_entry_pool_sol_30d
+        if median_entry_pool_sol_7d is not UNSET:
+            field_dict["median_entry_pool_sol_7d"] = median_entry_pool_sol_7d
         if median_first_buy_reactivity is not UNSET:
             field_dict["median_first_buy_reactivity"] = median_first_buy_reactivity
         if median_holding_time is not UNSET:
@@ -1162,6 +1214,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["net_profit_all_usd"] = net_profit_all_usd
         if oldest_trade_at is not UNSET:
             field_dict["oldest_trade_at"] = oldest_trade_at
+        if p90_buy_impact_pct_30d is not UNSET:
+            field_dict["p90_buy_impact_pct_30d"] = p90_buy_impact_pct_30d
+        if p90_buy_impact_pct_7d is not UNSET:
+            field_dict["p90_buy_impact_pct_7d"] = p90_buy_impact_pct_7d
         if periods is not UNSET:
             field_dict["periods"] = periods
         if platform_fees_1d is not UNSET:
@@ -1454,6 +1510,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         buy_all = d.pop("buy_all", UNSET)
 
+        buy_impact_samples_30d = d.pop("buy_impact_samples_30d", UNSET)
+
+        buy_impact_samples_7d = d.pop("buy_impact_samples_7d", UNSET)
+
         buy_sell_ratio_1d = d.pop("buy_sell_ratio_1d", UNSET)
 
         buy_sell_ratio_30d = d.pop("buy_sell_ratio_30d", UNSET)
@@ -1588,6 +1648,14 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         median_buy_count_per_token = d.pop("median_buy_count_per_token", UNSET)
 
+        median_buy_impact_pct_30d = d.pop("median_buy_impact_pct_30d", UNSET)
+
+        median_buy_impact_pct_7d = d.pop("median_buy_impact_pct_7d", UNSET)
+
+        median_entry_pool_sol_30d = d.pop("median_entry_pool_sol_30d", UNSET)
+
+        median_entry_pool_sol_7d = d.pop("median_entry_pool_sol_7d", UNSET)
+
         median_first_buy_reactivity = d.pop("median_first_buy_reactivity", UNSET)
 
         median_holding_time = d.pop("median_holding_time", UNSET)
@@ -1627,6 +1695,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         net_profit_all_usd = d.pop("net_profit_all_usd", UNSET)
 
         oldest_trade_at = d.pop("oldest_trade_at", UNSET)
+
+        p90_buy_impact_pct_30d = d.pop("p90_buy_impact_pct_30d", UNSET)
+
+        p90_buy_impact_pct_7d = d.pop("p90_buy_impact_pct_7d", UNSET)
 
         _periods = d.pop("periods", UNSET)
         periods: (
@@ -1865,6 +1937,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             buy_30d=buy_30d,
             buy_7d=buy_7d,
             buy_all=buy_all,
+            buy_impact_samples_30d=buy_impact_samples_30d,
+            buy_impact_samples_7d=buy_impact_samples_7d,
             buy_sell_ratio_1d=buy_sell_ratio_1d,
             buy_sell_ratio_30d=buy_sell_ratio_30d,
             buy_sell_ratio_7d=buy_sell_ratio_7d,
@@ -1932,6 +2006,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             landed_txs_all=landed_txs_all,
             last_active_timestamp=last_active_timestamp,
             median_buy_count_per_token=median_buy_count_per_token,
+            median_buy_impact_pct_30d=median_buy_impact_pct_30d,
+            median_buy_impact_pct_7d=median_buy_impact_pct_7d,
+            median_entry_pool_sol_30d=median_entry_pool_sol_30d,
+            median_entry_pool_sol_7d=median_entry_pool_sol_7d,
             median_first_buy_reactivity=median_first_buy_reactivity,
             median_holding_time=median_holding_time,
             median_realized_profit_1d=median_realized_profit_1d,
@@ -1952,6 +2030,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             net_profit_all=net_profit_all,
             net_profit_all_usd=net_profit_all_usd,
             oldest_trade_at=oldest_trade_at,
+            p90_buy_impact_pct_30d=p90_buy_impact_pct_30d,
+            p90_buy_impact_pct_7d=p90_buy_impact_pct_7d,
             periods=periods,
             platform_fees_1d=platform_fees_1d,
             platform_fees_1d_usd=platform_fees_1d_usd,

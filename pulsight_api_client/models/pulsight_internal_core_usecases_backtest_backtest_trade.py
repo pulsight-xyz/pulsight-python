@@ -48,7 +48,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestTrade:
         side (PulsightInternalCoreUsecasesBacktestSide | Unset):
         sol_amount (float | Unset):
         source (PulsightInternalCoreUsecasesBacktestTradeSource | Unset):
-        swap_fee_bps (int | Unset): SwapFeeBps is the venue swap fee this fill paid, in basis points.
+        swap_fee_bps (int | Unset): SwapFeeBps is the venue swap fee this fill paid, rounded to the nearest
+            basis point; the fill itself is charged to the millionth.
         target_price_impact_pct (float | Unset): TargetPriceImpactPct is the MIRRORED trader's own price impact on the
             swap we copied — set on copy trades triggered by a target swap, measured
             against the reconstructed pre-swap reserve. It describes THEIR fill, so
