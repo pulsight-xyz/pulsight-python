@@ -10,6 +10,8 @@ from .get_mints_hours import GetMintsHours
 from .get_traders_by_wallet_address_pnl_series_window import (
     GetTradersByWalletAddressPnlSeriesWindow,
 )
+from .get_traders_sort_by import GetTradersSortBy
+from .get_traders_window import GetTradersWindow
 from .internal_adapters_primary_http_handler_backtest_settings_response import (
     InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponse,
 )
@@ -507,6 +509,8 @@ __all__ = (
     "GetLegsExportByDayFactsByDatasetDataset",
     "GetMintsHours",
     "GetTradersByWalletAddressPnlSeriesWindow",
+    "GetTradersSortBy",
+    "GetTradersWindow",
     "InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponse",
     "InternalAdaptersPrimaryHttpHandlerBacktestSettingsResponseMaxWindowSecs",
     "InternalAdaptersPrimaryHttpHandlerBestRunRef",

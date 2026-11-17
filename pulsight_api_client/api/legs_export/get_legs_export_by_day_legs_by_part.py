@@ -60,8 +60,11 @@ def sync_detailed(
     base_amount, quote_amount, base_reserve_pre, quote_reserve_pre, base_reserve_post,
     quote_reserve_post (raw units), value_sol (lamports), swap_fee_bps (0 = unknown), flags,
     marginal_price_q (f64, raw quote units per raw base unit after the leg: the pool's marginal price,
-    else the leg's own quote_amount / base_amount; 0 = unknown). A request refused before streaming
-    (400, 403, 429) is not charged, and one the server fails to deliver is refunded.
+    else the leg's own quote_amount / base_amount; 0 = unknown), mayhem (flags & 1: the leg traded a
+    pump.fun bonding curve or PumpSwap pool the ledger knows is in mayhem mode; false when it is not or
+    its mode is unknown), custodial (the leg is pump.fun's Mayhem agent trading through its custody
+    program, not a wallet trading for itself). A request refused before streaming (400, 403, 429) is not
+    charged, and one the server fails to deliver is refunded.
 
     Args:
         day (str):
@@ -102,8 +105,11 @@ async def asyncio_detailed(
     base_amount, quote_amount, base_reserve_pre, quote_reserve_pre, base_reserve_post,
     quote_reserve_post (raw units), value_sol (lamports), swap_fee_bps (0 = unknown), flags,
     marginal_price_q (f64, raw quote units per raw base unit after the leg: the pool's marginal price,
-    else the leg's own quote_amount / base_amount; 0 = unknown). A request refused before streaming
-    (400, 403, 429) is not charged, and one the server fails to deliver is refunded.
+    else the leg's own quote_amount / base_amount; 0 = unknown), mayhem (flags & 1: the leg traded a
+    pump.fun bonding curve or PumpSwap pool the ledger knows is in mayhem mode; false when it is not or
+    its mode is unknown), custodial (the leg is pump.fun's Mayhem agent trading through its custody
+    program, not a wallet trading for itself). A request refused before streaming (400, 403, 429) is not
+    charged, and one the server fails to deliver is refunded.
 
     Args:
         day (str):

@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,6 +25,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestEstimate:
         mints_count (int | Unset): MintsCount is how many tokens the scope admits over the window: the
             explicit list, or the strategy's own selection resolved minute by
             minute as a run resolves it.
+        warnings (list[str] | Unset): Warnings are caveats about the resolution the run would replay, such
+            as a token selection that stopped at its candidate cap.
         within_budget (bool | Unset): WithinBudget reports EstimatedTicks <= MaxTickBudget.
         within_window (bool | Unset): WithinWindow reports that the window fits MaxWindowSecs.
     """
@@ -34,6 +36,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestEstimate:
     max_tick_budget: int | Unset = UNSET
     max_window_secs: int | Unset = UNSET
     mints_count: int | Unset = UNSET
+    warnings: list[str] | Unset = UNSET
     within_budget: bool | Unset = UNSET
     within_window: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -48,6 +51,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestEstimate:
         max_window_secs = self.max_window_secs
 
         mints_count = self.mints_count
+
+        warnings: list[str] | Unset = UNSET
+        if not isinstance(self.warnings, Unset):
+            warnings = self.warnings
 
         within_budget = self.within_budget
 
@@ -66,6 +73,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestEstimate:
             field_dict["max_window_secs"] = max_window_secs
         if mints_count is not UNSET:
             field_dict["mints_count"] = mints_count
+        if warnings is not UNSET:
+            field_dict["warnings"] = warnings
         if within_budget is not UNSET:
             field_dict["within_budget"] = within_budget
         if within_window is not UNSET:
@@ -86,6 +95,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestEstimate:
 
         mints_count = d.pop("mints_count", UNSET)
 
+        warnings = cast(list[str], d.pop("warnings", UNSET))
+
         within_budget = d.pop("within_budget", UNSET)
 
         within_window = d.pop("within_window", UNSET)
@@ -96,6 +107,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestEstimate:
             max_tick_budget=max_tick_budget,
             max_window_secs=max_window_secs,
             mints_count=mints_count,
+            warnings=warnings,
             within_budget=within_budget,
             within_window=within_window,
         )

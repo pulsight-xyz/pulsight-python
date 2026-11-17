@@ -138,7 +138,9 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             Constant-product venues only (pump bonding curve, PumpSwap, Raydium
             AMM v4/CPMM, Meteora pools, Fluxbeam, Heaven, Omnipair); about twice the
             backtest's target_price_impact_pct for the same swap. Null until the
-            window is served or when no buy was measured.
+            window is served or when no buy was measured. The figures fold a daily
+            plane: "7 days" spans 7 to 8 calendar days (the oldest UTC day counts
+            whole), "30 days" 30 to 31.
         median_entry_pool_sol_30d (float | Unset): Median quote reserve of the pool before each buy over the last 30
             days, in SOL.
         median_entry_pool_sol_7d (float | Unset): Median quote reserve of the pool before each buy over the last 7 days,

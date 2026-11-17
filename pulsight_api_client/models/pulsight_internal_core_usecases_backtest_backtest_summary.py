@@ -72,6 +72,15 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             mostly-skipped run reads as "not enough data" instead of quietly looking
             like a thin strategy — or worse, than being filled at a fictional price
             and looking profitable. Additive JSONB field — old rows decode as 0.
+        emit_buys_declined (int | Unset): EmitBuysDeclined counts the candle closes on which an Emit buy whose
+            rule held was refused by a rule — sizing, max_buys_per_open_position,
+            exposure cap, bracket placement, rate limit — once per refusal: an Emit
+            buy refused on consecutive closes for the same reason counts once, until
+            it fills, a close finds it not ready to fire or the reason changes. Each
+            one is persisted as a `backtest_declines` row with its reason, source
+            `emit_buy` and no triggering swap. An Emit buy a target's swap triggered
+            counts in CopiesDeclined instead. Additive JSONB field — old rows decode
+            as 0.
         ending_balance_sol (float | Unset):
         fees_paid_sol (float | Unset):
         held_positions (list[PulsightInternalCoreUsecasesBacktestBacktestPosition] | Unset): HeldPositions is every mint
@@ -149,6 +158,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             across
             every fill; it is already inside the fill prices, so it is not folded again.
         unrealized_pnl_sol (float | Unset):
+        warnings (list[str] | Unset): Warnings are caveats about this run's own inputs, such as a token
+            selection that stopped at its candidate cap. Additive JSONB field.
         wins (int | Unset):
     """
 
@@ -159,6 +170,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     copies_skipped_non_sol_quote: int | Unset = UNSET
     copies_skipped_pool_not_simulated: int | Unset = UNSET
     copies_skipped_unpriced: int | Unset = UNSET
+    emit_buys_declined: int | Unset = UNSET
     ending_balance_sol: float | Unset = UNSET
     fees_paid_sol: float | Unset = UNSET
     held_positions: (
@@ -188,6 +200,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     trades: int | Unset = UNSET
     transfer_fees_paid_sol: float | Unset = UNSET
     unrealized_pnl_sol: float | Unset = UNSET
+    warnings: list[str] | Unset = UNSET
     wins: int | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -205,6 +218,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         copies_skipped_pool_not_simulated = self.copies_skipped_pool_not_simulated
 
         copies_skipped_unpriced = self.copies_skipped_unpriced
+
+        emit_buys_declined = self.emit_buys_declined
 
         ending_balance_sol = self.ending_balance_sol
 
@@ -267,6 +282,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         unrealized_pnl_sol = self.unrealized_pnl_sol
 
+        warnings: list[str] | Unset = UNSET
+        if not isinstance(self.warnings, Unset):
+            warnings = self.warnings
+
         wins = self.wins
 
         field_dict: dict[str, Any] = {}
@@ -288,6 +307,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             )
         if copies_skipped_unpriced is not UNSET:
             field_dict["copies_skipped_unpriced"] = copies_skipped_unpriced
+        if emit_buys_declined is not UNSET:
+            field_dict["emit_buys_declined"] = emit_buys_declined
         if ending_balance_sol is not UNSET:
             field_dict["ending_balance_sol"] = ending_balance_sol
         if fees_paid_sol is not UNSET:
@@ -344,6 +365,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["transfer_fees_paid_sol"] = transfer_fees_paid_sol
         if unrealized_pnl_sol is not UNSET:
             field_dict["unrealized_pnl_sol"] = unrealized_pnl_sol
+        if warnings is not UNSET:
+            field_dict["warnings"] = warnings
         if wins is not UNSET:
             field_dict["wins"] = wins
 
@@ -371,6 +394,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         )
 
         copies_skipped_unpriced = d.pop("copies_skipped_unpriced", UNSET)
+
+        emit_buys_declined = d.pop("emit_buys_declined", UNSET)
 
         ending_balance_sol = d.pop("ending_balance_sol", UNSET)
 
@@ -439,6 +464,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         unrealized_pnl_sol = d.pop("unrealized_pnl_sol", UNSET)
 
+        warnings = cast(list[str], d.pop("warnings", UNSET))
+
         wins = d.pop("wins", UNSET)
 
         pulsight_internal_core_usecases_backtest_backtest_summary = cls(
@@ -449,6 +476,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             copies_skipped_non_sol_quote=copies_skipped_non_sol_quote,
             copies_skipped_pool_not_simulated=copies_skipped_pool_not_simulated,
             copies_skipped_unpriced=copies_skipped_unpriced,
+            emit_buys_declined=emit_buys_declined,
             ending_balance_sol=ending_balance_sol,
             fees_paid_sol=fees_paid_sol,
             held_positions=held_positions,
@@ -476,6 +504,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             trades=trades,
             transfer_fees_paid_sol=transfer_fees_paid_sol,
             unrealized_pnl_sol=unrealized_pnl_sol,
+            warnings=warnings,
             wins=wins,
         )
 

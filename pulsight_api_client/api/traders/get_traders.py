@@ -5,6 +5,8 @@ import httpx2
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.get_traders_sort_by import GetTradersSortBy
+from ...models.get_traders_window import GetTradersWindow
 from ...models.internal_adapters_primary_http_handler_error_response import (
     InternalAdaptersPrimaryHttpHandlerErrorResponse,
 )
@@ -18,8 +20,10 @@ def _get_kwargs(
     *,
     limit: int | Unset = 20,
     offset: int | Unset = 0,
-    sort_by: str | Unset = "realized_profit",
+    sort_by: GetTradersSortBy | Unset = GetTradersSortBy.REALIZED_PROFIT,
     direction: str | Unset = "desc",
+    window: GetTradersWindow | Unset = GetTradersWindow.VALUE_1,
+    f: list[str] | Unset = UNSET,
     favorites_only: bool | Unset = UNSET,
     tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
@@ -32,9 +36,25 @@ def _get_kwargs(
 
     params["offset"] = offset
 
-    params["sort_by"] = sort_by
+    json_sort_by: str | Unset = UNSET
+    if not isinstance(sort_by, Unset):
+        json_sort_by = sort_by.value
+
+    params["sort_by"] = json_sort_by
 
     params["direction"] = direction
+
+    json_window: str | Unset = UNSET
+    if not isinstance(window, Unset):
+        json_window = window.value
+
+    params["window"] = json_window
+
+    json_f: list[str] | Unset = UNSET
+    if not isinstance(f, Unset):
+        json_f = f
+
+    params["f"] = json_f
 
     params["favorites_only"] = favorites_only
 
@@ -136,8 +156,10 @@ def sync_detailed(
     client: AuthenticatedClient,
     limit: int | Unset = 20,
     offset: int | Unset = 0,
-    sort_by: str | Unset = "realized_profit",
+    sort_by: GetTradersSortBy | Unset = GetTradersSortBy.REALIZED_PROFIT,
     direction: str | Unset = "desc",
+    window: GetTradersWindow | Unset = GetTradersWindow.VALUE_1,
+    f: list[str] | Unset = UNSET,
     favorites_only: bool | Unset = UNSET,
     tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
@@ -148,13 +170,17 @@ def sync_detailed(
 ]:
     """List Traders
 
-     Retrieves a list of traders supporting advanced filtering and sorting.
+     Retrieves a list of traders supporting advanced filtering and sorting. The page is ranked by
+    `sort_by` at `window`; every row carries its 7d and 30d figures, plus the 1d and lifetime families
+    the window or `extra_windows` names.
 
     Args:
         limit (int | Unset):  Default: 20.
         offset (int | Unset):  Default: 0.
-        sort_by (str | Unset):  Default: 'realized_profit'.
+        sort_by (GetTradersSortBy | Unset):  Default: GetTradersSortBy.REALIZED_PROFIT.
         direction (str | Unset):  Default: 'desc'.
+        window (GetTradersWindow | Unset):  Default: GetTradersWindow.VALUE_1.
+        f (list[str] | Unset):
         favorites_only (bool | Unset):
         tracked_only (bool | Unset):
         extra_windows (str | Unset):
@@ -173,6 +199,8 @@ def sync_detailed(
         offset=offset,
         sort_by=sort_by,
         direction=direction,
+        window=window,
+        f=f,
         favorites_only=favorites_only,
         tracked_only=tracked_only,
         extra_windows=extra_windows,
@@ -191,8 +219,10 @@ def sync(
     client: AuthenticatedClient,
     limit: int | Unset = 20,
     offset: int | Unset = 0,
-    sort_by: str | Unset = "realized_profit",
+    sort_by: GetTradersSortBy | Unset = GetTradersSortBy.REALIZED_PROFIT,
     direction: str | Unset = "desc",
+    window: GetTradersWindow | Unset = GetTradersWindow.VALUE_1,
+    f: list[str] | Unset = UNSET,
     favorites_only: bool | Unset = UNSET,
     tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
@@ -204,13 +234,17 @@ def sync(
 ):
     """List Traders
 
-     Retrieves a list of traders supporting advanced filtering and sorting.
+     Retrieves a list of traders supporting advanced filtering and sorting. The page is ranked by
+    `sort_by` at `window`; every row carries its 7d and 30d figures, plus the 1d and lifetime families
+    the window or `extra_windows` names.
 
     Args:
         limit (int | Unset):  Default: 20.
         offset (int | Unset):  Default: 0.
-        sort_by (str | Unset):  Default: 'realized_profit'.
+        sort_by (GetTradersSortBy | Unset):  Default: GetTradersSortBy.REALIZED_PROFIT.
         direction (str | Unset):  Default: 'desc'.
+        window (GetTradersWindow | Unset):  Default: GetTradersWindow.VALUE_1.
+        f (list[str] | Unset):
         favorites_only (bool | Unset):
         tracked_only (bool | Unset):
         extra_windows (str | Unset):
@@ -230,6 +264,8 @@ def sync(
         offset=offset,
         sort_by=sort_by,
         direction=direction,
+        window=window,
+        f=f,
         favorites_only=favorites_only,
         tracked_only=tracked_only,
         extra_windows=extra_windows,
@@ -242,8 +278,10 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     limit: int | Unset = 20,
     offset: int | Unset = 0,
-    sort_by: str | Unset = "realized_profit",
+    sort_by: GetTradersSortBy | Unset = GetTradersSortBy.REALIZED_PROFIT,
     direction: str | Unset = "desc",
+    window: GetTradersWindow | Unset = GetTradersWindow.VALUE_1,
+    f: list[str] | Unset = UNSET,
     favorites_only: bool | Unset = UNSET,
     tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
@@ -254,13 +292,17 @@ async def asyncio_detailed(
 ]:
     """List Traders
 
-     Retrieves a list of traders supporting advanced filtering and sorting.
+     Retrieves a list of traders supporting advanced filtering and sorting. The page is ranked by
+    `sort_by` at `window`; every row carries its 7d and 30d figures, plus the 1d and lifetime families
+    the window or `extra_windows` names.
 
     Args:
         limit (int | Unset):  Default: 20.
         offset (int | Unset):  Default: 0.
-        sort_by (str | Unset):  Default: 'realized_profit'.
+        sort_by (GetTradersSortBy | Unset):  Default: GetTradersSortBy.REALIZED_PROFIT.
         direction (str | Unset):  Default: 'desc'.
+        window (GetTradersWindow | Unset):  Default: GetTradersWindow.VALUE_1.
+        f (list[str] | Unset):
         favorites_only (bool | Unset):
         tracked_only (bool | Unset):
         extra_windows (str | Unset):
@@ -279,6 +321,8 @@ async def asyncio_detailed(
         offset=offset,
         sort_by=sort_by,
         direction=direction,
+        window=window,
+        f=f,
         favorites_only=favorites_only,
         tracked_only=tracked_only,
         extra_windows=extra_windows,
@@ -295,8 +339,10 @@ async def asyncio(
     client: AuthenticatedClient,
     limit: int | Unset = 20,
     offset: int | Unset = 0,
-    sort_by: str | Unset = "realized_profit",
+    sort_by: GetTradersSortBy | Unset = GetTradersSortBy.REALIZED_PROFIT,
     direction: str | Unset = "desc",
+    window: GetTradersWindow | Unset = GetTradersWindow.VALUE_1,
+    f: list[str] | Unset = UNSET,
     favorites_only: bool | Unset = UNSET,
     tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
@@ -308,13 +354,17 @@ async def asyncio(
 ):
     """List Traders
 
-     Retrieves a list of traders supporting advanced filtering and sorting.
+     Retrieves a list of traders supporting advanced filtering and sorting. The page is ranked by
+    `sort_by` at `window`; every row carries its 7d and 30d figures, plus the 1d and lifetime families
+    the window or `extra_windows` names.
 
     Args:
         limit (int | Unset):  Default: 20.
         offset (int | Unset):  Default: 0.
-        sort_by (str | Unset):  Default: 'realized_profit'.
+        sort_by (GetTradersSortBy | Unset):  Default: GetTradersSortBy.REALIZED_PROFIT.
         direction (str | Unset):  Default: 'desc'.
+        window (GetTradersWindow | Unset):  Default: GetTradersWindow.VALUE_1.
+        f (list[str] | Unset):
         favorites_only (bool | Unset):
         tracked_only (bool | Unset):
         extra_windows (str | Unset):
@@ -335,6 +385,8 @@ async def asyncio(
             offset=offset,
             sort_by=sort_by,
             direction=direction,
+            window=window,
+            f=f,
             favorites_only=favorites_only,
             tracked_only=tracked_only,
             extra_windows=extra_windows,

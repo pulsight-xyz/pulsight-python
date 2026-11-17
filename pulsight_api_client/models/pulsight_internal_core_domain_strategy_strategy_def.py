@@ -29,12 +29,16 @@ class PulsightInternalCoreDomainStrategyStrategyDef:
         entry (PulsightInternalCoreDomainStrategySubGraph | Unset):
         exit_ (PulsightInternalCoreDomainStrategySubGraph | Unset):
         selection (PulsightInternalCoreDomainStrategySubGraph | Unset):
+        timeframe (str | Unset): Timeframe is the candle timeframe the strategy was built for, one of
+            the run timeframes; empty when it names none. A run still takes its
+            own timeframe.
     """
 
     constraints: PulsightInternalCoreDomainStrategyGlobalConstraints | Unset = UNSET
     entry: PulsightInternalCoreDomainStrategySubGraph | Unset = UNSET
     exit_: PulsightInternalCoreDomainStrategySubGraph | Unset = UNSET
     selection: PulsightInternalCoreDomainStrategySubGraph | Unset = UNSET
+    timeframe: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -54,6 +58,8 @@ class PulsightInternalCoreDomainStrategyStrategyDef:
         if not isinstance(self.selection, Unset):
             selection = self.selection.to_dict()
 
+        timeframe = self.timeframe
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -65,6 +71,8 @@ class PulsightInternalCoreDomainStrategyStrategyDef:
             field_dict["exit"] = exit_
         if selection is not UNSET:
             field_dict["selection"] = selection
+        if timeframe is not UNSET:
+            field_dict["timeframe"] = timeframe
 
         return field_dict
 
@@ -108,11 +116,14 @@ class PulsightInternalCoreDomainStrategyStrategyDef:
         else:
             selection = PulsightInternalCoreDomainStrategySubGraph.from_dict(_selection)
 
+        timeframe = d.pop("timeframe", UNSET)
+
         pulsight_internal_core_domain_strategy_strategy_def = cls(
             constraints=constraints,
             entry=entry,
             exit_=exit_,
             selection=selection,
+            timeframe=timeframe,
         )
 
         pulsight_internal_core_domain_strategy_strategy_def.additional_properties = d
