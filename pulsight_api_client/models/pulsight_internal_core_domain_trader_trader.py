@@ -1,13 +1,19 @@
 from __future__ import annotations
 
 from collections.abc import Mapping
-from typing import Any, TypeVar, cast
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.pulsight_internal_core_domain_trader_similarity import (
+        PulsightInternalCoreDomainTraderSimilarity,
+    )
+
 
 T = TypeVar("T", bound="PulsightInternalCoreDomainTraderTrader")
 
@@ -174,6 +180,7 @@ class PulsightInternalCoreDomainTraderTrader:
         sell_30d (int | Unset):
         sell_7d (int | Unset):
         sell_all (int | Unset):
+        similarity (PulsightInternalCoreDomainTraderSimilarity | Unset):
         sol_balance (float | Unset): SolBalance is the wallet's SOL balance in lamports.
         sold_gt_bought_sells_1d (int | Unset):
         sold_gt_bought_sells_30d (int | Unset):
@@ -368,6 +375,7 @@ class PulsightInternalCoreDomainTraderTrader:
     sell_30d: int | Unset = UNSET
     sell_7d: int | Unset = UNSET
     sell_all: int | Unset = UNSET
+    similarity: PulsightInternalCoreDomainTraderSimilarity | Unset = UNSET
     sol_balance: float | Unset = UNSET
     sold_gt_bought_sells_1d: int | Unset = UNSET
     sold_gt_bought_sells_30d: int | Unset = UNSET
@@ -698,6 +706,10 @@ class PulsightInternalCoreDomainTraderTrader:
         sell_7d = self.sell_7d
 
         sell_all = self.sell_all
+
+        similarity: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.similarity, Unset):
+            similarity = self.similarity.to_dict()
 
         sol_balance = self.sol_balance
 
@@ -1086,6 +1098,8 @@ class PulsightInternalCoreDomainTraderTrader:
             field_dict["sell_7d"] = sell_7d
         if sell_all is not UNSET:
             field_dict["sell_all"] = sell_all
+        if similarity is not UNSET:
+            field_dict["similarity"] = similarity
         if sol_balance is not UNSET:
             field_dict["sol_balance"] = sol_balance
         if sold_gt_bought_sells_1d is not UNSET:
@@ -1191,6 +1205,10 @@ class PulsightInternalCoreDomainTraderTrader:
 
     @classmethod
     def from_dict(cls, src_dict: Mapping[str, Any]) -> Self:
+        from ..models.pulsight_internal_core_domain_trader_similarity import (
+            PulsightInternalCoreDomainTraderSimilarity,
+        )
+
         d = dict(src_dict)
         arb_tx_ratio_1d = d.pop("arb_tx_ratio_1d", UNSET)
 
@@ -1470,6 +1488,15 @@ class PulsightInternalCoreDomainTraderTrader:
 
         sell_all = d.pop("sell_all", UNSET)
 
+        _similarity = d.pop("similarity", UNSET)
+        similarity: PulsightInternalCoreDomainTraderSimilarity | Unset
+        if isinstance(_similarity, Unset):
+            similarity = UNSET
+        else:
+            similarity = PulsightInternalCoreDomainTraderSimilarity.from_dict(
+                _similarity
+            )
+
         sol_balance = d.pop("sol_balance", UNSET)
 
         sold_gt_bought_sells_1d = d.pop("sold_gt_bought_sells_1d", UNSET)
@@ -1710,6 +1737,7 @@ class PulsightInternalCoreDomainTraderTrader:
             sell_30d=sell_30d,
             sell_7d=sell_7d,
             sell_all=sell_all,
+            similarity=similarity,
             sol_balance=sol_balance,
             sold_gt_bought_sells_1d=sold_gt_bought_sells_1d,
             sold_gt_bought_sells_30d=sold_gt_bought_sells_30d,

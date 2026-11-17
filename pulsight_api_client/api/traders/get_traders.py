@@ -28,6 +28,7 @@ def _get_kwargs(
     tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
     unit: str | Unset = "sol",
+    ref: str | Unset = UNSET,
 ) -> dict[str, Any]:
 
     params: dict[str, Any] = {}
@@ -63,6 +64,8 @@ def _get_kwargs(
     params["extra_windows"] = extra_windows
 
     params["unit"] = unit
+
+    params["ref"] = ref
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -164,6 +167,7 @@ def sync_detailed(
     tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
     unit: str | Unset = "sol",
+    ref: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -185,6 +189,7 @@ def sync_detailed(
         tracked_only (bool | Unset):
         extra_windows (str | Unset):
         unit (str | Unset):  Default: 'sol'.
+        ref (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -205,6 +210,7 @@ def sync_detailed(
         tracked_only=tracked_only,
         extra_windows=extra_windows,
         unit=unit,
+        ref=ref,
     )
 
     response = client.get_httpx_client().request(
@@ -227,6 +233,7 @@ def sync(
     tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
     unit: str | Unset = "sol",
+    ref: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -249,6 +256,7 @@ def sync(
         tracked_only (bool | Unset):
         extra_windows (str | Unset):
         unit (str | Unset):  Default: 'sol'.
+        ref (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -270,6 +278,7 @@ def sync(
         tracked_only=tracked_only,
         extra_windows=extra_windows,
         unit=unit,
+        ref=ref,
     ).parsed
 
 
@@ -286,6 +295,7 @@ async def asyncio_detailed(
     tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
     unit: str | Unset = "sol",
+    ref: str | Unset = UNSET,
 ) -> Response[
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -307,6 +317,7 @@ async def asyncio_detailed(
         tracked_only (bool | Unset):
         extra_windows (str | Unset):
         unit (str | Unset):  Default: 'sol'.
+        ref (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -327,6 +338,7 @@ async def asyncio_detailed(
         tracked_only=tracked_only,
         extra_windows=extra_windows,
         unit=unit,
+        ref=ref,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -347,6 +359,7 @@ async def asyncio(
     tracked_only: bool | Unset = UNSET,
     extra_windows: str | Unset = UNSET,
     unit: str | Unset = "sol",
+    ref: str | Unset = UNSET,
 ) -> (
     InternalAdaptersPrimaryHttpHandlerErrorResponse
     | PulsightInternalCoreUsecasesTraderTraderListResult
@@ -369,6 +382,7 @@ async def asyncio(
         tracked_only (bool | Unset):
         extra_windows (str | Unset):
         unit (str | Unset):  Default: 'sol'.
+        ref (str | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -391,5 +405,6 @@ async def asyncio(
             tracked_only=tracked_only,
             extra_windows=extra_windows,
             unit=unit,
+            ref=ref,
         )
     ).parsed

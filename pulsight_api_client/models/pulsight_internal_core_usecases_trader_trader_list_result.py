@@ -27,6 +27,7 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
         next_cursor_pubkey (str | Unset):
         next_cursor_value (float | Unset):
         offset (int | Unset):
+        reference (PulsightInternalCoreUsecasesTraderTraderListItem | Unset):
         total (int | Unset):
         unit (str | Unset): Unit is the currency the page was ranked, filtered and cursored in
             (sol|usd); every row carries both currencies regardless.
@@ -37,6 +38,7 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
     next_cursor_pubkey: str | Unset = UNSET
     next_cursor_value: float | Unset = UNSET
     offset: int | Unset = UNSET
+    reference: PulsightInternalCoreUsecasesTraderTraderListItem | Unset = UNSET
     total: int | Unset = UNSET
     unit: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -57,6 +59,10 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
 
         offset = self.offset
 
+        reference: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.reference, Unset):
+            reference = self.reference.to_dict()
+
         total = self.total
 
         unit = self.unit
@@ -74,6 +80,8 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
             field_dict["next_cursor_value"] = next_cursor_value
         if offset is not UNSET:
             field_dict["offset"] = offset
+        if reference is not UNSET:
+            field_dict["reference"] = reference
         if total is not UNSET:
             field_dict["total"] = total
         if unit is not UNSET:
@@ -107,6 +115,15 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
 
         offset = d.pop("offset", UNSET)
 
+        _reference = d.pop("reference", UNSET)
+        reference: PulsightInternalCoreUsecasesTraderTraderListItem | Unset
+        if isinstance(_reference, Unset):
+            reference = UNSET
+        else:
+            reference = PulsightInternalCoreUsecasesTraderTraderListItem.from_dict(
+                _reference
+            )
+
         total = d.pop("total", UNSET)
 
         unit = d.pop("unit", UNSET)
@@ -117,6 +134,7 @@ class PulsightInternalCoreUsecasesTraderTraderListResult:
             next_cursor_pubkey=next_cursor_pubkey,
             next_cursor_value=next_cursor_value,
             offset=offset,
+            reference=reference,
             total=total,
             unit=unit,
         )

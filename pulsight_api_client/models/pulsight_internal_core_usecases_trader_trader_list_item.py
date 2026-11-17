@@ -16,6 +16,9 @@ if TYPE_CHECKING:
     from ..models.pulsight_internal_core_domain_aggregator_trader_period_stats_row import (
         PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow,
     )
+    from ..models.pulsight_internal_core_domain_trader_similarity import (
+        PulsightInternalCoreDomainTraderSimilarity,
+    )
     from ..models.pulsight_internal_core_usecases_trader_trader_pnl_distribution_row import (
         PulsightInternalCoreUsecasesTraderTraderPnlDistributionRow,
     )
@@ -230,6 +233,7 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         sell_30d (int | Unset):
         sell_7d (int | Unset):
         sell_all (int | Unset):
+        similarity (PulsightInternalCoreDomainTraderSimilarity | Unset):
         sol_balance (float | Unset):
         sold_gt_bought_sells_1d (int | Unset):
         sold_gt_bought_sells_30d (int | Unset):
@@ -462,6 +466,7 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
     sell_30d: int | Unset = UNSET
     sell_7d: int | Unset = UNSET
     sell_all: int | Unset = UNSET
+    similarity: PulsightInternalCoreDomainTraderSimilarity | Unset = UNSET
     sol_balance: float | Unset = UNSET
     sold_gt_bought_sells_1d: int | Unset = UNSET
     sold_gt_bought_sells_30d: int | Unset = UNSET
@@ -868,6 +873,10 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         sell_7d = self.sell_7d
 
         sell_all = self.sell_all
+
+        similarity: dict[str, Any] | Unset = UNSET
+        if not isinstance(self.similarity, Unset):
+            similarity = self.similarity.to_dict()
 
         sol_balance = self.sol_balance
 
@@ -1304,6 +1313,8 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             field_dict["sell_7d"] = sell_7d
         if sell_all is not UNSET:
             field_dict["sell_all"] = sell_all
+        if similarity is not UNSET:
+            field_dict["similarity"] = similarity
         if sol_balance is not UNSET:
             field_dict["sol_balance"] = sol_balance
         if sold_gt_bought_sells_1d is not UNSET:
@@ -1418,6 +1429,9 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
         )
         from ..models.pulsight_internal_core_domain_aggregator_trader_period_stats_row import (
             PulsightInternalCoreDomainAggregatorTraderPeriodStatsRow,
+        )
+        from ..models.pulsight_internal_core_domain_trader_similarity import (
+            PulsightInternalCoreDomainTraderSimilarity,
         )
         from ..models.pulsight_internal_core_usecases_trader_trader_pnl_distribution_row import (
             PulsightInternalCoreUsecasesTraderTraderPnlDistributionRow,
@@ -1810,6 +1824,15 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
 
         sell_all = d.pop("sell_all", UNSET)
 
+        _similarity = d.pop("similarity", UNSET)
+        similarity: PulsightInternalCoreDomainTraderSimilarity | Unset
+        if isinstance(_similarity, Unset):
+            similarity = UNSET
+        else:
+            similarity = PulsightInternalCoreDomainTraderSimilarity.from_dict(
+                _similarity
+            )
+
         sol_balance = d.pop("sol_balance", UNSET)
 
         sold_gt_bought_sells_1d = d.pop("sold_gt_bought_sells_1d", UNSET)
@@ -2076,6 +2099,7 @@ class PulsightInternalCoreUsecasesTraderTraderListItem:
             sell_30d=sell_30d,
             sell_7d=sell_7d,
             sell_all=sell_all,
+            similarity=similarity,
             sol_balance=sol_balance,
             sold_gt_bought_sells_1d=sold_gt_bought_sells_1d,
             sold_gt_bought_sells_30d=sold_gt_bought_sells_30d,

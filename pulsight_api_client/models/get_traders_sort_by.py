@@ -36,6 +36,7 @@ class GetTradersSortBy(StrEnum):
     REWARDS_TOTAL = "rewards_total"
     ROI = "roi"
     SELL = "sell"
+    SIMILARITY = "similarity"
     SOLD_GT_BOUGHT_SELLS = "sold_gt_bought_sells"
     SOL_BALANCE = "sol_balance"
     SPAM_RATE = "spam_rate"
