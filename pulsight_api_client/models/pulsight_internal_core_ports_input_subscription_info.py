@@ -38,6 +38,9 @@ class PulsightInternalCorePortsInputSubscriptionInfo:
             only for an active TierEnterprise user (from their custom entitlement)
             so the plan page can render the negotiated plan instead of a tier card.
         limits (PulsightInternalCorePortsInputPlanLimitsRead | Unset):
+        pending_at (str | Unset): PendingAt is when the scheduled change takes effect: the end of the paid
+            period.
+        pending_tier (PulsightInternalCoreDomainSubscriptionSubscriptionTier | Unset):
         price_usd (float | Unset):
         provider (str | Unset):
         started_at (str | Unset):
@@ -52,6 +55,8 @@ class PulsightInternalCorePortsInputSubscriptionInfo:
     is_active: bool | Unset = UNSET
     label: str | Unset = UNSET
     limits: PulsightInternalCorePortsInputPlanLimitsRead | Unset = UNSET
+    pending_at: str | Unset = UNSET
+    pending_tier: PulsightInternalCoreDomainSubscriptionSubscriptionTier | Unset = UNSET
     price_usd: float | Unset = UNSET
     provider: str | Unset = UNSET
     started_at: str | Unset = UNSET
@@ -74,6 +79,12 @@ class PulsightInternalCorePortsInputSubscriptionInfo:
         limits: dict[str, Any] | Unset = UNSET
         if not isinstance(self.limits, Unset):
             limits = self.limits.to_dict()
+
+        pending_at = self.pending_at
+
+        pending_tier: str | Unset = UNSET
+        if not isinstance(self.pending_tier, Unset):
+            pending_tier = self.pending_tier.value
 
         price_usd = self.price_usd
 
@@ -106,6 +117,10 @@ class PulsightInternalCorePortsInputSubscriptionInfo:
             field_dict["label"] = label
         if limits is not UNSET:
             field_dict["limits"] = limits
+        if pending_at is not UNSET:
+            field_dict["pending_at"] = pending_at
+        if pending_tier is not UNSET:
+            field_dict["pending_tier"] = pending_tier
         if price_usd is not UNSET:
             field_dict["price_usd"] = price_usd
         if provider is not UNSET:
@@ -148,6 +163,17 @@ class PulsightInternalCorePortsInputSubscriptionInfo:
         else:
             limits = PulsightInternalCorePortsInputPlanLimitsRead.from_dict(_limits)
 
+        pending_at = d.pop("pending_at", UNSET)
+
+        _pending_tier = d.pop("pending_tier", UNSET)
+        pending_tier: PulsightInternalCoreDomainSubscriptionSubscriptionTier | Unset
+        if isinstance(_pending_tier, Unset):
+            pending_tier = UNSET
+        else:
+            pending_tier = PulsightInternalCoreDomainSubscriptionSubscriptionTier(
+                _pending_tier
+            )
+
         price_usd = d.pop("price_usd", UNSET)
 
         provider = d.pop("provider", UNSET)
@@ -177,6 +203,8 @@ class PulsightInternalCorePortsInputSubscriptionInfo:
             is_active=is_active,
             label=label,
             limits=limits,
+            pending_at=pending_at,
+            pending_tier=pending_tier,
             price_usd=price_usd,
             provider=provider,
             started_at=started_at,
