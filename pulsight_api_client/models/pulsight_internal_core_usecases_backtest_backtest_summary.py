@@ -7,6 +7,9 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 from typing_extensions import Self
 
+from ..models.pulsight_internal_core_usecases_backtest_capital_model import (
+    PulsightInternalCoreUsecasesBacktestCapitalModel,
+)
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
@@ -26,13 +29,25 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             crossed by the run's FILLED copies — what latency cost on the fills that
             went through (reverted ones are excluded; their cost shows as
             RevertFeesSol + missed entries). Nil when the run had no landing fills.
+        capital_model (PulsightInternalCoreUsecasesBacktestCapitalModel | Unset):
         capital_required_sol (float | Unset): CapitalRequiredSol is the starting balance that would have kept the cash
-            walk at or above zero: max(StartingBalanceSol, StartingBalanceSol-MinCashSol).
+            at or above zero along the same fills: max(StartingBalanceSol,
+            StartingBalanceSol-MinCashSol).
+        cash_declined_buys (int | Unset): CashDeclinedBuys counts the buy attempts the run declined before sending
+            because the cash left could not pay them (`insufficient_balance`,
+            tx_failed false), candle-driven Emit buys included; CashDeclinedSol is
+            the SOL they asked for.
+        cash_declined_sol (float | Unset):
+        cash_failed_buys (int | Unset): CashFailedBuys counts the buy attempts sent while the cash was at or
+            below zero, which failed and paid nothing (`insufficient_balance`,
+            tx_failed true); CashFailedSol is the SOL they asked for.
+        cash_failed_sol (float | Unset):
         copies_declined (int | Unset): CopiesDeclined counts target swaps a signal-driven exec wanted to act
             on but that a RULE refused: cooldown, sizing, max_buys_per_open_position,
-            exposure cap, bracket placement, rate limit — plus the sells this run sat
-            out because the target only sold tokens it had never mirrored. Reverts
-            and unpriced skips have their own counters and are not in here. Every
+            exposure cap, bracket placement, rate limit, cash left too short — plus
+            the sells this run sat out because the target only sold tokens it had
+            never mirrored. Reverts, buys that failed on an empty cash and unpriced
+            skips have their own counters and are not in here. Every
             one is persisted as a `backtest_declines` row with its reason, so the
             trade history reads as a complete account of the target's swaps.
             Additive JSONB field — old rows decode as 0.
@@ -55,9 +70,11 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             pool the catalog does not know). They fold into the target book and are
             recorded once as `pool_not_simulated`; nothing fills. A per-pool
             artefact, not in CopiesSkippedUnpriced. Additive JSONB field.
-        copies_skipped_unpriced (int | Unset): CopiesSkippedUnpriced counts mirror trades that passed every rule and
+        copies_skipped_unpriced (int | Unset): CopiesSkippedUnpriced counts mirror BUYS that passed every rule and
             would have fired, but whose triggering swap could not be priced honestly
-            — so they were NOT traded. Two causes, both data-side:
+            — so they were NOT traded. A signal-driven exit on such a swap is never
+            skipped: it fills at a fallback mark (ExitsAtFallbackMark). Two causes,
+            both data-side:
 
               1. no post-swap price on the leg at all (every Meteora DLMM leg, and
                  every DAMM v2 / DBC leg ingested before those decoders were fixed);
@@ -74,7 +91,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             and looking profitable. Additive JSONB field — old rows decode as 0.
         emit_buys_declined (int | Unset): EmitBuysDeclined counts the candle closes on which an Emit buy whose
             rule held was refused by a rule — sizing, max_buys_per_open_position,
-            exposure cap, bracket placement, rate limit — once per refusal: an Emit
+            exposure cap, bracket placement, rate limit, cash left too short (a buy
+            that failed on an empty cash is not in here) — once per refusal: an Emit
             buy refused on consecutive closes for the same reason counts once, until
             it fills, a close finds it not ready to fire or the reason changes. Each
             one is persisted as a `backtest_declines` row with its reason, source
@@ -82,6 +100,18 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             counts in CopiesDeclined instead. Additive JSONB field — old rows decode
             as 0.
         ending_balance_sol (float | Unset):
+        exits_at_fallback_mark (int | Unset): ExitsAtFallbackMark counts signal-driven exits whose triggering swap
+            could not be priced (no SOL price on the leg, or no honest post-swap
+            price) and that filled anyway on the run's own market: at the last mark
+            (the last candle close, or the latest priceable swap before the first
+            close) and its pool depth, else at the position's average cost. A copy
+            sell needs only the target's fraction and the run's own market, so the
+            run sells instead of holding the bag. Additive JSONB
+            field — old rows decode as 0.
+        exits_unmarked (int | Unset): ExitsUnmarked is the part of ExitsAtFallbackMark that found no mark at
+            all and filled at the position's average cost with no depth term, so
+            it realizes no price move, only its costs. Additive JSONB field — old rows
+            decode as 0.
         fees_paid_sol (float | Unset):
         held_positions (list[PulsightInternalCoreUsecasesBacktestBacktestPosition] | Unset): HeldPositions is every mint
             still open at run end — the bags the
@@ -98,11 +128,14 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             ran. When > 0, the four fields below describe the landing plane.
         losses (int | Unset):
         max_drawdown_sol (float | Unset):
-        min_cash_sol (float | Unset): MinCashSol is the low point of the chronological cash walk: the starting
-            balance minus every buy's size and costs, plus every sell's proceeds net
-            of costs, minus reverted fills' costs. Negative means the run spent SOL
-            the starting balance never had — the engine replays each token's whole
-            window before the next one and cannot gate a buy on portfolio cash.
+        min_cash_sol (float | Unset): MinCashSol is the low point of the run's cash, walked in replay order:
+            the starting balance minus every buy's size and costs, plus every sell's
+            proceeds net of costs, minus reverted fills' costs. Under the portfolio
+            capital model a buy the cash cannot pay never fills, so it dips below
+            zero only when a fill's fixed fees outrun the fee headroom a buy keeps;
+            under unlimited_capital, negative means the run spent SOL the starting
+            balance never had.
+        native_reserve_pct (float | Unset): NativeReservePct echoes the run's native reserve (req.NativeReservePct).
         our_avg_price_impact_pct (float | Unset): Price-impact rollups, in percent of mid. "Our*" averages over every
             simulated trade that had a pool snapshot; "Target*" averages over the
             copy trades that mirrored a target swap 1:1 (same timestamp). Zero when
@@ -164,7 +197,12 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     """
 
     avg_landing_drift_bps: float | Unset = UNSET
+    capital_model: PulsightInternalCoreUsecasesBacktestCapitalModel | Unset = UNSET
     capital_required_sol: float | Unset = UNSET
+    cash_declined_buys: int | Unset = UNSET
+    cash_declined_sol: float | Unset = UNSET
+    cash_failed_buys: int | Unset = UNSET
+    cash_failed_sol: float | Unset = UNSET
     copies_declined: int | Unset = UNSET
     copies_reverted: int | Unset = UNSET
     copies_skipped_non_sol_quote: int | Unset = UNSET
@@ -172,6 +210,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     copies_skipped_unpriced: int | Unset = UNSET
     emit_buys_declined: int | Unset = UNSET
     ending_balance_sol: float | Unset = UNSET
+    exits_at_fallback_mark: int | Unset = UNSET
+    exits_unmarked: int | Unset = UNSET
     fees_paid_sol: float | Unset = UNSET
     held_positions: (
         list[PulsightInternalCoreUsecasesBacktestBacktestPosition] | Unset
@@ -181,6 +221,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     losses: int | Unset = UNSET
     max_drawdown_sol: float | Unset = UNSET
     min_cash_sol: float | Unset = UNSET
+    native_reserve_pct: float | Unset = UNSET
     our_avg_price_impact_pct: float | Unset = UNSET
     our_median_price_impact_pct: float | Unset = UNSET
     per_pool: bool | Unset = UNSET
@@ -207,7 +248,19 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
     def to_dict(self) -> dict[str, Any]:
         avg_landing_drift_bps = self.avg_landing_drift_bps
 
+        capital_model: str | Unset = UNSET
+        if not isinstance(self.capital_model, Unset):
+            capital_model = self.capital_model.value
+
         capital_required_sol = self.capital_required_sol
+
+        cash_declined_buys = self.cash_declined_buys
+
+        cash_declined_sol = self.cash_declined_sol
+
+        cash_failed_buys = self.cash_failed_buys
+
+        cash_failed_sol = self.cash_failed_sol
 
         copies_declined = self.copies_declined
 
@@ -222,6 +275,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         emit_buys_declined = self.emit_buys_declined
 
         ending_balance_sol = self.ending_balance_sol
+
+        exits_at_fallback_mark = self.exits_at_fallback_mark
+
+        exits_unmarked = self.exits_unmarked
 
         fees_paid_sol = self.fees_paid_sol
 
@@ -241,6 +298,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         max_drawdown_sol = self.max_drawdown_sol
 
         min_cash_sol = self.min_cash_sol
+
+        native_reserve_pct = self.native_reserve_pct
 
         our_avg_price_impact_pct = self.our_avg_price_impact_pct
 
@@ -293,8 +352,18 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         field_dict.update({})
         if avg_landing_drift_bps is not UNSET:
             field_dict["avg_landing_drift_bps"] = avg_landing_drift_bps
+        if capital_model is not UNSET:
+            field_dict["capital_model"] = capital_model
         if capital_required_sol is not UNSET:
             field_dict["capital_required_sol"] = capital_required_sol
+        if cash_declined_buys is not UNSET:
+            field_dict["cash_declined_buys"] = cash_declined_buys
+        if cash_declined_sol is not UNSET:
+            field_dict["cash_declined_sol"] = cash_declined_sol
+        if cash_failed_buys is not UNSET:
+            field_dict["cash_failed_buys"] = cash_failed_buys
+        if cash_failed_sol is not UNSET:
+            field_dict["cash_failed_sol"] = cash_failed_sol
         if copies_declined is not UNSET:
             field_dict["copies_declined"] = copies_declined
         if copies_reverted is not UNSET:
@@ -311,6 +380,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["emit_buys_declined"] = emit_buys_declined
         if ending_balance_sol is not UNSET:
             field_dict["ending_balance_sol"] = ending_balance_sol
+        if exits_at_fallback_mark is not UNSET:
+            field_dict["exits_at_fallback_mark"] = exits_at_fallback_mark
+        if exits_unmarked is not UNSET:
+            field_dict["exits_unmarked"] = exits_unmarked
         if fees_paid_sol is not UNSET:
             field_dict["fees_paid_sol"] = fees_paid_sol
         if held_positions is not UNSET:
@@ -325,6 +398,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             field_dict["max_drawdown_sol"] = max_drawdown_sol
         if min_cash_sol is not UNSET:
             field_dict["min_cash_sol"] = min_cash_sol
+        if native_reserve_pct is not UNSET:
+            field_dict["native_reserve_pct"] = native_reserve_pct
         if our_avg_price_impact_pct is not UNSET:
             field_dict["our_avg_price_impact_pct"] = our_avg_price_impact_pct
         if our_median_price_impact_pct is not UNSET:
@@ -381,7 +456,24 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         d = dict(src_dict)
         avg_landing_drift_bps = d.pop("avg_landing_drift_bps", UNSET)
 
+        _capital_model = d.pop("capital_model", UNSET)
+        capital_model: PulsightInternalCoreUsecasesBacktestCapitalModel | Unset
+        if isinstance(_capital_model, Unset):
+            capital_model = UNSET
+        else:
+            capital_model = PulsightInternalCoreUsecasesBacktestCapitalModel(
+                _capital_model
+            )
+
         capital_required_sol = d.pop("capital_required_sol", UNSET)
+
+        cash_declined_buys = d.pop("cash_declined_buys", UNSET)
+
+        cash_declined_sol = d.pop("cash_declined_sol", UNSET)
+
+        cash_failed_buys = d.pop("cash_failed_buys", UNSET)
+
+        cash_failed_sol = d.pop("cash_failed_sol", UNSET)
 
         copies_declined = d.pop("copies_declined", UNSET)
 
@@ -398,6 +490,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         emit_buys_declined = d.pop("emit_buys_declined", UNSET)
 
         ending_balance_sol = d.pop("ending_balance_sol", UNSET)
+
+        exits_at_fallback_mark = d.pop("exits_at_fallback_mark", UNSET)
+
+        exits_unmarked = d.pop("exits_unmarked", UNSET)
 
         fees_paid_sol = d.pop("fees_paid_sol", UNSET)
 
@@ -425,6 +521,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
         max_drawdown_sol = d.pop("max_drawdown_sol", UNSET)
 
         min_cash_sol = d.pop("min_cash_sol", UNSET)
+
+        native_reserve_pct = d.pop("native_reserve_pct", UNSET)
 
         our_avg_price_impact_pct = d.pop("our_avg_price_impact_pct", UNSET)
 
@@ -470,7 +568,12 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
 
         pulsight_internal_core_usecases_backtest_backtest_summary = cls(
             avg_landing_drift_bps=avg_landing_drift_bps,
+            capital_model=capital_model,
             capital_required_sol=capital_required_sol,
+            cash_declined_buys=cash_declined_buys,
+            cash_declined_sol=cash_declined_sol,
+            cash_failed_buys=cash_failed_buys,
+            cash_failed_sol=cash_failed_sol,
             copies_declined=copies_declined,
             copies_reverted=copies_reverted,
             copies_skipped_non_sol_quote=copies_skipped_non_sol_quote,
@@ -478,6 +581,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             copies_skipped_unpriced=copies_skipped_unpriced,
             emit_buys_declined=emit_buys_declined,
             ending_balance_sol=ending_balance_sol,
+            exits_at_fallback_mark=exits_at_fallback_mark,
+            exits_unmarked=exits_unmarked,
             fees_paid_sol=fees_paid_sol,
             held_positions=held_positions,
             landing_contested_pct=landing_contested_pct,
@@ -485,6 +590,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestSummary:
             losses=losses,
             max_drawdown_sol=max_drawdown_sol,
             min_cash_sol=min_cash_sol,
+            native_reserve_pct=native_reserve_pct,
             our_avg_price_impact_pct=our_avg_price_impact_pct,
             our_median_price_impact_pct=our_median_price_impact_pct,
             per_pool=per_pool,

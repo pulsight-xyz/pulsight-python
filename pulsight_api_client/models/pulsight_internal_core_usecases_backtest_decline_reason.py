@@ -5,6 +5,7 @@ class PulsightInternalCoreUsecasesBacktestDeclineReason(StrEnum):
     DECLINE_COOLDOWN = "cooldown"
     DECLINE_CURVE_COMPLETE = "curve_complete"
     DECLINE_EXPOSURE_CAP = "exposure_cap"
+    DECLINE_INSUFFICIENT_BALANCE = "insufficient_balance"
     DECLINE_MAX_BUYS_PER_POSITION = "max_buys_per_position"
     DECLINE_NON_SOL_QUOTE = "non_sol_quote"
     DECLINE_NO_BRACKET = "no_bracket"

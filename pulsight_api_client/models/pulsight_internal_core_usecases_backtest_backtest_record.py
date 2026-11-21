@@ -42,6 +42,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
         finished_at (str | Unset):
         id (str | Unset):
         latency_slots (int | Unset):
+        native_reserve_pct (float | Unset):
         per_pool (bool | Unset):
         progress_note (str | Unset):
         progress_pct (int | Unset):
@@ -56,6 +57,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
         time_from (str | Unset):
         time_to (str | Unset):
         timeframe (PulsightInternalCoreDomainAggregatorTimeframe | Unset):
+        unlimited_capital (bool | Unset):
         user_id (str | Unset):
         venue (PulsightInternalCoreDomainStrategyVenueID | Unset):
     """
@@ -65,6 +67,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
     finished_at: str | Unset = UNSET
     id: str | Unset = UNSET
     latency_slots: int | Unset = UNSET
+    native_reserve_pct: float | Unset = UNSET
     per_pool: bool | Unset = UNSET
     progress_note: str | Unset = UNSET
     progress_pct: int | Unset = UNSET
@@ -79,6 +82,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
     time_from: str | Unset = UNSET
     time_to: str | Unset = UNSET
     timeframe: PulsightInternalCoreDomainAggregatorTimeframe | Unset = UNSET
+    unlimited_capital: bool | Unset = UNSET
     user_id: str | Unset = UNSET
     venue: PulsightInternalCoreDomainStrategyVenueID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -93,6 +97,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
         id = self.id
 
         latency_slots = self.latency_slots
+
+        native_reserve_pct = self.native_reserve_pct
 
         per_pool = self.per_pool
 
@@ -132,6 +138,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
         if not isinstance(self.timeframe, Unset):
             timeframe = self.timeframe.value
 
+        unlimited_capital = self.unlimited_capital
+
         user_id = self.user_id
 
         venue: str | Unset = UNSET
@@ -151,6 +159,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
             field_dict["id"] = id
         if latency_slots is not UNSET:
             field_dict["latency_slots"] = latency_slots
+        if native_reserve_pct is not UNSET:
+            field_dict["native_reserve_pct"] = native_reserve_pct
         if per_pool is not UNSET:
             field_dict["per_pool"] = per_pool
         if progress_note is not UNSET:
@@ -179,6 +189,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
             field_dict["time_to"] = time_to
         if timeframe is not UNSET:
             field_dict["timeframe"] = timeframe
+        if unlimited_capital is not UNSET:
+            field_dict["unlimited_capital"] = unlimited_capital
         if user_id is not UNSET:
             field_dict["user_id"] = user_id
         if venue is not UNSET:
@@ -208,6 +220,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
         id = d.pop("id", UNSET)
 
         latency_slots = d.pop("latency_slots", UNSET)
+
+        native_reserve_pct = d.pop("native_reserve_pct", UNSET)
 
         per_pool = d.pop("per_pool", UNSET)
 
@@ -266,6 +280,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
         else:
             timeframe = PulsightInternalCoreDomainAggregatorTimeframe(_timeframe)
 
+        unlimited_capital = d.pop("unlimited_capital", UNSET)
+
         user_id = d.pop("user_id", UNSET)
 
         _venue = d.pop("venue", UNSET)
@@ -281,6 +297,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
             finished_at=finished_at,
             id=id,
             latency_slots=latency_slots,
+            native_reserve_pct=native_reserve_pct,
             per_pool=per_pool,
             progress_note=progress_note,
             progress_pct=progress_pct,
@@ -295,6 +312,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestRecord:
             time_from=time_from,
             time_to=time_to,
             timeframe=timeframe,
+            unlimited_capital=unlimited_capital,
             user_id=user_id,
             venue=venue,
         )

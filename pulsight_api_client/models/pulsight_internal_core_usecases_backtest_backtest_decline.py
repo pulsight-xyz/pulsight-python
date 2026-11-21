@@ -43,6 +43,9 @@ class PulsightInternalCoreUsecasesBacktestBacktestDecline:
         tip_sol (float | Unset):
         triggering_swap_sig (str | Unset):
         ts (str | Unset):
+        tx_failed (bool | Unset): TxFailed marks an `insufficient_balance` buy sent while the run's cash
+            was at or below zero: a failed transaction that paid nothing. False on a
+            buy declined before sending because the cash left was short.
     """
 
     backtest_id: str | Unset = UNSET
@@ -59,6 +62,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestDecline:
     tip_sol: float | Unset = UNSET
     triggering_swap_sig: str | Unset = UNSET
     ts: str | Unset = UNSET
+    tx_failed: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -96,6 +100,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestDecline:
 
         ts = self.ts
 
+        tx_failed = self.tx_failed
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -127,6 +133,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestDecline:
             field_dict["triggering_swap_sig"] = triggering_swap_sig
         if ts is not UNSET:
             field_dict["ts"] = ts
+        if tx_failed is not UNSET:
+            field_dict["tx_failed"] = tx_failed
 
         return field_dict
 
@@ -176,6 +184,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestDecline:
 
         ts = d.pop("ts", UNSET)
 
+        tx_failed = d.pop("tx_failed", UNSET)
+
         pulsight_internal_core_usecases_backtest_backtest_decline = cls(
             backtest_id=backtest_id,
             detail=detail,
@@ -191,6 +201,7 @@ class PulsightInternalCoreUsecasesBacktestBacktestDecline:
             tip_sol=tip_sol,
             triggering_swap_sig=triggering_swap_sig,
             ts=ts,
+            tx_failed=tx_failed,
         )
 
         pulsight_internal_core_usecases_backtest_backtest_decline.additional_properties = d

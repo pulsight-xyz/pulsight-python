@@ -489,6 +489,9 @@ from .pulsight_internal_core_usecases_backtest_backtest_summary import (
 from .pulsight_internal_core_usecases_backtest_backtest_trade import (
     PulsightInternalCoreUsecasesBacktestBacktestTrade,
 )
+from .pulsight_internal_core_usecases_backtest_capital_model import (
+    PulsightInternalCoreUsecasesBacktestCapitalModel,
+)
 from .pulsight_internal_core_usecases_backtest_decline_reason import (
     PulsightInternalCoreUsecasesBacktestDeclineReason,
 )
@@ -715,6 +718,7 @@ __all__ = (
     "PulsightInternalCoreUsecasesBacktestBacktestStatus",
     "PulsightInternalCoreUsecasesBacktestBacktestSummary",
     "PulsightInternalCoreUsecasesBacktestBacktestTrade",
+    "PulsightInternalCoreUsecasesBacktestCapitalModel",
     "PulsightInternalCoreUsecasesBacktestDeclineReason",
     "PulsightInternalCoreUsecasesBacktestEquityCurve",
     "PulsightInternalCoreUsecasesBacktestEquityPoint",

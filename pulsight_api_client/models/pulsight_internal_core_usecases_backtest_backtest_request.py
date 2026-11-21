@@ -41,6 +41,10 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
             matching how a transaction's min_out floor behaves. Only copy-style
             fills (Copy* and Target-signal-driven Emits) are affected; candle-driven
             fills already price on the bucket close.
+        native_reserve_pct (float | Unset): NativeReservePct keeps that share of the run's cash (0..50, a percentage)
+            out of reach of buys, with a 0.01 SOL floor when above 0, as a live
+            session's native_reserve_pct does. 0 (default) reserves nothing, as a
+            paper session does. Refused with unlimited_capital.
         per_pool (bool | Unset): PerPool, when true, simulates each of a mint's significant markets as an
             INDEPENDENT instrument — its own candle stream, indicators, ledger and
             (for copy strategies) the target swaps on THAT pool — instead of a single
@@ -53,21 +57,28 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
         strategy_id (str | Unset):
         time_range (PulsightInternalCoreUsecasesBacktestTimeRange | Unset):
         timeframe (PulsightInternalCoreDomainAggregatorTimeframe | Unset):
+        unlimited_capital (bool | Unset): UnlimitedCapital lifts the run's cash gate: every buy fills whatever the
+            cash, which may go negative, as runs did before the gate existed. Off
+            (default), a buy the cash cannot pay is an `insufficient_balance` decline.
         venue (PulsightInternalCoreDomainStrategyVenueID | Unset):
     """
 
     latency_slots: int | Unset = UNSET
+    native_reserve_pct: float | Unset = UNSET
     per_pool: bool | Unset = UNSET
     scope: PulsightInternalCoreUsecasesBacktestTokenScope | Unset = UNSET
     starting_balance_sol: float | Unset = UNSET
     strategy_id: str | Unset = UNSET
     time_range: PulsightInternalCoreUsecasesBacktestTimeRange | Unset = UNSET
     timeframe: PulsightInternalCoreDomainAggregatorTimeframe | Unset = UNSET
+    unlimited_capital: bool | Unset = UNSET
     venue: PulsightInternalCoreDomainStrategyVenueID | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         latency_slots = self.latency_slots
+
+        native_reserve_pct = self.native_reserve_pct
 
         per_pool = self.per_pool
 
@@ -87,6 +98,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
         if not isinstance(self.timeframe, Unset):
             timeframe = self.timeframe.value
 
+        unlimited_capital = self.unlimited_capital
+
         venue: str | Unset = UNSET
         if not isinstance(self.venue, Unset):
             venue = self.venue.value
@@ -96,6 +109,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
         field_dict.update({})
         if latency_slots is not UNSET:
             field_dict["latency_slots"] = latency_slots
+        if native_reserve_pct is not UNSET:
+            field_dict["native_reserve_pct"] = native_reserve_pct
         if per_pool is not UNSET:
             field_dict["per_pool"] = per_pool
         if scope is not UNSET:
@@ -108,6 +123,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
             field_dict["time_range"] = time_range
         if timeframe is not UNSET:
             field_dict["timeframe"] = timeframe
+        if unlimited_capital is not UNSET:
+            field_dict["unlimited_capital"] = unlimited_capital
         if venue is not UNSET:
             field_dict["venue"] = venue
 
@@ -124,6 +141,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
 
         d = dict(src_dict)
         latency_slots = d.pop("latency_slots", UNSET)
+
+        native_reserve_pct = d.pop("native_reserve_pct", UNSET)
 
         per_pool = d.pop("per_pool", UNSET)
 
@@ -154,6 +173,8 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
         else:
             timeframe = PulsightInternalCoreDomainAggregatorTimeframe(_timeframe)
 
+        unlimited_capital = d.pop("unlimited_capital", UNSET)
+
         _venue = d.pop("venue", UNSET)
         venue: PulsightInternalCoreDomainStrategyVenueID | Unset
         if isinstance(_venue, Unset):
@@ -163,12 +184,14 @@ class PulsightInternalCoreUsecasesBacktestBacktestRequest:
 
         pulsight_internal_core_usecases_backtest_backtest_request = cls(
             latency_slots=latency_slots,
+            native_reserve_pct=native_reserve_pct,
             per_pool=per_pool,
             scope=scope,
             starting_balance_sol=starting_balance_sol,
             strategy_id=strategy_id,
             time_range=time_range,
             timeframe=timeframe,
+            unlimited_capital=unlimited_capital,
             venue=venue,
         )
 
